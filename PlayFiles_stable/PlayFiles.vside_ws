@@ -1,0 +1,25 @@
+<editor_files>
+"buttons.h":36
+"UI.h":23
+"battery.h":7
+"UART.c":124
+"UART.h":0
+"devByteBus.c":77
+"main.h":0
+"buttons.c":206
+"taskandstack.h":0
+"ili9341.h":33
+"battery.c":116
+"UI.c":31
+"ID3v2.h":16
+"ID3v2.c":70
+"lcd-ili9341.c":311
+"taskandstack.c":34
+"../../../../../Program Files (x86)/VSIDE/libvs1005h_vsos3/lcd.h":52
+"../../../../../Program Files (x86)/VSIDE/libvs1005h_vsos3/devByteBus.h":24
+"../../../../../Program Files (x86)/VSIDE/libvs1005h_vsos3/vs1005h.h":1824
+"main.c":531
+</editor_files>
+<solution_tree>
+PlayFiles=1
+</solution_tree>
