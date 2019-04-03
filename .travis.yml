@@ -1,0 +1,5 @@
+language: c
+os: windows
+script:
+    - cd build
+    - ./build.bat

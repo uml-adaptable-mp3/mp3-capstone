@@ -1,6 +1,7 @@
-*.o
-*.a
 .vscode
+
+build/bin/*.a
+build/bin/*.o
 
 build/_link_log\.txt
 
