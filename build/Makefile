@@ -2,15 +2,16 @@
 TARGET          = MyProject.coff
 TARGETPATH      = bin
 BUILDPATH       = bin
-VCC             = lcc
-VSA             = vsa
-VSLINK          = voplinkg
-VSAR            = vsar
-HOMEPATH        = E:\Program\ Files\ (x86)\VSIDE
+VCC             = ..\.ci\bin\lcc
+VSA             = ..\.ci\bin\vsa
+VSLINK          = ..\.ci\bin\voplinkg
+VSAR            = ..\.ci\bin\vsar
+HOMEPATH        = ..\.ci
 HOMEPATH_WIN    = E:/Program Files (x86)/VSIDE
 PROJPATH        = D:\Code\mp3-capstone\build
 PROJNAME        = MP3_Capstone
-IF_DEPLOY       = @rem
+TARGETDRIVE     = "D:\Code\mp3-capstone\build"
+IF_DEPLOY       = 
 OBJS            = $(HOMEPATH)/libvs1005h_vsos3/vsos03.o $(BUILDPATH)\battery.o $(BUILDPATH)\buttons.o $(BUILDPATH)\devByteBus.o $(BUILDPATH)\ID3v2.o $(BUILDPATH)\lcd-ili9341.o $(BUILDPATH)\main.o $(BUILDPATH)\taskandstack.o $(BUILDPATH)\UART.o $(BUILDPATH)\UI.o 
 
 #Configuration defaults
@@ -27,11 +28,12 @@ all: $(TARGETPATH)/$(TARGET)
 
 clean:
 	del /F /Q $(BUILDPATH)\*.*
+	del /F /Q loadable.ap3
+	del /F /Q MP3_Capstone.dl3
 
 $(TARGETPATH)/$(TARGET): $(OBJS)
 	$(VSLINK) $(VSLINKFLAGS) $(OBJS) -o $(TARGETPATH)\$(TARGET) $(LIBPATHS) $(LIBS)
 	copy loadable.ap3 $(PROJNAME).dl3 /y
-	$(IF_DEPLOY) copy $(PROJNAME).dl3 $(TARGETDRIVE)\sys /y
 
 $(BUILDPATH)\battery.o: $(PROJPATH)\..\src\battery.c 
 	$(VCC) $(VCCFLAGS) $(DEFINES) $(INCPATHS) -o $(BUILDPATH)\battery.o $(PROJPATH)\..\src\battery.c

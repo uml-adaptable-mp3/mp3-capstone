@@ -1,0 +1,35 @@
+
+VOPLINKG/LINK1010B linker extra "-p" parameters:
+
+
+2:  Create VDE2 Executable for VS1010
+    (default: Create VDE1 Executable for VS1005)
+   
+b:  Store BSS segments as BSS, not as initialized data
+
+d:  Dump application as C loading table
+
+dy: Dump application as C loading table in Y memory
+
+s:  Strip symbols from the output file - WARNING: BREAKS VS1005 COMPATIBILITY
+
+t:  Strip application title from the output file
+
+T:  Strip link time string from the output file
+
+R:  Strip VDE1/VDE2 preamble from the output file
+
+r:  Strip EOF marker from the output file
+
+
+
+Example:
+This is the way VS1010 DLX executables are normally made:
+-p stb2
+
+
+
+
+
+
+

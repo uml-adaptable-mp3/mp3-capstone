@@ -1,3 +1,13 @@
 *.o
 *.a
 .vscode
+
+build/_link_log\.txt
+
+build/_link_output_description\.txt
+
+build/_link_s_list\.txt
+
+build/loadable\.ap3
+
+build/MP3_Capstone\.dl3
