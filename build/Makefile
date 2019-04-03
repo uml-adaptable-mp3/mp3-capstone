@@ -17,7 +17,7 @@ OBJS            = $(HOMEPATH)/libvs1005h_vsos3/vsos03.o $(BUILDPATH)/battery.o $
 INCPATHS        = -I../include -I$(HOMEPATH)/libvs1005h_vsos3
 LIBPATHS        = -L. -Llib -L$(HOMEPATH)/libvs1005h_vsos3
 DEFINES         = -DDEBUG
-VCCFLAGS        = -g -hhw_desc -Wall -O6 -fsmall-code
+VCCFLAGS        = -Werror -Wall -g -hhw_desc -O6 -fsmall-code
 
 VSAFLAGS        = -c hw_desc -I $(HOMEPATH)/libvs1005h_vsos3
 VSLINKFLAGS     = -k -m mem_desc_app02.mem
