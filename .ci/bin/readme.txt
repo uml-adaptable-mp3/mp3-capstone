@@ -1,0 +1,1 @@
+Note: the make tool (make.exe) provided here is distributed under the GNU general public license. The source code is available at: http://ftp.gnu.org/pub/gnu/make/make-3.79.1.tar.gz

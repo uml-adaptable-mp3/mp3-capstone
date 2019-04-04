@@ -1,0 +1,31 @@
+MEMORY
+{
+# program space = 12288 = 0x3000 words
+page 0:
+	dac_int: origin = 0x20, length = 1
+	sci_int: origin = 0x21, length = 1
+	sdi_int: origin = 0x22, length = 1
+	modu_int: origin = 0x23, length = 1
+	tx_int: origin = 0x24, length = 1
+	rx_int: origin = 0x25, length = 1
+	tim0_int: origin = 0x26, length = 1
+	tim1_int: origin = 0x27, length = 1
+	src_int: origin = 0x28, length = 1
+	sdm_int: origin = 0x29, length = 1
+	ram_prog:	origin = 0050h, length = fb0h
+page 1:
+# disables all codecs for extra X memory: 
+	data_x:	origin = 0x1c00, length = 0x2000
+
+page 2:
+	data_y:	origin = 0x1800, length = 0x080
+#includes pcm_fifo
+#	free_y:	origin = 0xfa14, length = 0x5ec
+#does not include pcm_fifo
+	free_y:	origin = 0xfa14, length = 0x3ec
+}
+
+CORE {
+	frequency = 12.288MHz
+	bootaddr = 0x4000
+}

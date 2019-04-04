@@ -1,0 +1,15 @@
+MEMORY {
+page 0:
+	#Program RAM
+	#reset: origin = 0x0, length = 2
+	modu_int: origin = 0x23, length = 1
+	ram_prog:  origin = 0x0050, length = 0x0fb0
+page 1:
+	#Data X RAM
+	data_x:   origin =  0x0800, length = 0x1000
+page 2:
+	#Data Y RAM
+	data_y:   origin =  0x1000, length = 0x0800
+	extra_y:  origin = 0xe000, length = 0x2000
+}
+

@@ -1,0 +1,14 @@
+MEMORY {
+    page 0:
+	user_prog: origin = 0x0030, length = 0x04d0
+#	reset:     origin = 0x0, length = 0x2
+#	user_prog: origin = 0x0030, length = 0x05d0
+	
+    page 1:
+	data_x:   origin = 0x1800, length = 0x0080
+	extra_x:  origin = 0x1000, length = 0x800
+    page 2:
+	data_y:   origin = 0x1800, length = 0x0080
+	extra_y:  origin = 0x0800, length = 0x0c00
+}
+

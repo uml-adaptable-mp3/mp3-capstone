@@ -1,0 +1,9 @@
+
+MEMORY {
+    page 0:
+ 	ram_prog: origin = 0x0000, length = 0x8000
+    page 1:
+	bss_x:   origin = 0x00, length = 0x8000
+    page 2:
+	bss_y:   origin = 0x0000, length = 0x8000
+}
