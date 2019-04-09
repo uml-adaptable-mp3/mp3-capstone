@@ -255,11 +255,11 @@ void loadInfoMenu()
 {
 	drawCommonMenuItems("INFO MENU", INFO_MENU);
 
-	LcdTextOutXY(10, 100, metadata->title);
-	LcdTextOutXY(10, 130, metadata->artist);
-	LcdTextOutXY(10, 160, metadata->album);
+	LcdTextOutXY(10, 100, (char *) metadata->title);
+	LcdTextOutXY(10, 130, (char *) metadata->artist);
+	LcdTextOutXY(10, 160, (char *) metadata->album);
 	
-	strcpy(currentTitle, metadata->title);
+	strcpy(currentTitle, (char *) metadata->title);
 }
 
 void moveBoxSelection(u_int16 direction)
@@ -446,7 +446,7 @@ u_int16 navigateMenus()
 		case INFO_MENU :
 			if (lastTimeSeconds != audioDecoder->cs.playTimeSeconds) 
 			{
-				lastTimeSeconds = audioDecoder->cs.playTimeSeconds;
+				lastTimeSeconds = (int) audioDecoder->cs.playTimeSeconds;
 				if (lastTimeSeconds < 99*60) 
 				{
 					

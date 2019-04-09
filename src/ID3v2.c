@@ -23,23 +23,23 @@ void ReturnID3(SongInfo **metadata)
 {
     //SongInfo metadata;
     
-	const char *tid[7] = {"TIT2", "TALB", "TPE1", "TRCK", "TYER", "TLEN", "TIT3"};
-	const char *tid2[7] = {"TT2", "TAL", "TP1", "TRK", "TYE", "TKE", "TT3"};
+    const char *tid[7] = {"TIT2", "TALB", "TPE1", "TRCK", "TYER", "TLEN", "TIT3"};
+    const char *tid2[7] = {"TT2", "TAL", "TP1", "TRK", "TYE", "TKE", "TT3"};
 
     unsigned char output_str[31];
-	unsigned char tag_info[31];
-	unsigned char common_header[10];
-	unsigned int bytesRead = 0;
-	unsigned int tagname_size;
-	unsigned int i;
-	unsigned int startingPosition;
-	unsigned int tag_loop;
-	unsigned int frame_size;
-	unsigned int l_to_read;
-	char start_utf[4] = {0xFF,0xFE};
-	unsigned int frame_header_size;
+    unsigned char tag_info[31];
+    unsigned char common_header[10];
+    unsigned int bytesRead = 0;
+    unsigned int tagname_size;
+    unsigned int i;
+    unsigned int startingPosition;
+    unsigned int tag_loop;
+    unsigned int frame_size;
+    unsigned int l_to_read;
+    char start_utf[4] = {0xFF,0xFE};
+    unsigned int frame_header_size;
     
-	
+    
     // Reset pointer within file to beginning of datastream.
     fseek((*metadata)->fp, 0, SEEK_SET);
 
@@ -64,11 +64,11 @@ void ReturnID3(SongInfo **metadata)
         tagname_size      = (common_header[3] == 0x03 || common_header[3] == 0x04) ?  4 : 3;
 
         
-        startingPosition = ftell((*metadata)->fp);
+        startingPosition = (int) ftell((*metadata)->fp);
 
         for (tag_loop = 0; tag_loop < NUM_TAGS; tag_loop++)
         {
-        	 const char *compare_tagname = ((common_header[3] == 0x03)||(common_header[3] == 0x04)) ? (tid[tag_loop]) : (tid2[tag_loop]);
+             const char *compare_tagname = ((common_header[3] == 0x03)||(common_header[3] == 0x04)) ? (tid[tag_loop]) : (tid2[tag_loop]);
             fseek((*metadata)->fp, startingPosition, SEEK_SET);
             // This is the tag name we're going to be looking for. Dependent on whether the common header shows the version as being
             // ID3v2_2 or ID3v2_1
@@ -103,16 +103,16 @@ void ReturnID3(SongInfo **metadata)
                         // and move on to the next metadata parameter to check
                         switch (tag_loop) 
                         {
-                            case TITLE_ID3 :
-                                strcpy((*metadata)->title, "UNKNOWN");
+                            case TITLE_ID3:
+                                strcpy((char *)(*metadata)->title, "UNKNOWN");
                                 goto contLoop;
-                            case ARTIST_ID3 :
-                                strcpy((*metadata)->artist, "UNKNOWN");
+                            case ARTIST_ID3:
+                                strcpy((char *)(*metadata)->artist, "UNKNOWN");
                                 goto contLoop;
-                             case ALBUM_ID3 :
-                                strcpy((*metadata)->album, "UNKNOWN");
-                                goto contLoop;
-                            default :
+                             case ALBUM_ID3:
+                                 strcpy((char *)(*metadata)->album, "UNKNOWN");
+                                 goto contLoop;
+                            default:
                                 goto contLoop;
                         }
                     }
@@ -139,7 +139,7 @@ void ReturnID3(SongInfo **metadata)
                         }
                         
                         // unicode tags start with 01 FF FE
-                        if (0 == strncmp(start_utf, output_str, 2))
+                        if (0 == strncmp(start_utf, (char *)output_str, 2)) // does the fact that output_str is unsigned actually matter?
                         {
                     
                             // Unicode decode string:
@@ -160,16 +160,16 @@ void ReturnID3(SongInfo **metadata)
                             
                             switch (tag_loop) 
                             {
-                                case TITLE_ID3 :
-                                    strcpy((*metadata)->title, output_str);
+                                case TITLE_ID3:
+                                    strcpy((char *)(*metadata)->title, (char *) output_str);
                                     goto contLoop;
-                                case ARTIST_ID3 :
-                                    strcpy((*metadata)->artist, output_str);
+                                case ARTIST_ID3:
+                                    strcpy((char *)(*metadata)->artist, (char *) output_str);
                                     goto contLoop;
-                                 case ALBUM_ID3 :
-                                    strcpy((*metadata)->album, output_str);
+                                 case ALBUM_ID3:
+                                    strcpy((char *)(*metadata)->album, (char *) output_str);
                                     goto contLoop;
-                                default :
+                                default:
                                     goto contLoop;
                             }
                         }
@@ -177,7 +177,7 @@ void ReturnID3(SongInfo **metadata)
                         // not unicode, go back to the beginning.
                         for (i = 0; i < l_to_read-2; i++)
                         {
-                            output_str[i+2] = fgetc((*metadata)->fp);
+                            output_str[i+2] = (unsigned char) fgetc((*metadata)->fp);
                         }
                         
                         // make sure there's a null terminator
@@ -185,16 +185,16 @@ void ReturnID3(SongInfo **metadata)
                         
                         switch (tag_loop) 
                         {
-                            case TITLE_ID3 :
-                                strcpy((*metadata)->title, output_str);
+                            case TITLE_ID3:
+                                strcpy((char *)(*metadata)->title, (char *) output_str);
                                 goto contLoop;
-                            case ARTIST_ID3 :
-                                strcpy((*metadata)->artist, output_str);
+                            case ARTIST_ID3:
+                                strcpy((char *)(*metadata)->artist, (char *) output_str);
                                 goto contLoop;
-                             case ALBUM_ID3 :
-                                strcpy((*metadata)->album, output_str);
+                             case ALBUM_ID3:
+                                strcpy((char *)(*metadata)->album, (char *) output_str);
                                 goto contLoop;
-                            default :
+                            default:
                                 goto contLoop;
                         }
                     }
@@ -211,16 +211,16 @@ void ReturnID3(SongInfo **metadata)
             // We want to update the appropriate metadata that the information is unknown
             switch (tag_loop) 
             {
-                case TITLE_ID3 :
-                    strncpy((*metadata)->title, "UNKNOWN", 8);
+                case TITLE_ID3:
+                    strncpy((char *)(*metadata)->title, "UNKNOWN", 8);
                     goto contLoop;
-                case ARTIST_ID3 :
-                    strncpy((*metadata)->artist, "UNKNOWN", 8);
+                case ARTIST_ID3:
+                    strncpy((char *)(*metadata)->artist, "UNKNOWN", 8);
                     goto contLoop;
-                 case ALBUM_ID3 :
-                    strncpy((*metadata)->album, "UNKNOWN", 8);
+                 case ALBUM_ID3:
+                    strncpy((char *)(*metadata)->album, "UNKNOWN", 8);
                     goto contLoop;
-                default :
+                default:
                     goto contLoop;
             }
             

@@ -63,7 +63,7 @@ u_int16 charging = 0;
 struct TaskAndStack *voltageTask = NULL;
 struct TaskAndStack *interfaceTask = NULL;
 struct TaskAndStack *powerSavingTask = NULL;
-struct CyclicNode myCyclicNode = {{0}, monitorVoltage}; 
+struct CyclicNode myCyclicNode = {{0}, (void *) monitorVoltage}; // not used anywhere?
 SongInfo *metadata;
 u_int16 seed;
 u_int16 numSongsDirectory = 10;
@@ -501,7 +501,7 @@ u_int16 scanDirectoryForMP3(u_int16 root)
         // directory before this call, there is no reason to pass a path to the function
         // because the path is always an exact match of our directory
         if (FatFindFirst(dirFile,directory,fileName,FILE_NAME_CHARS) == S_OK) 
-        {`
+        {  // Note: there was a random tic mark here, not sure why
             do 
             {
                 // Check to see if the extension for a file is MP3. If it is, we're interested
@@ -539,19 +539,19 @@ u_int16 scanDirectoryForMP3(u_int16 root)
 
                         // We want to add this information to the master file list 
                         // so that the "songs" menu is correct
-                        if (!strcmp(metadata->title, "UNKNOWN"))
+                        if (!strcmp((char *) metadata->title, "UNKNOWN"))
                         {
-                            strncpy(metadata->title, fileName, 30);
+                            strncpy((char *) metadata->title, fileName, 30);
                             metadata->title[30] = '\0';
                         }
 
                         if (root)
                         {
-                            fprintf(openedFile, "%s|%i|%s| \r\n", metadata->title, songsInDirectory++, directory);
+                            fprintf(openedFile, "%s|%i|%s| \r\n", (char *) metadata->title, songsInDirectory++, directory);
                         }
                         else
                         {
-                            fprintf(openedFile, "%s|%i|%s/| \r\n", metadata->title, songsInDirectory++, directory);
+                            fprintf(openedFile, "%s|%i|%s/| \r\n", (char *) metadata->title, songsInDirectory++, directory);
                         }
                         fclose(metaFile);
                     }
@@ -713,11 +713,11 @@ u_int16 recursiveFindMP3(char *path, u_int16 root)
 
                         // We want to add this information to the master file list 
                         // so that the "songs" menu is correct
-                        if (!strcmp(metadata->title, "UNKNOWN"))
+                        if (!strcmp((char *) metadata->title, "UNKNOWN"))
                         {
                             //printf("title meta not stored, using file name : %s \n", fileName);
                             //memcpy(metadata->title, fileName, 30);
-                            strncpy(metadata->title, fileName, 30);
+                            strncpy((char *) metadata->title, fileName, 30);
                             metadata->title[30] = '\0';
                             printf("%s \n", metadata->title);
                             //fprintf(openedFile, "%s|%i|%s| \r\n", fileName, songsInDirectory++, currentDirectory);
@@ -725,19 +725,19 @@ u_int16 recursiveFindMP3(char *path, u_int16 root)
                         
                         if (root)
                         {
-                            fprintf(openedFile, "%s|%i|%s| \r\n", metadata->title, songsInDirectory, nextDirectory);
+                            fprintf(openedFile, "%s|%i|%s| \r\n", (char *) metadata->title, songsInDirectory, nextDirectory);
                         }
                         else
                         {
-                            fprintf(openedFile, "%s|%i|%s/| \r\n", metadata->title, songsInDirectory, nextDirectory);
+                            fprintf(openedFile, "%s|%i|%s/| \r\n", (char *) metadata->title, songsInDirectory, nextDirectory);
                         }
                         
                         // We also want to add it to an artist file so songs can
                         // be sorted by artist as well
                         // FIXME : currently append mode does not work properly, so calling on the writeToFile function
                         //         won't produce the proper results.
-                        sprintf(filestring, "S:lookup/artists/%s.txt", metadata->artist);
-                        writeToFile(filestring, songsInDirectory++, currentDirectory, metadata->title);
+                        sprintf(filestring, "S:lookup/artists/%s.txt", (char *) metadata->artist);
+                        writeToFile(filestring, songsInDirectory++, currentDirectory, (char *) metadata->title);
                         
                         fclose(metaFile);
                     }
