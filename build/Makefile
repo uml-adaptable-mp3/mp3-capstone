@@ -1,3 +1,4 @@
+# Note: This Makefile will only work in a windows build environment
 #Generic
 TARGET          = MyProject.coff
 TARGETPATH      = bin
@@ -23,12 +24,18 @@ VSAFLAGS        = -c hw_desc -I $(HOMEPATH)/libvs1005h_vsos3
 VSLINKFLAGS     = -k -m mem_desc_app02.mem
 LIBS            = -lvsos03 -lc -lgeneral -lcodecmpgsmall -lrtossmall
 
-all: $(TARGETPATH)/$(TARGET)
+all: buildDirs $(TARGETPATH)/$(TARGET)
 
 clean:
 	del /F /Q $(BUILDPATH)\*.o
 	del /F /Q $(BUILDPATH)\*.a
 	del /F /Q loadable.ap3
+
+.PHONY: buildDirs
+buildDirs: $(BUILDPATH)
+	
+$(BUILDPATH):
+	if not exist $(BUILDPATH) mkdir $(BUILDPATH)
 
 $(TARGETPATH)/$(TARGET): $(OBJS)
 	$(VSLINK) $(VSLINKFLAGS) $(OBJS) -o $(TARGETPATH)/$(TARGET) $(LIBPATHS) $(LIBS)
