@@ -1,0 +1,13 @@
+<editor_files>
+"main.c":12
+"../../../../../vside/libvs1005g_vsos3/vo_stdio.h":0
+"../../../../../vside/libvs1005g_vsos3/usblowlib.h":0
+"usbinit05.c":18
+"usbinit.h":18
+"../../../../../vside/libvs1005g_vsos3/consolestate.h":9
+"../../../../../vside/libvs1005g_vsos3/minifat.h":92
+"usbmsc.c":15
+</editor_files>
+<solution_tree>
+usbmsc=1
+</solution_tree>

@@ -1,0 +1,931 @@
+56444532
+<0100:0001> (STRING 'Dynamic App')
+  0100 0001 00180000 
+  0044 0079 006e 0061 006d 0069 0063 0020 0041 0070 0070 0000 
+<\string>
+
+<0100:0005> (STRING '7/14/2018 2:07:47 PM')
+  0100 0005 002a0000 
+  0037 002f 0031 0034 002f 0032 0030 0031 0038 0020 0032 003a 0030 0037 003a 0034 0037 0020 0050 004d 0000 
+<\string>
+
+<0a00:a5de> (CRCCHECK)
+  0a00 a5de sizesize 
+  
+<\ sizesize <- 00000000 > // 0 bytes of payload.
+
+//Section 0, 'votext':
+<0300:0000> (MEMORY; PAGE 0)
+  0300 0000 sizesize 
+  0000 0000 03f0  //address, align, size
+  00002fd7 000003d5 36130024 3e120024 3e05b814 36850024 3e003841 3e00b843 
+  3e013845 3e01b847 3e043851 00000010 3e04b853 3e03784e 0000014d 3e13d20c 
+  244004cd 30090040 30093040 30090040 000001d2 0000014d 30093240 2440068d 
+  34a30840 30093040 30090840 00000392 30093280 30090840 3c100840 3c100840 
+  3c100840 b8803240 3e10128c bc820024 3e100024 b8823841 3424c024 33040024 
+  30000024 291ff880 3e000024 0000024d 24400fcd b8841b0c 3304184c 30000024 
+  291ffbc0 3e000024 34731bcc 34530024 f4004503 4326124c f40040d0 003fffc3 
+  380012cc 60360024 00000024 28000fc5 00000024 61920024 68960024 62940024 
+  00001240 34730024 34530024 34904024 610212cc 00001101 280013d5 00000024 
+  34730024 34630024 34100024 60121240 00000cc1 280029c5 34930024 00000080 
+  c892184c 3e100024 1fffe000 3e100024 3e104024 33040024 30000024 291ff880 
+  3e000024 00000fd5 3304120c 1ffff055 30001b4c 3e100024 00002000 68903840 
+  3e100024 291ff840 3e05120c 00001500 00000fd5 34831b0c 1ffff055 34804024 
+  61020024 00001040 28002855 00000024 00001015 6894120c 1ffff015 34804024 
+  61020024 000011c0 28002855 00000024 00001055 34830024 1fffefd5 34804024 
+  61020024 00000780 28002855 00000024 00001095 3304120c f4004511 1fffef95 
+  2900a8c0 3013120c 00000806 00001815 3300120c 1fffe815 40604511 f4004010 
+  00000780 2900a8c0 34830024 00000fc1 00001f95 3300120c 1fffe095 40104511 
+  f4004010 00000780 2900a8c0 34830024 36f3c024 36f3580e 36f49813 36f41811 
+  36f19807 36f11805 36f09803 36f01801 34059014 36f30024 36f20024 20000000 
+  00000024 00000200 36130024 2900abc0 3e000024 28002500 36f30024 60120024 
+  00000101 280013d5 00000024 000003d5 34830024 1ffffc55 34800024 61040024 
+  00000024 280013d1 00000024 000001c4 00000555 34830024 1ffffc55 34f08024 
+  34f0c024 a3460024 c23813c3 00000382 a3241203 c4280024 00000702 a3240024 
+  41960024 c4280024 00000282 3cd0b004 603a0024 00000024 280032c5 601a0024 
+  00000024 2800a815 43300024 00000100 000003d5 4092120c 34914024 34a30024 
+  6510b380 00000100 28003645 00000024 650a108c 000000c0 2800a795 00000024 
+  34e30024 3304184c 30000024 291ff900 3e000024 00000087 00000595 00000806 
+  34631bcc 3c003281 b88a120c 1ffffb15 68964500 b882120c 00000515 68903200 
+  1ffffb95 34830024 000007d5 68903000 30093341 30093200 f4004500 1ffff855 
+  34830024 000007d5 3c800024 1ffff815 28004240 34830024 658a0024 00000200 
+  2800a645 00000024 65740024 00000024 2800a485 00000024 65340024 00000fc1 
+  28004215 00000024 00000011 33000024 40100024 f4004010 2900b340 00000200 
+  659a0024 00000180 65040024 00000024 28002501 00000024 000003d5 f202120c 
+  f4004500 1ffffc55 40500024 f4004010 34800012 60140024 00000101 280047c5 
+  00000024 601411cc 34130024 f4004500 34930024 2800a395 34f30024 3463184c 
+  b8809001 3e100024 34a00024 3e100024 3e104024 33040024 30000024 291ff880 
+  3e000024 28005640 36c30024 000000c1 000003d5 34e30024 34830024 1ffffc55 
+  34800024 60140024 00000024 2800a0c5 61920024 60140024 00000200 2800a0c5 
+  000006d5 34830024 1ffff9d5 34f08024 34f04024 a100120c c2020024 00000595 
+  b0804491 c102120c f4004510 1ffffb15 34830024 2900cf40 30091380 6804114c 
+  00000024 28006c85 3009184c 3c00b303 b3869100 3e100024 3e104024 3e10d003 
+  33040024 30000024 3e000024 291ff880 34b08024 34331b0c 30091000 60100024 
+  30093340 34330024 30091340 60800024 00000024 28003d85 00000024 b88210cc 
+  b8841340 61000024 00000024 28005e81 69000024 24405e40 00000024 3304184c 
+  30000024 291ffbc0 3e000024 00000595 34831bcc 1ffffb15 40864500 34830024 
+  40103380 f4004010 003fffc0 63002003 00000024 28005e05 00000024 62940024 
+  61920024 68960024 34330024 30091000 60200024 28006340 b880b340 4102938c 
+  f4004050 00001681 30008024 61220024 00000024 28006551 00000024 00000c01 
+  62140024 00000024 28006551 00000024 60900024 34230024 30091001 60141001 
+  00000024 28005fd1 00000024 28004ac0 00000024 658a0024 00000024 28006b45 
+  00000024 65740024 00000024 280069c5 00000024 65340024 00000fc0 28004215 
+  00000024 00000011 33004024 41000024 f4004010 2900f780 00004208 00000011 
+  33000024 40600024 f4004010 2900f780 00004208 00000011 33040024 30130024 
+  2900f780 00004208 3c00b303 300910c0 3e101003 34108024 3e108024 3e10d003 
+  33040024 30000024 3e000024 291ff880 34b08024 000007c0 60101b0c 000007c2 
+  280070d1 62700024 61704042 00000024 28005651 00000024 0000004d 2440754d 
+  b8880024 00000087 3304184c 30000024 291ffbc0 3e000024 00000815 34831bcc 
+  1ffff855 40864500 34830024 404033c0 64984010 68962003 00000080 00000615 
+  34730024 34130024 f4004510 34830024 f4004511 1ffff815 2900cf40 34830024 
+  68000024 000000c0 28008785 00000024 28007c40 b8820024 291ffbc0 3e000024 
+  00000815 4088120c 1ffff855 00000080 41064500 6192120c 403033c0 68964010 
+  38011bcc 00000087 62700c10 6010984c 30000024 28007981 00000024 36f3104c 
+  429213c0 40100024 b8804010 658a2000 00000024 280085c5 00000024 65740024 
+  00000024 280083c5 00000024 65340024 00000fc0 28004215 00000024 00000815 
+  3300520c 1ffff815 41004511 f4004010 34830024 2900f780 00004208 00000815 
+  3300120c 1ffff815 40604511 f4004010 34830024 2900f780 00004208 00000815 
+  3304120c f4004511 1ffff815 3013120c 2900f780 00004208 61000024 1fffffc1 
+  a0180024 00000781 61420024 00000782 28008a51 b8820024 1fffffc1 a0140024 
+  61920024 62100024 00000024 28009711 00000024 244096c0 00000024 3304184c 
+  30000024 291ffbc0 3e000024 000006d5 4088114c 689dc6cf f4004503 1ffff855 
+  4310120c 68904012 b88e2804 3e1030c0 3c018024 3e11b047 3e11d007 33040024 
+  30000024 3e000024 291ff880 34b18024 00001f84 32001b0c 64080024 00000815 
+  280093d1 00000024 00000806 60600024 00000024 280095c1 00000024 34830024 
+  f4004500 1ffff815 4016120c f40040d0 00000815 000017c3 3800c024 6192120c 
+  1ffff855 68964500 34830024 3cf00024 34130024 34f00024 40200024 b8804010 
+  658a2000 00000024 28009f05 00000024 65740024 00000024 28009d05 00000024 
+  65340024 00000fc0 28004215 00000024 00000815 3300520c 1ffff815 41004511 
+  f4004010 34830024 2900f780 00004208 00000815 3300120c 1ffff815 40604511 
+  f4004010 34830024 2900f780 00004208 00000815 3304120c f4004511 1ffff815 
+  3013120c 2900f780 00004208 00000200 00000755 34830024 1ffff995 34f04024 
+  34e08024 a200120c c1000024 00000001 28004fc0 c0120024 40500024 f4004010 
+  280047c0 30090012 00000011 33000024 40600024 f4004010 00000200 2900b340 
+  00004208 00000011 33040024 30130024 2900b340 00004208 28003640 30093380 
+  34330024 280032c0 3cd00024 4080184c 3e13780f 2800aac5 4090380e 2400aa80 
+  f4004417 31100024 3f100024 36f38024 36f3580f 20000000 00000024 36130024 
+  3e120024 3e05b814 36150024 3e007810 00022050 3000538c 61824500 34230024 
+  2800b0d5 001ffc41 b8800024 36f05810 34059014 36f30024 36f20024 20000000 
+  00000024 00022050 001ffc41 34e3184c 3e104024 30004024 3e104024 3e100024 
+  34200024 291ffd00 3e000024 2800aec0 36c30024 36130024 40803850 3e03784f 
+  2800b705 3e03b802 40900024 2400b6c0 003fffc2 31100024 40800024 00000024 
+  2800b6d5 b0200024 00000002 38100024 36039bc2 36035bcf 20000000 36f40024 
+  36130024 40803850 3e03784f 2800bbc5 3e03b802 40900024 2400bb80 003fffc2 
+  31100024 40800024 00000024 2800bb95 b0200024 00000002 30092040 36039bc2 
+  36035bcf 20000000 36f40024 36130024 40803850 3e03784f 2800c085 3e03b802 
+  40900024 2400c040 003fffc2 30090440 40800024 00000024 2800c055 b0200024 
+  00000002 38100024 36039bc2 36035bcf 20000000 36f40024 36130024 40803850 
+  3e03784f 2800c545 3e03b802 40900024 2400c500 003fffc2 30090440 40800024 
+  00000024 2800c515 b0200024 00000002 30092040 36039bc2 36035bcf 20000000 
+  36f40024 36130024 3e003810 30100024 40800024 00000024 2800c6d5 00000024 
+  30f30024 31100024 40802040 00000024 2800c855 00000024 20000000 36001bd0 
+  4080184c 00000024 2800cec5 3e007810 30104024 41820024 00000024 2800cb15 
+  00000024 30f30024 31104024 41820024 00000024 2800cec5 40902041 00000024 
+  2800cc95 00000001 38004024 20000000 36005bd0 4080184c 3e00b801 2800d305 
+  b2840024 30108024 42840441 00000024 2800d305 62149801 00000024 2800d315 
+  40900024 00000024 2800d055 00000024 20000000 42801bc2 36130024 3e004024 
+  30104024 6014b802 00000024 2800d645 41829802 00000024 2800d415 00000024 
+  00000050 20000000 36f043cc 36130024 68923801 30007801 60120024 30104024 
+  2800d8d5 41820024 30093810 00000024 2800d795 30004024 36005bd0 20000000 
+  30f30024 b080184c 3e00f842 3e007811 30105811 41820024 00000024 2800de85 
+  31108024 42840024 00000024 2800de85 62140024 00000024 2800dc15 00000024 
+  2800db00 60900024 36f04024 20000000 3600dbc2 36130024 3e007842 b080b811 
+  30105811 41820024 00000024 2800e385 31108024 62140024 00000024 2800e385 
+  42140024 00000024 2800e115 00000024 2800e000 60900024 36f30024 20000000 
+  36005bc2 36130024 3e007842 30093811 30105811 41820024 00000024 2800e885 
+  31108024 62140024 00000024 2800e8c5 42140024 00000024 2800e615 00000024 
+  2800e500 00000024 00000050 30f31bcc 20000000 36005bc2 36130024 3e007840 
+  30093811 3e041811 31104024 41820040 00000024 2800ee85 40800024 00000024 
+  2800ee05 60100024 00000024 2800ea85 00000024 36040024 2800ea40 30130024 
+  00000010 3e040024 36f40024 20000000 36005bc0 20000000 00000010 4182184c 
+  3e008024 2800f285 30108024 60240024 00000024 2800f2c5 41920024 00000024 
+  2800f095 00000024 00000050 20000000 36f083cc 36130024 3e120024 3e047810 
+  36140024 3e003801 2800fa00 0000f508 36004024 60120024 30091bc1 2800f6d8 
+  36045bd0 2800f780 0000f6c8 36f20024 20000000 00000024 36130024 3e103810 
+  3110b802 42800024 31108024 2800f895 42802040 30091bc2 20000000 36f01810 
+  c090184c 30107801 41820024 00000024 2800fa95 60900041 20000000 30091bc1 
+<\ sizesize <- 0fc60000 > // 4038 bytes of payload.
+
+//Section 1, 'voxdata_1':
+<0301:0000> (MEMORY; PAGE 1)
+  0301 0000 sizesize 
+  0000 0000 0063  //address, align, size
+  0055 004e 004b 004e 004f 0057 004e 0000 
+  0043 006f 0075 006c 0064 006e 0027 0074 
+  0020 0069 0064 0065 006e 0074 0069 0066 
+  0079 0020 0049 0044 0033 0076 0031 0020 
+  0074 0061 0067 0000 0054 0049 0054 0032 
+  0000 0054 0041 004c 0042 0000 0054 0050 
+  0045 0031 0000 0054 0052 0043 004b 0000 
+  0054 0059 0045 0052 0000 0054 004c 0045 
+  004e 0000 0054 0049 0054 0033 0000 0054 
+  0054 0032 0000 0054 0041 004c 0000 0054 
+  0050 0031 0000 0054 0052 004b 0000 0054 
+  0059 0045 0000 0054 004b 0045 0000 0054 
+  0054 0033 0000 
+<\ sizesize <- 00cc0000 > // 204 bytes of payload.
+
+//Section 2, 'voydata_2':
+<0302:0000> (MEMORY; PAGE 2)
+  0302 0000 sizesize 
+  0000 0000 0012  //address, align, size
+  0024 0029 002e 0033 0038 003d 0042 0047 
+  004b 004f 0053 0057 005b 005f 00ff 00fe 
+  0000 0000 
+<\ sizesize <- 002a0000 > // 42 bytes of payload.
+
+<0a01:cd85> (CRCCHECK)
+  0a01 cd85 sizesize 
+  
+<\ sizesize <- 00000000 > // 0 bytes of payload.
+
+<0401:0000> (RELOCATION : SECTION NUMBER TO POKE TO)
+  0401 0000 sizesize 
+  // Relocations for section 0 follow.
+<\ sizesize <- 00000000 > // 0 bytes of payload.
+  // Relocations whose target (InitTemplate_1) section is 2 (voydata_2):
+<0403:0002> (RELOCATION : INTERNAL)
+  0403 0002 sizesize 
+  0001 000b //to 1 location add base of section 2.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (_ReturnID3) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0047 0010 0017 002c 003b 0046 004d 006a 0072 007a 00a5 00a9 00b1 00c6 00c9 00d2 00d6 00f4 00f8 00fc 0100 010c 0117 011d 0129 0133 0137 0149 015d 0163 0165 0175 017d 0185 018a 0191 0193 0197 019b 019f 01a6 01ac 01b1 01c0 01c4 01c7 01e2 01e4 01f5 01fd 0201 0205 020e 0216 021d 0224 022b 022d 0248 024d 0262 0266 026a 0273 027b 0282 028c 0290 0298 029d 029e 02a1 //to 71 locations add base of section 0.
+<\ sizesize <- 00900000 > // 144 bytes of payload.
+  // Relocations whose target (InitTemplate_2) section is 2 (voydata_2):
+<0403:0002> (RELOCATION : INTERNAL)
+  0403 0002 sizesize 
+  0001 0014 //to 1 location add base of section 2.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (InitTemplate_3) section is 2 (voydata_2):
+<0403:0002> (RELOCATION : INTERNAL)
+  0403 0002 sizesize 
+  0001 001b //to 1 location add base of section 2.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (_memcpy) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0003 0080 0089 0092 //to 3 locations add base of section 0.
+<\ sizesize <- 00080000 > // 8 bytes of payload.
+  // Relocations whose target (couldnti_5) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 00a1 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (_vo_printf) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0003 00a3 02b8 02cb //to 3 locations add base of section 0.
+<\ sizesize <- 00080000 > // 8 bytes of payload.
+  // Relocations whose target (unknown_4) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0006 0102 01a1 01a7 01ad 0292 0299 //to 6 locations add base of section 1.
+<\ sizesize <- 000e0000 > // 14 bytes of payload.
+  // Relocations whose target (_strncpy) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0003 0106 0297 029c //to 3 locations add base of section 0.
+<\ sizesize <- 00080000 > // 8 bytes of payload.
+  // Relocations whose target (_strncmp) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 0145 01de //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (_strcpy) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  000a 01a5 01ab 01b0 020d 0215 021c 0272 027a 0281 03d9 //to 10 locations add base of section 0.
+<\ sizesize <- 00160000 > // 22 bytes of payload.
+  // Relocations whose target (_memcpyXX@0) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 02a5 02a7 //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (ncp_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 02d0 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (ncp_lp) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 02d3 02d8 //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (ncp_doneXY) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 02e3 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (ncp_lpXY) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 02e6 02eb //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (ncp_doneYX) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 02f6 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (ncp_lpYX) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 02f9 02fe //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (ncp_doneYY) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0309 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (ncp_lpYY) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 030c 0311 //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (cat_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 031e //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (cat_next2) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0324 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (ncat_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 032a 0335 //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (ncat_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 032f //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (ncat_next2) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0338 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (ncmp_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0003 033f 0344 0347 //to 3 locations add base of section 0.
+<\ sizesize <- 00080000 > // 8 bytes of payload.
+  // Relocations whose target (ncmp_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 034a //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (chr_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0353 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (chr_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0356 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (rchr_chk) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0360 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (rchr_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0364 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (spn_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 036f 0373 //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (spn_next2) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0376 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (spn_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0378 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (cspn_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0002 0383 0387 //to 2 locations add base of section 0.
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+  // Relocations whose target (cspn_next2) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 038a //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (cspn_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 038c //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (pbrk_done1) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 0397 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (pbrk_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 039b //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (pbrk_next2) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 039e //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (pbrk_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03a0 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (str_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03ad //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (str_done1) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03b0 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (str_next2) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03b3 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (str_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03b6 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (mchr_nul) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03c1 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (mchr_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03c5 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (mchr_next) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03c8 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (_strlen) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03d2 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (@000) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03d3 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (xfrm_done) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03d7 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (@001) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03da //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (_strcpy@0) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03e3 //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (_strlen@0) section is 0 (votext):
+<0403:0000> (RELOCATION : INTERNAL)
+  0403 0000 sizesize 
+  0001 03ec //to 1 location add base of section 0.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+
+<0401:0002> (RELOCATION : SECTION NUMBER TO POKE TO)
+  0401 0002 sizesize 
+  // Relocations for section 2 follow.
+<\ sizesize <- 00000000 > // 0 bytes of payload.
+  // Relocations whose target (String_6) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0000 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_7) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0001 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_8) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0002 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_9) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0003 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_10) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0004 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_11) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0005 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_12) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0006 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_13) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0007 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_14) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0008 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_15) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 0009 //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_16) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 000a //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_17) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 000b //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_18) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 000c //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+  // Relocations whose target (String_19) section is 1 (voxdata_1):
+<0403:0001> (RELOCATION : INTERNAL)
+  0403 0001 sizesize 
+  0001 000d //to 1 location add base of section 1.
+<\ sizesize <- 00040000 > // 4 bytes of payload.
+
+<0a01:6c6e> (CRCCHECK)
+  0a01 6c6e sizesize 
+  
+<\ sizesize <- 00000000 > // 0 bytes of payload.
+//From Emulation-Debug\main.o: 
+<0800:0000> (SYMBOL '_ReturnID3') (section=0, offset=0 (0x0000))
+  0800 0000 00160000 
+  005f 0052 0065 0074 0075 0072 006e 0049 0044 0033 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_memcpyXX.o: 
+<0800:02a3> (SYMBOL '_memcpy') (section=0, offset=675 (0x02a3))
+  0800 02a3 00100000 
+  005f 006d 0065 006d 0063 0070 0079 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libvsos03.a:/26: 
+<0800:02af> (SYMBOL '_vo_printf') (section=0, offset=687 (0x02af))
+  0800 02af 00160000 
+  005f 0076 006f 005f 0070 0072 0069 006e 0074 0066 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:02cd> (SYMBOL '_strncpy') (section=0, offset=717 (0x02cd))
+  0800 02cd 00120000 
+  005f 0073 0074 0072 006e 0063 0070 0079 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:033d> (SYMBOL '_strncmp') (section=0, offset=829 (0x033d))
+  0800 033d 00120000 
+  005f 0073 0074 0072 006e 0063 006d 0070 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_strcpy.o: 
+<0800:03de> (SYMBOL '_strcpy') (section=0, offset=990 (0x03de))
+  0800 03de 00100000 
+  005f 0073 0074 0072 0063 0070 0079 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_memcpyXX.o: 
+<0800:02ab> (SYMBOL '_memcpyXX@0') (section=0, offset=683 (0x02ab))
+  0800 02ab 00180000 
+  005f 006d 0065 006d 0063 0070 0079 0058 0058 0040 0030 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_memcpyXX.o: 
+<0800:02a3> (SYMBOL '_memcpy') (section=0, offset=675 (0x02a3))
+  0800 02a3 00100000 
+  005f 006d 0065 006d 0063 0070 0079 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libvsos03.a:/26: 
+<0800:02af> (SYMBOL '_vo_printf') (section=0, offset=687 (0x02af))
+  0800 02af 00160000 
+  005f 0076 006f 005f 0070 0072 0069 006e 0074 0066 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:02cd> (SYMBOL '_strncpy') (section=0, offset=717 (0x02cd))
+  0800 02cd 00120000 
+  005f 0073 0074 0072 006e 0063 0070 0079 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03d3> (SYMBOL '@000') (section=0, offset=979 (0x03d3))
+  0800 03d3 000a0000 
+  0040 0030 0030 0030 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03da> (SYMBOL '@001') (section=0, offset=986 (0x03da))
+  0800 03da 000a0000 
+  0040 0030 0030 0031 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03aa> (SYMBOL 'str_next2') (section=0, offset=938 (0x03aa))
+  0800 03aa 00140000 
+  0073 0074 0072 005f 006e 0065 0078 0074 0032 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0384> (SYMBOL 'cspn_next2') (section=0, offset=900 (0x0384))
+  0800 0384 00160000 
+  0063 0073 0070 006e 005f 006e 0065 0078 0074 0032 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0370> (SYMBOL 'spn_next2') (section=0, offset=880 (0x0370))
+  0800 0370 00140000 
+  0073 0070 006e 005f 006e 0065 0078 0074 0032 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0332> (SYMBOL 'ncat_next2') (section=0, offset=818 (0x0332))
+  0800 0332 00160000 
+  006e 0063 0061 0074 005f 006e 0065 0078 0074 0032 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0321> (SYMBOL 'cat_next2') (section=0, offset=801 (0x0321))
+  0800 0321 00140000 
+  0063 0061 0074 005f 006e 0065 0078 0074 0032 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03cb> (SYMBOL 'mchr_done') (section=0, offset=971 (0x03cb))
+  0800 03cb 00140000 
+  006d 0063 0068 0072 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03ba> (SYMBOL 'str_done') (section=0, offset=954 (0x03ba))
+  0800 03ba 00120000 
+  0073 0074 0072 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:038e> (SYMBOL 'cspn_done') (section=0, offset=910 (0x038e))
+  0800 038e 00140000 
+  0063 0073 0070 006e 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:037a> (SYMBOL 'spn_done') (section=0, offset=890 (0x037a))
+  0800 037a 00120000 
+  0073 0070 006e 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0359> (SYMBOL 'chr_done') (section=0, offset=857 (0x0359))
+  0800 0359 00120000 
+  0063 0068 0072 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:034c> (SYMBOL 'ncmp_done') (section=0, offset=844 (0x034c))
+  0800 034c 00140000 
+  006e 0063 006d 0070 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:033b> (SYMBOL 'ncat_done') (section=0, offset=827 (0x033b))
+  0800 033b 00140000 
+  006e 0063 0061 0074 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:02dc> (SYMBOL 'ncp_done') (section=0, offset=732 (0x02dc))
+  0800 02dc 00120000 
+  006e 0063 0070 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03b8> (SYMBOL 'str_done1') (section=0, offset=952 (0x03b8))
+  0800 03b8 00140000 
+  0073 0074 0072 005f 0064 006f 006e 0065 0031 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:02db> (SYMBOL 'ncp_lp') (section=0, offset=731 (0x02db))
+  0800 02db 000e0000 
+  006e 0063 0070 005f 006c 0070 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03ca> (SYMBOL 'mchr_nul') (section=0, offset=970 (0x03ca))
+  0800 03ca 00120000 
+  006d 0063 0068 0072 005f 006e 0075 006c 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0363> (SYMBOL 'rchr_chk') (section=0, offset=867 (0x0363))
+  0800 0363 00120000 
+  0072 0063 0068 0072 005f 0063 0068 006b 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03a3> (SYMBOL 'pbrk_done') (section=0, offset=931 (0x03a3))
+  0800 03a3 00140000 
+  0070 0062 0072 006b 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:033d> (SYMBOL '_strncmp') (section=0, offset=829 (0x033d))
+  0800 033d 00120000 
+  005f 0073 0074 0072 006e 0063 006d 0070 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:02ef> (SYMBOL 'ncp_doneXY') (section=0, offset=751 (0x02ef))
+  0800 02ef 00160000 
+  006e 0063 0070 005f 0064 006f 006e 0065 0058 0059 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0302> (SYMBOL 'ncp_doneYX') (section=0, offset=770 (0x0302))
+  0800 0302 00160000 
+  006e 0063 0070 005f 0064 006f 006e 0065 0059 0058 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0315> (SYMBOL 'ncp_doneYY') (section=0, offset=789 (0x0315))
+  0800 0315 00160000 
+  006e 0063 0070 005f 0064 006f 006e 0065 0059 0059 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03c2> (SYMBOL 'mchr_next') (section=0, offset=962 (0x03c2))
+  0800 03c2 00140000 
+  006d 0063 0068 0072 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03a9> (SYMBOL 'str_next') (section=0, offset=937 (0x03a9))
+  0800 03a9 00120000 
+  0073 0074 0072 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0380> (SYMBOL 'cspn_next') (section=0, offset=896 (0x0380))
+  0800 0380 00140000 
+  0063 0073 0070 006e 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:036c> (SYMBOL 'spn_next') (section=0, offset=876 (0x036c))
+  0800 036c 00120000 
+  0073 0070 006e 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:035e> (SYMBOL 'rchr_next') (section=0, offset=862 (0x035e))
+  0800 035e 00140000 
+  0072 0063 0068 0072 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0350> (SYMBOL 'chr_next') (section=0, offset=848 (0x0350))
+  0800 0350 00120000 
+  0063 0068 0072 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0341> (SYMBOL 'ncmp_next') (section=0, offset=833 (0x0341))
+  0800 0341 00140000 
+  006e 0063 006d 0070 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:032c> (SYMBOL 'ncat_next') (section=0, offset=812 (0x032c))
+  0800 032c 00140000 
+  006e 0063 0061 0074 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:031b> (SYMBOL 'cat_next') (section=0, offset=795 (0x031b))
+  0800 031b 00120000 
+  0063 0061 0074 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0398> (SYMBOL 'pbrk_next2') (section=0, offset=920 (0x0398))
+  0800 0398 00160000 
+  0070 0062 0072 006b 005f 006e 0065 0078 0074 0032 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03a2> (SYMBOL 'pbrk_done1') (section=0, offset=930 (0x03a2))
+  0800 03a2 00160000 
+  0070 0062 0072 006b 005f 0064 006f 006e 0065 0031 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_strlen.o: 
+<0800:03e8> (SYMBOL '_strlen') (section=0, offset=1000 (0x03e8))
+  0800 03e8 00100000 
+  005f 0073 0074 0072 006c 0065 006e 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_strcpy.o: 
+<0800:03de> (SYMBOL '_strcpy') (section=0, offset=990 (0x03de))
+  0800 03de 00100000 
+  005f 0073 0074 0072 0063 0070 0079 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0394> (SYMBOL 'pbrk_next') (section=0, offset=916 (0x0394))
+  0800 0394 00140000 
+  0070 0062 0072 006b 005f 006e 0065 0078 0074 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:03db> (SYMBOL 'xfrm_done') (section=0, offset=987 (0x03db))
+  0800 03db 00140000 
+  0078 0066 0072 006d 005f 0064 006f 006e 0065 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:02ee> (SYMBOL 'ncp_lpXY') (section=0, offset=750 (0x02ee))
+  0800 02ee 00120000 
+  006e 0063 0070 005f 006c 0070 0058 0059 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0301> (SYMBOL 'ncp_lpYX') (section=0, offset=769 (0x0301))
+  0800 0301 00120000 
+  006e 0063 0070 005f 006c 0070 0059 0058 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_string.o: 
+<0800:0314> (SYMBOL 'ncp_lpYY') (section=0, offset=788 (0x0314))
+  0800 0314 00120000 
+  006e 0063 0070 005f 006c 0070 0059 0059 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_strcpy.o: 
+<0800:03e2> (SYMBOL '_strcpy@0') (section=0, offset=994 (0x03e2))
+  0800 03e2 00140000 
+  005f 0073 0074 0072 0063 0070 0079 0040 0030 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_strcpy.o: 
+<0800:03de> (SYMBOL '_strcpy') (section=0, offset=990 (0x03de))
+  0800 03de 00100000 
+  005f 0073 0074 0072 0063 0070 0079 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_strlen.o: 
+<0800:03ea> (SYMBOL '_strlen@0') (section=0, offset=1002 (0x03ea))
+  0800 03ea 00140000 
+  005f 0073 0074 0072 006c 0065 006e 0040 0030 0000 
+<\string>
+//From C:\Program Files (x86)\VSIDE\libvs1005h_vsos3/libc.a:_strlen.o: 
+<0800:03e8> (SYMBOL '_strlen') (section=0, offset=1000 (0x03e8))
+  0800 03e8 00100000 
+  005f 0073 0074 0072 006c 0065 006e 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0000> (SYMBOL 'unknown_4') (section=1, offset=0 (0x0000))
+  0801 0000 00140000 
+  0075 006e 006b 006e 006f 0077 006e 005f 0034 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0008> (SYMBOL 'couldnti_5') (section=1, offset=8 (0x0008))
+  0801 0008 00160000 
+  0063 006f 0075 006c 0064 006e 0074 0069 005f 0035 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0024> (SYMBOL 'String_6') (section=1, offset=36 (0x0024))
+  0801 0024 00120000 
+  0053 0074 0072 0069 006e 0067 005f 0036 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0029> (SYMBOL 'String_7') (section=1, offset=41 (0x0029))
+  0801 0029 00120000 
+  0053 0074 0072 0069 006e 0067 005f 0037 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:002e> (SYMBOL 'String_8') (section=1, offset=46 (0x002e))
+  0801 002e 00120000 
+  0053 0074 0072 0069 006e 0067 005f 0038 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0033> (SYMBOL 'String_9') (section=1, offset=51 (0x0033))
+  0801 0033 00120000 
+  0053 0074 0072 0069 006e 0067 005f 0039 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0038> (SYMBOL 'String_10') (section=1, offset=56 (0x0038))
+  0801 0038 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0030 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:003d> (SYMBOL 'String_11') (section=1, offset=61 (0x003d))
+  0801 003d 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0031 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0042> (SYMBOL 'String_12') (section=1, offset=66 (0x0042))
+  0801 0042 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0032 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0047> (SYMBOL 'String_13') (section=1, offset=71 (0x0047))
+  0801 0047 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0033 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:004b> (SYMBOL 'String_14') (section=1, offset=75 (0x004b))
+  0801 004b 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0034 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:004f> (SYMBOL 'String_15') (section=1, offset=79 (0x004f))
+  0801 004f 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0035 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0053> (SYMBOL 'String_16') (section=1, offset=83 (0x0053))
+  0801 0053 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0036 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:0057> (SYMBOL 'String_17') (section=1, offset=87 (0x0057))
+  0801 0057 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0037 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:005b> (SYMBOL 'String_18') (section=1, offset=91 (0x005b))
+  0801 005b 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0038 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0801:005f> (SYMBOL 'String_19') (section=1, offset=95 (0x005f))
+  0801 005f 00140000 
+  0053 0074 0072 0069 006e 0067 005f 0031 0039 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0802:0000> (SYMBOL 'InitTemplate_1') (section=2, offset=0 (0x0000))
+  0802 0000 001e0000 
+  0049 006e 0069 0074 0054 0065 006d 0070 006c 0061 0074 0065 005f 0031 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0802:0007> (SYMBOL 'InitTemplate_2') (section=2, offset=7 (0x0007))
+  0802 0007 001e0000 
+  0049 006e 0069 0074 0054 0065 006d 0070 006c 0061 0074 0065 005f 0032 0000 
+<\string>
+//From Emulation-Debug\main.o: 
+<0802:000e> (SYMBOL 'InitTemplate_3') (section=2, offset=14 (0x000e))
+  0802 000e 001e0000 
+  0049 006e 0069 0074 0054 0065 006d 0070 006c 0061 0074 0065 005f 0033 0000 
+<\string>
+
+<0a00:1e9f> (CRCCHECK)
+  0a00 1e9f sizesize 
+  
+<\ sizesize <- 00000000 > // 0 bytes of payload.
+
+<0900:0000> (ENTRYLIST)
+  0900 0000 sizesize 
+  5265 0000 0000  // _ReturnID3
+  
+<\ sizesize <- 00060000 > // 6 bytes of payload.
+
+<0a01:5b6b> (CRCCHECK)
+  0a01 5b6b sizesize 
+  
+<\ sizesize <- 00000000 > // 0 bytes of payload.
+00000000 ffffffff 
+<0a00:fffe> (CRCCHECK)
+  0a00 fffe sizesize 
+  
+<\ sizesize <- 00000000 > // 0 bytes of payload.

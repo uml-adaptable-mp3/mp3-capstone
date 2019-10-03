@@ -1,0 +1,38 @@
+
+//_____________________________________________________________
+//
+	.sect code,XPeripIntC	// 17 words
+	.export _XPeripIntC
+_XPeripIntC:
+	stx LR0,(I6)+1
+	stx A1,(I6) ; sty I0,(I6)
+	ldc 13,A1	// 13 -> 1 -> ET0
+//   switch (intNumber)
+	sub A1,A0,A1	// ET0 > 'intNumber' -> AT4
+	ldc JumpTable_1,A1	// ET1
+	jcc F0B4	// unsigned compare
+	nop
+// jumped away
+	add A0,A1,A0	// 'intNumber' + ET1 -> AT5
+	mv A0,I0	// AT5 -> ET2
+	ldx (I0),A0	// ET2 ==> ET3
+	mv A0,LR0
+	jr
+	nop
+// jumped away
+F0B4:
+//     break;
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_x,xPeripconst_x	// 14 words
+JumpTable_1:
+	.word F0B4, F0B4, F0B4, F0B4, F0B4, F0B4, F0B4, F0B4
+	.word F0B4, F0B4, F0B4, F0B4, F0B4, F0B4
+
+	.end

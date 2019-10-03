@@ -1,0 +1,115 @@
+
+//_____________________________________________________________
+//
+	.sect code,InitMutexN	// 3 words
+	.export _InitMutexN
+_InitMutexN:
+//   *mutexVar = initial;
+	stx D1,(I3) ; ldy (I6)-1,NULL	// 'initial' ==> 'mutexVar'
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,ObtainMutex	// 26 words
+	.export _ObtainMutex
+_ObtainMutex:
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx B0,(I6) ; sty I0,(I6)
+	ldc 31,B0	// 31 -> 0 -> ET5
+// dTime
+// (AttemptMutex(mutexVar))
+	j F1B6
+	mv I3,I0 ; and NULL,NULL,A1	// I3 -> 'mutexVar'
+// jumped away
+F1B3:	// (loop lvl 2)
+	ldx (I6)+1,NULL ; sub A1,ONES,A1	// I6 += 1
+//   }
+// {
+//     Delay(++dTime);
+	call _Delay
+	stx A1,(I6)	// 'dTime'
+// jumped away
+	ldx (I6)-1,NULL ; and A1,B0,A1	// I6 += -1
+//     dTime &= 31;
+F1B6:	// (loop lvl 2)
+	mv I0,I3	// 'mutexVar' -> I3
+	call _AttemptMutex
+	ldx (I6)+1,NULL	// I6 += 1
+// jumped away
+	sub A0,NULL,A0	// ET1 != (0) -> (0)
+	nop
+	jzc F1B3	// unsigned compare
+	nop
+// jumped away
+	ldy (I6),I0 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,AttemptMutex	// 14 words
+	.export _AttemptMutex
+_AttemptMutex:
+	stx LR0,(I6)+1 ; sub NULL,ONES,A0
+// res
+// ();
+	call _Disable
+	stx A1,(I6)
+// jumped away
+//   if (*mutexVar)
+	ldx (I3),A1	// 'mutexVar' ==> ET1
+	sub A1,NULL,A1	// ET1 == (0) -> (0)
+	nop
+	callzs _Enable
+	ldc F2B5,LR0
+// jumped away
+//   }
+// {
+//     (*mutexVar)--;
+	add A1,ONES,A0	// ET1 + (-1) -> ET4
+//     res = 0;
+//   Enable();
+	call _Enable
+	stx A0,(I3) ; and NULL,NULL,A0	// ET4 ==> 'mutexVar'
+// jumped away
+F2B5:
+	ldx (I6)-1,A1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,ReleaseMutex	// 12 words
+	.export _ReleaseMutex
+_ReleaseMutex:
+	stx LR0,(I6)+1
+//   Disable();
+	call _Disable
+	stx A0,(I6)
+// jumped away
+//   (*mutexVar)++;
+	ldx (I3),A0	// 'mutexVar' ==> ET0
+	sub A0,ONES,A0	// ET0 - (-1) -> ET3
+//   Enable();
+	call _Enable
+	stx A0,(I3)	// ET3 ==> 'mutexVar'
+// jumped away
+	ldx (I6)-1,A0
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+	.end

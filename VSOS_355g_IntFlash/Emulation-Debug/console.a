@@ -1,0 +1,66 @@
+
+//_____________________________________________________________
+//
+	.sect code,ConsoleWrite	// 31 words
+	.export _ConsoleWrite
+_ConsoleWrite:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+// ();
+	call _Disable
+	stx I2,(I6)
+// jumped away
+// 	oldRxInt =(*(__y volatile u_int16 *)(u_int16)(0xFC00)) &(1<< 13);
+	ldc 64512,I0	// 64512 -> ET0
+	ldc 8192,A0	// 8192 -> 1 -> ET3
+	ldc 57343,B0	// 57343 -> 1 -> ET5
+	ldy (I0),A1/*V*/ ; ldx (I4)-2,NULL	// ET0 ==> ET1
+	and A1,A0,A1 ; ldy (I0),A0/*V*/	// ET1 and ET3 -> 'oldRxInt'
+// (*(__y volatile u_int16 *)(u_int16)(0xFC00)) &= ~(1<< 13);
+	and A0,B0,A0	// ET6 and ET5 -> ET7
+// 	Enable();
+	call _Enable
+	sty A0,(I0)/*V*/	// ET7 ==> ET0
+// jumped away
+// 	putch(((char*)buf)[0]);
+	ldx (I4)+2,I2	// unspill 'buf' from #0
+	call _putch
+	ldx (I2),A0	// 'buf' ==> ET8
+// jumped away
+// 	Disable();
+	call _Disable
+	nop
+// jumped away
+// (*(__y volatile u_int16 *)(u_int16)(0xFC00)) |= oldRxInt;
+	ldy (I0),A0/*V*/	// ET0 ==> ET9
+	or A0,A1,A0	// ET9 or 'oldRxInt' -> ETa
+// 	Enable();
+	call _Enable
+	sty A0,(I0)/*V*/	// ETa ==> ET0
+// jumped away
+	ldx (I6)-1,I2
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_x,consoleconst_x	// 12 words
+	.export _consoleFile
+_consoleFile:
+	.word 2115, 0, _ConsoleFileOperations
+	.zero 2
+	.zero 1
+	.zero 1
+	.export _ConsoleFileOperations
+_ConsoleFileOperations:
+	.word 0, 0, _ConsoleIoctl, _ConsoleWrite, _ConsoleWrite
+
+	.end

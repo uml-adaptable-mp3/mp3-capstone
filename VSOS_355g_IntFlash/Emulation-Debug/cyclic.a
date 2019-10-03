@@ -1,0 +1,441 @@
+
+//_____________________________________________________________
+//
+	.sect code,CyclicMainLoop	// 123 words
+	.export _CyclicMainLoop
+_CyclicMainLoop:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+4,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx B0,(I6) ; sty B1,(I6)+1
+	ldc 7,B1	// 7 -> 1 -> ETb
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx D0,(I6) ; sty D1,(I6)+1
+	ldc 4,D0	// 4 -> 1 -> ET8
+	sub D0,ONES,D1 ; stx I0,(I6)
+	ldc _cyclic+1,I0	// ET2
+	sty I1,(I6)+1
+	ldc _cyclic+2,I1	// ET5
+	j F0B6
+	stx I2,(I6) ; sty I3,(I6)
+// jumped away
+F0B17:	// (loop lvl 2)
+	ldx (I4)+1,NULL
+	ldx (I4),B0 ; ldy (I4)-1,B1	// unspill B0 from #0
+// 	SetInCyclicQueue(cyclicNode);
+	call _SetInCyclicQueue
+	mv A1,I2	// 'cyclicNode' -> I2
+// jumped away
+// 	cyclicNode = (struct CyclicNode *)HeadNode(&cyclic.queue);
+	call _HeadNode
+	ldc _cyclic+4,I3	// I3
+// jumped away
+	mv A0,I2	// A0 -> 'cyclicNode'
+F0B13:	// (loop lvl 2)
+//       longDelayTime = cyclicNode->nextActivation - currentTime;
+	ldx (I2)+7,NULL	// 'cyclicNode' += 7
+	ldx (I2)+1,A0
+	ldx (I2)-1,A1
+	sub A,C,C	// ETd - 'currentTime' -> 'longDelayTime'
+	mv C1,C1	// update guard bits (cmp)
+//       if (longDelayTime <= 0)
+	sub C,NULL,C	// 'longDelayTime' <= (0) -> (0)
+	nop
+	jle F0B21	// signed compare
+	nop
+// jumped away
+// else if (longDelayTime < delayTime)
+	ldc 0,A1
+	mv C1,C1 ; add B0,NULL,A0	// 'delayTime' msw ET1b
+// (A2 already up to date)
+	sub C,A,A	// 'longDelayTime' >= ET1b -> AT23
+	nop
+	jge F0B10	// signed compare
+	nop
+// jumped away
+//       }
+// {
+// 	delayTime = (u_int16)longDelayTime;
+	add C0,NULL,B0	// 'longDelayTime' lsw 'delayTime'
+F0B10:	// (loop lvl 2)
+//     Permit();
+	call _Permit
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+//     Delay(delayTime);
+	call _Delay
+	stx B0,(I6)	// 'delayTime'
+// jumped away
+	ldx (I6)-1,NULL	// I6 += -1
+F0B6:	// (loop lvl 2)
+	ldx (I0),A0	// ET2 ==> 1 -> ET3
+	sub A0,NULL,A0	// ET3 != (0) -> (0)
+	nop
+	jzc F0B4	// signed compare
+	nop
+// jumped away
+//   }
+// delayTime
+// ();
+	call _Forbid
+	ldx (I1),B0	// ET5 ==> 2 -> 'delayTime'
+// jumped away
+//     currentTime = ReadTimeCount();
+	call _ReadTimeCount
+	nop
+// jumped away
+	ldc _cyclic+4,I3	// I3
+//     if ((cyclicNode = (struct CyclicNode *)HeadNode(&cyclic.queue)))
+	call _HeadNode
+	add A,NULL,C	// A -> 'currentTime'
+// jumped away
+	sub A0,NULL,A1	// 'cyclicNode' == (0) -> (0)
+	nop
+	jzs F0B10	// signed compare
+	nop
+// jumped away
+	ldx (I4)+1,NULL ; add A1,B1,A0	// I4 += 1
+	mv A0,I2	// AT24 -> ETc
+	stx D0,(I4) ; sty D1,(I4)	// D0 spills to #0
+//     }
+// ((s_int32)(currentTime - cyclicNode->nextActivation) >= 0)
+	ldx (I2)+1,D0
+	ldx (I2)-1,D1
+	sub C,D,D ; mv A1,I2	// 'currentTime' - ETd -> ETe
+	mv D1,D1	// update guard bits (cmp)
+	sub D,NULL,D	// ETe < (0) -> (0)
+	nop	// 'cyclicNode' -> 'cyclicNode'
+	jlt F0B34	// signed compare
+	nop	// I4 += 1
+// jumped away
+	ldx (I4),D0 ; ldy (I4)-1,D1	// unspill D0 from #0
+//       }
+// {
+// 	cyclicNode->func(cyclicNode);
+	add A1,D0,A0	// 'cyclicNode' + ET8 -> AT25
+	mv A0,I3	// AT25 -> ET11
+	ldx (I3),A0	// ET11 ==> 4 -> ET12
+	mv A0,LR0
+	jr
+	ldc lo(F0B14),LR0	// (return address)
+// jumped away
+F0B14:	// (loop lvl 2)
+	mv A1,I2	// 'cyclicNode' -> I2
+// 	DropCyclic(cyclicNode);
+	call _DropCyclic
+	ldc F0B41,LR0
+// jumped away
+	ldx (I4)-1,B0 ; ldy (I4),B1	// unspill B0 from #0
+F0B41:	// (loop lvl 3)
+	ldx (I4)+2,NULL ; add A1,D1,A0	// I4 += 2
+	mv A0,I2	// AT26 -> ET15
+	stx C0,(I4) ; sty C1,(I4)-1	// C0 spills to #0
+	stx B0,(I4) ; sty B1,(I4)+1	// B0 spills to #0
+// 	}
+// 	do {
+// 	  cyclicNode->nextActivation += cyclicNode->interval;
+	ldx (I2)+1,B0
+	ldx (I2)+1,B1
+	ldx (I2)+1,C0
+	ldx (I2)-1,C1
+	add C,B,B ; ldy (I4),C1	// ETd + ET16 -> ET17
+	stx B0,(I2)+1
+	stx B1,(I2)-1
+	ldx (I2)+1,B0
+	ldx (I2)-1,B1
+	ldx (I4)-1,C0	// unspill C0 from #0
+	sub C,B,B	// 'currentTime' - ETd -> ETf
+	mv B1,B1	// update guard bits (cmp)
+	sub B,NULL,B	// ETf >= (0) -> (0)
+	ldx (I4)-1,B0 ; ldy (I4),B1
+	jge F0B41	// signed compare
+	nop
+// jumped away
+	j F0B17
+	nop
+// jumped away
+F0B34:	// (loop lvl 2)
+	j F0B13
+	ldx (I4),D0 ; ldy (I4)-1,D1	// unspill D0 from #0
+// jumped away
+F0B4:
+//   cyclic.inUse = 0;
+	ldc _cyclic,I0	// ET0
+	ldy (I6),I3 ; and NULL,NULL,A0	// 0 -> 0 -> ET1d
+	stx A0,(I0)	// ET1d ==> ET0
+	ldx (I6)-1,I2
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldy (I6),D1 ; ldx (I6)-1,D0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F0B21:	// (loop lvl 2)
+//       }
+// {
+// 	  delayTime = 1;
+	j F0B10
+	sub NULL,ONES,B0	// 1 -> 'delayTime'
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,CreateCyclic	// 26 words
+	.export _CreateCyclic
+_CreateCyclic:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I0,(I6) ; sty I1,(I6)+1
+	stx I2,(I6) ; sty I3,(I6)
+//   NewList(&cyclic.queue);
+	call _NewList
+	ldc _cyclic+4,I3	// I3
+// jumped away
+//   cyclic.maxLatency = maxLatency;
+	ldc cyclic_1,I1	// I1
+	ldc _cyclic+2,I0	// ET4
+	ldc _CyclicMainLoop,I2	// I2
+	stx B0,(I0)-1 ; and NULL,NULL,A0	// 'maxLatency' ==> ET4
+//   cyclic.stop = 0;
+//   if (cyclic.taskAndStack =
+//       CreateTaskAndStack(CyclicMainLoop, "cyclic",
+// 			 stackSize, priority))
+	call _CreateTaskAndStack
+	stx A0,(I0)	// ET5 ==> ET4
+// jumped away
+	ldc _cyclic+3,I0	// ETc
+	stx A0,(I0) ; sub A0,NULL,A0	// ETa ==> ETc
+	ldc _cyclic,I0	// ET0
+	jzs F1B5	// signed compare
+	sub NULL,ONES,A0	// 1 -> 0 -> ETd
+// jumped away
+//   }
+// {
+//     cyclic.inUse = 1;
+	stx A0,(I0)	// ETd ==> ET0
+	mv I0,A0	// ET0 returns via A0
+//     return &cyclic;
+F1B1:
+	ldy (I6),I3 ; ldx (I6)-1,I2
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F1B5:
+//   return 0;
+	j F1B1
+	and NULL,NULL,A0	// 0 -> ETe
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,SetInCyclicQueue	// 43 words
+	.export _SetInCyclicQueue
+_SetInCyclicQueue:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty C1,(I6)+1
+// ();
+	call _Forbid
+	stx I0,(I6) ; sty I3,(I6)
+// jumped away
+//   cyclicNode = (struct CyclicNode *)HeadNode(&cyclic.queue);
+	call _HeadNode
+	ldc _cyclic+4,I3	// I3
+// jumped away
+	j F2B8
+	ldc 7,A1	// 7 -> 1 -> ET4
+// jumped away
+F2B5:	// (loop lvl 2)
+//   }
+// {
+//     if ((s_int32)(cyclicNode->nextActivation - node->nextActivation) > 0)
+	add A0,A1,B0 ; ldy (I2)+7,NULL	// 'cyclicNode' + ET4 -> ATf
+	mv B0,I0	// ATf -> ET5
+	ldx (I0)+1,C0
+	ldx (I0)-1,C1
+	ldx (I2)+1,B0
+	ldx (I2)-7,B1
+	sub C,B,B ; ldx (I2)-1,NULL	// ET6 - ET8 -> ET9
+	mv B1,B1	// update guard bits (cmp)
+	sub B,NULL,B	// ET9 > (0) -> (0)
+	nop
+	jgt F2B9	// signed compare
+	nop
+// jumped away
+//     cyclicNode = (struct CyclicNode *)NextNode((struct NODE *)cyclicNode);
+	call _NextNode
+	mv A0,I3	// 'cyclicNode' -> I3
+// jumped away
+F2B8:	// (loop lvl 2)
+	sub A0,NULL,A0	// 'cyclicNode' != (0) -> (0)
+	nop
+	jzc F2B5	// signed compare
+	nop
+// jumped away
+//   AddTail(&cyclic.queue, (struct NODE *)node);
+	call _AddTail
+	ldc _cyclic+4,I3	// I3
+// jumped away
+//   Permit();
+	call _Permit
+	nop
+// jumped away
+F2B12:
+	ldy (I6),I3 ; ldx (I6)-1,I0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F2B9:
+//     }
+// {
+//       AddBefore((struct NODE *)cyclicNode, (struct NODE *)node);
+	call _AddBefore
+	mv A0,I3	// 'cyclicNode' -> I3
+// jumped away
+	call _Permit
+	ldc F2B12,LR0
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,AddCyclic	// 24 words
+	.export _AddCyclic
+_AddCyclic:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx A1,(I6) ; sty I0,(I6)
+//   Forbid();
+	call _Forbid
+	mv I2,I0	// I2 -> 'node'
+// jumped away
+//   DropCyclic(node);
+	call _DropCyclic
+	mv I0,I2	// 'node' -> I2
+// jumped away
+//   node->interval = interval;
+	ldx (I0)+5,NULL	// 'node' += 5
+	stx C0,(I0)+1
+//   node->nextActivation = ReadTimeCount() + timeToNextActivation;
+	call _ReadTimeCount
+	stx C1,(I0)-6
+// jumped away
+	add A,B,A ; mv I0,I2	// ET3 + 'timeToNextActivation' -> ET4
+	ldx (I2)+7,NULL	// ET6 += 7
+	stx A0,(I2)+1
+	stx A1,(I2)-1
+//   SetInCyclicQueue(node);
+	call _SetInCyclicQueue
+	mv I0,I2	// 'node' -> I2
+// jumped away
+//   Permit();
+	call _Permit
+	nop
+// jumped away
+	mv I0,A0	// 'node' returns via A0
+//   return node;
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,DropCyclic	// 31 words
+	.export _DropCyclic
+_DropCyclic:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx A1,(I6) ; sty B0,(I6)+1
+	mv I2,A1 ; and NULL,NULL,B0	// I2 -> 'node'
+// res
+// ();
+	call _Forbid
+	stx B1,(I6) ; sty I3,(I6)
+// jumped away
+//   cyclicNode = (struct CyclicNode *)HeadNode(&cyclic.queue);
+	ldc _cyclic+4,I3	// I3
+	call _HeadNode
+	ldc F4B8,LR0
+// jumped away
+F4B5:	// (loop lvl 2)
+//   }
+// {
+//     if (node == cyclicNode)
+	sub A1,A0,B1	// 'node' == 'cyclicNode' -> AT6
+	nop
+	jzs F4B9	// signed compare
+	nop
+// jumped away
+//     cyclicNode = (struct CyclicNode *)NextNode((struct NODE *)cyclicNode);
+	call _NextNode
+	mv A0,I3	// 'cyclicNode' -> I3
+// jumped away
+F4B8:	// (loop lvl 2)
+	sub A0,NULL,A0	// 'cyclicNode' != (0) -> (0)
+	nop
+	jzc F4B5	// signed compare
+	nop
+// jumped away
+	j F4B12
+	add B0,NULL,A1	// 'res' -> 'node'
+// jumped away
+F4B9:
+//     }
+// {
+//       RemNode(&node->node);
+	call _RemNode
+	mv A1,I3	// 'node' -> I3
+// jumped away
+F4B12:
+//   Permit();
+	call _Permit
+	nop
+// jumped away
+//   return res;
+	add A1,NULL,A0 ; ldy (I6),I3	// 'node' returns via A0
+	ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_x,cyclicinit_x	// 7 words
+	.export _cyclic
+_cyclic:
+	.zero 1
+	.zero 1
+	.zero 1
+	.zero 1
+	.zero 1
+	.zero 1
+	.zero 1
+
+//_____________________________________________________________
+//
+	.sect data_x,cyclicconst_x	// 8 words
+cyclic_1:
+	.word "cyclic"
+
+	.zero 1
+
+	.end

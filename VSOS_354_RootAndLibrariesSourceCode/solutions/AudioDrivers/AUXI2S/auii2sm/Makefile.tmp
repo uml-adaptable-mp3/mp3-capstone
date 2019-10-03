@@ -1,0 +1,3 @@
+clean:
+	del /F /Q "Emulation-Debug\*.*"
+

@@ -1,0 +1,2748 @@
+
+//_____________________________________________________________
+//
+	.sect code,NullFileIdentify	// 2 words
+	.export _NullFileIdentify
+_NullFileIdentify:
+// return "FNUL";
+	jr
+	ldc fnul_1,A0	// ET0
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,Identify	// 66 words
+	.export _Identify
+_Identify:
+	ldc x_2,A0	// ET0
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx I0,(I6)+1 ; ldy (I4)-2,NULL
+	ldx (I4)+2,A1	// unspill 'f' from #-2
+// (s,"@%x",f);
+	stx A1,(I6)+1	// 'f'
+	stx A0,(I6)+1	// ET0
+	ldc _s649c48,A0	// ET1
+	call _sprintf
+	stx A0,(I6)	// ET1
+// jumped away
+	ldx (I6)-3,NULL ; sub A1,NULL,A1	// I6 += -3
+// 	if (!f)
+	ldc nil_3,A0	// ET3
+	jzc F1B5	// signed compare
+	nop
+// jumped away
+// return "NIL";
+F1B1:
+	ldx (I6)-1,I0
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F1B5:
+// 	if (f->Identify)
+	sub A1,ONES,A0 ; ldy (I6)+1,NULL	// 'f' - (-1) -> AT1a
+	mv A0,I0	// AT1a -> ET5
+	ldx (I0),A0	// ET5 ==> 1 -> ET6
+	sub A0,NULL,A0 ; mv A1,I0	// ET6 == (0) -> (0)
+	nop
+	jzs F1B7	// signed compare
+	and NULL,NULL,B0 ; mv A0,LR0	// 0 -> 1 -> ET7
+// jumped away
+// return f->Identify(f,0,0);
+	stx B0,(I6)+1	// ET7
+	stx B0,(I6)	// ET8
+	jr
+	ldc lo(F1B8),LR0	// (return address)
+// jumped away
+F1B8:
+	j F1B1
+	ldx (I6)-2,NULL	// I6 += -2
+// jumped away
+F1B7:
+	ldc 6,A0	// 6 -> 1 -> ETa
+	add A1,A0,A0 ; ldy (I6)-1,NULL
+	mv A0,I0	// AT1b -> ETb
+// 	if (!(f->dev))
+	ldx (I0),A0	// ETb ==> 6 -> ETc
+	sub A0,NULL,A0	// ETc != (0) -> (0)
+	ldc 6,A0	// 6 -> 1 -> ETa
+	jzc F1B10	// signed compare
+	nop
+// jumped away
+// return "NUL";
+	j F1B1
+	ldc nul_4,A0	// ETd
+// jumped away
+F1B10:
+// 	if ((f->dev->Identify))
+	add A1,A0,A0	// 'f' + ETa -> AT1c
+	mv A0,I0	// AT1c -> ETb
+	ldx (I0),I0	// ETb ==> 6 -> ETe
+	ldx (I0)+1,NULL	// ETe += 1
+	ldx (I0),A0	// ETe ==> ETf
+	sub A0,NULL,A0	// ETf == (0) -> (0)
+	mv A0,LR0
+	jzs F1B12	// signed compare
+	nop
+// jumped away
+	mv A1,I0 ; and NULL,NULL,B0	// 0 -> 1 -> ET7
+	ldx (I6)+1,NULL	// I6 += 1
+// return f->dev->Identify(f,0,0);
+	stx B0,(I6)+1	// ET7
+	stx B0,(I6)	// ET8
+	jr
+	ldc lo(F1B13),LR0	// (return address)
+// jumped away
+F1B13:
+	j F1B1
+	ldx (I6)-2,NULL	// I6 += -2
+// jumped away
+F1B12:
+// 	return s;
+	j F1B1
+	ldc _s649c48,A0	// ET1
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,FreeBuffer	// 45 words
+	.export _FreeBuffer
+_FreeBuffer:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty I0,(I6)+1
+	stx I2,(I6) ; ldy (I4)-2,NULL
+	ldx (I4)+2,A1	// unspill 'b' from #-2
+// (!b)
+	sub A1,NULL,A1	// 'b' != (0) -> (0)
+	ldc _sbsP,B1
+	jzc F2B4	// signed compare
+	ldc 0,A0
+// jumped away
+F2B1:
+	ldx (I6)-1,I2
+	ldy (I6),I0 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+//   for (i=0; i<nSectorBuffers; i++)
+	ldc 0,A0	// 0 -> 'i'
+	ldc _sbsP,B1	// ET2
+F2B4:
+	mv A0,B0
+	j F2B8
+	ldc _nSectorBuffers,I2	// ET1
+// jumped away
+F2B5:	// (loop lvl 2)
+	add B1,A0,C0 ; ldy (I6)-1,NULL
+	mv C0,I0	// ATc -> ET3
+//   }
+// {
+//     if (sbsP[i] == b)
+	ldx (I0),C0	// ET3 ==> ET4
+	sub C0,A1,C0	// ET4 != 'b' -> ATa
+	nop
+	jzc F2B10	// signed compare
+	nop
+// jumped away
+//     }
+// {
+//       sbsP[i] = 0;
+	stx B0,(I0)	// ET5 ==> ET3
+F2B10:	// (loop lvl 2)
+	sub A0,ONES,A0	// 'i' - (-1) -> 'i'
+F2B8:	// (loop lvl 2)
+	ldx (I2),C0/*V*/ ; ldy (I6)+1,NULL	// ET1 ==> 'nSectorBuffers'
+	sub A0,C0,C0	// 'i' < 'nSectorBuffers' -> ATb
+	nop
+	jcc F2B5	// unsigned compare
+	nop	// I6 += 1
+// jumped away
+//   free(b);
+	call _free
+	stx A1,(I6)	// 'b'
+// jumped away
+	j F2B1
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,GetBuffer	// 128 words
+	.export _GetBuffer
+_GetBuffer:
+	ldx (I6)+1,NULL ; and NULL,NULL,A0	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx C1,(I6) ; sty I0,(I6)+1
+	stx I2,(I6) ; ldy (I4)-2,NULL
+// (i=0; i<nSectorBuffers; i++)
+	j F3B6
+	ldx (I4)+2,B0	// 0 -> 'i'
+// jumped away
+F3B3:	// (loop lvl 2)
+// 	}
+// {
+// 		if (sbsP[i] && (((sbsP[i]->f->flags &(1 << 0)) == 0) || (sbsP[i]->f==f)))
+	add A1,A0,A1	// ET2 + 'i' -> AT23
+	mv A1,I0	// AT23 -> ET3
+	ldx (I0),A1	// ET3 ==> ET4
+	sub A1,NULL,A1	// ET4 == (0) -> (0)
+	nop
+	jzs F3B8	// signed compare
+	nop
+// jumped away
+	ldc 256,B1	// 256 -> 1 -> ET5
+	add A1,B1,A1	// ET4 + ET5 -> AT25
+	mv A1,I0 ; sub NULL,ONES,A1	// AT25 -> ET6
+	ldx (I0),I0	// ET6 ==> ET7
+	ldx (I0),B1	// ET7 ==> ET8
+	and B1,A1,A1	// ET8 and ET9 -> ETa
+	mv I0,A1	// ET7 -> AT26
+	jzs F3B7	// compare against zero
+	sub A1,B0,A1	// AT26 == 'f' -> AT19
+// jumped away
+	nop
+	jzs F3B7	// signed compare
+	nop
+// jumped away
+F3B8:	// (loop lvl 2)
+	sub A0,ONES,A0	// 'i' - (-1) -> 'i'
+F3B6:	// (loop lvl 2)
+	ldc _nSectorBuffers,I0	// ET1
+	ldx (I0),A1/*V*/	// ET1 ==> 'nSectorBuffers'
+	sub A0,A1,A1	// 'i' < 'nSectorBuffers' -> AT17
+	ldc _sbsP,A1	// ET2
+	jcc F3B3	// unsigned compare
+	nop
+// jumped away
+// 	for (i=0; i<nSectorBuffers; i++)
+	ldc 256,B1	// 256 -> 1 -> ET5
+	ldc 0,A1	// 0 -> 'i'
+	j F3B15
+	ldc _sbsP,A0	// ET2
+// jumped away
+F3B12:	// (loop lvl 2)
+// 	}
+// {
+// 		if (sbsP[i] && !sbsP[i]->f)
+	add A0,A1,C0	// ET2 + 'i' -> AT27
+	mv C0,I2	// AT27 -> ET3
+	ldx (I2),C0	// ET3 ==> ET4
+	sub C0,NULL,C0	// ET4 == (0) -> (0)
+	nop
+	jzs F3B17	// signed compare
+	nop
+// jumped away
+	add C0,B1,C1	// ET4 + ET5 -> AT28
+	mv C1,I2	// AT28 -> ET6
+	ldx (I2),C1	// ET6 ==> ET7
+	sub C1,NULL,C1	// ET7 == (0) -> (0)
+	nop
+	jzs F3B16	// signed compare
+	nop
+// jumped away
+F3B17:	// (loop lvl 2)
+	sub A1,ONES,A1	// 'i' - (-1) -> 'i'
+F3B15:	// (loop lvl 2)
+	ldx (I0),C0/*V*/	// ET1 ==> 'nSectorBuffers'
+	sub A1,C0,C0	// 'i' < 'nSectorBuffers' -> AT1b
+	nop
+	jcc F3B12	// unsigned compare
+	nop
+// jumped away
+// 	for (i=0; i<nSectorBuffers; i++)
+	j F3B22
+	and NULL,NULL,A1	// 0 -> 'i'
+// jumped away
+F3B19:	// (loop lvl 2)
+// 	}
+// {
+// 	  if (!sbsP[i])
+	add A0,A1,A0 ; ldy (I6)+1,NULL	// ET2 + 'i' -> AT29
+	mv A0,I0	// AT29 -> ET3
+	ldx (I0),A0	// ET3 ==> ET4
+	sub A0,NULL,A0	// ET4 == (0) -> (0)
+	ldc 259,A0
+	jzs F3B23	// signed compare
+	nop
+// jumped away
+	ldx (I6)-1,NULL ; sub A1,ONES,A1
+F3B22:	// (loop lvl 2)
+	ldc _nSectorBuffers,I0	// ET1
+	ldx (I0),A0/*V*/	// ET1 ==> 'nSectorBuffers'
+	sub A1,A0,A0	// 'i' < 'nSectorBuffers' -> AT1f
+	ldc _sbsP,A0	// ET2
+	jcc F3B19	// unsigned compare
+	nop
+// jumped away
+	ldc outofbuf_6,A0	// ET13
+	ldx (I6)+1,NULL	// I6 += 1
+// 	SysError("Out of bufs");
+	call _SysError
+	stx A0,(I6)	// ET13
+// jumped away
+// 	return 0;
+	j F3B1
+	ldx (I6)-1,NULL ; and NULL,NULL,A0	// I6 += -1
+// jumped away
+F3B16:
+// 		}
+// {
+// 			sbsP[i]->f = f;
+	stx B0,(I2) ; add C0,NULL,A0	// 'f' ==> ET6
+// 			return sbsP[i];
+F3B1:
+	ldx (I6)-1,I2
+	ldy (I6),I0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	ldc 259,A0	// 259 -> 1 -> ETd
+	ldx (I6)+1,NULL	// I6 += 1
+F3B23:
+// 	  }
+// {
+// 	    if (!(sbsP[i] = calloc(1, sizeof(*sbsP[i]))))
+	stx A0,(I6)+1 ; sub NULL,ONES,A0	// ETd
+	call _calloc
+	stx A0,(I6)	// ET9
+// jumped away
+	stx A0,(I0) ; ldy (I6)-2,NULL	// I6 += -2
+	sub A0,NULL,A0	// ETe != (0) -> (0)
+	ldc _sbsP,A0	// ET2
+	jzc F3B26	// signed compare
+	nop
+// jumped away
+	ldc outofmem_5,A0	// ETf
+	ldx (I6)+1,NULL	// I6 += 1
+// 	    }
+// {
+// 	      SysError("Out of mem");
+	call _SysError
+	stx A0,(I6)	// ETf
+// jumped away
+	ldx (I6)-1,NULL	// I6 += -1
+F3B27:
+// 	    return sbsP[i];
+	ldc _sbsP,A0	// ET2
+	add A0,A1,A0	// ET2 + 'i' -> AT2c
+	mv A0,I0	// AT2c -> ET3
+	j F3B1
+	ldx (I0),A0	// ET3 ==> ET11
+// jumped away
+F3B26:
+// 	}
+// else {
+// 	      sbsP[i]->f = f;
+	add A0,A1,A0	// ET2 + 'i' -> AT2b
+	mv A0,I0	// AT2b -> ET3
+	ldc 256,A0	// 256 -> 1 -> ET5
+	ldx (I0),B1	// ET3 ==> ET11
+	add B1,A0,A0	// ET11 + ET5 -> AT2a
+	mv A0,I0	// AT2a -> ET12
+	j F3B27
+	stx B0,(I0)	// 'f' ==> ET12
+// jumped away
+F3B7:	// (loop lvl 2)
+	ldc _sbsP,A1	// ET2
+	add A1,A0,A1 ; ldy (I6)+1,NULL	// I6 += 1
+	mv A1,I0	// AT24 -> ET3
+// 		}
+// {
+// 			FreeBuffer(sbsP[i]);
+	ldx (I0),A1	// ET3 ==> ET4
+	call _FreeBuffer
+	stx A1,(I6)	// ET4
+// jumped away
+	j F3B8
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MakeFileDescriptor	// 201 words
+	.export _MakeFileDescriptor
+_MakeFileDescriptor:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx C1,(I6) ; sty D0,(I6)+1
+	stx D1,(I6) ; sty I0,(I6)+1
+	stx I1,(I6) ; sty I2,(I6)+1
+	stx I3,(I6) ; ldy (I4)-2,NULL
+
+// (!dev)
+	ldx (I4)+2,I1	// unspill 'dev' from #-2
+	mv I1,A0	// 'dev' -> AT51
+	sub A0,NULL,A0 ; mv I1,I0	// AT51 != (0) -> (0)
+	ldc 0,I2	// 0 -> 'f'
+	jzc F4B4	// signed compare
+	ldx (I0)+7,NULL
+// jumped away
+// return 0;
+	and NULL,NULL,A0	// 0 -> ET0
+F4B1:
+	ldx (I6)-1,I3
+	ldy (I6),I2 ; ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,D1
+	ldy (I6),D0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	mv I1,I0	// 'dev' -> ET2
+// 	if (!dev->fs)
+	ldx (I0)+7,NULL	// ET2 += 9
+F4B4:
+	ldx (I0)+2,NULL	// ...
+	ldx (I0),A0	// ET2 ==> 9 -> ET3
+	sub A0,NULL,A0	// ET3 == (0) -> (0)
+	nop
+	jzs F4B5	// signed compare
+	nop
+// jumped away
+// 	}
+// (i=0; i<vo_max_num_files; i++)
+	j F4B23
+	and NULL,NULL,B0	// 0 -> 'i'
+// jumped away
+F4B20:	// (loop lvl 2)
+// 		}
+// {
+// 			if (!((&vo_files[i])->flags &(1 << 0)))
+	muluu B0,A0	// 'i' * ET17 -> P
+	ldc _vo_files,A0	// ET16
+	add NULL,P,C	// P -> AT45
+	add A0,C0,A0	// ET16 + ET18 -> AT53
+	mv A0,I2 ; sub NULL,ONES,A0	// AT53 -> 'f'
+	ldx (I2),A1	// 'f' ==> ET1a
+	and A1,A0,A0	// ET1a and ETb -> ET1b
+	nop
+	jzs F4B24	// compare against zero
+	nop
+// jumped away
+	sub B0,ONES,B0	// 'i' - (-1) -> 'i'
+F4B23:	// (loop lvl 2)
+	ldc _vo_max_num_files,I0	// ET15
+	ldx (I0),A0/*V*/	// ET15 ==> 'vo_max_num_files'
+	sub B0,A0,B1	// 'i' < 'vo_max_num_files' -> AT47
+	ldc 27,A0	// 27 -> 1 -> ET17
+	jcc F4B20	// unsigned compare
+	nop
+// jumped away
+	j F4B19
+	nop
+// jumped away
+F4B24:
+	mv I2,I0 ; and NULL,NULL,A1	// 'f' -> I0
+// 			}
+// {
+// 				f = &vo_files[i];
+// 				memset(f,0,sizeof(struct file_descriptor));
+	call _memset
+	ldc 27,A0	// 27 -> A0
+// jumped away
+// 				if (kernelDebugLevel)
+	ldc _kernelDebugLevel,I0	// ETf
+	ldx (I0),A0/*V*/	// ETf ==> 'kernelDebugLevel'
+	sub A0,NULL,A0	// 'kernelDebugLevel' == (0) -> (0)
+	ldc 1024,A0
+	jzs F4B28	// signed compare
+	ldc _vo_stderr,I0	// ET11
+// jumped away
+	ldc dp_8,A0	// ET1d
+	ldx (I6)+1,NULL	// I6 += 1
+// vo_fprintf(vo_stderr,"[%d:%p] ",i,f);
+	stx I2,(I6)+1	// 'f'
+	stx B0,(I6)+1	// 'i'
+	stx A0,(I6)+1	// ET1d
+	ldx (I0),A0/*V*/	// ET11 ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+	ldc 1024,A0	// 1024 -> 1 -> ET20
+	ldx (I6)-4,NULL	// I6 += -4
+// 				if (!((dev)->flags &(1 << 10)))
+F4B28:
+	ldx (I1),A1	// 'dev' ==> ET1f
+	and A1,A0,A0	// ET1f and ET20 -> ET21
+	nop
+	jzc F4B31	// compare against zero
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+// 				}
+// {
+// 					if (!(f->sectorBuffer = (u_int16*)GetBuffer(f)))
+	call _GetBuffer
+	stx I2,(I6)	// 'f'
+// jumped away
+	mv I2,I0	// 'f' -> ET24
+	ldy (I0)+7,NULL ; ldx (I6)-1,NULL	// I6 += -1
+	ldx (I0)+1,NULL	// ...
+	stx A0,(I0) ; sub A0,NULL,A0	// ET22 ==> ET24
+	nop
+	jzc F4B33	// signed compare
+	nop
+// jumped away
+F4B19:
+	ldc outofdes_10,A0	// ET2b
+	ldx (I6)+1,NULL	// I6 += 1
+// 		SysError("Out of descriptors");
+	call _SysError
+	stx A0,(I6)	// ET2b
+// jumped away
+// 		return 0;
+	j F4B1
+	ldx (I6)-1,NULL ; and NULL,NULL,A0	// I6 += -1
+// jumped away
+F4B33:
+// 					if (kernelDebugLevel)
+	ldc _kernelDebugLevel,I0	// ETf
+	ldx (I0),A0/*V*/	// ETf ==> 'kernelDebugLevel'
+	sub A0,NULL,A0 ; mv I2,I0	// 'kernelDebugLevel' == (0) -> (0)
+	nop
+	jzs F4B31	// signed compare
+	nop	// 'f' -> ET24
+// jumped away
+	ldy (I0)+7,NULL ; ldx (I6)+1,NULL	// I6 += 1
+// vo_fprintf(vo_stderr,"Buf[%p] ",f->sectorBuffer);
+	ldx (I0)+1,NULL	// ...
+	ldx (I0),A0	// ET24 ==> 8 -> ET25
+	ldc _vo_stderr,I0	// ET11
+	stx A0,(I6)+1	// ET25
+	ldc bufp_9,A0	// ET26
+	stx A0,(I6)+1	// ET26
+	ldx (I0),A0/*V*/	// ET11 ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+	ldx (I6)-3,NULL	// I6 += -3
+F4B31:
+// 				f->flags =(1 << 0);
+	sub NULL,ONES,A0	// 1 -> 1 -> ETb
+	stx A0,(I2)+6	// ETb ==> 'f'
+// 				f->dev = dev;
+	stx I1,(I2)-6	// 'dev' ==> 'f'
+// 				goto fd_found;
+F4B18:
+	mv I2,I0 ; sub NULL,ONES,B1	// 1 -> 1 -> ETb
+	mv I1,I3	// 'dev' -> ET2d
+// 	f->flags =(1 << 0);
+	stx B1,(I2) ; ldy (I0)+6,NULL	// ETb ==> 'f'
+// 	f->dev = dev;
+	stx I1,(I0)-5 ; ldy (I3)+1,NULL	// 'dev' ==> ET28
+// 	f->Identify = dev->Identify;
+	ldx (I3)+7,A0	// ET2d ==> 1 -> ET2e
+	stx A0,(I0) ; ldy (I3)+1,NULL	// ET2e ==> ET28
+	mv I2,I0	// 'f' -> ET2f
+// 	if (dev->fs)
+	ldx (I3),B0 ; ldy (I0)+1,NULL	// ET2d ==> 9 -> ET3
+	sub B0,NULL,B0	// ET3 != (0) -> (0)
+	ldc 5,A0	// 5 -> 1 -> ET30
+	jzc F4B39	// signed compare
+	nop
+// jumped away
+// else if (((dev)->flags &(1 << 10)))
+	ldc 1024,A0	// 1024 -> 1 -> ET20
+	ldx (I1),A1	// 'dev' ==> ET1f
+	and A1,A0,A0 ; mv I1,A1	// ET1f and ET20 -> ET21
+	ldc 2,A0	// 2 -> 1 -> ET33
+	jzs F4B41	// compare against zero
+	nop	// 'dev' -> ET37
+// jumped away
+// 	}
+// {
+// 		f->op = (void*)((u_int16)dev + 2);
+	add A1,A0,A0 ; ldx (I2)+2,NULL	// ET37 + ET33 -> ET38
+	stx A0,(I2)-2	// ET38 ==> 'f'
+F4B41:
+// 	if (!f->op)
+	ldx (I2)+2,NULL	// 'f' += 2
+	ldx (I2)-2,A0	// 'f' ==> 2 -> ET3a
+	sub A0,NULL,A0 ; mv I2,I0	// ET3a != (0) -> (0)
+	nop
+	jzc F4B45	// signed compare
+	nop	// 'f' -> ET24
+// jumped away
+	ldy (I0)+7,NULL ; ldx (I6)+1,NULL	// I6 += 1
+// 	}
+// {
+// 		FreeBuffer((SectorBuffer*)(f->sectorBuffer));
+	ldx (I0)+1,NULL	// ...
+	ldx (I0),A0	// ET24 ==> 8 -> ET25
+	call _FreeBuffer
+	stx A0,(I6)	// ET25
+// jumped away
+	and NULL,NULL,A0 ; ldy (I6)-1,NULL	// I6 += -1
+// 		f->flags = 0;
+// 		return 0;
+	j F4B1
+	stx A0,(I2)	// ET4 ==> 'f'
+// jumped away
+F4B45:
+// 	return f;
+	j F4B1
+	mv I2,A0	// 'f' returns via A0
+// jumped away
+F4B39:
+// 	}
+// {
+// 		f->op = dev->fs->op;
+	add B0,A0,A0 ; ldy (I2)+2,NULL	// ET3 + ET30 -> AT54
+	mv A0,I1	// AT54 -> ET31
+	ldx (I1)-4,A0	// ET31 ==> ET32
+	stx A0,(I2)-2	// ET32 ==> 'f'
+// 		f->Identify = dev->fs->Identify;
+	ldx (I1),A0	// ET31 ==> ET36
+	j F4B41
+	stx A0,(I0)	// ET36 ==> ET2f
+// jumped away
+F4B5:
+// 	}
+// (i=0; i< 6; i++)
+	ldc 7,C0	// 7 -> 1 -> ET7
+	sub NULL,ONES,B1	// 1 -> 1 -> ETb
+	ldc 0,B0	// 0 -> 'i'
+	ldc _vo_simple_files,A1	// ET6
+	j F4B11
+	ldc 6,A0	// 6 -> 1 -> ET5
+// jumped away
+F4B8:	// (loop lvl 2)
+// 		}
+// {
+// 			if (!((&vo_simple_files[i])->flags &(1 << 0)))
+	muluu B0,C0	// 'i' * ET7 -> P
+	add NULL,P,D	// P -> AT3f
+	add A1,D0,C1	// ET6 + ET8 -> AT52
+	mv C1,I2	// AT52 -> 'f'
+	ldx (I2),C1	// 'f' ==> ETa
+	and C1,B1,C1	// ETa and ETb -> ETc
+	nop
+	jzs F4B12	// compare against zero
+	nop
+// jumped away
+	sub B0,ONES,B0	// 'i' - (-1) -> 'i'
+F4B11:	// (loop lvl 2)
+	sub B0,A0,C1	// 'i' < ET5 -> AT41
+	nop
+	jcc F4B8	// unsigned compare
+	nop
+// jumped away
+	j F4B19
+	nop
+// jumped away
+F4B12:
+	mv I2,I0 ; and NULL,NULL,A1	// 'f' -> I0
+// 			}
+// {
+// 				f = (struct file_descriptor *)&vo_simple_files[i];
+// 				memset(f,0,sizeof(struct simple_file_descriptor));
+	call _memset
+	ldc 7,A0	// 7 -> A0
+// jumped away
+// 				f->flags =(1 << 0);
+	ldc _kernelDebugLevel,I0	// ETf
+	stx B1,(I2)	// ETb ==> 'f'
+// 				if (kernelDebugLevel)
+	ldx (I0),A0/*V*/	// ETf ==> 'kernelDebugLevel'
+	sub A0,NULL,A0	// 'kernelDebugLevel' != (0) -> (0)
+	ldc simpled_7,A0	// ET10
+	jzs F4B18	// signed compare
+	ldc _vo_stderr,I0	// ET11
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+// vo_fprintf(vo_stderr,"Simple[%d:%p] ",i,f);
+	stx I2,(I6)+1	// 'f'
+	stx B0,(I6)+1	// 'i'
+	stx A0,(I6)+1	// ET10
+	ldx (I0),A0/*V*/	// ET11 ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+	j F4B18
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,ioctl	// 58 words
+	.export _ioctl
+_ioctl:
+	mv I2,A0	// 'p' -> AT18
+	stx LR0,(I6)+1 ; sub A0,NULL,A0
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I0,(I6)
+// res
+// (!p)
+	jzs F5B3	// signed compare
+	ldc 2048,A0	// 2048 -> 1 -> ET3
+// jumped away
+// 	if ((((struct file_descriptor *)p)->flags &(1 << 11)))
+	ldx (I2)+2,A1	// 'p' ==> ET2
+	and A1,A0,A0	// ET2 and ET3 -> ET4
+	ldx (I2)+2,A0	// 'p' ==> 2 -> ET7
+	jzc F5B5	// compare against zero
+	nop
+// jumped away
+// 	}
+// dp
+// (!dp->Ioctl)
+	ldx (I2)-4,A0	// 'p' ==> 4 -> ETd
+	sub A0,NULL,A0 ; mv I2,I0	// ETd == (0) -> (0)
+	nop
+	jzs F5B12	// signed compare
+	nop	// 'p' -> I0
+// jumped away
+	ldx (I6)+1,NULL ; ldy (I2)+4,NULL	// I6 += 1
+// 		res = dp->Ioctl(dp, request, arg);
+	stx I1,(I6)+1	// 'arg'
+	stx C0,(I6)	// 'request'
+	ldx (I2),A0	// 'p' ==> 4 -> ETd
+	mv A0,LR0
+	jr
+	ldc lo(F5B14),LR0	// (return address)
+// jumped away
+F5B14:
+	ldx (I6)-2,NULL	// I6 += -2
+F5B1:
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F5B12:
+// 		}
+// {
+// 			return -1;
+	j F5B1
+	or NULL,ONES,A0	// -1 -> 0 -> ET1
+// jumped away
+F5B5:
+// 	}
+// fp
+// (!fp->op || !fp->op->Ioctl)
+	sub A0,NULL,A0 ; ldx (I2)-4,NULL	// ET7 == (0) -> (0)
+	ldc 2,A1	// 2 -> 1 -> ET5
+	jzs F5B8	// signed compare
+	add A0,A1,A0	// ET7 + ET5 -> AT19
+// jumped away
+	mv A0,I0	// AT19 -> ET8
+	ldx (I0),A0	// ET8 ==> ET9
+	sub A0,NULL,A0 ; mv I2,I0	// ET9 == (0) -> (0)
+	nop
+	jzs F5B8	// signed compare
+	nop	// 'p' -> I0
+// jumped away
+	ldx (I6)+1,NULL ; ldy (I2)+2,NULL	// I6 += 1
+// 		res = fp->op->Ioctl(fp, request, arg);
+	stx I1,(I6)+1	// 'arg'
+	stx C0,(I6)	// 'request'
+	ldx (I2),I2	// 'p' ==> 2 -> ET8
+	ldx (I2)+2,NULL	// ET8 += 2
+	ldx (I2),A0	// ET8 ==> ET9
+	mv A0,LR0
+	jr
+	ldc lo(F5B11),LR0	// (return address)
+// jumped away
+F5B11:
+	j F5B1
+	ldx (I6)-2,NULL	// I6 += -2
+// jumped away
+F5B8:
+// 		}
+// {
+// 			return -1;
+	j F5B1
+	or NULL,ONES,A0	// -1 -> 0 -> ET1
+// jumped away
+F5B3:
+// 	}
+// {
+// 		return -1;
+	j F5B1
+	or NULL,ONES,A0	// -1 -> 0 -> ET1
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fgetc	// 60 words
+	.export _vo_fgetc
+_vo_fgetc:
+	ldx (I6)+1,NULL ; and NULL,NULL,A0	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+2,I4
+	stx A1,(I6) ; sty I0,(I6)+1
+	ldc 47,A1	// 47 -> 1 -> ET2
+	stx I1,(I6) ; sty I2,(I6)
+	ldx (I4)+1,NULL	// I4 += 1
+
+	stx A0,(I4)-3
+// (!(((stream)->flags & ((1 << 0) |(1 << 1) |(1 << 3) |(1 << 5) |(1 << 2))) == ((1 << 0) |(1 << 1) |(1 << 5))))
+	ldx (I4)+2,I2	// unspill 'stream' from #-2
+	ldx (I2),A0	// 'stream' ==> ET1
+	and A0,A1,A1	// ET1 and ET2 -> ET3
+	ldc 35,A0	// 35 -> 1 -> ET4
+	sub A1,A0,A0	// ET3 == ET4 -> AT1c
+	ldc 256,A1
+	jzs F6B4	// unsigned compare
+	or NULL,ONES,A0	// -1 -> 0 -> ET5
+// jumped away
+// 	}
+// {
+// 		return(-1);
+F6B1:
+	ldy (I6),I2 ; ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+// 	if (((stream)->flags &(1 << 8)))
+	ldc 256,A1	// 256 -> 1 -> ET6
+F6B4:
+	ldx (I2),A0 ; ldy (I4)+1,NULL	// 'stream' ==> ET1
+	and A0,A1,A1 ; ldy (I6)+1,NULL	// ET1 and ET6 -> ET7
+	nop
+	jzs F6B6	// compare against zero
+	nop	// I4 += 1
+// jumped away
+	ldc 65279,A1	// 65279 -> 1 -> ET8
+	ldx (I4)-1,NULL ; ldy (I6)-1,NULL
+// 	}
+// {
+// 		stream->flags &= ~(1 << 8);
+	and A0,A1,A0	// ET1 and ET8 -> ET9
+	stx A0,(I2)+5	// ET9 ==> 'stream'
+// 		return (int)stream->ungetc_buffer;
+	j F6B1
+	ldx (I2),A0	// 'stream' ==> 5 -> ETc
+// jumped away
+F6B6:
+// 	stream->op->Read(stream, &c, 1, 1);
+	sub NULL,ONES,A0 ; mv I2,I0	// 1 -> 1 -> ETe
+	stx A0,(I6)+1 ; ldy (I2)+2,NULL	// ETe
+	stx A0,(I6)+1	// ETe
+	stx I4,(I6) ; ldy (I4)-1,NULL	// ETf
+	ldx (I2)-2,I1	// 'stream' ==> 2 -> ET12
+	ldx (I1)+3,NULL	// ET12 += 3
+	ldx (I1),A0	// ET12 ==> ET15
+	mv A0,LR0
+	jr
+	ldc lo(F6B7),LR0	// (return address)
+// jumped away
+F6B7:
+	ldc 8,A1	// 8 -> 1 -> ET17
+	ldx (I2),A0 ; ldy (I6)-3,NULL	// I6 += -3
+// 	if (((stream)->flags &(1 << 3)) ||((stream)->flags &(1 << 2)))
+	and A0,A1,A1	// ET1 and ET17 -> ET18
+	ldc 4,A1	// 4 -> 1 -> ET19
+	jzc F6B8	// compare against zero
+	and A0,A1,A0	// ET1 and ET19 -> ET1a
+// jumped away
+	nop	// I4 += 1
+	jzs F6B9	// compare against zero
+	ldx (I4)+1,NULL
+// jumped away
+	ldx (I4)-1,NULL
+F6B8:
+// 	}
+// {
+// 		return(-1);
+	j F6B1
+	or NULL,ONES,A0	// -1 -> 0 -> ET5
+// jumped away
+F6B9:
+// 	return c;
+	j F6B1
+	ldx (I4)-1,A0	// I4 ==> ET1b
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fgets	// 48 words
+	.export _vo_fgets
+_vo_fgets:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	ldc 10,C0	// 10 -> 0 -> ET7
+	stx C1,(I6) ; sty I0,(I6)
+	ldx (I4)-2,NULL	// I4 += -2
+// org
+// ((n>1) && ((c = vo_fgetc(stream)) !=(-1)))
+	ldx (I4)-1,I0	// unspill AT10 from #-2
+	mv I0,A1	// AT10 -> 'org'
+	ldx (I4)-1,B0	// unspill AT11 from #-3
+	j F7B6
+	ldx (I4)+4,B1	// unspill 'stream' from #-4
+// jumped away
+F7B7:	// (loop lvl 2)
+	call _vo_fgetc
+	stx B1,(I6)	// 'stream'
+// jumped away
+	ldx (I6)-1,NULL ; sub A0,ONES,C1	// I6 += -1
+	nop
+	jzs F7B18	// signed compare
+	nop
+// jumped away
+// 	}
+// {
+// 		n--;
+	add B0,ONES,B0 ; stx A0,(I0)+1	// AT11 + (-1) -> AT11
+// 		*str++ = c;
+// 		if (c == '\n')
+	sub A0,C0,C1	// 'c' == ET7 -> ATa
+	nop
+	jzs F7B18	// signed compare
+	nop
+// jumped away
+F7B6:	// (loop lvl 2)
+	add B0,ONES,C1 ; ldx (I6)+1,NULL	// AT11 > (-1) -> ATc
+	nop	// I6 += 1
+	jgt F7B7	// signed compare
+	nop
+// jumped away
+	ldx (I6)-1,NULL
+F7B18:
+	mv I0,B0	// AT10 -> 'str'
+// 	if (org != str)
+	sub A1,B0,B1 ; mv B0,I0	// 'org' != 'str' -> ATb
+	ldc 0,A0
+	jzc F7B11	// signed compare
+	nop	// 0 -> 'org'
+// jumped away
+	mv A0,A1
+// 	}
+// else {
+// 		org = 0;
+F7B13:
+// 	return org;
+	add A1,NULL,A0 ; ldy (I6),I0	// 'org' returns via A0
+	ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	mv B0,I0 ; and NULL,NULL,A0	// 'str' -> ET5
+F7B11:
+// 	}
+// {
+// 		*str++ = '\0';
+	j F7B13
+	stx A0,(I0)	// ET8 ==> ET5
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_ftell	// 23 words
+	.export _vo_ftell
+_vo_ftell:
+	ldx (I6)+2,NULL	// I6 += 2
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx B0,(I6) ; sty B1,(I6)+1
+	ldc 256,B0	// 256 -> 1 -> ET6
+	stx C0,(I6) ; sty I0,(I6)+1
+	stx I2,(I6) ; ldy (I4)-2,NULL
+	ldx (I4)+2,I0	// unspill 'stream' from #-2
+	mv I0,I2	// 'stream' -> ET1
+// 	return stream->pos - ((((stream)->flags &(1 << 8))) ? 1 : 0);
+	ldy (I2)+3,NULL ; ldx (I0),B1	// ET1 += 3
+	ldx (I2)+1,A0 ; and B1,B0,C0
+	ldx (I2)-1,A1 ; sub NULL,ONES,B0
+	sub C0,NULL,C0	// ET7 != (0) -> (0)
+	ldc 0,B1	// 0 -> B1
+	jzc F8B4	// unsigned compare
+	nop
+// jumped away
+	and B,NULL,B	// 0 -> AT4
+F8B4:
+	sub A,B,A ; ldx (I6)-1,I2	// ET2 - AT4 -> ET9
+	ldy (I6),I0 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldx (I4),I6 ; ldy (I4),I4
+	jr
+	ldx (I6)-2,NULL
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fseek	// 91 words
+	.export _vo_fseek
+_vo_fseek:
+	ldc 27,A0	// 27 -> 1 -> ET1
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx I0,(I6) ; sty I2,(I6)
+	ldx (I4)-2,NULL	// I4 += -2
+// (!((((stream)->flags & ((1 << 0) |(1 << 1) |(1 << 3) |(1 << 4))) == ((1 << 0) |(1 << 1) |(1 << 4)))))
+	ldx (I4)+2,I0	// unspill 'stream' from #-2
+	ldx (I0),A1	// 'stream' ==> ET0
+	and A1,A0,A0	// ET0 and ET1 -> ET2
+	ldc 19,A1	// 19 -> 1 -> ET3
+	sub A0,A1,A0	// ET2 == ET3 -> AT21
+	ldc 79,A1
+	jzs F9B4	// unsigned compare
+	or NULL,ONES,A0	// -1 -> 0 -> ET4
+// jumped away
+//   }
+// {
+//     return -1;
+F9B1:
+	ldy (I6),I2 ; ldx (I6)-1,I0
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+//   if ((((stream)->flags & ((1 << 0) |(1 << 1) |(1 << 3) |(1 << 6) |(1 << 2))) == ((1 << 0) |(1 << 1) |(1 << 6))))
+	ldc 79,A1	// 79 -> 1 -> ET5
+F9B4:
+	ldx (I0),A0 ; ldy (I4)-5,NULL	// 'stream' ==> ET0
+	and A0,A1,A1	// ET0 and ET5 -> ET6
+	ldc 67,A0	// 67 -> 1 -> ET7
+	sub A1,A0,A0	// ET6 != ET7 -> AT23
+	ldx (I4),A0
+	jzc F9B6	// unsigned compare
+	nop
+// jumped away
+	ldy (I6)+1,NULL ; ldx (I4)+5,NULL
+//   }
+// {
+//  vo_fflush(stream);
+	call _vo_fflush
+	stx I0,(I6)	// 'stream'
+// jumped away
+	ldy (I4)-5,NULL ; ldx (I6)-1,NULL	// I6 += -1
+//   if (origin == 0)
+	ldx (I4),A0	// unspill 'origin' from #-5
+F9B6:
+	sub A0,NULL,A0 ; mv I0,I2	// 'origin' == (0) -> (0)
+	ldc 2,A1	// 2 -> 0 -> ETa
+	jzs F9B8	// signed compare
+	sub A0,A1,A1 ; ldx (I4)+1,NULL	// 'origin' == ETa -> AT25
+// jumped away
+// else if (origin == 2)
+	nop	// I4 += -4
+	jzs F9B11	// signed compare
+	ldy (I2)+7,NULL	// 'stream' -> ETc
+// jumped away
+// else if (origin == 1)
+	add A0,ONES,A0 ; mv I0,I2	// 'origin' == (-1) -> AT27
+	ldy (I2)+3,NULL	// 'stream' -> ET13
+	jzs F9B14	// signed compare
+	ldx (I2)+1,B0
+// jumped away
+//   }
+// else {
+//     return -1;
+	j F9B1
+	ldx (I4)+4,NULL ; or NULL,ONES,A0
+// jumped away
+F9B14:
+//   }
+// {
+//     newpos = stream->pos + offset - ((((stream)->flags &(1 << 8))) ? 1 : 0);
+	ldx (I2)-1,B1
+	ldx (I4)+1,A0	// unspill A0 from #0
+	ldx (I4)+3,A1	// unspill A1 from #0
+	add B,A,A ; ldx (I0),B0	// ET14 + 'offset' -> ET15
+	ldc 256,B1	// 256 -> 1 -> ET18
+	and B0,B1,C0	// ET0 and ET18 -> ET19
+	sub NULL,ONES,B0	// 1 -> B0
+	sub C0,NULL,C0	// ET19 != (0) -> (0)
+	ldc 0,B1	// 0 -> B1
+	jzc F9B18	// unsigned compare
+	nop
+// jumped away
+	and B,NULL,B	// 0 -> AT17
+F9B18:
+	sub A,B,A	// ET15 - AT17 -> AT2f
+F9B10:
+	mv A1,A1	// update guard bits (cmp)
+// 	if (newpos < 0 || newpos > stream->fileSize)
+	sub A,NULL,A ; mv I0,I2	// AT2f < (0) -> (0)
+	ldx (I2)+7,NULL	// ETc += 12
+	jlt F9B19	// signed compare
+	ldx (I2)+5,NULL	// ...
+// jumped away
+	ldx (I2)+1,B0
+	ldx (I2)-1,B1
+	sub B,A,B	// ETd <= AT2f -> AT2c
+	ldc 65275,B1	// 65275 -> 1 -> ET1f
+	jcs F9B20	// unsigned compare
+	ldx (I0),B0	// 'stream' ==> ET0
+// jumped away
+F9B19:
+// 	}
+// {
+//     return -1;
+	j F9B1
+	or NULL,ONES,A0	// -1 -> 0 -> ET4
+// jumped away
+F9B20:
+//   stream->flags &= ~((1 << 8) |(1 << 2));
+	and B0,B1,B0	// ET0 and ET1f -> ET20
+	stx B0,(I0)+3	// ET20 ==> 'stream'
+//   stream->pos = newpos;
+	stx A0,(I0)+1 ; and NULL,NULL,A0
+//   return 0;
+	j F9B1
+	stx A1,(I0)-1
+// jumped away
+F9B11:
+//   }
+// {
+//     newpos = stream->fileSize + offset;
+	ldy (I2)+5,NULL ; ldx (I4)+1,A0	// ...
+	ldx (I2)+1,B0
+	ldx (I2)-1,B1
+	ldx (I4)+3,A1	// unspill A1 from #0
+	j F9B10
+	add B,A,A	// ETd + 'offset' -> AT2f
+// jumped away
+F9B8:
+//   }
+// {
+//     newpos = offset;
+	ldx (I4)+1,A0	// unspill A0 from #0
+	j F9B10
+	ldx (I4)+3,A1	// unspill A1 from #0
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fputc	// 37 words
+	.export _vo_fputc
+_vo_fputc:
+	ldx (I6)+1,NULL ; sub NULL,ONES,A0	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+2,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx I0,(I6) ; sty I1,(I6)+1
+	stx I2,(I6)+1 ; ldy (I4)-2,NULL
+
+	ldx (I4)+3,A1	// unspill 'ch' from #-2
+	stx A1,(I4)
+// ->op->Write(stream, &c, 1, 1);
+	stx A0,(I6)+1	// ET1
+	stx A0,(I6)+1	// ET1
+	stx I4,(I6) ; ldy (I4)-4,NULL	// ET2
+	ldx (I4)+3,I2	// unspill 'stream' from #-3
+	mv I2,I0	// 'stream' -> I0
+	ldx (I2)+2,NULL	// 'stream' += 2
+	ldx (I2)-2,I1	// 'stream' ==> 2 -> ET5
+	ldx (I1)+4,NULL	// ET5 += 4
+	ldx (I1),A0	// ET5 ==> ET8
+	mv A0,LR0
+	jr
+	ldc lo(F10B3),LR0	// (return address)
+// jumped away
+F10B3:
+	ldc 8,A0	// 8 -> 1 -> ETb
+	ldx (I2),B0 ; ldy (I6)-3,NULL	// I6 += -3
+// 	if (((stream)->flags &(1 << 3)))
+	and B0,A0,A0	// ETa and ETb -> ETc
+	nop
+	jzs F10B5	// compare against zero
+	or NULL,ONES,A0	// -1 -> 0 -> ETd
+// jumped away
+// 	}
+// {
+// 		return(-1);
+F10B1:
+	ldx (I6)-1,I2
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F10B5:
+// 	return ch;
+	j F10B1
+	add A1,NULL,A0	// 'ch' returns via A0
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fputs	// 29 words
+	.export _vo_fputs
+_vo_fputs:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I0,(I6)
+	ldx (I4)-2,NULL	// I4 += -2
+	ldx (I4)-1,I0	// unspill ATc from #-2
+	j F11B6
+	ldx (I4)+3,A1	// unspill 'stream' from #-3
+// jumped away
+F11B3:	// (loop lvl 2)
+// 	}
+// {
+// 		if (vo_fputc(*str++, stream) < 0)
+	stx A1,(I6)+1	// 'stream'
+	ldx (I0)+1,A0	// ATc ==> ET4
+	call _vo_fputc
+	stx A0,(I6)	// ET4
+// jumped away
+	sub A0,NULL,A0 ; ldx (I6)-2,NULL	// I6 += -2
+	nop
+	jlt F11B7	// signed compare
+	or NULL,ONES,A0	// -1 -> 0 -> ET7
+// jumped away
+F11B6:	// (loop lvl 2)
+	ldx (I0),A0 ; ldy (I6)+1,NULL	// ATc ==> ET0
+	sub A0,NULL,A0	// ET0 != (0) -> (0)
+	nop
+	jzc F11B3	// signed compare
+	nop	// I6 += 1
+// jumped away
+	ldx (I6)-1,NULL ; and NULL,NULL,A0
+// 	return 0;
+F11B7:
+// 		}
+// {
+// 			return(-1);
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_puts	// 28 words
+	.export _vo_puts
+_vo_puts:
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx I0,(I6)+1
+	ldc _vo_stdout,I0	// ET0
+// 	if (vo_fputs(s, vo_stdout) ==(-1))
+	ldx (I0),A0/*V*/	// ET0 ==> 'vo_stdout'
+	stx A0,(I6)+1	// 'vo_stdout'
+	call _vo_fputs
+	stx I2,(I6)	// 's'
+// jumped away
+	ldx (I6)-2,NULL ; sub A0,ONES,A0	// I6 += -2
+	ldc _vo_stdout,I0
+	jzc F12B4	// signed compare
+	nop
+// jumped away
+// 	  return(-1);
+	or NULL,ONES,A0	// -1 -> 0 -> ET2
+F12B1:
+	ldx (I6)-1,I0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	ldc _vo_stdout,I0	// ET0
+F12B4:
+	ldy (I6)+1,NULL ; ldx (I0),A0/*V*/	// I6 += 1
+// 	return vo_fputc('\n', vo_stdout);
+	stx A0,(I6)+1	// 'vo_stdout'
+	ldc 10,A0	// 10 -> 0 -> ET3
+	call _vo_fputc
+	stx A0,(I6)	// ET3
+// jumped away
+	j F12B1
+	ldx (I6)-2,NULL	// I6 += -2
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_ungetc	// 25 words
+	.export _vo_ungetc
+_vo_ungetc:
+	ldx (I6)+2,NULL	// I6 += 2
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I0,(I6)
+	ldc 299,A1	// 299 -> 1 -> ET1
+	ldx (I4)-3,NULL	// I4 += -3
+	ldx (I4)+3,I0	// unspill 'stream' from #-3
+// 	if (!((((stream)->flags & ((1 << 0) |(1 << 1) |(1 << 3) |(1 << 5) |(1 << 8))) == ((1 << 0) |(1 << 1) |(1 << 5)))))
+	ldx (I0),A0	// 'stream' ==> ET0
+	and A0,A1,A1	// ET0 and ET1 -> ET2
+	ldc 35,A0	// 35 -> 1 -> ET3
+	sub A1,A0,A0	// ET2 == ET3 -> ATa
+	ldc 256,A1
+	jzs F13B4	// unsigned compare
+	or NULL,ONES,A0	// -1 -> 0 -> ET4
+// jumped away
+// 	}
+// {
+// 		return(-1);
+F13B1:
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	jr
+	ldx (I6)-2,NULL
+// jumped away
+	ldc 256,A1	// 256 -> 1 -> ET5
+F13B4:
+	ldx (I0),A0 ; ldy (I4)-2,NULL	// I4 += -2
+// 	stream->flags |=(1 << 8);
+	or A0,A1,A0	// ET0 or ET5 -> ET6
+	stx A0,(I0)+5	// ET6 ==> 'stream'
+// 	stream->ungetc_buffer = ch;
+	ldx (I4)+2,A0	// unspill 'ch' from #0
+// 	return ch;
+	j F13B1
+	stx A0,(I0)	// 'ch' ==> 'stream'
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fread	// 79 words
+	.export _vo_fread
+_vo_fread:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx I0,(I6)+1 ; sty I2,(I6)
+	ldx (I4)-4,NULL ; and NULL,NULL,B0	// I4 += -4
+// sizeBytes
+	ldx (I4)+1,A0	// unspill 'nobj' from #0
+	ldx (I4)-2,B1	// unspill 'size' from #-3
+	muluu A0,B1 ; ldx (I4)+5,I2	// 'nobj' * 'size' -> P
+	add NULL,P,A	// P -> AT22
+	add A0,A0,A1 ; mv I2,A0	// ET0 + ET0 -> 'sizeBytes'
+// readBytes
+// (!stream)
+	sub A0,NULL,A0	// AT2e == (0) -> (0)
+	ldc devnullrd_11,A0	// ET4
+	jzs F14B3	// signed compare
+	nop	// I6 += 1
+// jumped away
+F14B4:
+	ldc 47,A0	// 47 -> 1 -> ET7
+	ldx (I2),C0 ; ldy (I6)-1,NULL
+// 	if (!((((stream)->flags & ((1 << 0) |(1 << 1) |(1 << 3) |(1 << 5) |(1 << 2))) == ((1 << 0) |(1 << 1) |(1 << 5)))) || (!sizeBytes))
+	and C0,A0,C0	// ET6 and ET7 -> ET8
+	ldc 35,A0	// 35 -> 1 -> ET9
+	sub C0,A0,A0	// ET8 != ET9 -> AT24
+	ldc 256,C0	// 256 -> 1 -> ETa
+	jzc F14B6	// unsigned compare
+	sub A1,NULL,A1	// 'sizeBytes' == (0) -> (0)
+// jumped away
+	nop
+	jzs F14B6	// unsigned compare
+	nop
+// jumped away
+// 	if (stream->flags &(1 << 8))
+	ldx (I2),A0 ; ldy (I4)-2,NULL	// 'stream' ==> ET6
+	and A0,C0,A0 ; ldy (I6)+1,NULL	// ET6 and ETa -> ETb
+	nop
+	jzs F14B15	// compare against zero
+	nop
+// jumped away
+// 	}
+
+// (u_int16*)p = (vo_fgetc(stream) << 8);
+	ldc 8,B0	// 8 -> 0 -> ETd
+	stx I2,(I6)	// 'stream'
+	call _vo_fgetc
+	ldx (I4)+2,I0	// unspill AT30 from #-2
+// jumped away
+	ashl A0,B0,A0	// I6 += 1
+	stx A0,(I0)	// ETe ==> AT30
+// 		*(u_int16*)p++ |= (vo_fgetc(stream));
+	call _vo_fgetc
+	stx I2,(I6)	// 'stream'
+// jumped away
+	add A0,NULL,B0 ; ldx (I0),A0	// A0 -> ET10
+	or A0,B0,A0 ; ldy (I6)-1,NULL	// ET15 or ET10 -> ET16
+	stx A0,(I0)+1	// ET16 ==> AT30
+// 		ptr = p;
+// 		sizeBytes -= 2;
+	ldc 2,A0	// 2 -> 1 -> ET1
+// 		readBytes = 2;
+	mv A0,B0 ; sub A1,A0,A1
+F14B10:
+	ldx (I6)+1,NULL ; and NULL,NULL,A0	// I6 += 1
+// 	readBytes += stream->op->Read(stream, ptr, 0, sizeBytes);
+	stx A1,(I6)+1	// 'sizeBytes'
+	stx A0,(I6)+1	// ET3
+	stx I0,(I6)	// AT30
+	mv I2,I0	// 'stream' -> I0
+	ldx (I2)+2,NULL	// 'stream' += 2
+	ldx (I2),I2	// 'stream' ==> 2 -> ET19
+	ldx (I2)+3,NULL	// ET19 += 3
+	ldx (I2),A0	// ET19 ==> ET1c
+	mv A0,LR0
+	jr
+	ldc lo(F14B13),LR0	// (return address)
+// jumped away
+F14B13:
+	add A0,NULL,C0 ; ldx (I6)-3,NULL	// I6 += -3
+	add B0,A0,B0	// 'readBytes' + ET1d -> 'readBytes'
+	add B1,B1,B1	// 'size' + 'size' -> ET1f
+// 	return readBytes / (size * 2);
+	call divide16unsigned
+	add B1,NULL,A0	// ET1f -> A0
+// jumped away
+F14B1:
+	ldy (I6),I2 ; ldx (I6)-1,I0
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	ldx (I4)-2,NULL ; ldy (I6)+1,NULL	// I4 += -2
+F14B15:
+	j F14B10
+	ldy (I6)-1,NULL ; ldx (I4)+2,I0
+// jumped away
+F14B6:
+// 	}
+// {
+// 		return 0;
+	j F14B1
+	and NULL,NULL,A0	// 0 -> 1 -> ET3
+// jumped away
+F14B3:
+// 	}
+// {
+// 		SysError("DevNullRd");
+	stx A0,(I6)	// ET4
+	call _SysError
+	ldc F14B4,LR0
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fwrite	// 44 words
+	.export _vo_fwrite
+_vo_fwrite:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty I0,(I6)+1
+	stx I2,(I6) ; ldy (I4)-4,NULL
+// sizeBytes
+	ldx (I4)+1,A0	// unspill 'nobj' from #0
+	ldx (I4)-2,A1	// unspill 'size' from #-3
+	muluu A0,A1 ; ldx (I4)+5,I2	// 'nobj' * 'size' -> P
+	add NULL,P,B ; mv I2,I0	// P -> AT11
+	add B0,B0,A0 ; ldx (I2),B1	// ET0 + ET0 -> 'sizeBytes'
+// (!(((stream)->flags & ((1 << 0) |(1 << 1) |(1 << 3) |(1 << 6) |(1 << 2))) == ((1 << 0) |(1 << 1) |(1 << 6))))
+	ldc 79,B0	// 79 -> 1 -> ET4
+	and B1,B0,B0	// ET3 and ET4 -> ET5
+	ldc 67,B1	// 67 -> 1 -> ET6
+	sub B0,B1,B0	// ET5 != ET6 -> AT12
+	nop	// 0 -> 1 -> ET7
+	jzc F15B3	// unsigned compare
+	nop
+// jumped away
+	ldy (I6)+1,NULL ; ldx (I4)-2,NULL	// I4 += -2
+// 	return stream->op->Write(stream, ptr, 0, sizeBytes) / (size * 2);
+	stx A0,(I6)+1 ; and NULL,NULL,A0	// 'sizeBytes'
+	stx A0,(I6)+1 ; ldy (I2)+2,NULL	// ET7
+	ldx (I4)+2,A0	// unspill 'ptr' from #0
+	stx A0,(I6)	// 'ptr'
+	ldx (I2),I2	// 'stream' ==> 2 -> ET9
+	ldx (I2)+4,NULL	// ET9 += 4
+	ldx (I2),A0	// ET9 ==> ETc
+	mv A0,LR0
+	jr
+	ldc lo(F15B5),LR0	// (return address)
+// jumped away
+F15B5:
+	add A0,NULL,B0 ; ldx (I6)-3,NULL	// I6 += -3
+	add A1,A1,B1	// 'size' + 'size' -> ETe
+	call divide16unsigned
+	add B1,NULL,A0	// ETe -> A0
+// jumped away
+F15B1:
+	ldx (I6)-1,I2
+	ldy (I6),I0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F15B3:
+// 	}
+// {
+// 		return 0;
+	j F15B1
+	and NULL,NULL,A0	// 0 -> 1 -> ET7
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,StartFileSystem	// 67 words
+	.export _StartFileSystem
+_StartFileSystem:
+	ldc _nullFile,A0	// ET0
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx C1,(I6) ; sty D0,(I6)+1
+	stx I0,(I6) ; sty I1,(I6)+1
+	stx I2,(I6)+1
+// fatBuffer
+	call _GetBuffer
+	stx A0,(I6)	// ET0
+// jumped away
+	sub A0,NULL,A1	// I6 += -1
+// (!fatBuffer)
+	ldc outofbuf_12,A0	// ET2
+	jzc F16B5	// signed compare
+	nop	// I6 += 1
+// jumped away
+// 	}
+// {
+// 		SysError("Out of buffers");
+	call _SysError
+	stx A0,(I6)	// ET2
+// jumped away
+	ldx (I6)-1,NULL ; and NULL,NULL,A0	// I6 += -1
+// 		return 0;
+F16B1:
+	ldx (I6)-1,I2
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldy (I6),D0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	ldx (I6)+1,NULL
+F16B5:
+	ldc _vo_filesystems,D0	// ET6
+	ldc 2,C1	// 2 -> 1 -> ET9
+	ldy (I4)-2,NULL ; ldx (I6)-1,NULL
+// 	i = 0;
+// 	while ((fs=vo_filesystems[i]))
+	ldx (I4)-1,I2 ; and NULL,NULL,B0	// 0 -> 'i'
+	j F16B10
+	ldx (I4)+3,B1	// unspill 'name' from #-3
+// jumped away
+F16B13:	// (loop lvl 2)
+// 		i++;
+	sub B0,ONES,B0	// 'i' - (-1) -> 'i'
+F16B10:	// (loop lvl 2)
+	add D0,B0,A0 ; ldy (I6)+1,NULL	// ET6 + 'i' -> AT1a
+	mv A0,I0	// AT1a -> ET7
+	ldx (I0),C0	// ET7 ==> 'fs'
+	sub C0,NULL,C0	// 'fs' == (0) -> (0)
+	nop
+	jzs F16B8	// signed compare
+	nop	// I6 += 1
+// jumped away
+	mv I2,I0 ; add C0,C1,A0	// 'dev' -> I0
+	mv A0,I1	// AT19 -> ETa
+// 	}
+// {
+// 		if (fs->Create(dev, name, fatBuffer) == 0)
+	stx A1,(I6)+1	// 'fatBuffer'
+	stx B1,(I6)	// 'name'
+	ldx (I1),A0	// ETa ==> 2 -> ETb
+	mv A0,LR0
+	jr
+	ldc lo(F16B14),LR0	// (return address)
+// jumped away
+F16B14:	// (loop lvl 2)
+	ldx (I6)-2,NULL ; sub A0,NULL,A0	// I6 += -2
+	nop
+	jzc F16B13	// signed compare
+	nop
+// jumped away
+	ldy (I2)+7,NULL ; ldx (I6)+1,NULL	// I6 += 1
+// 		}
+// {
+// 			dev->fs = fs;
+	ldx (I2)+2,NULL	// ...
+	stx C0,(I2)	// 'fs' ==> 'dev'
+// 			FreeBuffer((SectorBuffer*)fatBuffer);
+	call _FreeBuffer
+	stx A1,(I6)	// 'fatBuffer'
+// jumped away
+// 			return fs;
+	j F16B1
+	ldx (I6)-1,NULL ; add C0,NULL,A0	// I6 += -1
+// jumped away
+F16B8:
+// 	FreeBuffer((SectorBuffer*)fatBuffer);
+	call _FreeBuffer
+	stx A1,(I6)	// 'fatBuffer'
+// jumped away
+// 	return 0;
+	j F16B1
+	ldx (I6)-1,NULL ; and NULL,NULL,A0	// I6 += -1
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fopen	// 250 words
+	.export _vo_fopen
+_vo_fopen:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+2,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx C1,(I6) ; sty D0,(I6)+1
+	stx D1,(I6) ; sty I0,(I6)+1
+	ldc _fopen_retries,I0	// ET2
+	stx I1,(I6) ; sty I2,(I6)+1
+	stx I3,(I6) ; ldy (I4)-2,NULL
+
+
+// attempts
+	ldx (I0),B1/*V*/	// ET2 ==> AT60
+// (kernelDebugLevel)
+	ldc _kernelDebugLevel,I0	// ET3
+	ldx (I0),A0/*V*/	// ET3 ==> 'kernelDebugLevel'
+	sub A0,NULL,A0 ; ldx (I4)+2,I1	// 'kernelDebugLevel' != (0) -> (0)
+	ldc fopens_13,A0	// ET4
+	jzc F17B3	// signed compare
+	ldc 0,I2	// 0 -> 'f'
+// jumped away
+F17B4:
+// 	if (filename[1] != ':')
+	ldc 58,A0	// 58 -> 0 -> ETa
+	ldx (I1)+1,NULL ; ldy (I6)+1,NULL	// 'filename' += 1
+	ldx (I1)-1,A1	// 'filename' ==> 1 -> ET9
+	sub A1,A0,A1	// ET9 != ETa -> AT4a
+	ldc nopathin_14,A0	// ETb
+	jzc F17B6	// signed compare
+	nop	// I6 += 1
+// jumped away
+	ldy (I6)-1,NULL ; ldx (I1),A0
+// 	d = toupper(filename[0])-'A';
+	call _toupper
+	mv A0,I0	// ETd -> I0
+// jumped away
+	mv I0,A0	// I0 -> ETe
+	ldc 65,A1	// 65 -> 0 -> ETf
+	sub A0,A1,A1	// ETe - ETf -> 'd'
+// 	if ((d>25) || !vo_pdevices[d])
+	ldc 25,A0	// 25 -> 1 -> ET12
+	sub A0,A1,B0	// ET12 > 'd' -> AT4c
+	ldc _vo_pdevices,A0	// ET13
+	jcc F17B11	// unsigned compare
+	nop
+// jumped away
+	add A0,A1,A0	// ET13 + 'd' -> AT5c
+	mv A0,I0	// AT5c -> ET14
+	ldx (I0),A0	// ET14 ==> ET15
+	sub A0,NULL,A0	// ET15 == (0) -> (0)
+	ldc _vo_pdevices,A0	// ET13
+	jzs F17B11	// signed compare
+	nop
+// jumped away
+	add A0,A1,A0 ; ldy (I4)+1,NULL	// I4 += 1
+	mv A0,I0	// AT5b -> ET14
+	ldc 2,A1	// 2 -> 1 -> ET19
+// 	dev = vo_pdevices[d];
+	ldx (I0),I0	// ET14 ==> 'dev'
+	stx I0,(I4)-1	// 'dev' spills to #0
+// 	if (!((dev)->flags &(1 << 1)))
+	ldx (I0),A0	// 'dev' ==> ET18
+	and A0,A1,A0	// ET18 and ET19 -> ET1a
+	nop
+	jzc F17B16	// compare against zero
+	nop
+// jumped away
+	ldx (I4)+1,NULL ; ldy (I6)+1,NULL	// I4 += 1
+	and NULL,NULL,A0	// 0 -> 0 -> ET1b
+// dev->Ioctl(dev,5, 0);
+	stx A0,(I6)+1	// ET1b
+	ldc 5,A0	// 5 -> 0 -> ET1c
+	stx A0,(I6)	// ET1c
+	ldx (I4),I3	// unspill 'dev' from #0
+	mv I3,I0	// 'dev' -> I0
+	ldx (I3)+4,NULL	// 'dev' += 4
+	ldx (I3)-4,A0	// 'dev' ==> 4 -> ET1f
+	mv A0,LR0
+	stx I3,(I4)-1	// 'dev' spills to #0
+	jr
+	ldc lo(F17B17),LR0	// (return address)
+// jumped away
+F17B17:
+	ldx (I6)-2,NULL	// I6 += -2
+F17B16:
+	ldc 2,A1	// 2 -> 1 -> ET19
+	ldx (I4)+1,NULL	// I4 += 1
+// 	if (!((dev)->flags &(1 << 1)))
+	ldx (I4)-1,I0	// unspill 'dev' from #0
+	ldx (I0),A0	// 'dev' ==> ET18
+	and A0,A1,A0	// ET18 and ET19 -> ET1a
+	nop
+	jzs F17B18	// compare against zero
+	nop
+// jumped away
+// 	ObtainMutex(&fopenclose_mutex);
+	ldc _fopenclose_mutex,I3	// I3
+	call _ObtainMutex
+	ldx (I6)+1,NULL	// I6 += 1
+// jumped away
+	ldx (I4)+1,NULL ; ldy (I6)+1,NULL	// I4 += 1
+// 	f = MakeFileDescriptor(dev);
+	ldx (I4)-1,I0	// unspill 'dev' from #0
+	call _MakeFileDescriptor
+	stx I0,(I6)	// 'dev'
+// jumped away
+	mv A0,I2	// A0 -> 'f'
+	mv I2,A0	// 'f' -> AT5d
+	sub A0,NULL,A0	// I6 += -1
+// 	if (!f)
+	ldc _fopenclose_mutex,I3
+	jzs F17B25	// signed compare
+	nop	// I3
+// jumped away
+// 	ReleaseMutex(&fopenclose_mutex);
+	call _ReleaseMutex
+	nop	// I6 += 1
+// jumped away
+	ldc 115,A0	// 115 -> 0 -> ET26
+	ldx (I4)-3,NULL	// I4 += -3
+// 	if (mode[0]=='s')
+	ldx (I4)+3,I3	// unspill 'mode' from #-3
+	ldx (I3),A1	// 'mode' ==> ET25
+	sub A1,A0,A1	// ET25 == ET26 -> AT51
+	ldc 51,A0	// 51 -> 1 -> ET27
+	jzs F17B27	// signed compare
+	nop
+// jumped away
+// 	if (!f->op)
+	ldx (I2)+2,NULL ; ldy (I6)+1,NULL	// 'f' += 2
+	ldx (I2),A0	// 'f' ==> 2 -> ET29
+	sub A0,NULL,A0	// ET29 == (0) -> (0)
+	ldc nullf0_17,A0	// ET2a
+	jzs F17B29	// signed compare
+	nop
+// jumped away
+// 	if (!f->op->Open)
+	ldx (I2)-2,I0	// 'f' ==> 2 -> ET29
+	ldx (I0),A0	// ET29 ==> ET2c
+	sub A0,NULL,A0	// ET2c == (0) -> (0)
+	ldc noopen_18,A0	// ET2d
+	jzs F17B32	// signed compare
+	nop	// I6 += 1
+// jumped away
+	ldc -2,C0	// -2 -> 0 -> ET38
+	ldc 5,D1	// 5 -> 0 -> ET1c
+	ldx (I6)-1,NULL ; and NULL,NULL,D0
+	j F17B38
+	ldc opend_19,B0	// ET36
+// jumped away
+F17B35:	// (loop lvl 2)
+// 	}
+// oldFlags
+	ldx (I2)+2,B1 ; ldy (I1)+2,NULL	// 'f' ==> 'oldFlags'
+
+	stx I3,(I4)	// 'mode' spills to #-3
+	stx I3,(I6)+1	// 'mode'
+	stx I1,(I6) ; ldy (I1)-2,NULL	// 'filename'
+	ldx (I2)-2,I3	// 'f' ==> 2 -> ET29
+	ldx (I3),A0	// ET29 ==> ET2c
+	mv A0,LR0
+	ldx (I4)+3,I3	// unspill 'mode' from #-3
+	jr
+	ldc lo(F17B39),LR0	// (return address)
+// jumped away
+F17B39:	// (loop lvl 2)
+	ldc _kernelDebugLevel,I0	// ET3
+	ldx (I0),A0/*V*/ ; add A0,NULL,C1	// A0 -> 'r'
+// (kernelDebugLevel && r)
+	sub A0,NULL,A0 ; ldx (I6)-2,NULL	// 'kernelDebugLevel' == (0) -> (0)
+	nop
+	jzs F17B41	// signed compare
+	nop
+// jumped away
+	sub C1,NULL,C1	// 'r' != (0) -> (0)
+	nop
+	jzc F17B40	// signed compare
+	nop
+// jumped away
+F17B41:	// (loop lvl 2)
+// 		if (r == -2)
+	sub C1,C0,A0	// 'r' == ET38 -> AT56
+	nop
+	jzs F17B46	// signed compare
+	nop
+// jumped away
+// 		if (r != 0)
+	sub C1,NULL,C1	// 'r' == (0) -> (0)
+	nop
+	jzs F17B55	// signed compare
+	sub A1,NULL,A1	// AT5f == (0) -> (0)
+// jumped away
+// 		}
+// {
+// 			if (!attempts)
+	nop
+	jzs F17B46	// unsigned compare
+	nop
+// jumped away
+	ldx (I4)+1,NULL ; ldy (I6)+1,NULL	// I4 += 1
+	stx I1,(I4)	// AT61 spills to #1
+// 			f->flags = oldFlags;
+	stx B1,(I2)+6	// 'oldFlags' ==> 'f'
+// 			f->dev->Ioctl(f->dev,5, 0);
+	stx D0,(I6)+1	// ET1b
+	stx D1,(I6)	// ET1c
+	ldx (I2)-6,I1	// 'f' ==> 6 -> ET3e
+	mv I1,I0	// ET3e -> I0
+	ldx (I1)+4,NULL	// ET3e += 4
+	ldx (I1),A0	// ET3e ==> ET40
+	mv A0,LR0
+	ldx (I4)-1,I1	// unspill AT61 from #1
+	jr
+	ldc lo(F17B54),LR0	// (return address)
+// jumped away
+F17B54:	// (loop lvl 2)
+	ldx (I6)-2,NULL ; add A1,NULL,B1	// I6 += -2
+F17B38:	// (loop lvl 2)
+	add B1,ONES,A1 ; ldx (I4)-3,NULL	// AT60 + (-1) -> AT5f
+	sub B1,NULL,B1 ; ldy (I6)+1,NULL	// AT60 != (0) -> (0)
+	mv I2,I0	// 'f' -> I0
+	jzc F17B35	// unsigned compare
+	nop	// I4 += -3
+// jumped away
+	j F17B9
+	ldx (I4)+3,NULL ; ldy (I6)-1,NULL
+// jumped away
+F17B55:
+	mv I2,I1	// 'f' -> ET3d
+	ldc 2051,A1	// 2051 -> 1 -> ET47
+// 			f->deviceInstance = f->dev->deviceInstance;
+	ldx (I1)+6,NULL	// ET3d += 6
+	ldx (I1)+7,I0	// ET3d ==> 6 -> ET43
+	ldx (I0)+7,NULL ; ldy (I1)+1,NULL	// ET43 += 10
+	ldx (I0)+3,NULL	// ...
+	ldx (I0),A0	// ET43 ==> ET44
+	stx A0,(I1)	// ET44 ==> ET3d
+// 			f->flags |=(1 << 11) |(1 << 0) |(1 << 1);
+	ldx (I2),A0	// 'f' ==> ET32
+	or A0,A1,A0	// ET32 or ET47 -> ET48
+	stx A0,(I2)	// ET48 ==> 'f'
+// 			goto finally;
+// 			break;
+F17B9:
+	mv I2,A0	// 'f' returns via A0
+// 	return f;
+// 	finallyReleaseMutex:
+	ldx (I6)-1,I3
+	ldy (I6),I2 ; ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,D1
+	ldy (I6),D0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F17B46:
+// 				ObtainMutex(&fopenclose_mutex);
+	ldc _fopenclose_mutex,I3	// I3
+	call _ObtainMutex
+	ldx (I6)+1,NULL	// I6 += 1
+// jumped away
+	ldc _fopenclose_mutex,I3	// I3
+	and NULL,NULL,A0 ; ldy (I6)+1,NULL	// I6 += 1
+// 				f->flags = 0;
+	stx A0,(I2)+7	// ET1 ==> 'f'
+// 				FreeBuffer((SectorBuffer*)(f->sectorBuffer));
+	ldx (I2)+1,NULL	// ...
+	ldx (I2),A0	// 'f' ==> 8 -> ET3b
+	call _FreeBuffer
+	stx A0,(I6)	// ET3b
+// jumped away
+	and NULL,NULL,A0	// I6 += -1
+// 				f->sectorBuffer = 0;
+	stx A0,(I2)	// ET0 ==> 'f'
+// 				f = 0;
+// 				goto finallyReleaseMutex;
+	ldc 0,I2	// 0 -> 'f'
+// 	ReleaseMutex(&fopenclose_mutex);
+F17B25:
+	call _ReleaseMutex
+// 	return f;
+	ldc F17B9,LR0
+// jumped away
+F17B40:	// (loop lvl 2)
+	ldc _vo_stderr,I0	// ET5
+	ldx (I6)+1,NULL	// I6 += 1
+
+// {vo_fprintf(vo_stderr,"Open=%d ",r);
+	stx C1,(I6)+1	// 'r'
+	stx B0,(I6)+1	// ET36
+	ldx (I0),A0/*V*/	// ET5 ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+	j F17B41
+	ldx (I6)-3,NULL	// I6 += -3
+// jumped away
+F17B32:
+// 	}
+// {
+// 		SysError("NoOpen");
+	call _SysError
+	stx A0,(I6)	// ET2d
+// jumped away
+// 		goto finally;
+	j F17B9
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+F17B29:
+// 	}
+// {
+// 		SysError("NullF");
+	call _SysError
+	ldy (I2)-2,NULL ; stx A0,(I6)
+// jumped away
+// 		goto finally;
+	j F17B9
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+F17B27:
+// 	}
+// {
+// 		f->flags =(1 << 0) |(1 << 1) |(1 << 4) |(1 << 5);
+// 		goto finally;
+	j F17B9
+	stx A0,(I2)	// ET27 ==> 'f'
+// jumped away
+F17B18:
+	ldc devicenot_16,A0	// ET21
+	ldx (I6)+1,NULL	// I6 += 1
+// 	}
+// {
+// 		SysError("Device not open");
+	call _SysError
+	stx A0,(I6)	// ET21
+// jumped away
+// 		goto finally;
+	j F17B9
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+F17B11:
+	ldc nodevice_15,A0	// ET16
+	ldx (I6)+1,NULL	// I6 += 1
+// 	}
+// {
+// 		SysError("No device for %s", filename);
+	stx I1,(I6)+1	// 'filename'
+	call _SysError
+	stx A0,(I6)	// ET16
+// jumped away
+// 		goto finally;
+	j F17B9
+	ldx (I6)-2,NULL	// I6 += -2
+// jumped away
+F17B6:
+// 	}
+// {
+// 		SysError("no path in fname");
+	call _SysError
+	stx A0,(I6)	// ETb
+// jumped away
+// 		goto finally;
+	j F17B9
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+F17B3:
+	ldc _vo_stderr,I0	// ET5
+	ldy (I6)+1,NULL	// I4 += -2
+
+// {vo_fprintf(vo_stderr,"\nfopen %s ",filename);
+	stx I1,(I6)+1	// 'filename'
+	stx A0,(I6)+1	// ET4
+	ldx (I0),A0/*V*/	// ET5 ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+	j F17B4
+	ldx (I6)-3,NULL	// I6 += -3
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fclose	// 90 words
+	.export _vo_fclose
+_vo_fclose:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I2,(I6)+1
+	ldc 64,A1	// 64 -> 1 -> ET2
+	stx I3,(I6)
+// errCode
+// (((stream)->flags &(1 << 6)) && !AttemptMutex(&fclose_gettime_mutex))
+	ldx (I0),A0	// 'stream' ==> ET1
+	and A0,A1,A0 ; mv I0,I2	// ET1 and ET2 -> ET3
+	sub A0,NULL,A0	// ET3 == (0) -> (0)
+	ldc 0,A1	// 0 -> 'errCode'
+	jzs F18B4	// unsigned compare
+	nop
+// jumped away
+	ldc _fclose_gettime_mutex,I3	// I3
+	call _AttemptMutex
+	ldx (I6)+1,NULL	// I6 += 1
+// jumped away
+	sub A0,NULL,A0	// ET5 != (0) -> (0)
+	nop
+	jzc F18B4	// unsigned compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL ; and NULL,NULL,A0	// I6 += 1
+// 	}
+// {
+// 		RunLibraryFunction("RTCREAD",0,0);
+	stx A0,(I6)+1	// ET6
+	stx A0,(I6)+1	// ET0
+	ldc rtcread_20,A0	// ET7
+	call _RunLibraryFunction
+	stx A0,(I6)	// ET7
+// jumped away
+	ldx (I6)-2,NULL	// I6 += -3
+// 		ReleaseMutex(&fclose_gettime_mutex);
+	call _ReleaseMutex
+	ldc _fclose_gettime_mutex,I3	// I3
+// jumped away
+F18B4:
+// 	if (kernelDebugLevel)
+	ldc _kernelDebugLevel,I0	// ET9
+	ldx (I0),A0/*V*/	// ET9 ==> 'kernelDebugLevel'
+	sub A0,NULL,A0	// 'kernelDebugLevel' == (0) -> (0)
+	mv I2,A0
+	jzs F18B10	// signed compare
+	nop
+// jumped away
+	ldc fclosep_21,A0	// ETa
+	ldc _vo_stderr,I0	// ETb
+	ldx (I6)+1,NULL	// I6 += 1
+
+// {vo_fprintf(vo_stderr,"fclose[%p] ",stream);
+	stx I2,(I6)+1	// 'stream'
+	stx A0,(I6)+1	// ETa
+	ldx (I0),A0/*V*/	// ETb ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+	mv I2,A0	// 'stream' -> AT23
+	ldx (I6)-3,NULL	// I6 += -3
+F18B10:
+// 	if (!stream)
+	sub A0,NULL,A0 ; ldx (I2)+2,NULL	// AT23 != (0) -> (0)
+	nop
+	jzc F18B13	// signed compare
+	and NULL,NULL,A0	// 0 -> 0 -> ET6
+// jumped away
+// return 0;
+F18B1:
+	ldx (I6)-1,I3
+	ldy (I6),I2 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+// 	if (!stream->op)
+	ldx (I2)+2,NULL	// 'stream' += 2
+F18B13:
+	ldx (I2)-2,A0	// 'stream' ==> 2 -> ETf
+	sub A0,NULL,A0	// ETf != (0) -> (0)
+	ldc _fopenclose_mutex,I3	// I3
+	jzc F18B15	// signed compare
+	nop
+// jumped away
+// return 0;
+	j F18B1
+	and NULL,NULL,A0	// 0 -> 0 -> ET6
+// jumped away
+F18B15:
+// 	ObtainMutex(&fopenclose_mutex);
+	call _ObtainMutex
+	ldx (I6)+1,NULL	// I6 += 1
+// jumped away
+// 	if (stream->op->Close)
+	ldx (I2)+2,NULL	// 'stream' += 2
+	ldx (I2)-2,I0	// 'stream' ==> 2 -> ET12
+	ldx (I0)+1,NULL	// ET12 += 1
+	ldx (I0),A0	// ET12 ==> ET13
+	sub A0,NULL,A0 ; mv I2,I0	// ET13 == (0) -> (0)
+	nop
+	jzs F18B18	// signed compare
+	nop
+// jumped away
+	mv I2,I0	// 'stream' -> I0
+	mv A0,LR0
+// 	}
+// {
+// 		errCode = stream->op->Close(stream);
+	jr
+	ldc lo(F18B19),LR0	// (return address)
+// jumped away
+F18B19:
+	add A0,NULL,A1 ; mv I2,I0	// A0 -> 'errCode'
+F18B18:
+	ldc _fopenclose_mutex,I3	// I3
+	ldy (I0)+7,NULL ; ldx (I6)+1,NULL	// I6 += 1
+// 	FreeBuffer((SectorBuffer*)stream->sectorBuffer);
+	ldx (I0)+1,NULL	// ...
+	ldx (I0),A0	// ET17 ==> 8 -> ET18
+	call _FreeBuffer
+	stx A0,(I6)	// ET18
+// jumped away
+	and NULL,NULL,A0	// I6 += -1
+// 	stream->flags=0;
+// 	ReleaseMutex(&fopenclose_mutex);
+	call _ReleaseMutex
+	stx A0,(I2)	// ET0 ==> 'stream'
+// jumped away
+// 	return errCode;
+	j F18B1
+	add A1,NULL,A0	// 'errCode' returns via A0
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_kernel_init	// 45 words
+	.export _vo_kernel_init
+_vo_kernel_init:
+	ldc 2,A0	// 2 -> 1 -> ET0
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty D1,(I6)+1
+	stx I0,(I6)+1 ; sty I3,(I6)
+	ldc _fopen_retries,I0	// ET1
+// = 2;
+	stx A0,(I0)/*V*/ ; sub NULL,ONES,D1	// ET0 ==> ET1
+// (InitMutexN((&fopenclose_mutex),1));
+	call _InitMutexN
+	ldc _fopenclose_mutex,I3	// I3
+// jumped away
+// (InitMutexN((&fclose_gettime_mutex),1));
+	ldc _fclose_gettime_mutex,I3	// I3
+	call _InitMutexN
+	ldx (I6)+1,NULL ; sub NULL,ONES,D1	// 1 -> D1
+// jumped away
+// 	nSectorBuffers = 8;
+	ldc _nSectorBuffers,I0	// ET6
+	ldc 8,A0	// 8 -> 1 -> ET5
+	stx A0,(I0)/*V*/	// ET5 ==> ET6
+// 	vo_max_num_files = sizeof(vo_files) / sizeof(vo_files[0]);
+	ldc _vo_max_num_files,I0	// ET8
+	ldc 10,A0	// 10 -> 1 -> ET7
+	stx A0,(I0)/*V*/ ; and NULL,NULL,A0	// ET7 ==> ET8
+// 	vo_get_time_from_rtc_hook = 0;
+	ldc _vo_get_time_from_rtc_hook,I0	// ETa
+	stx A0,(I0)/*V*/ ; and NULL,NULL,A1	// ET9 ==> ETa
+// 	memset(vo_files,0,sizeof(vo_files));
+	ldc _vo_files,I0	// I0
+	call _memset
+	ldc 270,A0	// 270 -> A0
+// jumped away
+// 	memset(vo_simple_files,0,sizeof(vo_simple_files));
+	ldc 42,A0	// 42 -> A0
+	and NULL,NULL,A1	// 0 -> A1
+	call _memset
+	ldc _vo_simple_files,I0	// I0
+// jumped away
+// 	memset(vo_pdevices,0,sizeof(vo_pdevices));
+	ldc 26,A0	// 26 -> A0
+	and NULL,NULL,A1	// 0 -> A1
+	call _memset
+	ldc _vo_pdevices,I0	// I0
+// jumped away
+// 	memset(sbsP,0,sizeof(sbsP));
+	ldc 13,A0	// 13 -> A0
+	and NULL,NULL,A1	// 0 -> A1
+	call _memset
+	ldc _sbsP,I0	// I0
+// jumped away
+// 	return 0;
+	and NULL,NULL,A0 ; ldy (I6),I3	// 0 -> 0 -> ETc
+	ldx (I6)-1,I0
+	ldy (I6),D1 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_feof	// 12 words
+	.export _vo_feof
+_vo_feof:
+	ldc 4,A0	// 4 -> 1 -> ET1
+	ldx (I6)+2,NULL	// I6 += 2
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I0,(I6)
+	ldx (I4)-2,NULL	// I4 += -2
+	ldx (I4)+2,I0	// unspill 'stream' from #-2
+// 	return (ioresult) (stream->flags &(1 << 2));
+	ldx (I0),A1 ; ldy (I6),I0	// 'stream' ==> ET0
+	and A1,A0,A0 ; ldx (I6)-1,A1	// ET0 and ET1 -> ET2
+	ldx (I4),I6 ; ldy (I4),I4
+	jr
+	ldx (I6)-2,NULL
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_ferror	// 12 words
+	.export _vo_ferror
+_vo_ferror:
+	ldc 8,A0	// 8 -> 1 -> ET1
+	ldx (I6)+2,NULL	// I6 += 2
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I0,(I6)
+	ldx (I4)-2,NULL	// I4 += -2
+	ldx (I4)+2,I0	// unspill 'stream' from #-2
+// 	return (ioresult) (stream->flags &(1 << 3));
+	ldx (I0),A1 ; ldy (I6),I0	// 'stream' ==> ET0
+	and A1,A0,A0 ; ldx (I6)-1,A1	// ET0 and ET1 -> ET2
+	ldx (I4),I6 ; ldy (I4),I4
+	jr
+	ldx (I6)-2,NULL
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,CommonOkResultFunction	// 3 words
+	.export _CommonOkResultFunction
+_CommonOkResultFunction:
+// 	return 0;
+	and NULL,NULL,A0	// 0 -> 0 -> ET0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,AutoVoidNull	// 2 words
+	.export _AutoVoidNull
+_AutoVoidNull:
+	jr
+	ldx (I6)-1,NULL
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,CommonErrorResultFunction	// 3 words
+	.export _CommonErrorResultFunction
+_CommonErrorResultFunction:
+// 	return -1;
+	or NULL,ONES,A0	// -1 -> 0 -> ET0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,BusyWait	// 21 words
+	.export _BusyWait
+_BusyWait:
+	ldx (I6)+2,NULL	// I6 += 2
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx B0,(I6) ; sty B1,(I6)
+	ldx (I4)-3,NULL	// I4 += -3
+	ldx (I4)+1,A0	// unspill A0 from #0
+	j F25B6
+	ldx (I4)+2,A1	// unspill A1 from #0
+// jumped away
+F25B10:	// (loop lvl 2)
+	add B,NULL,A	// 'n' -> AT4
+F25B6:	// (loop lvl 2)
+	add A,ONES,B	// AT4 + (-1) -> ET2
+	ldc 0,A2	// update guard bits (cmp)
+	sub A,NULL,A	// AT4 != (0) -> (0)
+	nop
+	jzc F25B10	// unsigned compare
+	nop
+// jumped away
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	jr
+	ldx (I6)-2,NULL
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_fflush	// 51 words
+	.export _vo_fflush
+_vo_fflush:
+	ldc 128,A0	// 128 -> 1 -> ET1
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I0,(I6)+1
+	stx I2,(I6) ; ldy (I4)-2,NULL
+	ldx (I4)+2,I0	// unspill 'stream' from #-2
+// 	if (!((stream)->flags &(1 << 7)))
+	ldx (I0)+6,A1	// 'stream' ==> ET0
+	and A1,A0,A0	// ET0 and ET1 -> ET2
+	nop
+	jzc F26B4	// compare against zero
+	and NULL,NULL,A0	// 0 -> 0 -> ET3
+// jumped away
+// 	}
+// {
+// 		return 0;
+F26B1:
+	ldx (I6)-1,I2
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+// 	if (!stream->dev->BlockWrite)
+	ldx (I0)+6,NULL	// 'stream' += 6
+F26B4:
+	ldx (I0)-6,I2 ; ldy (I6)+1,NULL	// 'stream' ==> 6 -> ET6
+	ldx (I2)+7,NULL	// ET6 += 8
+	ldx (I2)+1,NULL	// ...
+	ldx (I2),A0	// ET6 ==> ET9
+	sub A0,NULL,A0	// ET9 != (0) -> (0)
+	ldc 65407,A1	// 65407 -> 1 -> ETb
+	jzc F26B6	// signed compare
+	ldx (I0),A0	// I6 += 1
+// jumped away
+// 	}
+// {
+// 		return -1;
+	j F26B1
+	ldx (I6)-1,NULL ; or NULL,ONES,A0	// -1 -> 0 -> ETa
+// jumped away
+F26B6:
+// 	stream->flags &= ~((1 << 7));
+	and A0,A1,A0	// ET0 and ETb -> ETc
+	stx A0,(I0)+7	// ETc ==> 'stream'
+// 	return stream->dev->BlockWrite(stream->dev, stream->currentSector, 1, stream->sectorBuffer);
+	ldx (I0)+1,NULL	// ...
+	ldx (I0)+2,A0	// 'stream' ==> 8 -> ETe
+	stx A0,(I6)+1 ; sub NULL,ONES,A0	// ETe
+	stx A0,(I6)+1	// ETf
+	ldx (I0)+1,A0
+	ldx (I0)-5,A1
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)	// A1
+	ldx (I0),I2	// 'stream' ==> 6 -> ET8
+	mv I2,I0	// ET8 -> I0
+	ldx (I2)+7,NULL	// ET8 += 8
+	ldx (I2)+1,NULL	// ...
+	ldx (I2),A0	// ET8 ==> ET9
+	mv A0,LR0
+	jr
+	ldc lo(F26B7),LR0	// (return address)
+// jumped away
+F26B7:
+	j F26B1
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,RemovedInterface	// 8 words
+	.export _RemovedInterface
+_RemovedInterface:
+	ldc toooldap_22,A0	// ET0
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+// 	SysError("Too old app for this kernel");
+	call _SysError
+	stx A0,(I6)	// ET0
+// jumped away
+	ldx (I6)-1,NULL	// I6 += -1
+// 	while(1)
+F27B7:
+	j F27B7
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,BiosService	// 3 words
+	.export _BiosService
+_BiosService:
+// 	return -1;
+	ldx (I6)-1,NULL	// I6 += -1
+	jr
+	ldc 65535,A0	// 65535 -> 1 -> ET0
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vs3emubreak	// 2 words
+	.export _vs3emubreak
+_vs3emubreak:
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,ZeroPtrCall	// 71 words
+	.export _ZeroPtrCall
+_ZeroPtrCall:
+	ldc _vo_stdout,I2	// ET1
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)
+	mv I0,A1 ; mv I1,B0	// I0 -> 'i0'
+// 	vo_stdout = vo_stderr;
+	ldc _vo_stderr,I0	// ET0
+	ldx (I0),A0/*V*/	// ET0 ==> 'vo_stderr'
+// 	Disable();
+	call _Disable
+	stx A0,(I2)/*V*/	// 'vo_stderr' ==> ET1
+// jumped away
+	ldc zeroptrcal_23,A0	// ET2
+	ldx (I6)+1,NULL	// I6 += 1
+//  vo_fprintf(vo_stderr,"ZeroPtrCall from %u(0x%04x) ",lr0,lr0);
+	stx B0,(I6)+1	// 'lr0'
+	stx B0,(I6)+1	// 'lr0'
+	stx A0,(I6)+1	// ET2
+	ldx (I0),A0/*V*/	// ET0 ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+	ldc 2,A0	// 2 -> 1 -> ET5
+	ldx (I6)-3,NULL	// I6 += 1
+// 	RunLibraryFunction("TRACE",2,lr0);
+	stx B0,(I6)+1	// 'lr0'
+	stx A0,(I6)+1	// ET5
+	ldc trace_24,A0	// ET6
+	call _RunLibraryFunction
+	stx A0,(I6)	// ET6
+// jumped away
+	ldc i0u0x_25,A0	// ET8
+	ldx (I6)-2,NULL	// I6 += 1
+//  vo_fprintf(vo_stderr,"\ni0=%u(0x%04x) ",i0,i0);
+	stx A1,(I6)+1	// 'i0'
+	stx A1,(I6)+1	// 'i0'
+	stx A0,(I6)+1	// ET8
+	ldx (I0),A0/*V*/	// ET0 ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+	ldc 3,A0	// 3 -> 1 -> ETb
+	ldx (I6)-3,NULL	// I6 += 1
+// 	RunLibraryFunction("TRACE",3,i0);
+	stx A1,(I6)+1	// 'i0'
+	stx A0,(I6)+1	// ETb
+	ldc trace_24,A0	// ET6
+	call _RunLibraryFunction
+	stx A0,(I6)	// ET6
+// jumped away
+	ldy (I6)-2,NULL ; ldx (I0),A0/*V*/	// I6 += 1
+//  vo_fputc('\n',vo_stderr);
+	stx A0,(I6)+1	// 'vo_stderr'
+	ldc 10,A0	// 10 -> 0 -> ETd
+	call _vo_fputc
+	stx A0,(I6)	// ETd
+// jumped away
+	ldc v_26,A0	// ETf
+	ldx (I6)-1,NULL ; and NULL,NULL,A1	// I6 += 1
+// (RunLibraryFunction(("TASKS"),0,(int)("-v")));
+	stx A0,(I6)+1	// ETf
+	ldc tasks_27,A0	// ET12
+	stx A1,(I6)+1	// ET11
+	call _RunLibraryFunction
+	stx A0,(I6)	// ET12
+// jumped away
+	ldc starting_28,A0	// ET14
+	ldx (I6)-2,NULL	// I6 += 1
+//  vo_fprintf(vo_stderr,"\nStarting POST-CRASH SHELL, be careful.\n");
+	stx A0,(I6)+1	// ET14
+	ldx (I0),A0/*V*/	// ET0 ==> 'vo_stderr'
+	call _vo_fprintf
+	stx A0,(I6)	// 'vo_stderr'
+// jumped away
+// 	Enable();
+	call _Enable
+	ldx (I6)-2,NULL	// I6 += -2
+// jumped away
+// Enable();
+	call _Enable
+	nop
+// jumped away
+	ldx (I6)+1,NULL ; and NULL,NULL,A0	// I6 += 1
+// (RunLibraryFunction(("S:SHELL.AP3"),0,(int)(0)));
+	stx A0,(I6)+1	// ET16
+	ldc sshellap_29,A0	// ET17
+	stx A1,(I6)+1	// ET11
+	call _RunLibraryFunction
+	stx A0,(I6)	// ET17
+// jumped away
+	ldc 254,I1	// 254 -> I1
+// 	vs3emubreak(0xfe);
+	call _vs3emubreak
+	ldx (I6)-3,NULL	// I6 += -3
+// jumped away
+F30B18:
+	j F30B18
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_x,vsosbss_x	// 336 words
+	.export _vo_files
+_vo_files:
+	.bss 270
+	.export _vo_get_time_from_rtc_hook
+_vo_get_time_from_rtc_hook:
+	.bss 1
+	.export _fopen_retries
+_fopen_retries:
+	.bss 1
+	.export _fopenclose_mutex
+_fopenclose_mutex:
+	.bss 1
+	.export _fclose_gettime_mutex
+_fclose_gettime_mutex:
+	.bss 1
+	.export _vo_simple_files
+_vo_simple_files:
+	.bss 42
+	.export _sbsP
+_sbsP:
+	.bss 13
+	.export _nSectorBuffers
+_nSectorBuffers:
+	.bss 1
+_s649c48:
+	.bss 6
+
+//_____________________________________________________________
+//
+	.sect data_x,vsosconst_x	// 373 words
+	.export _nullFileOperations
+_nullFileOperations:
+	.word _CommonOkResultFunction, _CommonOkResultFunction, _CommonOkResultFunction, _CommonOkResultFunction, _CommonOkResultFunction
+	.export _nullFile
+_nullFile:
+	.word 2147, _NullFileIdentify, _nullFileOperations
+	.zero 2
+	.zero 1
+	.zero 1
+fnul_1:
+	.word "FNUL"
+
+	.zero 1
+x_2:
+	.word "@%x"
+
+	.zero 1
+nil_3:
+	.word "NIL"
+
+	.zero 1
+nul_4:
+	.word "NUL"
+
+	.zero 1
+outofmem_5:
+	.word "Out of mem"
+
+	.zero 1
+outofbuf_6:
+	.word "Out of bufs"
+
+	.zero 1
+simpled_7:
+	.word "Simple[%d:%p] "
+
+	.zero 1
+dp_8:
+	.word "[%d:%p] "
+
+	.zero 1
+bufp_9:
+	.word "Buf[%p] "
+
+	.zero 1
+outofdes_10:
+	.word "Out of descriptors"
+
+	.zero 1
+devnullrd_11:
+	.word "DevNullRd"
+
+	.zero 1
+outofbuf_12:
+	.word "Out of buffers"
+
+	.zero 1
+fopens_13:
+	.word "\nfopen %s "
+
+	.zero 1
+nopathin_14:
+	.word "no path in fname"
+
+	.zero 1
+nodevice_15:
+	.word "No device for %s"
+
+	.zero 1
+devicenot_16:
+	.word "Device not open"
+
+	.zero 1
+nullf0_17:
+	.word "NullF"
+
+	.zero 1
+noopen_18:
+	.word "NoOpen"
+
+	.zero 1
+opend_19:
+	.word "Open=%d "
+
+	.zero 1
+rtcread_20:
+	.word "RTCREAD"
+
+	.zero 1
+fclosep_21:
+	.word "fclose[%p] "
+
+	.zero 1
+toooldap_22:
+	.word "Too old app for this kernel"
+
+	.zero 1
+zeroptrcal_23:
+	.word "ZeroPtrCall from %u(0x%04x) "
+
+	.zero 1
+trace_24:
+	.word "TRACE"
+
+	.zero 1
+i0u0x_25:
+	.word "\ni0=%u(0x%04x) "
+
+	.zero 1
+v_26:
+	.word "-v"
+
+	.zero 1
+tasks_27:
+	.word "TASKS"
+
+	.zero 1
+starting_28:
+	.word "\nStarting POST-CRASH SHELL, be careful.\n"
+
+	.zero 1
+sshellap_29:
+	.word "S:SHELL.AP3"
+
+	.zero 1
+
+//_____________________________________________________________
+//
+	.sect data_x,vsosinit_x	// 1 word
+_ii6495d0:
+	.word 0
+
+	.end

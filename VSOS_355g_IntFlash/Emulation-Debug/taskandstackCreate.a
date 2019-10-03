@@ -1,0 +1,112 @@
+
+//_____________________________________________________________
+//
+	.sect code,CreateTaskAndStack	// 67 words
+	.export _CreateTaskAndStack
+_CreateTaskAndStack:
+	ldc 14,A0	// 14 -> 1 -> ET0
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty I0,(I6)+1
+	stx I3,(I6)+1 ; add C0,NULL,A1
+	mv I1,I0 ; sub NULL,ONES,B0	// C0 -> 'stackSize'
+	mv I2,I1	// I2 -> 'func'
+// tas
+	stx A0,(I6)+1	// ET0
+	call _calloc
+	stx B0,(I6)	// ET1
+// jumped away
+	ldx (I6)-2,NULL ; sub A0,NULL,C0	// I6 += -2
+// (tas)
+	nop
+	jzs F0B15	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+//   }
+// {
+//     tas->stack = AllocMemXY(stackSize, 1);
+	stx B0,(I6)+1 ; add A1,NULL,B0	// ET1
+	call _AllocMemXY
+	stx A1,(I6)	// 'stackSize' -> ET3
+// jumped away
+	add A0,NULL,B1 ; ldy (I6)-1,NULL	// I6 += -2
+	ldc 12,A0	// 12 -> 1 -> ET5
+	add C0,A0,A0	// 'tas' + ET5 -> AT21
+	mv A0,I3	// AT21 -> ET6
+	stx B1,(I3)	// ET4 ==> ET6
+//     if (tas->stack)
+	ldx (I3),A0	// ET6 ==> 12 -> ET7
+	sub A0,NULL,A0	// ET7 != (0) -> (0)
+	nop	// I6 += 1
+	jzc F0B7	// signed compare
+	nop
+// jumped away
+//     }
+// else {
+//       free(tas);
+	call _free
+	stx C0,(I6)	// 'tas'
+// jumped away
+	ldx (I6)-1,NULL ; and NULL,NULL,C0	// I6 += -1
+//       tas = 0;
+F0B15:
+//   return tas;
+	add C0,NULL,A0 ; ldx (I6)-1,I3	// 'tas' returns via A0
+	ldy (I6),I0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	ldx (I6)+1,NULL
+F0B7:
+	mv C0,I2	// 'tas' -> 'task'
+	ldy (I2)+3,NULL ; ldx (I6)-1,NULL
+//     }
+// task
+// ->tc_Node.pri = priority;
+	stx C1,(I2)-1	// 'priority' ==> 'task'
+//       task->tc_Node.name = name;
+	stx I0,(I2)+6	// 'name' ==> 'task'
+//       task->tc_Stack = tas->stack;
+	ldx (I3),A0	// ET6 ==> 12 -> ET7
+	stx A0,(I2)+1 ; and NULL,NULL,A0	// ET7 ==> 'task'
+//       task->tc_StackSize = stackSize;
+	stx A1,(I2)-3	// 'stackSize' ==> 'task'
+//       task->tc_SigWait = 0;
+	ldc -17730,A1	// -17730 -> A1
+	stx A0,(I2)+1	// ET10 ==> 'task'
+//       task->tc_SigRecvd = 0;
+	stx A0,(I2)-7 ; add B0,NULL,A0	// ET10 ==> 'task'
+//       memset(tas->stack, 0xbabe, stackSize);
+	call _memset
+	ldx (I3),I0	// ET6 ==> 12 -> ET7
+// jumped away
+//       memsetY((u_int16 __y *)(tas->stack), 0xebab, stackSize);
+	ldc -5205,A1	// -5205 -> A1
+	call _memsetY
+	ldx (I3),I0 ; add B0,NULL,A0	// ET6 ==> 12 -> ET7
+// jumped away
+//       AddTask(task, func);
+	call _AddTask
+	mv I1,A0	// 'func' -> A0
+// jumped away
+//       Yield();
+	call _Yield
+	nop
+// jumped away
+//       tas->stackSize = stackSize;
+	ldc 13,A0	// 13 -> 1 -> ET1b
+	add C0,A0,A0	// 'tas' + ET1b -> AT22
+	mv A0,I0	// AT22 -> ET1c
+	j F0B15
+	stx B0,(I0)	// ET3 ==> ET1c
+// jumped away
+
+	.end

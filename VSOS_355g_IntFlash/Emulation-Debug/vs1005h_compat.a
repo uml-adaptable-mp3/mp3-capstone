@@ -1,0 +1,179 @@
+
+//_____________________________________________________________
+//
+	.sect code,FileParamSeek	// 75 words
+	.export _FileParamSeek
+_FileParamSeek:
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+2,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx C1,(I6) ; sty D0,(I6)+1
+	stx I3,(I6) ; ldy (I4)+1,NULL
+	mv I1,I3	// I1 -> 'needle'
+	stx I0,(I4)-1	// I0 spills to #0
+// needleLen
+	call _strlen
+	mv I3,I0	// 'needle' -> I0
+// jumped away
+// (strlen(haystack))
+	j F0B7
+	mv I2,A1 ; add A0,NULL,C0	// A0 -> 'needleLen'
+// jumped away
+F0B16:	// (loop lvl 2)
+//     haystack += toAdd;
+	add A1,C1,A1	// 'haystack' + 'toAdd' -> 'haystack'
+F0B7:	// (loop lvl 2)
+	call _strlen
+	mv A1,I0	// 'haystack' -> I0
+// jumped away
+	sub A0,NULL,A0	// ET2 == (0) -> (0)
+	nop
+	jzs F0B5	// unsigned compare
+	nop
+// jumped away
+	mv A1,I0	// 'haystack' -> I0
+//   }
+// doLook
+// = strchr(haystack, '/');
+	call _strchr
+	ldc 47,A0	// 47 -> A0
+// jumped away
+	mv I0,B0	// ET5 -> 'div'
+//     if (div)
+	sub B0,NULL,B0	// 'div' != (0) -> (0)
+	nop
+	jzc F0B10	// signed compare
+	nop
+// jumped away
+//     }
+// else {
+//       toAdd = len = strlen(haystack);
+	call _strlen
+	mv A1,I0	// 'haystack' -> I0
+// jumped away
+	add A0,NULL,C1 ; mv A0,B1	// 'len' -> 'toAdd'
+F0B12:	// (loop lvl 2)
+	mv A1,I0	// 'haystack' -> I0
+//     equal = strchr(haystack, '=');
+	call _strchr
+	ldc 61,A0	// 61 -> A0
+// jumped away
+	mv I0,B0	// ETa -> 'equal'
+//     if (equal && equal-haystack == needleLen &&
+// 	!memcmp(haystack, needle, equal-haystack))
+	sub B0,NULL,B0	// 'equal' == (0) -> (0)
+	nop
+	jzs F0B16	// signed compare
+	nop
+// jumped away
+	sub B0,A1,A0	// 'equal' - 'haystack' -> ETb
+	sub A0,C0,D0	// ETb != 'needleLen' -> AT1a
+	nop
+	jzc F0B16	// unsigned compare
+	nop
+// jumped away
+	mv I3,I1	// 'needle' -> I1
+	call _memcmp
+	mv A1,I0	// 'haystack' -> I0
+// jumped away
+	sub A0,NULL,A0	// ETd != (0) -> (0)
+	nop
+	jzc F0B16	// signed compare
+	nop
+// jumped away
+	ldx (I4)+1,NULL	// I4 += 1
+//     }
+// {
+//       if (n)
+	ldx (I4)-1,I0	// unspill 'n' from #0
+	mv I0,A0	// 'n' -> AT1d
+	sub A0,NULL,A0	// AT1d == (0) -> (0)
+	nop
+	jzs F0B21	// signed compare
+	sub B0,ONES,A0
+// jumped away
+	ldx (I4)+1,NULL ; sub B1,C0,A0	// I4 += 1
+// 	*n = len-needleLen-1;
+	ldx (I4)-1,I0 ; add A0,ONES,A0	// 'len' - 'needleLen' -> ETe
+	stx A0,(I0) ; sub B0,ONES,A0	// ETf ==> 'n'
+//       return equal+1;
+F0B21:
+	ldx (I6)-1,I3
+	ldy (I6),D0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F0B10:	// (loop lvl 2)
+//     }
+// {
+//       toAdd = div-haystack+1;
+	sub B0,A1,B1	// 'div' - 'haystack' -> 'len'
+//       len = div-haystack;
+	j F0B12
+	sub B1,ONES,C1	// 'len' - (-1) -> 'toAdd'
+// jumped away
+F0B5:
+//   return 0;
+	j F0B21
+	and NULL,NULL,A0	// 0 -> ET14
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,FileParamInt	// 24 words
+	.export _FileParamInt
+_FileParamInt:
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx I0,(I6)+1 ; add C,NULL,B
+
+	call _FileParamSeek
+	ldc 0,I0	// 0 -> I0
+// jumped away
+// c ? strtol(c,0, 10) : defaultVal;
+	sub A0,NULL,A0	// 'c' == (0) -> (0)
+	ldc 10,A1	// 10 -> 0 -> ET3
+	jzs F1B5	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A1,(I6)+1 ; and NULL,NULL,A1	// ET3
+	stx A1,(I6)+1	// ET0
+	call _strtol
+	stx A0,(I6)	// 'c'
+// jumped away
+	ldx (I6)-3,NULL ; add A,NULL,B	// I6 += -3
+F1B5:
+	add B,NULL,A ; ldx (I6)-1,I0	// 'defaultVal' returns via A
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_y,vshcompatinit_y	// 1 word
+	.export _extSymbolSearchRom
+_extSymbolSearchRom:
+	.word 0
+
+//_____________________________________________________________
+//
+	.sect data_x,vshcompatinit_x	// 1 word
+	.export _extSymbolRomSize
+_extSymbolRomSize:
+	.word 0
+
+	.end

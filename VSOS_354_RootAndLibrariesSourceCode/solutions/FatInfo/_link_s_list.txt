@@ -1,0 +1,3802 @@
+// Listing
+
+.sect code, votext
+_PrintBlock:
+    /*  0:*/ .uword 0x36130024 
+    /*  1:*/ .uword 0x3e120024 
+    /*  2:*/ .uword 0x3e05b814 
+    /*  3:*/ .uword 0x36450024 
+    /*  4:*/ .uword 0x3e003841 
+    /*  5:*/ .uword 0x00000000  //Symb00BC4C9C printblock_1+0; 	Sect voxdata_1+0  UWord 0x00000000 (<<6)
+          // RE Sym(00BC4C9C)printblock_1 Sec(voxdata_1) Value(0) Symoffset(0) curval(0) 
+    /*  6:*/ .uword 0x3e00f846 
+    /*  7:*/ .uword 0x3e01f850 
+    /*  8:*/ .uword 0x3e04784d 
+    /*  9:*/ .uword 0xf4004491 
+    /* 10:*/ .uword 0x00000012  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000012 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /* 11:*/ .uword 0x3e13b80f 
+    /* 12:*/ .uword 0x3e108024 
+    /* 13:*/ .uword 0x3e110024 
+    /* 14:*/ .uword 0x3e114024 
+    /* 15:*/ .uword 0x3e144024 
+    /* 16:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /* 17:*/ .uword 0x3e000024 
+    /* 18:*/ .uword 0xf4004450 
+    /* 19:*/ .uword 0x00000000  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000000 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /* 20:*/ .uword 0x36c305cc 
+    /* 21:*/ .uword 0x68903840 
+    /* 22:*/ .uword 0x3e100024 
+    /* 23:*/ .uword 0x3e110024 
+    /* 24:*/ .uword 0x3e014024 
+    /* 25:*/ .uword 0x31000024 
+    /* 26:*/ .uword 0xf4004008 
+    /* 27:*/ .uword 0x20000000 
+    /* 28:*/ .uword 0x00000748  //Symb00B8E2CC _PrintBlock+29; 	Sect votext+29  UWord 0x00000748 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(29) curval(29) 
+    /* 29:*/ .uword 0x60801b4c 
+    /* 30:*/ .uword 0x00000880  //Symb00BC4DF8 emediac_2+0; 	Sect voxdata_1+34  UWord 0x00000880 (<<6)
+          // RE Sym(00BC4DF8)emediac_2 Sec(voxdata_1) Value(34) Symoffset(0) curval(34) 
+    /* 31:*/ .uword 0x28001f15  //Symb00B8E2CC _PrintBlock+124; 	Sect votext+124  UWord 0x28001f15 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(124) curval(124) 
+    /* 32:*/ .uword 0x00000024 
+    /* 33:*/ .uword 0x62841bcc 
+    /* 34:*/ .uword 0x00000ec0  //Symb00BC4F54 block0x_3+0; 	Sect voxdata_1+59  UWord 0x00000ec0 (<<6)
+          // RE Sym(00BC4F54)block0x_3 Sec(voxdata_1) Value(59) Symoffset(0) curval(59) 
+    /* 35:*/ .uword 0x28000c15  //Symb00B8E2CC _PrintBlock+48; 	Sect votext+48  UWord 0x28000c15 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(48) curval(48) 
+    /* 36:*/ .uword 0x00000024 
+    /* 37:*/ .uword 0x36f3980f 
+    /* 38:*/ .uword 0x36f4580d 
+    /* 39:*/ .uword 0x36f1d810 
+    /* 40:*/ .uword 0x36f0d806 
+    /* 41:*/ .uword 0x36f01801 
+    /* 42:*/ .uword 0x34059014 
+    /* 43:*/ .uword 0x36f30024 
+    /* 44:*/ .uword 0x36f20024 
+    /* 45:*/ .uword 0x20000000 
+    /* 46:*/ .uword 0x00000024 
+    /* 47:*/ .uword 0x00000ec0  //Symb00BC4F54 block0x_3+0; 	Sect voxdata_1+59  UWord 0x00000ec0 (<<6)
+          // RE Sym(00BC4F54)block0x_3 Sec(voxdata_1) Value(59) Symoffset(0) curval(59) 
+    /* 48:*/ .uword 0x36130024 
+    /* 49:*/ .uword 0x3e110024 
+    /* 50:*/ .uword 0x3e114024 
+    /* 51:*/ .uword 0x3e110024 
+    /* 52:*/ .uword 0x3e114024 
+    /* 53:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /* 54:*/ .uword 0x3e000024 
+    /* 55:*/ .uword 0xb8861acc 
+    /* 56:*/ .uword 0x28000f40  //Symb00B8E2CC _PrintBlock+61; 	Sect votext+61  UWord 0x28000f40 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(61) curval(61) 
+    /* 57:*/ .uword 0x689e0024 
+    /* 58:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /* 59:*/ .uword 0x3e000024 
+    /* 60:*/ .uword 0x43461bcc 
+    /* 61:*/ .uword 0x00004000 
+    /* 62:*/ .uword 0x63000024 
+    /* 63:*/ .uword 0x00000024 
+    /* 64:*/ .uword 0x28000958  //Symb00B8E2CC _PrintBlock+37; 	Sect votext+37  UWord 0x28000958 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(37) curval(37) 
+    /* 65:*/ .uword 0x00000024 
+    /* 66:*/ .uword 0x4330184c 
+    /* 67:*/ .uword 0x3e100024 
+    /* 68:*/ .uword 0x00001400  //Symb00BC50B0 x_4+0; 	Sect voxdata_1+80  UWord 0x00001400 (<<6)
+          // RE Sym(00BC50B0)x_4 Sec(voxdata_1) Value(80) Symoffset(0) curval(80) 
+    /* 69:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /* 70:*/ .uword 0x3e000024 
+    /* 71:*/ .uword 0x000001cd 
+    /* 72:*/ .uword 0x2440140d  //Symb00B8E2CC _PrintBlock+80; 	Sect votext+80  UWord 0x2440140d (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(80) curval(80) 
+    /* 73:*/ .uword 0x36e30024 
+    /* 74:*/ .uword 0x00000204 
+    /* 75:*/ .uword 0x3210184c 
+    /* 76:*/ .uword 0x689e3840 
+    /* 77:*/ .uword 0x00001680  //Symb00BC520C x_5+0; 	Sect voxdata_1+90  UWord 0x00001680 (<<6)
+          // RE Sym(00BC520C)x_5 Sec(voxdata_1) Value(90) Symoffset(0) curval(90) 
+    /* 78:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /* 79:*/ .uword 0x3e000024 
+    /* 80:*/ .uword 0x36e30024 
+    /* 81:*/ .uword 0x00001800  //Symb00BC5368 String_6+0; 	Sect voxdata_1+96  UWord 0x00001800 (<<6)
+          // RE Sym(00BC5368)String_6 Sec(voxdata_1) Value(96) Symoffset(0) curval(96) 
+    /* 82:*/ .uword 0x36130024 
+    /* 83:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /* 84:*/ .uword 0x3e000024 
+    /* 85:*/ .uword 0x36f30a4c 
+    /* 86:*/ .uword 0xb8840bcc 
+    /* 87:*/ .uword 0x6240184c 
+    /* 88:*/ .uword 0x00001940  //Symb00BC5620 String_8+0; 	Sect voxdata_1+101  UWord 0x00001940 (<<6)
+          // RE Sym(00BC5620)String_8 Sec(voxdata_1) Value(101) Symoffset(0) curval(101) 
+    /* 89:*/ .uword 0x28000e98  //Symb00B8E2CC _PrintBlock+58; 	Sect votext+58  UWord 0x28000e98 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(58) curval(58) 
+    /* 90:*/ .uword 0x00000024 
+    /* 91:*/ .uword 0x0000004d 
+    /* 92:*/ .uword 0x24401dcd  //Symb00B8E2CC _PrintBlock+119; 	Sect votext+119  UWord 0x24401dcd (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(119) curval(119) 
+    /* 93:*/ .uword 0x68921bcc 
+    /* 94:*/ .uword 0xfe18108c 
+    /* 95:*/ .uword 0x3c01b3c7 
+    /* 96:*/ .uword 0xb78e3002 
+    /* 97:*/ .uword 0x32017043 
+    /* 98:*/ .uword 0x48b64146 
+    /* 99:*/ .uword 0x68200024 
+    /*100:*/ .uword 0xaf0693c7 
+    /*101:*/ .uword 0x00003fc0 
+    /*102:*/ .uword 0xb20a1002 
+    /*103:*/ .uword 0x458c4150 
+    /*104:*/ .uword 0x29000000  //Symb00BCFA48 _isprint+0; Unbound external  // Symbol _isprint runtime imported  
+    /*105:*/ .uword 0x300913c3 
+    /*106:*/ .uword 0x60800024 
+    /*107:*/ .uword 0x00003fc0 
+    /*108:*/ .uword 0x28001e85  //Symb00B8E2CC _PrintBlock+122; 	Sect votext+122  UWord 0x28001e85 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(122) curval(122) 
+    /*109:*/ .uword 0x00000024 
+    /*110:*/ .uword 0x65000024 
+    /*111:*/ .uword 0x00000024 
+    /*112:*/ .uword 0x28001e85  //Symb00B8E2CC _PrintBlock+122; 	Sect votext+122  UWord 0x28001e85 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(122) curval(122) 
+    /*113:*/ .uword 0x00000024 
+    /*114:*/ .uword 0x00001880  //Symb00BC54C4 c_7+0; 	Sect voxdata_1+98  UWord 0x00001880 (<<6)
+          // RE Sym(00BC54C4)c_7 Sec(voxdata_1) Value(98) Symoffset(0) curval(98) 
+    /*115:*/ .uword 0x36130024 
+    /*116:*/ .uword 0x3e118024 
+    /*117:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*118:*/ .uword 0x3e000024 
+    /*119:*/ .uword 0x41921b8c 
+    /*120:*/ .uword 0x280015c0  //Symb00B8E2CC _PrintBlock+87; 	Sect votext+87  UWord 0x280015c0 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(87) curval(87) 
+    /*121:*/ .uword 0x6294084c 
+    /*122:*/ .uword 0x28001c80  //Symb00B8E2CC _PrintBlock+114; 	Sect votext+114  UWord 0x28001c80 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(114) curval(114) 
+    /*123:*/ .uword 0x00000b86 
+    /*124:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*125:*/ .uword 0x3e000024 
+    /*126:*/ .uword 0x28000940  //Symb00B8E2CC _PrintBlock+37; 	Sect votext+37  UWord 0x28000940 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(37) curval(37) 
+    /*127:*/ .uword 0x36f30024 
+_PrintFat32:
+    /*128:*/ .uword 0x36130024 
+    /*129:*/ .uword 0x3e120024 
+    /*130:*/ .uword 0x3e05b814 
+    /*131:*/ .uword 0x36650024 
+    /*132:*/ .uword 0x3e007843 
+    /*133:*/ .uword 0x3e01b847 
+    /*134:*/ .uword 0x3e043851 
+    /*135:*/ .uword 0xb8864491 
+    /*136:*/ .uword 0xc8904452 
+    /*137:*/ .uword 0x3e03784e 
+    /*138:*/ .uword 0x3e03d04c 
+    /*139:*/ .uword 0x3c108024 
+    /*140:*/ .uword 0x3cf13005 
+    /*141:*/ .uword 0x29000000  //Symb00B8E2CC _PrintBlock+0; 	Sect votext+0  UWord 0x29000000 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(0) curval(0) 
+    /*142:*/ .uword 0x3400b3c0 
+    /*143:*/ .uword 0x000019c0  //Symb00BC577C fat32sect_9+0; 	Sect voxdata_1+103  UWord 0x000019c0 (<<6)
+          // RE Sym(00BC577C)fat32sect_9 Sec(voxdata_1) Value(103) Symoffset(0) curval(103) 
+    /*144:*/ .uword 0x36130024 
+    /*145:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*146:*/ .uword 0x3e000024 
+    /*147:*/ .uword 0x00001e00  //Symb00BC58D8 jumpc_10+0; 	Sect voxdata_1+120  UWord 0x00001e00 (<<6)
+          // RE Sym(00BC58D8)jumpc_10 Sec(voxdata_1) Value(120) Symoffset(0) curval(120) 
+    /*148:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*149:*/ .uword 0x3e000024 
+    /*150:*/ .uword 0x0000008d 
+    /*151:*/ .uword 0x2440084d  //Symb00B8F648 _PrintFat32+33; 	Sect votext+161  UWord 0x2440284d (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(33) curval(33) 
+    /*152:*/ .uword 0xb8821bcc 
+    /*153:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*154:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*155:*/ .uword 0x4184184c 
+    /*156:*/ .uword 0x36130024 
+    /*157:*/ .uword 0x3e100024 
+    /*158:*/ .uword 0x00002380  //Symb00BC5A34 x_11+0; 	Sect voxdata_1+142  UWord 0x00002380 (<<6)
+          // RE Sym(00BC5A34)x_11 Sec(voxdata_1) Value(142) Symoffset(0) curval(142) 
+    /*159:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*160:*/ .uword 0x3e000024 
+    /*161:*/ .uword 0x61921b8c 
+    /*162:*/ .uword 0x00001940  //Symb00BC5620 String_8+0; 	Sect voxdata_1+101  UWord 0x00001940 (<<6)
+          // RE Sym(00BC5620)String_8 Sec(voxdata_1) Value(101) Symoffset(0) curval(101) 
+    /*163:*/ .uword 0x36130024 
+    /*164:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*165:*/ .uword 0x3e000024 
+    /*166:*/ .uword 0x00002500  //Symb00BC5B90 oemna_12+0; 	Sect voxdata_1+148  UWord 0x00002500 (<<6)
+          // RE Sym(00BC5B90)oemna_12 Sec(voxdata_1) Value(148) Symoffset(0) curval(148) 
+    /*167:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*168:*/ .uword 0x3e000024 
+    /*169:*/ .uword 0x00000084 
+    /*170:*/ .uword 0xb8821bcc 
+    /*171:*/ .uword 0x61440024 
+    /*172:*/ .uword 0x000002c2 
+    /*173:*/ .uword 0x28001298  //Symb00B8F648 _PrintFat32+74; 	Sect votext+202  UWord 0x28003298 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(74) curval(74) 
+    /*174:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*175:*/ .uword 0x000001cd 
+    /*176:*/ .uword 0x24400f0d  //Symb00B8F648 _PrintFat32+60; 	Sect votext+188  UWord 0x24402f0d (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(60) curval(60) 
+    /*177:*/ .uword 0x000000c5 
+    /*178:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*179:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*180:*/ .uword 0x4584184c 
+    /*181:*/ .uword 0x6182184c 
+    /*182:*/ .uword 0x3e000024 
+    /*183:*/ .uword 0x28001215  //Symb00B8F648 _PrintFat32+72; 	Sect votext+200  UWord 0x28003215 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(72) curval(72) 
+    /*184:*/ .uword 0x00002382  //Symb00BC5A34 x_11+0; 	Sect voxdata_1+142  UWord 0x00002382 (<<6)
+          // RE Sym(00BC5A34)x_11 Sec(voxdata_1) Value(142) Symoffset(0) curval(142) 
+    /*185:*/ .uword 0x36130024 
+    /*186:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*187:*/ .uword 0x3e008024 
+    /*188:*/ .uword 0x659a1b8c 
+    /*189:*/ .uword 0x61820024 
+    /*190:*/ .uword 0x000028c2  //Symb00BC5CEC String_13+0; 	Sect voxdata_1+163  UWord 0x000028c2 (<<6)
+          // RE Sym(00BC5CEC)String_13 Sec(voxdata_1) Value(163) Symoffset(0) curval(163) 
+    /*191:*/ .uword 0x28001195  //Symb00B8F648 _PrintFat32+70; 	Sect votext+198  UWord 0x28003195 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(70) curval(70) 
+    /*192:*/ .uword 0x00000024 
+    /*193:*/ .uword 0x36130024 
+    /*194:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*195:*/ .uword 0x3e008024 
+    /*196:*/ .uword 0x28000ac0  //Symb00B8F648 _PrintFat32+43; 	Sect votext+171  UWord 0x28002ac0 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(43) curval(43) 
+    /*197:*/ .uword 0x61921bcc 
+    /*198:*/ .uword 0x28001040  //Symb00B8F648 _PrintFat32+65; 	Sect votext+193  UWord 0x28003040 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(65) curval(65) 
+    /*199:*/ .uword 0x00002982  //Symb00BC5E48 String_14+0; 	Sect voxdata_1+166  UWord 0x00002982 (<<6)
+          // RE Sym(00BC5E48)String_14 Sec(voxdata_1) Value(166) Symoffset(0) curval(166) 
+    /*200:*/ .uword 0x28000e40  //Symb00B8F648 _PrintFat32+57; 	Sect votext+185  UWord 0x28002e40 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(57) curval(57) 
+    /*201:*/ .uword 0x00001882  //Symb00BC54C4 c_7+0; 	Sect voxdata_1+98  UWord 0x00001882 (<<6)
+          // RE Sym(00BC54C4)c_7 Sec(voxdata_1) Value(98) Symoffset(0) curval(98) 
+    /*202:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*203:*/ .uword 0x36130024 
+    /*204:*/ .uword 0x36130024 
+    /*205:*/ .uword 0x3e100024 
+    /*206:*/ .uword 0x00002a40  //Symb00BC5FA4 bytes_15+0; 	Sect voxdata_1+169  UWord 0x00002a40 (<<6)
+          // RE Sym(00BC5FA4)bytes_15 Sec(voxdata_1) Value(169) Symoffset(0) curval(169) 
+    /*207:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*208:*/ .uword 0x3e000024 
+    /*209:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*210:*/ .uword 0x36f30024 
+    /*211:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*212:*/ .uword 0x00000342 
+    /*213:*/ .uword 0x36130024 
+    /*214:*/ .uword 0x3e100024 
+    /*215:*/ .uword 0x00003080  //Symb00BC6100 sector_16+0; 	Sect voxdata_1+194  UWord 0x00003080 (<<6)
+          // RE Sym(00BC6100)sector_16 Sec(voxdata_1) Value(194) Symoffset(0) curval(194) 
+    /*216:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*217:*/ .uword 0x3e000024 
+    /*218:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*219:*/ .uword 0x36f30024 
+    /*220:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*221:*/ .uword 0x00000382 
+    /*222:*/ .uword 0x36130024 
+    /*223:*/ .uword 0x3e100024 
+    /*224:*/ .uword 0x00003780  //Symb00BC625C reserv_17+0; 	Sect voxdata_1+222  UWord 0x00003780 (<<6)
+          // RE Sym(00BC625C)reserv_17 Sec(voxdata_1) Value(222) Symoffset(0) curval(222) 
+    /*225:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*226:*/ .uword 0x3e000024 
+    /*227:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*228:*/ .uword 0x36f30024 
+    /*229:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*230:*/ .uword 0x00000402 
+    /*231:*/ .uword 0x4084184c 
+    /*232:*/ .uword 0x3e100024 
+    /*233:*/ .uword 0x00003dc0  //Symb00BC63B8 number_18+0; 	Sect voxdata_1+247  UWord 0x00003dc0 (<<6)
+          // RE Sym(00BC63B8)number_18 Sec(voxdata_1) Value(247) Symoffset(0) curval(247) 
+    /*234:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*235:*/ .uword 0x3e000024 
+    /*236:*/ .uword 0x62841b8c 
+    /*237:*/ .uword 0x00000024 
+    /*238:*/ .uword 0x28001d55  //Symb00B8F648 _PrintFat32+117; 	Sect votext+245  UWord 0x28003d55 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(117) curval(117) 
+    /*239:*/ .uword 0x00000024 
+    /*240:*/ .uword 0x00004380  //Symb00BC6514 c_19+0; 	Sect voxdata_1+270  UWord 0x00004380 (<<6)
+          // RE Sym(00BC6514)c_19 Sec(voxdata_1) Value(270) Symoffset(0) curval(270) 
+    /*241:*/ .uword 0x36130024 
+    /*242:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*243:*/ .uword 0x3e000024 
+    /*244:*/ .uword 0x68961bcc 
+    /*245:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*246:*/ .uword 0x000004c2 
+    /*247:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*248:*/ .uword 0x36130024 
+    /*249:*/ .uword 0x4084184c 
+    /*250:*/ .uword 0x3e100024 
+    /*251:*/ .uword 0x00004e00  //Symb00BC6670 bit_20+0; 	Sect voxdata_1+312  UWord 0x00004e00 (<<6)
+          // RE Sym(00BC6670)bit_20 Sec(voxdata_1) Value(312) Symoffset(0) curval(312) 
+    /*252:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*253:*/ .uword 0x3e000024 
+    /*254:*/ .uword 0x62841b8c 
+    /*255:*/ .uword 0x00000024 
+    /*256:*/ .uword 0x280021c5  //Symb00B8F648 _PrintFat32+135; 	Sect votext+263  UWord 0x280041c5 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(135) curval(135) 
+    /*257:*/ .uword 0x00000024 
+    /*258:*/ .uword 0x00005840  //Symb00BC67CC c_21+0; 	Sect voxdata_1+353  UWord 0x00005840 (<<6)
+          // RE Sym(00BC67CC)c_21 Sec(voxdata_1) Value(353) Symoffset(0) curval(353) 
+    /*259:*/ .uword 0x36130024 
+    /*260:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*261:*/ .uword 0x3e000024 
+    /*262:*/ .uword 0x68961bcc 
+    /*263:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*264:*/ .uword 0x00000542 
+    /*265:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*266:*/ .uword 0x36130024 
+    /*267:*/ .uword 0x36130024 
+    /*268:*/ .uword 0x3e100024 
+    /*269:*/ .uword 0x00005e80  //Symb00BC6928 media_22+0; 	Sect voxdata_1+378  UWord 0x00005e80 (<<6)
+          // RE Sym(00BC6928)media_22 Sec(voxdata_1) Value(378) Symoffset(0) curval(378) 
+    /*270:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*271:*/ .uword 0x3e000024 
+    /*272:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*273:*/ .uword 0x36f30024 
+    /*274:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*275:*/ .uword 0x00000582 
+    /*276:*/ .uword 0x4084184c 
+    /*277:*/ .uword 0x3e100024 
+    /*278:*/ .uword 0x00006900  //Symb00BC6A84 bit_23+0; 	Sect voxdata_1+420  UWord 0x00006900 (<<6)
+          // RE Sym(00BC6A84)bit_23 Sec(voxdata_1) Value(420) Symoffset(0) curval(420) 
+    /*279:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*280:*/ .uword 0x3e000024 
+    /*281:*/ .uword 0x62841b8c 
+    /*282:*/ .uword 0x00000024 
+    /*283:*/ .uword 0x28002885  //Symb00B8F648 _PrintFat32+162; 	Sect votext+290  UWord 0x28004885 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(162) curval(162) 
+    /*284:*/ .uword 0x00000024 
+    /*285:*/ .uword 0x00005840  //Symb00BC67CC c_21+0; 	Sect voxdata_1+353  UWord 0x00005840 (<<6)
+          // RE Sym(00BC67CC)c_21 Sec(voxdata_1) Value(353) Symoffset(0) curval(353) 
+    /*286:*/ .uword 0x36130024 
+    /*287:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*288:*/ .uword 0x3e000024 
+    /*289:*/ .uword 0x68961bcc 
+    /*290:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*291:*/ .uword 0x00000602 
+    /*292:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*293:*/ .uword 0x36130024 
+    /*294:*/ .uword 0x36130024 
+    /*295:*/ .uword 0x3e100024 
+    /*296:*/ .uword 0x00006f00  //Symb00BC6BE0 sector_24+0; 	Sect voxdata_1+444  UWord 0x00006f00 (<<6)
+          // RE Sym(00BC6BE0)sector_24 Sec(voxdata_1) Value(444) Symoffset(0) curval(444) 
+    /*297:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*298:*/ .uword 0x3e000024 
+    /*299:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*300:*/ .uword 0x36f30024 
+    /*301:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*302:*/ .uword 0x00000682 
+    /*303:*/ .uword 0x36130024 
+    /*304:*/ .uword 0x3e100024 
+    /*305:*/ .uword 0x00007580  //Symb00BC6D3C number_25+0; 	Sect voxdata_1+470  UWord 0x00007580 (<<6)
+          // RE Sym(00BC6D3C)number_25 Sec(voxdata_1) Value(470) Symoffset(0) curval(470) 
+    /*306:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*307:*/ .uword 0x3e000024 
+    /*308:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*309:*/ .uword 0x36f30024 
+    /*310:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*311:*/ .uword 0x00000702 
+    /*312:*/ .uword 0x36130024 
+    /*313:*/ .uword 0x3e100024 
+    /*314:*/ .uword 0x00007b80  //Symb00BC6E98 number_26+0; 	Sect voxdata_1+494  UWord 0x00007b80 (<<6)
+          // RE Sym(00BC6E98)number_26 Sec(voxdata_1) Value(494) Symoffset(0) curval(494) 
+    /*315:*/ .uword 0x3e104024 
+    /*316:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*317:*/ .uword 0x3e000024 
+    /*318:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*319:*/ .uword 0x36e30024 
+    /*320:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*321:*/ .uword 0x00000802 
+    /*322:*/ .uword 0x36130024 
+    /*323:*/ .uword 0x3e100024 
+    /*324:*/ .uword 0x00008740  //Symb00BC6FF4 bit_27+0; 	Sect voxdata_1+541  UWord 0x00008740 (<<6)
+          // RE Sym(00BC6FF4)bit_27 Sec(voxdata_1) Value(541) Symoffset(0) curval(541) 
+    /*325:*/ .uword 0x3e104024 
+    /*326:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*327:*/ .uword 0x3e000024 
+    /*328:*/ .uword 0x63861b4c 
+    /*329:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*330:*/ .uword 0x28007595  //Symb00B8F648 _PrintFat32+470; 	Sect votext+598  UWord 0x28009595 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(470) curval(470) 
+    /*331:*/ .uword 0x00000024 
+    /*332:*/ .uword 0x00000902 
+    /*333:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*334:*/ .uword 0x36130024 
+    /*335:*/ .uword 0x36130024 
+    /*336:*/ .uword 0x3e100024 
+    /*337:*/ .uword 0x00009300  //Symb00BC7150 bit_28+0; 	Sect voxdata_1+588  UWord 0x00009300 (<<6)
+          // RE Sym(00BC7150)bit_28 Sec(voxdata_1) Value(588) Symoffset(0) curval(588) 
+    /*338:*/ .uword 0x3e104024 
+    /*339:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*340:*/ .uword 0x3e000024 
+    /*341:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*342:*/ .uword 0x36e30024 
+    /*343:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*344:*/ .uword 0x00000a02 
+    /*345:*/ .uword 0x36130024 
+    /*346:*/ .uword 0x3e100024 
+    /*347:*/ .uword 0x00009d80  //Symb00BC72AC flags_29+0; 	Sect voxdata_1+630  UWord 0x00009d80 (<<6)
+          // RE Sym(00BC72AC)flags_29 Sec(voxdata_1) Value(630) Symoffset(0) curval(630) 
+    /*348:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*349:*/ .uword 0x3e000024 
+    /*350:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*351:*/ .uword 0x36f30024 
+    /*352:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*353:*/ .uword 0x00000a82 
+    /*354:*/ .uword 0x36130024 
+    /*355:*/ .uword 0x3e100024 
+    /*356:*/ .uword 0x0000a180  //Symb00BC7408 versio_30+0; 	Sect voxdata_1+646  UWord 0x0000a180 (<<6)
+          // RE Sym(00BC7408)versio_30 Sec(voxdata_1) Value(646) Symoffset(0) curval(646) 
+    /*357:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*358:*/ .uword 0x3e000024 
+    /*359:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*360:*/ .uword 0x36f30024 
+    /*361:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*362:*/ .uword 0x00000b02 
+    /*363:*/ .uword 0x36130024 
+    /*364:*/ .uword 0x3e100024 
+    /*365:*/ .uword 0x0000a9c0  //Symb00BC7564 cluste_31+0; 	Sect voxdata_1+679  UWord 0x0000a9c0 (<<6)
+          // RE Sym(00BC7564)cluste_31 Sec(voxdata_1) Value(679) Symoffset(0) curval(679) 
+    /*366:*/ .uword 0x3e104024 
+    /*367:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*368:*/ .uword 0x3e000024 
+    /*369:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*370:*/ .uword 0x36e30024 
+    /*371:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*372:*/ .uword 0x00000c02 
+    /*373:*/ .uword 0x36130024 
+    /*374:*/ .uword 0x3e100024 
+    /*375:*/ .uword 0x0000b880  //Symb00BC76C0 sector_32+0; 	Sect voxdata_1+738  UWord 0x0000b880 (<<6)
+          // RE Sym(00BC76C0)sector_32 Sec(voxdata_1) Value(738) Symoffset(0) curval(738) 
+    /*376:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*377:*/ .uword 0x3e000024 
+    /*378:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*379:*/ .uword 0x36f30024 
+    /*380:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*381:*/ .uword 0x00000c82 
+    /*382:*/ .uword 0x36130024 
+    /*383:*/ .uword 0x3e100024 
+    /*384:*/ .uword 0x0000c740  //Symb00BC781C sector_33+0; 	Sect voxdata_1+797  UWord 0x0000c740 (<<6)
+          // RE Sym(00BC781C)sector_33 Sec(voxdata_1) Value(797) Symoffset(0) curval(797) 
+    /*385:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*386:*/ .uword 0x3e000024 
+    /*387:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*388:*/ .uword 0x36f30024 
+    /*389:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*390:*/ .uword 0x00001002 
+    /*391:*/ .uword 0x36130024 
+    /*392:*/ .uword 0x3e100024 
+    /*393:*/ .uword 0x0000d340  //Symb00BC7978 logica_34+0; 	Sect voxdata_1+845  UWord 0x0000d340 (<<6)
+          // RE Sym(00BC7978)logica_34 Sec(voxdata_1) Value(845) Symoffset(0) curval(845) 
+    /*394:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*395:*/ .uword 0x3e000024 
+    /*396:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*397:*/ .uword 0x36f30024 
+    /*398:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*399:*/ .uword 0x00001082 
+    /*400:*/ .uword 0x36130024 
+    /*401:*/ .uword 0x3e100024 
+    /*402:*/ .uword 0x0000ddc0  //Symb00BC7AD4 extend_35+0; 	Sect voxdata_1+887  UWord 0x0000ddc0 (<<6)
+          // RE Sym(00BC7AD4)extend_35 Sec(voxdata_1) Value(887) Symoffset(0) curval(887) 
+    /*403:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*404:*/ .uword 0x3e000024 
+    /*405:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*406:*/ .uword 0x36f30024 
+    /*407:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*408:*/ .uword 0x000010c2 
+    /*409:*/ .uword 0x36130024 
+    /*410:*/ .uword 0x3e100024 
+    /*411:*/ .uword 0x0000e6c0  //Symb00BC7C30 serial_36+0; 	Sect voxdata_1+923  UWord 0x0000e6c0 (<<6)
+          // RE Sym(00BC7C30)serial_36 Sec(voxdata_1) Value(923) Symoffset(0) curval(923) 
+    /*412:*/ .uword 0x3e104024 
+    /*413:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*414:*/ .uword 0x3e000024 
+    /*415:*/ .uword 0x0000f0c0  //Symb00BC7D8C volume_37+0; 	Sect voxdata_1+963  UWord 0x0000f0c0 (<<6)
+          // RE Sym(00BC7D8C)volume_37 Sec(voxdata_1) Value(963) Symoffset(0) curval(963) 
+    /*416:*/ .uword 0x36e30024 
+    /*417:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*418:*/ .uword 0x3e000024 
+    /*419:*/ .uword 0xb8861bcc 
+    /*420:*/ .uword 0x00000080 
+    /*421:*/ .uword 0x63040024 
+    /*422:*/ .uword 0x00007fc2 
+    /*423:*/ .uword 0x28005118  //Symb00B8F648 _PrintFat32+324; 	Sect votext+452  UWord 0x28007118 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(324) curval(324) 
+    /*424:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*425:*/ .uword 0x0000028d 
+    /*426:*/ .uword 0x24404d8d  //Symb00B8F648 _PrintFat32+310; 	Sect votext+438  UWord 0x24406d8d (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(310) curval(310) 
+    /*427:*/ .uword 0x000011c1 
+    /*428:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*429:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*430:*/ .uword 0x4184184c 
+    /*431:*/ .uword 0x6386184c 
+    /*432:*/ .uword 0x3e000024 
+    /*433:*/ .uword 0x28005095  //Symb00B8F648 _PrintFat32+322; 	Sect votext+450  UWord 0x28007095 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(322) curval(322) 
+    /*434:*/ .uword 0x00002382  //Symb00BC5A34 x_11+0; 	Sect voxdata_1+142  UWord 0x00002382 (<<6)
+          // RE Sym(00BC5A34)x_11 Sec(voxdata_1) Value(142) Symoffset(0) curval(142) 
+    /*435:*/ .uword 0x36130024 
+    /*436:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*437:*/ .uword 0x3e008024 
+    /*438:*/ .uword 0x61921b8c 
+    /*439:*/ .uword 0x63860024 
+    /*440:*/ .uword 0x000028c2  //Symb00BC5CEC String_13+0; 	Sect voxdata_1+163  UWord 0x000028c2 (<<6)
+          // RE Sym(00BC5CEC)String_13 Sec(voxdata_1) Value(163) Symoffset(0) curval(163) 
+    /*441:*/ .uword 0x28005015  //Symb00B8F648 _PrintFat32+320; 	Sect votext+448  UWord 0x28007015 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(320) curval(320) 
+    /*442:*/ .uword 0x00000024 
+    /*443:*/ .uword 0x36130024 
+    /*444:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*445:*/ .uword 0x3e008024 
+    /*446:*/ .uword 0x28004900  //Symb00B8F648 _PrintFat32+292; 	Sect votext+420  UWord 0x28006900 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(292) curval(292) 
+    /*447:*/ .uword 0x63961bcc 
+    /*448:*/ .uword 0x28004ec0  //Symb00B8F648 _PrintFat32+315; 	Sect votext+443  UWord 0x28006ec0 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(315) curval(315) 
+    /*449:*/ .uword 0x00002982  //Symb00BC5E48 String_14+0; 	Sect voxdata_1+166  UWord 0x00002982 (<<6)
+          // RE Sym(00BC5E48)String_14 Sec(voxdata_1) Value(166) Symoffset(0) curval(166) 
+    /*450:*/ .uword 0x28004cc0  //Symb00B8F648 _PrintFat32+307; 	Sect votext+435  UWord 0x28006cc0 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(307) curval(307) 
+    /*451:*/ .uword 0x00001882  //Symb00BC54C4 c_7+0; 	Sect voxdata_1+98  UWord 0x00001882 (<<6)
+          // RE Sym(00BC54C4)c_7 Sec(voxdata_1) Value(98) Symoffset(0) curval(98) 
+    /*452:*/ .uword 0xb880104c 
+    /*453:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*454:*/ .uword 0x361333c0 
+    /*455:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*456:*/ .uword 0x36130024 
+    /*457:*/ .uword 0x3e100024 
+    /*458:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*459:*/ .uword 0x00007f82 
+    /*460:*/ .uword 0x36130024 
+    /*461:*/ .uword 0x3e100024 
+    /*462:*/ .uword 0x0000f840  //Symb00BC7EE8 bootr_38+0; 	Sect voxdata_1+993  UWord 0x0000f840 (<<6)
+          // RE Sym(00BC7EE8)bootr_38 Sec(voxdata_1) Value(993) Symoffset(0) curval(993) 
+    /*463:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*464:*/ .uword 0x3e000024 
+    /*465:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*466:*/ .uword 0x36e30024 
+    /*467:*/ .uword 0x29000000  //Symb00BCFB30 _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BCFB30)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*468:*/ .uword 0x00000382 
+    /*469:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*470:*/ .uword 0x00000902 
+    /*471:*/ .uword 0x3443184c 
+    /*472:*/ .uword 0xb1823000 
+    /*473:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*474:*/ .uword 0x30093301 
+    /*475:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*476:*/ .uword 0x00000402 
+    /*477:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*478:*/ .uword 0x4c8e184c 
+    /*479:*/ .uword 0xfff04452 
+    /*480:*/ .uword 0x48b6110c 
+    /*481:*/ .uword 0xffe01000 
+    /*482:*/ .uword 0x42b693c1 
+    /*483:*/ .uword 0x4cd20024 
+    /*484:*/ .uword 0x3c0033c1 
+    /*485:*/ .uword 0x340013c1 
+    /*486:*/ .uword 0x29000000  //Symb00B8E2CC _PrintBlock+0; 	Sect votext+0  UWord 0x29000000 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(0) curval(0) 
+    /*487:*/ .uword 0x6c9a13c2 
+    /*488:*/ .uword 0x00010592  //Symb00BC8044 fat32sect_39+0; 	Sect voxdata_1+1046  UWord 0x00010592 (<<6)
+          // RE Sym(00BC8044)fat32sect_39 Sec(voxdata_1) Value(1046) Symoffset(0) curval(1046) 
+    /*489:*/ .uword 0x29000000  //Symb00BCFC18 _vo_puts+0; 	Sect votext+968  UWord 0x2900f200 (<<6)
+          // RE Sym(00BCFC18)_vo_puts Sec(votext) Value(968) Symoffset(0) curval(0) 
+    /*490:*/ .uword 0x36130024 
+    /*491:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*492:*/ .uword 0x000000c2 
+    /*493:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*494:*/ .uword 0x36130024 
+    /*495:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*496:*/ .uword 0x36130024 
+    /*497:*/ .uword 0x3e100024 
+    /*498:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*499:*/ .uword 0x00000082 
+    /*500:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*501:*/ .uword 0x6894184c 
+    /*502:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*503:*/ .uword 0x3e100024 
+    /*504:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*505:*/ .uword 0xb884184c 
+    /*506:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*507:*/ .uword 0x3e100024 
+    /*508:*/ .uword 0x36130024 
+    /*509:*/ .uword 0x3e100024 
+    /*510:*/ .uword 0x00010980  //Symb00BCC1A4 first_40+0; 	Sect voxdata_1+1062  UWord 0x00010980 (<<6)
+          // RE Sym(00BCC1A4)first_40 Sec(voxdata_1) Value(1062) Symoffset(0) curval(1062) 
+    /*511:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*512:*/ .uword 0x3e000024 
+    /*513:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*514:*/ .uword 0x36c30024 
+    /*515:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*516:*/ .uword 0x000079c2 
+    /*517:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*518:*/ .uword 0x36130024 
+    /*519:*/ .uword 0x3e100024 
+    /*520:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*521:*/ .uword 0x00007982 
+    /*522:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*523:*/ .uword 0x36130024 
+    /*524:*/ .uword 0x3e100024 
+    /*525:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*526:*/ .uword 0x00007942 
+    /*527:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*528:*/ .uword 0x36130024 
+    /*529:*/ .uword 0x3e100024 
+    /*530:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*531:*/ .uword 0x00007902 
+    /*532:*/ .uword 0x36130024 
+    /*533:*/ .uword 0x3e100024 
+    /*534:*/ .uword 0x00011b40  //Symb00BCC300 signat_41+0; 	Sect voxdata_1+1133  UWord 0x00011b40 (<<6)
+          // RE Sym(00BCC300)signat_41 Sec(voxdata_1) Value(1133) Symoffset(0) curval(1133) 
+    /*535:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*536:*/ .uword 0x3e000024 
+    /*537:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*538:*/ .uword 0x36c30024 
+    /*539:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*540:*/ .uword 0x00007a02 
+    /*541:*/ .uword 0x36130024 
+    /*542:*/ .uword 0x3e100024 
+    /*543:*/ .uword 0x00012fc0  //Symb00BCC45C number_42+0; 	Sect voxdata_1+1215  UWord 0x00012fc0 (<<6)
+          // RE Sym(00BCC45C)number_42 Sec(voxdata_1) Value(1215) Symoffset(0) curval(1215) 
+    /*544:*/ .uword 0x3e104024 
+    /*545:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*546:*/ .uword 0x3e000024 
+    /*547:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*548:*/ .uword 0x36e30024 
+    /*549:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*550:*/ .uword 0x00007b02 
+    /*551:*/ .uword 0x36130024 
+    /*552:*/ .uword 0x3e100024 
+    /*553:*/ .uword 0x00013900  //Symb00BCC5B8 mostr_43+0; 	Sect voxdata_1+1252  UWord 0x00013900 (<<6)
+          // RE Sym(00BCC5B8)mostr_43 Sec(voxdata_1) Value(1252) Symoffset(0) curval(1252) 
+    /*554:*/ .uword 0x3e104024 
+    /*555:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*556:*/ .uword 0x3e000024 
+    /*557:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*558:*/ .uword 0x36e30024 
+    /*559:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*560:*/ .uword 0x00007fc2 
+    /*561:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*562:*/ .uword 0x36130024 
+    /*563:*/ .uword 0x3e100024 
+    /*564:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*565:*/ .uword 0x00007f82 
+    /*566:*/ .uword 0x36130024 
+    /*567:*/ .uword 0x3e100024 
+    /*568:*/ .uword 0x0000f840  //Symb00BC7EE8 bootr_38+0; 	Sect voxdata_1+993  UWord 0x0000f840 (<<6)
+          // RE Sym(00BC7EE8)bootr_38 Sec(voxdata_1) Value(993) Symoffset(0) curval(993) 
+    /*569:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*570:*/ .uword 0x3e000024 
+    /*571:*/ .uword 0x34331b8c 
+    /*572:*/ .uword 0x34001041 
+    /*573:*/ .uword 0x3e100024 
+    /*574:*/ .uword 0x3e105001 
+    /*575:*/ .uword 0x3e118024 
+    /*576:*/ .uword 0x3e11c024 
+    /*577:*/ .uword 0x34c00024 
+    /*578:*/ .uword 0x3e100024 
+    /*579:*/ .uword 0x00014440  //Symb00BCC714 fatstart_44+0; 	Sect voxdata_1+1297  UWord 0x00014440 (<<6)
+          // RE Sym(00BCC714)fatstart_44 Sec(voxdata_1) Value(1297) Symoffset(0) curval(1297) 
+    /*580:*/ .uword 0x3e104024 
+    /*581:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*582:*/ .uword 0x3e000024 
+    /*583:*/ .uword 0x34231a8c 
+    /*584:*/ .uword 0x34001041 
+    /*585:*/ .uword 0x34009343 
+    /*586:*/ .uword 0x4cda0024 
+    /*587:*/ .uword 0x00014ec0  //Symb00BCC870 fatroots_45+0; 	Sect voxdata_1+1339  UWord 0x00014ec0 (<<6)
+          // RE Sym(00BCC870)fatroots_45 Sec(voxdata_1) Value(1339) Symoffset(0) curval(1339) 
+    /*588:*/ .uword 0x3e110024 
+    /*589:*/ .uword 0x3e114024 
+    /*590:*/ .uword 0x3e110024 
+    /*591:*/ .uword 0x3e114024 
+    /*592:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*593:*/ .uword 0x3e000024 
+    /*594:*/ .uword 0xf4004452 
+    /*595:*/ .uword 0x34131acc 
+    /*596:*/ .uword 0x29000000  //Symb00B8E2CC _PrintBlock+0; 	Sect votext+0  UWord 0x29000000 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(0) curval(0) 
+    /*597:*/ .uword 0x34f08024 
+    /*598:*/ .uword 0x36f3d04c 
+    /*599:*/ .uword 0x300913c0 
+    /*600:*/ .uword 0x36f3580e 
+    /*601:*/ .uword 0x36f41811 
+    /*602:*/ .uword 0x36f19807 
+    /*603:*/ .uword 0x36f05803 
+    /*604:*/ .uword 0x34059014 
+    /*605:*/ .uword 0x36f30024 
+    /*606:*/ .uword 0x36f20024 
+    /*607:*/ .uword 0x20000000 
+    /*608:*/ .uword 0x00000024 
+_main:
+    /*609:*/ .uword 0x36130024 
+    /*610:*/ .uword 0x3e120024 
+    /*611:*/ .uword 0x3e05b814 
+    /*612:*/ .uword 0x36450024 
+    /*613:*/ .uword 0x3e007842 
+    /*614:*/ .uword 0x3e00f844 
+    /*615:*/ .uword 0x3e017846 
+    /*616:*/ .uword 0x3e01f850 
+    /*617:*/ .uword 0x3e047852 
+    /*618:*/ .uword 0x3e04f84d 
+    /*619:*/ .uword 0x3e13b80f 
+    /*620:*/ .uword 0xb88c138c 
+    /*621:*/ .uword 0x3444c024 
+    /*622:*/ .uword 0xf40044c0 
+    /*623:*/ .uword 0xb8803840 
+    /*624:*/ .uword 0x3e100024 
+    /*625:*/ .uword 0x00015600  //Symb00BCC9CC paramspl_46+0; 	Sect voxdata_1+1368  UWord 0x00015600 (<<6)
+          // RE Sym(00BCC9CC)paramspl_46 Sec(voxdata_1) Value(1368) Symoffset(0) curval(1368) 
+    /*626:*/ .uword 0xb8803800 
+    /*627:*/ .uword 0x3cf00024 
+    /*628:*/ .uword 0xc890b000 
+    /*629:*/ .uword 0x291fff80 
+    /*630:*/ .uword 0x3cf00024 
+    /*631:*/ .uword 0x408e1b4c 
+    /*632:*/ .uword 0x28001940  //Symb00B90210 _main+101; 	Sect votext+710  UWord 0x2800b180 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(101) curval(101) 
+    /*633:*/ .uword 0xb8860024 
+    /*634:*/ .uword 0x3e100024 
+    /*635:*/ .uword 0x3e15134c 
+    /*636:*/ .uword 0x29000000  //Symb00BCFD00 _strtol+0; Unbound external  // Symbol _strtol runtime imported  
+    /*637:*/ .uword 0x3e04c024 
+    /*638:*/ .uword 0x00015851  //Symb00BCCB28 h_47+0; 	Sect voxdata_1+1377  UWord 0x00015851 (<<6)
+          // RE Sym(00BCCB28)h_47 Sec(voxdata_1) Value(1377) Symoffset(0) curval(1377) 
+    /*639:*/ .uword 0x4c8a1b4c 
+    /*640:*/ .uword 0x29000000  //Symb00BCFD74 _strcmp+0; 	Sect votext+996  UWord 0x2900f900 (<<6)
+          // RE Sym(00BCFD74)_strcmp Sec(votext) Value(996) Symoffset(0) curval(0) 
+    /*641:*/ .uword 0xf40044d0 
+    /*642:*/ .uword 0x60800024 
+    /*643:*/ .uword 0x00000024 
+    /*644:*/ .uword 0x28004b05  //Symb00B90210 _main+300; 	Sect votext+909  UWord 0x2800e345 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(300) curval(300) 
+    /*645:*/ .uword 0x00000024 
+    /*646:*/ .uword 0xf40044d0 
+    /*647:*/ .uword 0x29000000  //Symb00BCFD74 _strcmp+0; 	Sect votext+996  UWord 0x2900f900 (<<6)
+          // RE Sym(00BCFD74)_strcmp Sec(votext) Value(996) Symoffset(0) curval(0) 
+    /*648:*/ .uword 0x00017991  //Symb00BCD350 v_53+0; 	Sect voxdata_1+1510  UWord 0x00017991 (<<6)
+          // RE Sym(00BCD350)v_53 Sec(voxdata_1) Value(1510) Symoffset(0) curval(1510) 
+    /*649:*/ .uword 0x608044d0 
+    /*650:*/ .uword 0x00000024 
+    /*651:*/ .uword 0x28004a45  //Symb00B90210 _main+297; 	Sect votext+906  UWord 0x2800e285 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(297) curval(297) 
+    /*652:*/ .uword 0x00000024 
+    /*653:*/ .uword 0x29000000  //Symb00BCFD74 _strcmp+0; 	Sect votext+996  UWord 0x2900f900 (<<6)
+          // RE Sym(00BCFD74)_strcmp Sec(votext) Value(996) Symoffset(0) curval(0) 
+    /*654:*/ .uword 0x00017a51  //Symb00BCD4AC v_54+0; 	Sect voxdata_1+1513  UWord 0x00017a51 (<<6)
+          // RE Sym(00BCD4AC)v_54 Sec(voxdata_1) Value(1513) Symoffset(0) curval(1513) 
+    /*655:*/ .uword 0x6080104c 
+    /*656:*/ .uword 0x00000024 
+    /*657:*/ .uword 0x280049c5  //Symb00B90210 _main+295; 	Sect votext+904  UWord 0x2800e205 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(295) curval(295) 
+    /*658:*/ .uword 0xb8800024 
+    /*659:*/ .uword 0x34230024 
+    /*660:*/ .uword 0x34d40024 
+    /*661:*/ .uword 0x30000024 
+    /*662:*/ .uword 0x60800024 
+    /*663:*/ .uword 0x33000024 
+    /*664:*/ .uword 0x280045c5  //Symb00B90210 _main+279; 	Sect votext+888  UWord 0x2800de05 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(279) curval(279) 
+    /*665:*/ .uword 0x00000024 
+    /*666:*/ .uword 0x29000000  //Symb00BCFDE8 _toupper+0; Unbound external  // Symbol _toupper runtime imported  
+    /*667:*/ .uword 0xf4004010 
+    /*668:*/ .uword 0xf4004402 
+    /*669:*/ .uword 0x29000000  //Symb00BCFE5C _strlen+0; Unbound external  // Symbol _strlen runtime imported  
+    /*670:*/ .uword 0xf40044d0 
+    /*671:*/ .uword 0xf4004001 
+    /*672:*/ .uword 0x00000080 
+    /*673:*/ .uword 0x61000024 
+    /*674:*/ .uword 0x00000e80 
+    /*675:*/ .uword 0x28004415  //Symb00B90210 _main+272; 	Sect votext+881  UWord 0x2800dc55 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(272) curval(272) 
+    /*676:*/ .uword 0x00000024 
+    /*677:*/ .uword 0x33130024 
+    /*678:*/ .uword 0x33f04024 
+    /*679:*/ .uword 0x61000024 
+    /*680:*/ .uword 0x00001040 
+    /*681:*/ .uword 0x28004415  //Symb00B90210 _main+272; 	Sect votext+881  UWord 0x2800dc55 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(272) curval(272) 
+    /*682:*/ .uword 0x00000024 
+    /*683:*/ .uword 0x62000024 
+    /*684:*/ .uword 0x00001680 
+    /*685:*/ .uword 0x28004408  //Symb00B90210 _main+272; 	Sect votext+881  UWord 0x2800dc48 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(272) curval(272) 
+    /*686:*/ .uword 0x00000024 
+    /*687:*/ .uword 0x62000024 
+    /*688:*/ .uword 0x00001040 
+    /*689:*/ .uword 0x28004419  //Symb00B90210 _main+272; 	Sect votext+881  UWord 0x2800dc59 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(272) curval(272) 
+    /*690:*/ .uword 0x00000024 
+    /*691:*/ .uword 0x62020024 
+    /*692:*/ .uword 0x00022300 
+    /*693:*/ .uword 0x40100024 
+    /*694:*/ .uword 0xf4004010 
+    /*695:*/ .uword 0x30018024 
+    /*696:*/ .uword 0x668c0024 
+    /*697:*/ .uword 0x00000024 
+    /*698:*/ .uword 0x28004245  //Symb00B90210 _main+265; 	Sect votext+874  UWord 0x2800da85 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(265) curval(265) 
+    /*699:*/ .uword 0x00000024 
+    /*700:*/ .uword 0xf4004192 
+    /*701:*/ .uword 0x00000144 
+    /*702:*/ .uword 0x00000011 
+    /*703:*/ .uword 0x291ff280 
+    /*704:*/ .uword 0x36130024 
+    /*705:*/ .uword 0x29000000  //Symb00BCFE5C _strlen+0; Unbound external  // Symbol _strlen runtime imported  
+    /*706:*/ .uword 0xf40044d0 
+    /*707:*/ .uword 0x609244c0 
+    /*708:*/ .uword 0x40100024 
+    /*709:*/ .uword 0x63964013 
+    /*710:*/ .uword 0x637010cc 
+    /*711:*/ .uword 0x3009184c 
+    /*712:*/ .uword 0x28000648  //Symb00B90210 _main+25; 	Sect votext+634  UWord 0x28009e88 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(25) curval(25) 
+    /*713:*/ .uword 0xb8800024 
+    /*714:*/ .uword 0x34f31bcc 
+    /*715:*/ .uword 0x34e00024 
+    /*716:*/ .uword 0x60800024 
+    /*717:*/ .uword 0x00000024 
+    /*718:*/ .uword 0x28002755  //Symb00B90210 _main+157; 	Sect votext+766  UWord 0x2800bf95 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(157) curval(157) 
+    /*719:*/ .uword 0x00000024 
+    /*720:*/ .uword 0x668c184c 
+    /*721:*/ .uword 0x00017b00  //Symb00BCD608 enodriv_55+0; 	Sect voxdata_1+1516  UWord 0x00017b00 (<<6)
+          // RE Sym(00BCD608)enodriv_55 Sec(voxdata_1) Value(1516) Symoffset(0) curval(1516) 
+    /*722:*/ .uword 0x28004145  //Symb00B90210 _main+261; 	Sect votext+870  UWord 0x2800d985 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(261) curval(261) 
+    /*723:*/ .uword 0x00000024 
+    /*724:*/ .uword 0x00000000  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000000 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*725:*/ .uword 0x68903840 
+    /*726:*/ .uword 0xbc823840 
+    /*727:*/ .uword 0x3e100024 
+    /*728:*/ .uword 0x000001c0 
+    /*729:*/ .uword 0x46003801 
+    /*730:*/ .uword 0x2b012190 
+    /*731:*/ .uword 0x32000024 
+    /*732:*/ .uword 0xf4004008 
+    /*733:*/ .uword 0x20000000 
+    /*734:*/ .uword 0x00001f88  //Symb00B90210 _main+126; 	Sect votext+735  UWord 0x0000b7c8 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(126) curval(126) 
+    /*735:*/ .uword 0x60801b0c 
+    /*736:*/ .uword 0x00000024 
+    /*737:*/ .uword 0x28003fd5  //Symb00B90210 _main+255; 	Sect votext+864  UWord 0x2800d815 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(255) curval(255) 
+    /*738:*/ .uword 0x00000024 
+    /*739:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*740:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*741:*/ .uword 0xb884184c 
+    /*742:*/ .uword 0xf4004001 
+    /*743:*/ .uword 0x00003ac0 
+    /*744:*/ .uword 0x61000024 
+    /*745:*/ .uword 0x00000024 
+    /*746:*/ .uword 0x28003d85  //Symb00B90210 _main+246; 	Sect votext+855  UWord 0x2800d5c5 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(246) curval(246) 
+    /*747:*/ .uword 0x00000024 
+    /*748:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*749:*/ .uword 0x00007f82 
+    /*750:*/ .uword 0x29000000  //Symb00BCFFB8 _GetBE16+0; 	Sect votext+948  UWord 0x2900ed00 (<<6)
+          // RE Sym(00BCFFB8)_GetBE16 Sec(votext) Value(948) Symoffset(0) curval(0) 
+    /*751:*/ .uword 0x36130024 
+    /*752:*/ .uword 0x4082184c 
+    /*753:*/ .uword 0x00156a80 
+    /*754:*/ .uword 0x61000024 
+    /*755:*/ .uword 0x0001af40  //Symb00BCE3A0 foundnoth_64+0; 	Sect voxdata_1+1725  UWord 0x0001af40 (<<6)
+          // RE Sym(00BCE3A0)foundnoth_64 Sec(voxdata_1) Value(1725) Symoffset(0) curval(1725) 
+    /*756:*/ .uword 0x28002d05  //Symb00B90210 _main+180; 	Sect votext+789  UWord 0x2800c545 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(180) curval(180) 
+    /*757:*/ .uword 0x00000024 
+    /*758:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*759:*/ .uword 0x3e000024 
+    /*760:*/ .uword 0xbe8a4192 
+    /*761:*/ .uword 0x34131bcc 
+    /*762:*/ .uword 0x29000000  //Symb00B8E2CC _PrintBlock+0; 	Sect votext+0  UWord 0x29000000 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(0) curval(0) 
+    /*763:*/ .uword 0x300913c2 
+    /*764:*/ .uword 0xb880104c 
+    /*765:*/ .uword 0x3cf00024 
+    /*766:*/ .uword 0x00000000 
+    /*767:*/ .uword 0x60800024 
+    /*768:*/ .uword 0x00000024 
+    /*769:*/ .uword 0x28002945  //Symb00B90210 _main+165; 	Sect votext+774  UWord 0x2800c185 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(165) curval(165) 
+    /*770:*/ .uword 0x00000024 
+    /*771:*/ .uword 0xb8800024 
+    /*772:*/ .uword 0x291ff980 
+    /*773:*/ .uword 0xf4004010 
+    /*774:*/ .uword 0x3413180f 
+    /*775:*/ .uword 0x34f00024 
+    /*776:*/ .uword 0x36f38024 
+    /*777:*/ .uword 0x36f4d80d 
+    /*778:*/ .uword 0x36f45812 
+    /*779:*/ .uword 0x36f1d810 
+    /*780:*/ .uword 0x36f15806 
+    /*781:*/ .uword 0x36f0d804 
+    /*782:*/ .uword 0x36f05802 
+    /*783:*/ .uword 0x34059014 
+    /*784:*/ .uword 0x36f30024 
+    /*785:*/ .uword 0x36f20024 
+    /*786:*/ .uword 0x20000000 
+    /*787:*/ .uword 0x00000024 
+    /*788:*/ .uword 0x36130024 
+    /*789:*/ .uword 0x000196c0  //Symb00BCDB78 foundpart_59+0; 	Sect voxdata_1+1627  UWord 0x000196c0 (<<6)
+          // RE Sym(00BCDB78)foundpart_59 Sec(voxdata_1) Value(1627) Symoffset(0) curval(1627) 
+    /*790:*/ .uword 0x00006f83 
+    /*791:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*792:*/ .uword 0x3e000024 
+    /*793:*/ .uword 0xbe8a4192 
+    /*794:*/ .uword 0x34131bcc 
+    /*795:*/ .uword 0x29000000  //Symb00B8E2CC _PrintBlock+0; 	Sect votext+0  UWord 0x29000000 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(0) curval(0) 
+    /*796:*/ .uword 0x300913c2 
+    /*797:*/ .uword 0x000000cd 
+    /*798:*/ .uword 0x24403bcd  //Symb00B90210 _main+239; 	Sect votext+848  UWord 0x2440d40d (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(239) curval(239) 
+    /*799:*/ .uword 0x00000007 
+    /*800:*/ .uword 0x00000200 
+    /*801:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*802:*/ .uword 0x29000000  //Symb00BCFBA4 _GetLE32+0; 	Sect votext+959  UWord 0x2900efc0 (<<6)
+          // RE Sym(00BCFBA4)_GetLE32 Sec(votext) Value(959) Symoffset(0) curval(0) 
+    /*803:*/ .uword 0x4304184c 
+    /*804:*/ .uword 0x4c8a184c 
+    /*805:*/ .uword 0x67903840 
+    /*806:*/ .uword 0x3e104024 
+    /*807:*/ .uword 0x3e100024 
+    /*808:*/ .uword 0x00019c80  //Symb00BCDCD4 partition_60+0; 	Sect voxdata_1+1650  UWord 0x00019c80 (<<6)
+          // RE Sym(00BCDCD4)partition_60 Sec(voxdata_1) Value(1650) Symoffset(0) curval(1650) 
+    /*809:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*810:*/ .uword 0x3e000024 
+    /*811:*/ .uword 0x00000022 
+    /*812:*/ .uword 0x6e8a1b4c 
+    /*813:*/ .uword 0x0001ad00  //Symb00BCE244 none_63+0; 	Sect voxdata_1+1716  UWord 0x0001ad00 (<<6)
+          // RE Sym(00BCE244)none_63 Sec(voxdata_1) Value(1716) Symoffset(0) curval(1716) 
+    /*814:*/ .uword 0x28003c85  //Symb00B90210 _main+242; 	Sect votext+851  UWord 0x2800d4c5 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(242) curval(242) 
+    /*815:*/ .uword 0x00000024 
+    /*816:*/ .uword 0x00000100 
+    /*817:*/ .uword 0x00000010  //Symb00BC4B40 _myBuf+0; 	Sect voxdata_bss_2+0  UWord 0x00000010 (<<6)
+          // RE Sym(00BC4B40)_myBuf Sec(voxdata_bss_2) Value(0) Symoffset(0) curval(0) 
+    /*818:*/ .uword 0x29000000  //Symb00BCFABC _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BCFABC)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*819:*/ .uword 0x43040024 
+    /*820:*/ .uword 0x0001a201  //Symb00BCDE30 _partTypes93ab90+0; 	Sect voxdata_1+1672  UWord 0x0001a201 (<<6)
+          // RE Sym(00BCDE30)_partTypes93ab90 Sec(voxdata_1) Value(1672) Symoffset(0) curval(1672) 
+    /*821:*/ .uword 0x4102184c 
+    /*822:*/ .uword 0xf4004050 
+    /*823:*/ .uword 0x00000401 
+    /*824:*/ .uword 0x60120002 
+    /*825:*/ .uword 0x00000024 
+    /*826:*/ .uword 0x28003711  //Symb00B90210 _main+220; 	Sect votext+829  UWord 0x2800cf51 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(220) curval(220) 
+    /*827:*/ .uword 0x00000024 
+    /*828:*/ .uword 0x0001a602  //Symb00BCDF8C unknown_61+0; 	Sect voxdata_1+1688  UWord 0x0001a602 (<<6)
+          // RE Sym(00BCDF8C)unknown_61 Sec(voxdata_1) Value(1688) Symoffset(0) curval(1688) 
+    /*829:*/ .uword 0x3e108024 
+    /*830:*/ .uword 0x3e100024 
+    /*831:*/ .uword 0x0001a800  //Symb00BCE0E8 type0x_62+0; 	Sect voxdata_1+1696  UWord 0x0001a800 (<<6)
+          // RE Sym(00BCE0E8)type0x_62 Sec(voxdata_1) Value(1696) Symoffset(0) curval(1696) 
+    /*832:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*833:*/ .uword 0x3e000024 
+    /*834:*/ .uword 0x003d3d01 
+    /*835:*/ .uword 0x00000020 
+    /*836:*/ .uword 0x00000022 
+    /*837:*/ .uword 0x41801b4c 
+    /*838:*/ .uword 0x6ec20024 
+    /*839:*/ .uword 0x00000024 
+    /*840:*/ .uword 0x28003b45  //Symb00B90210 _main+237; 	Sect votext+846  UWord 0x2800d385 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(237) curval(237) 
+    /*841:*/ .uword 0x00000024 
+    /*842:*/ .uword 0xf4004192 
+    /*843:*/ .uword 0x34130024 
+    /*844:*/ .uword 0x29000000  //Symb00B8F648 _PrintFat32+0; 	Sect votext+128  UWord 0x29002000 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(0) curval(0) 
+    /*845:*/ .uword 0x300913c2 
+    /*846:*/ .uword 0x00000400 
+    /*847:*/ .uword 0x679e0024 
+    /*848:*/ .uword 0x43060024 
+    /*849:*/ .uword 0x280026c0  //Symb00B90210 _main+155; 	Sect votext+764  UWord 0x2800bf00 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(155) curval(155) 
+    /*850:*/ .uword 0x00000024 
+    /*851:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*852:*/ .uword 0x3e000024 
+    /*853:*/ .uword 0x28003b40  //Symb00B90210 _main+237; 	Sect votext+846  UWord 0x2800d380 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(237) curval(237) 
+    /*854:*/ .uword 0x36f30024 
+    /*855:*/ .uword 0x00019080  //Symb00BCDA1C fatfound_58+0; 	Sect voxdata_1+1602  UWord 0x00019080 (<<6)
+          // RE Sym(00BCDA1C)fatfound_58 Sec(voxdata_1) Value(1602) Symoffset(0) curval(1602) 
+    /*856:*/ .uword 0x36130024 
+    /*857:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*858:*/ .uword 0x3e000024 
+    /*859:*/ .uword 0xbe8a4192 
+    /*860:*/ .uword 0x34131bcc 
+    /*861:*/ .uword 0x300913c2 
+    /*862:*/ .uword 0x29000000  //Symb00B8F648 _PrintFat32+0; 	Sect votext+128  UWord 0x29002000 (<<6)
+          // RE Sym(00B8F648)_PrintFat32 Sec(votext) Value(128) Symoffset(0) curval(0) 
+    /*863:*/ .uword 0x000026c8  //Symb00B90210 _main+155; 	Sect votext+764  UWord 0x0000bf08 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(155) curval(155) 
+    /*864:*/ .uword 0x00000880  //Symb00BC4DF8 emediac_2+0; 	Sect voxdata_1+34  UWord 0x00000880 (<<6)
+          // RE Sym(00BC4DF8)emediac_2 Sec(voxdata_1) Value(34) Symoffset(0) curval(34) 
+    /*865:*/ .uword 0x36130024 
+    /*866:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*867:*/ .uword 0x3e000024 
+    /*868:*/ .uword 0x28002740  //Symb00B90210 _main+157; 	Sect votext+766  UWord 0x2800bf80 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(157) curval(157) 
+    /*869:*/ .uword 0x36f30024 
+    /*870:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*871:*/ .uword 0x3e000024 
+    /*872:*/ .uword 0x28002740  //Symb00B90210 _main+157; 	Sect votext+766  UWord 0x2800bf80 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(157) curval(157) 
+    /*873:*/ .uword 0x36f30024 
+    /*874:*/ .uword 0x00018980  //Symb00BCD8C0 enonexi_57+0; 	Sect voxdata_1+1574  UWord 0x00018980 (<<6)
+          // RE Sym(00BCD8C0)enonexi_57 Sec(voxdata_1) Value(1574) Symoffset(0) curval(1574) 
+    /*875:*/ .uword 0x36130024 
+    /*876:*/ .uword 0x3e14c024 
+    /*877:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*878:*/ .uword 0x3e000024 
+    /*879:*/ .uword 0x28002740  //Symb00B90210 _main+157; 	Sect votext+766  UWord 0x2800bf80 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(157) curval(157) 
+    /*880:*/ .uword 0x36e30024 
+    /*881:*/ .uword 0x00018280  //Symb00BCD764 eillegal_56+0; 	Sect voxdata_1+1546  UWord 0x00018280 (<<6)
+          // RE Sym(00BCD764)eillegal_56 Sec(voxdata_1) Value(1546) Symoffset(0) curval(1546) 
+    /*882:*/ .uword 0x36130024 
+    /*883:*/ .uword 0x3e14c024 
+    /*884:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*885:*/ .uword 0x3e000024 
+    /*886:*/ .uword 0x28002740  //Symb00B90210 _main+157; 	Sect votext+766  UWord 0x2800bf80 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(157) curval(157) 
+    /*887:*/ .uword 0x36e30024 
+    /*888:*/ .uword 0x668c0024 
+    /*889:*/ .uword 0x00017b00  //Symb00BCD608 enodriv_55+0; 	Sect voxdata_1+1516  UWord 0x00017b00 (<<6)
+          // RE Sym(00BCD608)enodriv_55 Sec(voxdata_1) Value(1516) Symoffset(0) curval(1516) 
+    /*890:*/ .uword 0x28004885  //Symb00B90210 _main+290; 	Sect votext+899  UWord 0x2800e0c5 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(290) curval(290) 
+    /*891:*/ .uword 0x00000024 
+    /*892:*/ .uword 0x6894108c 
+    /*893:*/ .uword 0x29000000  //Symb00B8E2CC _PrintBlock+0; 	Sect votext+0  UWord 0x29000000 (<<6)
+          // RE Sym(00B8E2CC)_PrintBlock Sec(votext) Value(0) Symoffset(0) curval(0) 
+    /*894:*/ .uword 0xf4004192 
+    /*895:*/ .uword 0x34000024 
+    /*896:*/ .uword 0x60900024 
+    /*897:*/ .uword 0x28001800  //Symb00B90210 _main+96; 	Sect votext+705  UWord 0x2800b040 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(96) curval(96) 
+    /*898:*/ .uword 0x3ce00024 
+    /*899:*/ .uword 0x36130024 
+    /*900:*/ .uword 0x29000000  //Symb00BCF9D4 _vo_printf+0; Unbound external  // Symbol _vo_printf runtime imported  
+    /*901:*/ .uword 0x3e000024 
+    /*902:*/ .uword 0x28002740  //Symb00B90210 _main+157; 	Sect votext+766  UWord 0x2800bf80 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(157) curval(157) 
+    /*903:*/ .uword 0x36f30024 
+    /*904:*/ .uword 0x28001800  //Symb00B90210 _main+96; 	Sect votext+705  UWord 0x2800b040 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(96) curval(96) 
+    /*905:*/ .uword 0x300933c0 
+    /*906:*/ .uword 0x6890104c 
+    /*907:*/ .uword 0x28001800  //Symb00B90210 _main+96; 	Sect votext+705  UWord 0x2800b040 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(96) curval(96) 
+    /*908:*/ .uword 0x300933c0 
+    /*909:*/ .uword 0x00015912  //Symb00BCCC84 usagefat_48+0; 	Sect voxdata_1+1380  UWord 0x00015912 (<<6)
+          // RE Sym(00BCCC84)usagefat_48 Sec(voxdata_1) Value(1380) Symoffset(0) curval(1380) 
+    /*910:*/ .uword 0x29000000  //Symb00BCFC18 _vo_puts+0; 	Sect votext+968  UWord 0x2900f200 (<<6)
+          // RE Sym(00BCFC18)_vo_puts Sec(votext) Value(968) Symoffset(0) curval(0) 
+    /*911:*/ .uword 0x36130024 
+    /*912:*/ .uword 0x00016292  //Symb00BCCDE0 xdriven_49+0; 	Sect voxdata_1+1418  UWord 0x00016292 (<<6)
+          // RE Sym(00BCCDE0)xdriven_49 Sec(voxdata_1) Value(1418) Symoffset(0) curval(1418) 
+    /*913:*/ .uword 0x29000000  //Symb00BCFC18 _vo_puts+0; 	Sect votext+968  UWord 0x2900f200 (<<6)
+          // RE Sym(00BCFC18)_vo_puts Sec(votext) Value(968) Symoffset(0) curval(0) 
+    /*914:*/ .uword 0x36130024 
+    /*915:*/ .uword 0x00016612  //Symb00BCCF3C blknumpri_50+0; 	Sect voxdata_1+1432  UWord 0x00016612 (<<6)
+          // RE Sym(00BCCF3C)blknumpri_50 Sec(voxdata_1) Value(1432) Symoffset(0) curval(1432) 
+    /*916:*/ .uword 0x29000000  //Symb00BCFC18 _vo_puts+0; 	Sect votext+968  UWord 0x2900f200 (<<6)
+          // RE Sym(00BCFC18)_vo_puts Sec(votext) Value(968) Symoffset(0) curval(0) 
+    /*917:*/ .uword 0x36130024 
+    /*918:*/ .uword 0x00016f92  //Symb00BCD098 vvverb_51+0; 	Sect voxdata_1+1470  UWord 0x00016f92 (<<6)
+          // RE Sym(00BCD098)vvverb_51 Sec(voxdata_1) Value(1470) Symoffset(0) curval(1470) 
+    /*919:*/ .uword 0x29000000  //Symb00BCFC18 _vo_puts+0; 	Sect votext+968  UWord 0x2900f200 (<<6)
+          // RE Sym(00BCFC18)_vo_puts Sec(votext) Value(968) Symoffset(0) curval(0) 
+    /*920:*/ .uword 0x36130024 
+    /*921:*/ .uword 0x000174d2  //Symb00BCD1F4 hshowth_52+0; 	Sect voxdata_1+1491  UWord 0x000174d2 (<<6)
+          // RE Sym(00BCD1F4)hshowth_52 Sec(voxdata_1) Value(1491) Symoffset(0) curval(1491) 
+    /*922:*/ .uword 0x36130024 
+    /*923:*/ .uword 0x29000000  //Symb00BCFC18 _vo_puts+0; 	Sect votext+968  UWord 0x2900f200 (<<6)
+          // RE Sym(00BCFC18)_vo_puts Sec(votext) Value(968) Symoffset(0) curval(0) 
+    /*924:*/ .uword 0x00002748  //Symb00B90210 _main+157; 	Sect votext+766  UWord 0x0000bf88 (<<6)
+          // RE Sym(00B90210)_main Sec(votext) Value(609) Symoffset(157) curval(157) 
+_GetBE8:
+    /*925:*/ .uword 0xf120b811 
+    /*926:*/ .uword 0xf4004011 
+    /*927:*/ .uword 0x6890020c 
+    /*928:*/ .uword 0xb2040000 
+    /*929:*/ .uword 0x0ffffe02 
+    /*930:*/ .uword 0x28000215  //Symb00BE4518 _GetBE8@1+0; 	Sect votext+933  UWord 0x2800e955 (<<6)
+          // RE Sym(00BE4518)_GetBE8@1 Sec(votext) Value(933) Symoffset(0) curval(8) 
+    /*931:*/ .uword 0x30091bd1 
+    /*932:*/ .uword 0xa0200024 
+_GetBE8@1:
+    /*933:*/ .uword 0x00003fc2 
+    /*934:*/ .uword 0x20000000 
+    /*935:*/ .uword 0xb0200024 
+_GetLE16:
+    /*936:*/ .uword 0x3e147804 
+    /*937:*/ .uword 0x42883888 
+    /*938:*/ .uword 0x29000000  //Symb00BE4678 _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BE4678)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*939:*/ .uword 0xf4004411 
+    /*940:*/ .uword 0xf4004450 
+    /*941:*/ .uword 0x29000000  //Symb00BE4678 _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BE4678)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*942:*/ .uword 0x64944004 
+    /*943:*/ .uword 0x00000202 
+    /*944:*/ .uword 0xa0200024 
+    /*945:*/ .uword 0xc0401bc8 
+    /*946:*/ .uword 0x20000000 
+    /*947:*/ .uword 0x36f45804 
+_GetBE16:
+    /*948:*/ .uword 0x3e147804 
+    /*949:*/ .uword 0x42883888 
+    /*950:*/ .uword 0x29000000  //Symb00BE4678 _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BE4678)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*951:*/ .uword 0xf4004411 
+    /*952:*/ .uword 0x00000202 
+    /*953:*/ .uword 0xa0204450 
+    /*954:*/ .uword 0x29000000  //Symb00BE4678 _GetBE8+0; 	Sect votext+925  UWord 0x2900e740 (<<6)
+          // RE Sym(00BE4678)_GetBE8 Sec(votext) Value(925) Symoffset(0) curval(0) 
+    /*955:*/ .uword 0x64944004 
+    /*956:*/ .uword 0xc0401bc8 
+    /*957:*/ .uword 0x20000000 
+    /*958:*/ .uword 0x36f45804 
+_GetLE32:
+    /*959:*/ .uword 0x3e247808 
+    /*960:*/ .uword 0x29000000  //Symb00BEFEFC _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BEFEFC)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*961:*/ .uword 0x42824411 
+    /*962:*/ .uword 0x41844450 
+    /*963:*/ .uword 0x29000000  //Symb00BEFEFC _GetLE16+0; 	Sect votext+936  UWord 0x2900ea00 (<<6)
+          // RE Sym(00BEFEFC)_GetLE16 Sec(votext) Value(936) Symoffset(0) curval(0) 
+    /*964:*/ .uword 0x4082004c 
+    /*965:*/ .uword 0x36f45808 
+    /*966:*/ .uword 0x20000000 
+    /*967:*/ .uword 0x41804001 
+_vo_puts:
+    /*968:*/ .uword 0x3e120024 
+    /*969:*/ .uword 0x3e05b814 
+    /*970:*/ .uword 0x36150024 
+    /*971:*/ .uword 0x3e140024 
+    /*972:*/ .uword 0x00022050 
+    /*973:*/ .uword 0x30000024 
+    /*974:*/ .uword 0x3e100024 
+    /*975:*/ .uword 0x291ffc80 
+    /*976:*/ .uword 0x3e048024 
+    /*977:*/ .uword 0x60901b8c 
+    /*978:*/ .uword 0x00022050 
+    /*979:*/ .uword 0x28000555  //Symb00C05EE0 _vo_puts+21; 	Sect votext+989  UWord 0x2800f755 (<<6)
+          // RE Sym(00C05EE0)_vo_puts Sec(votext) Value(968) Symoffset(21) curval(21) 
+    /*980:*/ .uword 0x00000024 
+    /*981:*/ .uword 0xc8900024 
+    /*982:*/ .uword 0x36f40024 
+    /*983:*/ .uword 0x34059014 
+    /*984:*/ .uword 0x36f30024 
+    /*985:*/ .uword 0x36f20024 
+    /*986:*/ .uword 0x20000000 
+    /*987:*/ .uword 0x00000024 
+    /*988:*/ .uword 0x00022050 
+    /*989:*/ .uword 0x3000184c 
+    /*990:*/ .uword 0x3e100024 
+    /*991:*/ .uword 0x00000280 
+    /*992:*/ .uword 0x291ffc40 
+    /*993:*/ .uword 0x3e000024 
+    /*994:*/ .uword 0x28000380  //Symb00C05EE0 _vo_puts+14; 	Sect votext+982  UWord 0x2800f580 (<<6)
+          // RE Sym(00C05EE0)_vo_puts Sec(votext) Value(968) Symoffset(14) curval(14) 
+    /*995:*/ .uword 0x36e30024 
+_strcmp:
+    /*996:*/ .uword 0x36130024 
+    /*997:*/ .uword 0x30107801 
+    /*998:*/ .uword 0x41823802 
+_strcmp@0:
+    /*999:*/ .uword 0x31108024 
+    /*1000:*/ .uword 0x28000245  //Symb00C06E50 _strcmp@1+0; 	Sect votext+1005  UWord 0x2800fb45 (<<6)
+          // RE Sym(00C06E50)_strcmp@1 Sec(votext) Value(1005) Symoffset(0) curval(9) 
+    /*1001:*/ .uword 0x61200041 
+    /*1002:*/ .uword 0x00000024 
+    /*1003:*/ .uword 0x280000c5  //Symb00C06DF8 _strcmp@0+0; 	Sect votext+999  UWord 0x2800f9c5 (<<6)
+          // RE Sym(00C06DF8)_strcmp@0 Sec(votext) Value(999) Symoffset(0) curval(3) 
+    /*1004:*/ .uword 0x41820024 
+_strcmp@1:
+    /*1005:*/ .uword 0x20000000 
+    /*1006:*/ .uword 0x36f09801 
+
+.sect data_x, voxdata_1
+printblock_1:
+    /*  0:*/ .uword 0x00000050  /*'P'*/ 
+    /*  1:*/ .uword 0x00000072  /*'r'*/ 
+    /*  2:*/ .uword 0x00000069  /*'i'*/ 
+    /*  3:*/ .uword 0x0000006e  /*'n'*/ 
+    /*  4:*/ .uword 0x00000074  /*'t'*/ 
+    /*  5:*/ .uword 0x00000042  /*'B'*/ 
+    /*  6:*/ .uword 0x0000006c  /*'l'*/ 
+    /*  7:*/ .uword 0x0000006f  /*'o'*/ 
+    /*  8:*/ .uword 0x00000063  /*'c'*/ 
+    /*  9:*/ .uword 0x0000006b  /*'k'*/ 
+    /* 10:*/ .uword 0x00000028  /*'('*/ 
+    /* 11:*/ .uword 0x00000064  /*'d'*/ 
+    /* 12:*/ .uword 0x00000065  /*'e'*/ 
+    /* 13:*/ .uword 0x00000076  /*'v'*/ 
+    /* 14:*/ .uword 0x0000003d  /*'='*/ 
+    /* 15:*/ .uword 0x00000025  /*'%'*/ 
+    /* 16:*/ .uword 0x00000070  /*'p'*/ 
+    /* 17:*/ .uword 0x0000002c  /*','*/ 
+    /* 18:*/ .uword 0x00000020  /*' '*/ 
+    /* 19:*/ .uword 0x00000062  /*'b'*/ 
+    /* 20:*/ .uword 0x0000006c  /*'l'*/ 
+    /* 21:*/ .uword 0x0000003d  /*'='*/ 
+    /* 22:*/ .uword 0x00000025  /*'%'*/ 
+    /* 23:*/ .uword 0x0000006c  /*'l'*/ 
+    /* 24:*/ .uword 0x00000064  /*'d'*/ 
+    /* 25:*/ .uword 0x0000002c  /*','*/ 
+    /* 26:*/ .uword 0x00000020  /*' '*/ 
+    /* 27:*/ .uword 0x00000076  /*'v'*/ 
+    /* 28:*/ .uword 0x0000003d  /*'='*/ 
+    /* 29:*/ .uword 0x00000025  /*'%'*/ 
+    /* 30:*/ .uword 0x00000064  /*'d'*/ 
+    /* 31:*/ .uword 0x00000029  /*')'*/ 
+    /* 32:*/ .uword 0x0000000a 
+    /* 33:*/ .uword 0x00000000 
+emediac_2:
+    /* 34:*/ .uword 0x00000045  /*'E'*/ 
+    /* 35:*/ .uword 0x0000003a  /*':'*/ 
+    /* 36:*/ .uword 0x00000020  /*' '*/ 
+    /* 37:*/ .uword 0x0000004d  /*'M'*/ 
+    /* 38:*/ .uword 0x00000065  /*'e'*/ 
+    /* 39:*/ .uword 0x00000064  /*'d'*/ 
+    /* 40:*/ .uword 0x00000069  /*'i'*/ 
+    /* 41:*/ .uword 0x00000061  /*'a'*/ 
+    /* 42:*/ .uword 0x00000020  /*' '*/ 
+    /* 43:*/ .uword 0x00000063  /*'c'*/ 
+    /* 44:*/ .uword 0x00000061  /*'a'*/ 
+    /* 45:*/ .uword 0x0000006e  /*'n'*/ 
+    /* 46:*/ .uword 0x0000006e  /*'n'*/ 
+    /* 47:*/ .uword 0x0000006f  /*'o'*/ 
+    /* 48:*/ .uword 0x00000074  /*'t'*/ 
+    /* 49:*/ .uword 0x00000020  /*' '*/ 
+    /* 50:*/ .uword 0x00000062  /*'b'*/ 
+    /* 51:*/ .uword 0x00000065  /*'e'*/ 
+    /* 52:*/ .uword 0x00000020  /*' '*/ 
+    /* 53:*/ .uword 0x00000072  /*'r'*/ 
+    /* 54:*/ .uword 0x00000065  /*'e'*/ 
+    /* 55:*/ .uword 0x00000061  /*'a'*/ 
+    /* 56:*/ .uword 0x00000064  /*'d'*/ 
+    /* 57:*/ .uword 0x0000000a 
+    /* 58:*/ .uword 0x00000000 
+block0x_3:
+    /* 59:*/ .uword 0x00000020  /*' '*/ 
+    /* 60:*/ .uword 0x00000020  /*' '*/ 
+    /* 61:*/ .uword 0x00000042  /*'B'*/ 
+    /* 62:*/ .uword 0x0000006c  /*'l'*/ 
+    /* 63:*/ .uword 0x0000006f  /*'o'*/ 
+    /* 64:*/ .uword 0x00000063  /*'c'*/ 
+    /* 65:*/ .uword 0x0000006b  /*'k'*/ 
+    /* 66:*/ .uword 0x00000020  /*' '*/ 
+    /* 67:*/ .uword 0x00000030  /*'0'*/ 
+    /* 68:*/ .uword 0x00000078  /*'x'*/ 
+    /* 69:*/ .uword 0x00000025  /*'%'*/ 
+    /* 70:*/ .uword 0x0000006c  /*'l'*/ 
+    /* 71:*/ .uword 0x00000078  /*'x'*/ 
+    /* 72:*/ .uword 0x00000020  /*' '*/ 
+    /* 73:*/ .uword 0x00000028  /*'('*/ 
+    /* 74:*/ .uword 0x00000025  /*'%'*/ 
+    /* 75:*/ .uword 0x0000006c  /*'l'*/ 
+    /* 76:*/ .uword 0x00000064  /*'d'*/ 
+    /* 77:*/ .uword 0x00000029  /*')'*/ 
+    /* 78:*/ .uword 0x0000000a 
+    /* 79:*/ .uword 0x00000000 
+x_4:
+    /* 80:*/ .uword 0x00000020  /*' '*/ 
+    /* 81:*/ .uword 0x00000020  /*' '*/ 
+    /* 82:*/ .uword 0x00000020  /*' '*/ 
+    /* 83:*/ .uword 0x00000020  /*' '*/ 
+    /* 84:*/ .uword 0x00000025  /*'%'*/ 
+    /* 85:*/ .uword 0x00000030  /*'0'*/ 
+    /* 86:*/ .uword 0x00000033  /*'3'*/ 
+    /* 87:*/ .uword 0x00000078  /*'x'*/ 
+    /* 88:*/ .uword 0x0000003a  /*':'*/ 
+    /* 89:*/ .uword 0x00000000 
+x_5:
+    /* 90:*/ .uword 0x00000020  /*' '*/ 
+    /* 91:*/ .uword 0x00000025  /*'%'*/ 
+    /* 92:*/ .uword 0x00000030  /*'0'*/ 
+    /* 93:*/ .uword 0x00000034  /*'4'*/ 
+    /* 94:*/ .uword 0x00000078  /*'x'*/ 
+    /* 95:*/ .uword 0x00000000 
+String_6:
+    /* 96:*/ .uword 0x00000020  /*' '*/ 
+    /* 97:*/ .uword 0x00000000 
+c_7:
+    /* 98:*/ .uword 0x00000025  /*'%'*/ 
+    /* 99:*/ .uword 0x00000063  /*'c'*/ 
+    /*100:*/ .uword 0x00000000 
+String_8:
+    /*101:*/ .uword 0x0000000a 
+    /*102:*/ .uword 0x00000000 
+fat32sect_9:
+    /*103:*/ .uword 0x00000046  /*'F'*/ 
+    /*104:*/ .uword 0x00000041  /*'A'*/ 
+    /*105:*/ .uword 0x00000054  /*'T'*/ 
+    /*106:*/ .uword 0x00000033  /*'3'*/ 
+    /*107:*/ .uword 0x00000032  /*'2'*/ 
+    /*108:*/ .uword 0x00000020  /*' '*/ 
+    /*109:*/ .uword 0x00000053  /*'S'*/ 
+    /*110:*/ .uword 0x00000045  /*'E'*/ 
+    /*111:*/ .uword 0x00000043  /*'C'*/ 
+    /*112:*/ .uword 0x00000054  /*'T'*/ 
+    /*113:*/ .uword 0x0000004f  /*'O'*/ 
+    /*114:*/ .uword 0x00000052  /*'R'*/ 
+    /*115:*/ .uword 0x00000020  /*' '*/ 
+    /*116:*/ .uword 0x00000030  /*'0'*/ 
+    /*117:*/ .uword 0x0000003a  /*':'*/ 
+    /*118:*/ .uword 0x0000000a 
+    /*119:*/ .uword 0x00000000 
+jumpc_10:
+    /*120:*/ .uword 0x00000020  /*' '*/ 
+    /*121:*/ .uword 0x00000020  /*' '*/ 
+    /*122:*/ .uword 0x00000020  /*' '*/ 
+    /*123:*/ .uword 0x00000020  /*' '*/ 
+    /*124:*/ .uword 0x0000004a  /*'J'*/ 
+    /*125:*/ .uword 0x00000075  /*'u'*/ 
+    /*126:*/ .uword 0x0000006d  /*'m'*/ 
+    /*127:*/ .uword 0x00000070  /*'p'*/ 
+    /*128:*/ .uword 0x00000020  /*' '*/ 
+    /*129:*/ .uword 0x00000043  /*'C'*/ 
+    /*130:*/ .uword 0x0000006f  /*'o'*/ 
+    /*131:*/ .uword 0x00000064  /*'d'*/ 
+    /*132:*/ .uword 0x00000065  /*'e'*/ 
+    /*133:*/ .uword 0x00000020  /*' '*/ 
+    /*134:*/ .uword 0x0000002b  /*'+'*/ 
+    /*135:*/ .uword 0x00000020  /*' '*/ 
+    /*136:*/ .uword 0x0000004e  /*'N'*/ 
+    /*137:*/ .uword 0x0000004f  /*'O'*/ 
+    /*138:*/ .uword 0x00000050  /*'P'*/ 
+    /*139:*/ .uword 0x0000003a  /*':'*/ 
+    /*140:*/ .uword 0x00000020  /*' '*/ 
+    /*141:*/ .uword 0x00000000 
+x_11:
+    /*142:*/ .uword 0x00000020  /*' '*/ 
+    /*143:*/ .uword 0x00000025  /*'%'*/ 
+    /*144:*/ .uword 0x00000030  /*'0'*/ 
+    /*145:*/ .uword 0x00000032  /*'2'*/ 
+    /*146:*/ .uword 0x00000078  /*'x'*/ 
+    /*147:*/ .uword 0x00000000 
+oemna_12:
+    /*148:*/ .uword 0x00000020  /*' '*/ 
+    /*149:*/ .uword 0x00000020  /*' '*/ 
+    /*150:*/ .uword 0x00000020  /*' '*/ 
+    /*151:*/ .uword 0x00000020  /*' '*/ 
+    /*152:*/ .uword 0x0000004f  /*'O'*/ 
+    /*153:*/ .uword 0x00000045  /*'E'*/ 
+    /*154:*/ .uword 0x0000004d  /*'M'*/ 
+    /*155:*/ .uword 0x00000020  /*' '*/ 
+    /*156:*/ .uword 0x0000004e  /*'N'*/ 
+    /*157:*/ .uword 0x00000061  /*'a'*/ 
+    /*158:*/ .uword 0x0000006d  /*'m'*/ 
+    /*159:*/ .uword 0x00000065  /*'e'*/ 
+    /*160:*/ .uword 0x0000003a  /*':'*/ 
+    /*161:*/ .uword 0x00000020  /*' '*/ 
+    /*162:*/ .uword 0x00000000 
+String_13:
+    /*163:*/ .uword 0x00000020  /*' '*/ 
+    /*164:*/ .uword 0x00000022  /*'"'*/ 
+    /*165:*/ .uword 0x00000000 
+String_14:
+    /*166:*/ .uword 0x00000022  /*'"'*/ 
+    /*167:*/ .uword 0x0000000a 
+    /*168:*/ .uword 0x00000000 
+bytes_15:
+    /*169:*/ .uword 0x00000020  /*' '*/ 
+    /*170:*/ .uword 0x00000020  /*' '*/ 
+    /*171:*/ .uword 0x00000020  /*' '*/ 
+    /*172:*/ .uword 0x00000020  /*' '*/ 
+    /*173:*/ .uword 0x00000042  /*'B'*/ 
+    /*174:*/ .uword 0x00000079  /*'y'*/ 
+    /*175:*/ .uword 0x00000074  /*'t'*/ 
+    /*176:*/ .uword 0x00000065  /*'e'*/ 
+    /*177:*/ .uword 0x00000073  /*'s'*/ 
+    /*178:*/ .uword 0x00000020  /*' '*/ 
+    /*179:*/ .uword 0x00000050  /*'P'*/ 
+    /*180:*/ .uword 0x00000065  /*'e'*/ 
+    /*181:*/ .uword 0x00000072  /*'r'*/ 
+    /*182:*/ .uword 0x00000020  /*' '*/ 
+    /*183:*/ .uword 0x00000053  /*'S'*/ 
+    /*184:*/ .uword 0x00000065  /*'e'*/ 
+    /*185:*/ .uword 0x00000063  /*'c'*/ 
+    /*186:*/ .uword 0x00000074  /*'t'*/ 
+    /*187:*/ .uword 0x0000006f  /*'o'*/ 
+    /*188:*/ .uword 0x00000072  /*'r'*/ 
+    /*189:*/ .uword 0x00000020  /*' '*/ 
+    /*190:*/ .uword 0x00000025  /*'%'*/ 
+    /*191:*/ .uword 0x00000064  /*'d'*/ 
+    /*192:*/ .uword 0x0000000a 
+    /*193:*/ .uword 0x00000000 
+sector_16:
+    /*194:*/ .uword 0x00000020  /*' '*/ 
+    /*195:*/ .uword 0x00000020  /*' '*/ 
+    /*196:*/ .uword 0x00000020  /*' '*/ 
+    /*197:*/ .uword 0x00000020  /*' '*/ 
+    /*198:*/ .uword 0x00000053  /*'S'*/ 
+    /*199:*/ .uword 0x00000065  /*'e'*/ 
+    /*200:*/ .uword 0x00000063  /*'c'*/ 
+    /*201:*/ .uword 0x00000074  /*'t'*/ 
+    /*202:*/ .uword 0x0000006f  /*'o'*/ 
+    /*203:*/ .uword 0x00000072  /*'r'*/ 
+    /*204:*/ .uword 0x00000073  /*'s'*/ 
+    /*205:*/ .uword 0x00000020  /*' '*/ 
+    /*206:*/ .uword 0x00000050  /*'P'*/ 
+    /*207:*/ .uword 0x00000065  /*'e'*/ 
+    /*208:*/ .uword 0x00000072  /*'r'*/ 
+    /*209:*/ .uword 0x00000020  /*' '*/ 
+    /*210:*/ .uword 0x00000043  /*'C'*/ 
+    /*211:*/ .uword 0x0000006c  /*'l'*/ 
+    /*212:*/ .uword 0x00000075  /*'u'*/ 
+    /*213:*/ .uword 0x00000073  /*'s'*/ 
+    /*214:*/ .uword 0x00000074  /*'t'*/ 
+    /*215:*/ .uword 0x00000065  /*'e'*/ 
+    /*216:*/ .uword 0x00000072  /*'r'*/ 
+    /*217:*/ .uword 0x00000020  /*' '*/ 
+    /*218:*/ .uword 0x00000025  /*'%'*/ 
+    /*219:*/ .uword 0x00000064  /*'d'*/ 
+    /*220:*/ .uword 0x0000000a 
+    /*221:*/ .uword 0x00000000 
+reserv_17:
+    /*222:*/ .uword 0x00000020  /*' '*/ 
+    /*223:*/ .uword 0x00000020  /*' '*/ 
+    /*224:*/ .uword 0x00000020  /*' '*/ 
+    /*225:*/ .uword 0x00000020  /*' '*/ 
+    /*226:*/ .uword 0x00000052  /*'R'*/ 
+    /*227:*/ .uword 0x00000065  /*'e'*/ 
+    /*228:*/ .uword 0x00000073  /*'s'*/ 
+    /*229:*/ .uword 0x00000065  /*'e'*/ 
+    /*230:*/ .uword 0x00000072  /*'r'*/ 
+    /*231:*/ .uword 0x00000076  /*'v'*/ 
+    /*232:*/ .uword 0x00000065  /*'e'*/ 
+    /*233:*/ .uword 0x00000064  /*'d'*/ 
+    /*234:*/ .uword 0x00000020  /*' '*/ 
+    /*235:*/ .uword 0x00000053  /*'S'*/ 
+    /*236:*/ .uword 0x00000065  /*'e'*/ 
+    /*237:*/ .uword 0x00000063  /*'c'*/ 
+    /*238:*/ .uword 0x00000074  /*'t'*/ 
+    /*239:*/ .uword 0x0000006f  /*'o'*/ 
+    /*240:*/ .uword 0x00000072  /*'r'*/ 
+    /*241:*/ .uword 0x00000073  /*'s'*/ 
+    /*242:*/ .uword 0x00000020  /*' '*/ 
+    /*243:*/ .uword 0x00000025  /*'%'*/ 
+    /*244:*/ .uword 0x00000064  /*'d'*/ 
+    /*245:*/ .uword 0x0000000a 
+    /*246:*/ .uword 0x00000000 
+number_18:
+    /*247:*/ .uword 0x00000020  /*' '*/ 
+    /*248:*/ .uword 0x00000020  /*' '*/ 
+    /*249:*/ .uword 0x00000020  /*' '*/ 
+    /*250:*/ .uword 0x00000020  /*' '*/ 
+    /*251:*/ .uword 0x0000004e  /*'N'*/ 
+    /*252:*/ .uword 0x00000075  /*'u'*/ 
+    /*253:*/ .uword 0x0000006d  /*'m'*/ 
+    /*254:*/ .uword 0x00000062  /*'b'*/ 
+    /*255:*/ .uword 0x00000065  /*'e'*/ 
+    /*256:*/ .uword 0x00000072  /*'r'*/ 
+    /*257:*/ .uword 0x00000020  /*' '*/ 
+    /*258:*/ .uword 0x0000004f  /*'O'*/ 
+    /*259:*/ .uword 0x00000066  /*'f'*/ 
+    /*260:*/ .uword 0x00000020  /*' '*/ 
+    /*261:*/ .uword 0x00000046  /*'F'*/ 
+    /*262:*/ .uword 0x00000041  /*'A'*/ 
+    /*263:*/ .uword 0x00000054  /*'T'*/ 
+    /*264:*/ .uword 0x00000073  /*'s'*/ 
+    /*265:*/ .uword 0x00000020  /*' '*/ 
+    /*266:*/ .uword 0x00000025  /*'%'*/ 
+    /*267:*/ .uword 0x00000064  /*'d'*/ 
+    /*268:*/ .uword 0x0000000a 
+    /*269:*/ .uword 0x00000000 
+c_19:
+    /*270:*/ .uword 0x00000020  /*' '*/ 
+    /*271:*/ .uword 0x00000020  /*' '*/ 
+    /*272:*/ .uword 0x00000020  /*' '*/ 
+    /*273:*/ .uword 0x00000020  /*' '*/ 
+    /*274:*/ .uword 0x00000020  /*' '*/ 
+    /*275:*/ .uword 0x00000020  /*' '*/ 
+    /*276:*/ .uword 0x0000002d  /*'-'*/ 
+    /*277:*/ .uword 0x0000003e  /*'>'*/ 
+    /*278:*/ .uword 0x00000020  /*' '*/ 
+    /*279:*/ .uword 0x00000043  /*'C'*/ 
+    /*280:*/ .uword 0x00000041  /*'A'*/ 
+    /*281:*/ .uword 0x0000004e  /*'N'*/ 
+    /*282:*/ .uword 0x00000027  /*'''*/ 
+    /*283:*/ .uword 0x00000054  /*'T'*/ 
+    /*284:*/ .uword 0x00000020  /*' '*/ 
+    /*285:*/ .uword 0x00000042  /*'B'*/ 
+    /*286:*/ .uword 0x00000045  /*'E'*/ 
+    /*287:*/ .uword 0x00000020  /*' '*/ 
+    /*288:*/ .uword 0x00000046  /*'F'*/ 
+    /*289:*/ .uword 0x00000041  /*'A'*/ 
+    /*290:*/ .uword 0x00000054  /*'T'*/ 
+    /*291:*/ .uword 0x00000033  /*'3'*/ 
+    /*292:*/ .uword 0x00000032  /*'2'*/ 
+    /*293:*/ .uword 0x00000020  /*' '*/ 
+    /*294:*/ .uword 0x00000028  /*'('*/ 
+    /*295:*/ .uword 0x00000070  /*'p'*/ 
+    /*296:*/ .uword 0x00000065  /*'e'*/ 
+    /*297:*/ .uword 0x00000072  /*'r'*/ 
+    /*298:*/ .uword 0x00000068  /*'h'*/ 
+    /*299:*/ .uword 0x00000061  /*'a'*/ 
+    /*300:*/ .uword 0x00000070  /*'p'*/ 
+    /*301:*/ .uword 0x00000073  /*'s'*/ 
+    /*302:*/ .uword 0x00000020  /*' '*/ 
+    /*303:*/ .uword 0x00000065  /*'e'*/ 
+    /*304:*/ .uword 0x00000078  /*'x'*/ 
+    /*305:*/ .uword 0x00000046  /*'F'*/ 
+    /*306:*/ .uword 0x00000041  /*'A'*/ 
+    /*307:*/ .uword 0x00000054  /*'T'*/ 
+    /*308:*/ .uword 0x0000003f  /*'?'*/ 
+    /*309:*/ .uword 0x00000029  /*')'*/ 
+    /*310:*/ .uword 0x0000000a 
+    /*311:*/ .uword 0x00000000 
+bit_20:
+    /*312:*/ .uword 0x00000020  /*' '*/ 
+    /*313:*/ .uword 0x00000020  /*' '*/ 
+    /*314:*/ .uword 0x00000020  /*' '*/ 
+    /*315:*/ .uword 0x00000020  /*' '*/ 
+    /*316:*/ .uword 0x00000031  /*'1'*/ 
+    /*317:*/ .uword 0x00000036  /*'6'*/ 
+    /*318:*/ .uword 0x0000002d  /*'-'*/ 
+    /*319:*/ .uword 0x00000062  /*'b'*/ 
+    /*320:*/ .uword 0x00000069  /*'i'*/ 
+    /*321:*/ .uword 0x00000074  /*'t'*/ 
+    /*322:*/ .uword 0x00000020  /*' '*/ 
+    /*323:*/ .uword 0x0000004e  /*'N'*/ 
+    /*324:*/ .uword 0x00000075  /*'u'*/ 
+    /*325:*/ .uword 0x0000006d  /*'m'*/ 
+    /*326:*/ .uword 0x00000062  /*'b'*/ 
+    /*327:*/ .uword 0x00000065  /*'e'*/ 
+    /*328:*/ .uword 0x00000072  /*'r'*/ 
+    /*329:*/ .uword 0x00000020  /*' '*/ 
+    /*330:*/ .uword 0x0000006f  /*'o'*/ 
+    /*331:*/ .uword 0x00000066  /*'f'*/ 
+    /*332:*/ .uword 0x00000020  /*' '*/ 
+    /*333:*/ .uword 0x00000053  /*'S'*/ 
+    /*334:*/ .uword 0x00000065  /*'e'*/ 
+    /*335:*/ .uword 0x00000063  /*'c'*/ 
+    /*336:*/ .uword 0x00000074  /*'t'*/ 
+    /*337:*/ .uword 0x0000006f  /*'o'*/ 
+    /*338:*/ .uword 0x00000072  /*'r'*/ 
+    /*339:*/ .uword 0x00000073  /*'s'*/ 
+    /*340:*/ .uword 0x00000020  /*' '*/ 
+    /*341:*/ .uword 0x00000070  /*'p'*/ 
+    /*342:*/ .uword 0x00000065  /*'e'*/ 
+    /*343:*/ .uword 0x00000072  /*'r'*/ 
+    /*344:*/ .uword 0x00000020  /*' '*/ 
+    /*345:*/ .uword 0x00000046  /*'F'*/ 
+    /*346:*/ .uword 0x00000041  /*'A'*/ 
+    /*347:*/ .uword 0x00000054  /*'T'*/ 
+    /*348:*/ .uword 0x00000020  /*' '*/ 
+    /*349:*/ .uword 0x00000025  /*'%'*/ 
+    /*350:*/ .uword 0x00000064  /*'d'*/ 
+    /*351:*/ .uword 0x0000000a 
+    /*352:*/ .uword 0x00000000 
+c_21:
+    /*353:*/ .uword 0x00000020  /*' '*/ 
+    /*354:*/ .uword 0x00000020  /*' '*/ 
+    /*355:*/ .uword 0x00000020  /*' '*/ 
+    /*356:*/ .uword 0x00000020  /*' '*/ 
+    /*357:*/ .uword 0x00000020  /*' '*/ 
+    /*358:*/ .uword 0x00000020  /*' '*/ 
+    /*359:*/ .uword 0x0000002d  /*'-'*/ 
+    /*360:*/ .uword 0x0000003e  /*'>'*/ 
+    /*361:*/ .uword 0x00000020  /*' '*/ 
+    /*362:*/ .uword 0x00000043  /*'C'*/ 
+    /*363:*/ .uword 0x00000041  /*'A'*/ 
+    /*364:*/ .uword 0x0000004e  /*'N'*/ 
+    /*365:*/ .uword 0x00000027  /*'''*/ 
+    /*366:*/ .uword 0x00000054  /*'T'*/ 
+    /*367:*/ .uword 0x00000020  /*' '*/ 
+    /*368:*/ .uword 0x00000042  /*'B'*/ 
+    /*369:*/ .uword 0x00000045  /*'E'*/ 
+    /*370:*/ .uword 0x00000020  /*' '*/ 
+    /*371:*/ .uword 0x00000046  /*'F'*/ 
+    /*372:*/ .uword 0x00000041  /*'A'*/ 
+    /*373:*/ .uword 0x00000054  /*'T'*/ 
+    /*374:*/ .uword 0x00000033  /*'3'*/ 
+    /*375:*/ .uword 0x00000032  /*'2'*/ 
+    /*376:*/ .uword 0x0000000a 
+    /*377:*/ .uword 0x00000000 
+media_22:
+    /*378:*/ .uword 0x00000020  /*' '*/ 
+    /*379:*/ .uword 0x00000020  /*' '*/ 
+    /*380:*/ .uword 0x00000020  /*' '*/ 
+    /*381:*/ .uword 0x00000020  /*' '*/ 
+    /*382:*/ .uword 0x0000004d  /*'M'*/ 
+    /*383:*/ .uword 0x00000065  /*'e'*/ 
+    /*384:*/ .uword 0x00000064  /*'d'*/ 
+    /*385:*/ .uword 0x00000069  /*'i'*/ 
+    /*386:*/ .uword 0x00000061  /*'a'*/ 
+    /*387:*/ .uword 0x00000020  /*' '*/ 
+    /*388:*/ .uword 0x00000044  /*'D'*/ 
+    /*389:*/ .uword 0x00000065  /*'e'*/ 
+    /*390:*/ .uword 0x00000073  /*'s'*/ 
+    /*391:*/ .uword 0x00000063  /*'c'*/ 
+    /*392:*/ .uword 0x00000072  /*'r'*/ 
+    /*393:*/ .uword 0x00000069  /*'i'*/ 
+    /*394:*/ .uword 0x00000070  /*'p'*/ 
+    /*395:*/ .uword 0x00000074  /*'t'*/ 
+    /*396:*/ .uword 0x0000006f  /*'o'*/ 
+    /*397:*/ .uword 0x00000072  /*'r'*/ 
+    /*398:*/ .uword 0x00000020  /*' '*/ 
+    /*399:*/ .uword 0x00000028  /*'('*/ 
+    /*400:*/ .uword 0x00000030  /*'0'*/ 
+    /*401:*/ .uword 0x00000078  /*'x'*/ 
+    /*402:*/ .uword 0x00000066  /*'f'*/ 
+    /*403:*/ .uword 0x00000038  /*'8'*/ 
+    /*404:*/ .uword 0x00000020  /*' '*/ 
+    /*405:*/ .uword 0x00000066  /*'f'*/ 
+    /*406:*/ .uword 0x0000006f  /*'o'*/ 
+    /*407:*/ .uword 0x00000072  /*'r'*/ 
+    /*408:*/ .uword 0x00000020  /*' '*/ 
+    /*409:*/ .uword 0x00000048  /*'H'*/ 
+    /*410:*/ .uword 0x00000044  /*'D'*/ 
+    /*411:*/ .uword 0x00000073  /*'s'*/ 
+    /*412:*/ .uword 0x00000029  /*')'*/ 
+    /*413:*/ .uword 0x00000020  /*' '*/ 
+    /*414:*/ .uword 0x00000030  /*'0'*/ 
+    /*415:*/ .uword 0x00000078  /*'x'*/ 
+    /*416:*/ .uword 0x00000025  /*'%'*/ 
+    /*417:*/ .uword 0x00000078  /*'x'*/ 
+    /*418:*/ .uword 0x0000000a 
+    /*419:*/ .uword 0x00000000 
+bit_23:
+    /*420:*/ .uword 0x00000020  /*' '*/ 
+    /*421:*/ .uword 0x00000020  /*' '*/ 
+    /*422:*/ .uword 0x00000020  /*' '*/ 
+    /*423:*/ .uword 0x00000020  /*' '*/ 
+    /*424:*/ .uword 0x00000031  /*'1'*/ 
+    /*425:*/ .uword 0x00000036  /*'6'*/ 
+    /*426:*/ .uword 0x0000002d  /*'-'*/ 
+    /*427:*/ .uword 0x00000062  /*'b'*/ 
+    /*428:*/ .uword 0x00000069  /*'i'*/ 
+    /*429:*/ .uword 0x00000074  /*'t'*/ 
+    /*430:*/ .uword 0x00000020  /*' '*/ 
+    /*431:*/ .uword 0x00000046  /*'F'*/ 
+    /*432:*/ .uword 0x00000041  /*'A'*/ 
+    /*433:*/ .uword 0x00000054  /*'T'*/ 
+    /*434:*/ .uword 0x00000020  /*' '*/ 
+    /*435:*/ .uword 0x00000073  /*'s'*/ 
+    /*436:*/ .uword 0x00000069  /*'i'*/ 
+    /*437:*/ .uword 0x0000007a  /*'z'*/ 
+    /*438:*/ .uword 0x00000065  /*'e'*/ 
+    /*439:*/ .uword 0x00000020  /*' '*/ 
+    /*440:*/ .uword 0x00000025  /*'%'*/ 
+    /*441:*/ .uword 0x00000064  /*'d'*/ 
+    /*442:*/ .uword 0x0000000a 
+    /*443:*/ .uword 0x00000000 
+sector_24:
+    /*444:*/ .uword 0x00000020  /*' '*/ 
+    /*445:*/ .uword 0x00000020  /*' '*/ 
+    /*446:*/ .uword 0x00000020  /*' '*/ 
+    /*447:*/ .uword 0x00000020  /*' '*/ 
+    /*448:*/ .uword 0x00000053  /*'S'*/ 
+    /*449:*/ .uword 0x00000065  /*'e'*/ 
+    /*450:*/ .uword 0x00000063  /*'c'*/ 
+    /*451:*/ .uword 0x00000074  /*'t'*/ 
+    /*452:*/ .uword 0x0000006f  /*'o'*/ 
+    /*453:*/ .uword 0x00000072  /*'r'*/ 
+    /*454:*/ .uword 0x00000073  /*'s'*/ 
+    /*455:*/ .uword 0x00000020  /*' '*/ 
+    /*456:*/ .uword 0x00000050  /*'P'*/ 
+    /*457:*/ .uword 0x00000065  /*'e'*/ 
+    /*458:*/ .uword 0x00000072  /*'r'*/ 
+    /*459:*/ .uword 0x00000020  /*' '*/ 
+    /*460:*/ .uword 0x00000054  /*'T'*/ 
+    /*461:*/ .uword 0x00000072  /*'r'*/ 
+    /*462:*/ .uword 0x00000061  /*'a'*/ 
+    /*463:*/ .uword 0x00000063  /*'c'*/ 
+    /*464:*/ .uword 0x0000006b  /*'k'*/ 
+    /*465:*/ .uword 0x00000020  /*' '*/ 
+    /*466:*/ .uword 0x00000025  /*'%'*/ 
+    /*467:*/ .uword 0x00000064  /*'d'*/ 
+    /*468:*/ .uword 0x0000000a 
+    /*469:*/ .uword 0x00000000 
+number_25:
+    /*470:*/ .uword 0x00000020  /*' '*/ 
+    /*471:*/ .uword 0x00000020  /*' '*/ 
+    /*472:*/ .uword 0x00000020  /*' '*/ 
+    /*473:*/ .uword 0x00000020  /*' '*/ 
+    /*474:*/ .uword 0x0000004e  /*'N'*/ 
+    /*475:*/ .uword 0x00000075  /*'u'*/ 
+    /*476:*/ .uword 0x0000006d  /*'m'*/ 
+    /*477:*/ .uword 0x00000062  /*'b'*/ 
+    /*478:*/ .uword 0x00000065  /*'e'*/ 
+    /*479:*/ .uword 0x00000072  /*'r'*/ 
+    /*480:*/ .uword 0x00000020  /*' '*/ 
+    /*481:*/ .uword 0x0000006f  /*'o'*/ 
+    /*482:*/ .uword 0x00000066  /*'f'*/ 
+    /*483:*/ .uword 0x00000020  /*' '*/ 
+    /*484:*/ .uword 0x00000048  /*'H'*/ 
+    /*485:*/ .uword 0x00000065  /*'e'*/ 
+    /*486:*/ .uword 0x00000061  /*'a'*/ 
+    /*487:*/ .uword 0x00000064  /*'d'*/ 
+    /*488:*/ .uword 0x00000073  /*'s'*/ 
+    /*489:*/ .uword 0x00000020  /*' '*/ 
+    /*490:*/ .uword 0x00000025  /*'%'*/ 
+    /*491:*/ .uword 0x00000064  /*'d'*/ 
+    /*492:*/ .uword 0x0000000a 
+    /*493:*/ .uword 0x00000000 
+number_26:
+    /*494:*/ .uword 0x00000020  /*' '*/ 
+    /*495:*/ .uword 0x00000020  /*' '*/ 
+    /*496:*/ .uword 0x00000020  /*' '*/ 
+    /*497:*/ .uword 0x00000020  /*' '*/ 
+    /*498:*/ .uword 0x0000004e  /*'N'*/ 
+    /*499:*/ .uword 0x00000075  /*'u'*/ 
+    /*500:*/ .uword 0x0000006d  /*'m'*/ 
+    /*501:*/ .uword 0x00000062  /*'b'*/ 
+    /*502:*/ .uword 0x00000065  /*'e'*/ 
+    /*503:*/ .uword 0x00000072  /*'r'*/ 
+    /*504:*/ .uword 0x00000020  /*' '*/ 
+    /*505:*/ .uword 0x0000006f  /*'o'*/ 
+    /*506:*/ .uword 0x00000066  /*'f'*/ 
+    /*507:*/ .uword 0x00000020  /*' '*/ 
+    /*508:*/ .uword 0x00000048  /*'H'*/ 
+    /*509:*/ .uword 0x00000069  /*'i'*/ 
+    /*510:*/ .uword 0x00000064  /*'d'*/ 
+    /*511:*/ .uword 0x00000064  /*'d'*/ 
+    /*512:*/ .uword 0x00000065  /*'e'*/ 
+    /*513:*/ .uword 0x0000006e  /*'n'*/ 
+    /*514:*/ .uword 0x00000020  /*' '*/ 
+    /*515:*/ .uword 0x00000053  /*'S'*/ 
+    /*516:*/ .uword 0x00000065  /*'e'*/ 
+    /*517:*/ .uword 0x00000063  /*'c'*/ 
+    /*518:*/ .uword 0x00000074  /*'t'*/ 
+    /*519:*/ .uword 0x0000006f  /*'o'*/ 
+    /*520:*/ .uword 0x00000072  /*'r'*/ 
+    /*521:*/ .uword 0x00000073  /*'s'*/ 
+    /*522:*/ .uword 0x00000020  /*' '*/ 
+    /*523:*/ .uword 0x00000069  /*'i'*/ 
+    /*524:*/ .uword 0x0000006e  /*'n'*/ 
+    /*525:*/ .uword 0x00000020  /*' '*/ 
+    /*526:*/ .uword 0x00000050  /*'P'*/ 
+    /*527:*/ .uword 0x00000061  /*'a'*/ 
+    /*528:*/ .uword 0x00000072  /*'r'*/ 
+    /*529:*/ .uword 0x00000074  /*'t'*/ 
+    /*530:*/ .uword 0x00000069  /*'i'*/ 
+    /*531:*/ .uword 0x00000074  /*'t'*/ 
+    /*532:*/ .uword 0x00000069  /*'i'*/ 
+    /*533:*/ .uword 0x0000006f  /*'o'*/ 
+    /*534:*/ .uword 0x0000006e  /*'n'*/ 
+    /*535:*/ .uword 0x00000020  /*' '*/ 
+    /*536:*/ .uword 0x00000025  /*'%'*/ 
+    /*537:*/ .uword 0x0000006c  /*'l'*/ 
+    /*538:*/ .uword 0x00000064  /*'d'*/ 
+    /*539:*/ .uword 0x0000000a 
+    /*540:*/ .uword 0x00000000 
+bit_27:
+    /*541:*/ .uword 0x00000020  /*' '*/ 
+    /*542:*/ .uword 0x00000020  /*' '*/ 
+    /*543:*/ .uword 0x00000020  /*' '*/ 
+    /*544:*/ .uword 0x00000020  /*' '*/ 
+    /*545:*/ .uword 0x00000033  /*'3'*/ 
+    /*546:*/ .uword 0x00000032  /*'2'*/ 
+    /*547:*/ .uword 0x0000002d  /*'-'*/ 
+    /*548:*/ .uword 0x00000062  /*'b'*/ 
+    /*549:*/ .uword 0x00000069  /*'i'*/ 
+    /*550:*/ .uword 0x00000074  /*'t'*/ 
+    /*551:*/ .uword 0x00000020  /*' '*/ 
+    /*552:*/ .uword 0x0000004e  /*'N'*/ 
+    /*553:*/ .uword 0x00000075  /*'u'*/ 
+    /*554:*/ .uword 0x0000006d  /*'m'*/ 
+    /*555:*/ .uword 0x00000062  /*'b'*/ 
+    /*556:*/ .uword 0x00000065  /*'e'*/ 
+    /*557:*/ .uword 0x00000072  /*'r'*/ 
+    /*558:*/ .uword 0x00000020  /*' '*/ 
+    /*559:*/ .uword 0x0000006f  /*'o'*/ 
+    /*560:*/ .uword 0x00000066  /*'f'*/ 
+    /*561:*/ .uword 0x00000020  /*' '*/ 
+    /*562:*/ .uword 0x00000053  /*'S'*/ 
+    /*563:*/ .uword 0x00000065  /*'e'*/ 
+    /*564:*/ .uword 0x00000063  /*'c'*/ 
+    /*565:*/ .uword 0x00000074  /*'t'*/ 
+    /*566:*/ .uword 0x0000006f  /*'o'*/ 
+    /*567:*/ .uword 0x00000072  /*'r'*/ 
+    /*568:*/ .uword 0x00000073  /*'s'*/ 
+    /*569:*/ .uword 0x00000020  /*' '*/ 
+    /*570:*/ .uword 0x00000069  /*'i'*/ 
+    /*571:*/ .uword 0x0000006e  /*'n'*/ 
+    /*572:*/ .uword 0x00000020  /*' '*/ 
+    /*573:*/ .uword 0x00000050  /*'P'*/ 
+    /*574:*/ .uword 0x00000061  /*'a'*/ 
+    /*575:*/ .uword 0x00000072  /*'r'*/ 
+    /*576:*/ .uword 0x00000074  /*'t'*/ 
+    /*577:*/ .uword 0x00000069  /*'i'*/ 
+    /*578:*/ .uword 0x00000074  /*'t'*/ 
+    /*579:*/ .uword 0x00000069  /*'i'*/ 
+    /*580:*/ .uword 0x0000006f  /*'o'*/ 
+    /*581:*/ .uword 0x0000006e  /*'n'*/ 
+    /*582:*/ .uword 0x00000020  /*' '*/ 
+    /*583:*/ .uword 0x00000025  /*'%'*/ 
+    /*584:*/ .uword 0x0000006c  /*'l'*/ 
+    /*585:*/ .uword 0x00000064  /*'d'*/ 
+    /*586:*/ .uword 0x0000000a 
+    /*587:*/ .uword 0x00000000 
+bit_28:
+    /*588:*/ .uword 0x00000020  /*' '*/ 
+    /*589:*/ .uword 0x00000020  /*' '*/ 
+    /*590:*/ .uword 0x00000020  /*' '*/ 
+    /*591:*/ .uword 0x00000020  /*' '*/ 
+    /*592:*/ .uword 0x00000033  /*'3'*/ 
+    /*593:*/ .uword 0x00000032  /*'2'*/ 
+    /*594:*/ .uword 0x0000002d  /*'-'*/ 
+    /*595:*/ .uword 0x00000062  /*'b'*/ 
+    /*596:*/ .uword 0x00000069  /*'i'*/ 
+    /*597:*/ .uword 0x00000074  /*'t'*/ 
+    /*598:*/ .uword 0x00000020  /*' '*/ 
+    /*599:*/ .uword 0x0000004e  /*'N'*/ 
+    /*600:*/ .uword 0x00000075  /*'u'*/ 
+    /*601:*/ .uword 0x0000006d  /*'m'*/ 
+    /*602:*/ .uword 0x00000062  /*'b'*/ 
+    /*603:*/ .uword 0x00000065  /*'e'*/ 
+    /*604:*/ .uword 0x00000072  /*'r'*/ 
+    /*605:*/ .uword 0x00000020  /*' '*/ 
+    /*606:*/ .uword 0x0000006f  /*'o'*/ 
+    /*607:*/ .uword 0x00000066  /*'f'*/ 
+    /*608:*/ .uword 0x00000020  /*' '*/ 
+    /*609:*/ .uword 0x00000053  /*'S'*/ 
+    /*610:*/ .uword 0x00000065  /*'e'*/ 
+    /*611:*/ .uword 0x00000063  /*'c'*/ 
+    /*612:*/ .uword 0x00000074  /*'t'*/ 
+    /*613:*/ .uword 0x0000006f  /*'o'*/ 
+    /*614:*/ .uword 0x00000072  /*'r'*/ 
+    /*615:*/ .uword 0x00000073  /*'s'*/ 
+    /*616:*/ .uword 0x00000020  /*' '*/ 
+    /*617:*/ .uword 0x00000070  /*'p'*/ 
+    /*618:*/ .uword 0x00000065  /*'e'*/ 
+    /*619:*/ .uword 0x00000072  /*'r'*/ 
+    /*620:*/ .uword 0x00000020  /*' '*/ 
+    /*621:*/ .uword 0x00000046  /*'F'*/ 
+    /*622:*/ .uword 0x00000041  /*'A'*/ 
+    /*623:*/ .uword 0x00000054  /*'T'*/ 
+    /*624:*/ .uword 0x00000020  /*' '*/ 
+    /*625:*/ .uword 0x00000025  /*'%'*/ 
+    /*626:*/ .uword 0x0000006c  /*'l'*/ 
+    /*627:*/ .uword 0x00000064  /*'d'*/ 
+    /*628:*/ .uword 0x0000000a 
+    /*629:*/ .uword 0x00000000 
+flags_29:
+    /*630:*/ .uword 0x00000020  /*' '*/ 
+    /*631:*/ .uword 0x00000020  /*' '*/ 
+    /*632:*/ .uword 0x00000020  /*' '*/ 
+    /*633:*/ .uword 0x00000020  /*' '*/ 
+    /*634:*/ .uword 0x00000046  /*'F'*/ 
+    /*635:*/ .uword 0x0000006c  /*'l'*/ 
+    /*636:*/ .uword 0x00000061  /*'a'*/ 
+    /*637:*/ .uword 0x00000067  /*'g'*/ 
+    /*638:*/ .uword 0x00000073  /*'s'*/ 
+    /*639:*/ .uword 0x00000020  /*' '*/ 
+    /*640:*/ .uword 0x00000030  /*'0'*/ 
+    /*641:*/ .uword 0x00000078  /*'x'*/ 
+    /*642:*/ .uword 0x00000025  /*'%'*/ 
+    /*643:*/ .uword 0x00000078  /*'x'*/ 
+    /*644:*/ .uword 0x0000000a 
+    /*645:*/ .uword 0x00000000 
+versio_30:
+    /*646:*/ .uword 0x00000020  /*' '*/ 
+    /*647:*/ .uword 0x00000020  /*' '*/ 
+    /*648:*/ .uword 0x00000020  /*' '*/ 
+    /*649:*/ .uword 0x00000020  /*' '*/ 
+    /*650:*/ .uword 0x00000056  /*'V'*/ 
+    /*651:*/ .uword 0x00000065  /*'e'*/ 
+    /*652:*/ .uword 0x00000072  /*'r'*/ 
+    /*653:*/ .uword 0x00000073  /*'s'*/ 
+    /*654:*/ .uword 0x00000069  /*'i'*/ 
+    /*655:*/ .uword 0x0000006f  /*'o'*/ 
+    /*656:*/ .uword 0x0000006e  /*'n'*/ 
+    /*657:*/ .uword 0x00000020  /*' '*/ 
+    /*658:*/ .uword 0x0000006f  /*'o'*/ 
+    /*659:*/ .uword 0x00000066  /*'f'*/ 
+    /*660:*/ .uword 0x00000020  /*' '*/ 
+    /*661:*/ .uword 0x00000046  /*'F'*/ 
+    /*662:*/ .uword 0x00000041  /*'A'*/ 
+    /*663:*/ .uword 0x00000054  /*'T'*/ 
+    /*664:*/ .uword 0x00000033  /*'3'*/ 
+    /*665:*/ .uword 0x00000032  /*'2'*/ 
+    /*666:*/ .uword 0x00000020  /*' '*/ 
+    /*667:*/ .uword 0x00000044  /*'D'*/ 
+    /*668:*/ .uword 0x00000072  /*'r'*/ 
+    /*669:*/ .uword 0x00000069  /*'i'*/ 
+    /*670:*/ .uword 0x00000076  /*'v'*/ 
+    /*671:*/ .uword 0x00000065  /*'e'*/ 
+    /*672:*/ .uword 0x00000020  /*' '*/ 
+    /*673:*/ .uword 0x00000030  /*'0'*/ 
+    /*674:*/ .uword 0x00000078  /*'x'*/ 
+    /*675:*/ .uword 0x00000025  /*'%'*/ 
+    /*676:*/ .uword 0x00000078  /*'x'*/ 
+    /*677:*/ .uword 0x0000000a 
+    /*678:*/ .uword 0x00000000 
+cluste_31:
+    /*679:*/ .uword 0x00000020  /*' '*/ 
+    /*680:*/ .uword 0x00000020  /*' '*/ 
+    /*681:*/ .uword 0x00000020  /*' '*/ 
+    /*682:*/ .uword 0x00000020  /*' '*/ 
+    /*683:*/ .uword 0x00000043  /*'C'*/ 
+    /*684:*/ .uword 0x0000006c  /*'l'*/ 
+    /*685:*/ .uword 0x00000075  /*'u'*/ 
+    /*686:*/ .uword 0x00000073  /*'s'*/ 
+    /*687:*/ .uword 0x00000074  /*'t'*/ 
+    /*688:*/ .uword 0x00000065  /*'e'*/ 
+    /*689:*/ .uword 0x00000072  /*'r'*/ 
+    /*690:*/ .uword 0x00000020  /*' '*/ 
+    /*691:*/ .uword 0x0000004e  /*'N'*/ 
+    /*692:*/ .uword 0x00000075  /*'u'*/ 
+    /*693:*/ .uword 0x0000006d  /*'m'*/ 
+    /*694:*/ .uword 0x00000062  /*'b'*/ 
+    /*695:*/ .uword 0x00000065  /*'e'*/ 
+    /*696:*/ .uword 0x00000072  /*'r'*/ 
+    /*697:*/ .uword 0x00000020  /*' '*/ 
+    /*698:*/ .uword 0x0000006f  /*'o'*/ 
+    /*699:*/ .uword 0x00000066  /*'f'*/ 
+    /*700:*/ .uword 0x00000020  /*' '*/ 
+    /*701:*/ .uword 0x00000074  /*'t'*/ 
+    /*702:*/ .uword 0x00000068  /*'h'*/ 
+    /*703:*/ .uword 0x00000065  /*'e'*/ 
+    /*704:*/ .uword 0x00000020  /*' '*/ 
+    /*705:*/ .uword 0x00000053  /*'S'*/ 
+    /*706:*/ .uword 0x00000074  /*'t'*/ 
+    /*707:*/ .uword 0x00000061  /*'a'*/ 
+    /*708:*/ .uword 0x00000072  /*'r'*/ 
+    /*709:*/ .uword 0x00000074  /*'t'*/ 
+    /*710:*/ .uword 0x00000020  /*' '*/ 
+    /*711:*/ .uword 0x0000006f  /*'o'*/ 
+    /*712:*/ .uword 0x00000066  /*'f'*/ 
+    /*713:*/ .uword 0x00000020  /*' '*/ 
+    /*714:*/ .uword 0x00000074  /*'t'*/ 
+    /*715:*/ .uword 0x00000068  /*'h'*/ 
+    /*716:*/ .uword 0x00000065  /*'e'*/ 
+    /*717:*/ .uword 0x00000020  /*' '*/ 
+    /*718:*/ .uword 0x00000052  /*'R'*/ 
+    /*719:*/ .uword 0x0000006f  /*'o'*/ 
+    /*720:*/ .uword 0x0000006f  /*'o'*/ 
+    /*721:*/ .uword 0x00000074  /*'t'*/ 
+    /*722:*/ .uword 0x00000020  /*' '*/ 
+    /*723:*/ .uword 0x00000044  /*'D'*/ 
+    /*724:*/ .uword 0x00000069  /*'i'*/ 
+    /*725:*/ .uword 0x00000072  /*'r'*/ 
+    /*726:*/ .uword 0x00000065  /*'e'*/ 
+    /*727:*/ .uword 0x00000063  /*'c'*/ 
+    /*728:*/ .uword 0x00000074  /*'t'*/ 
+    /*729:*/ .uword 0x0000006f  /*'o'*/ 
+    /*730:*/ .uword 0x00000072  /*'r'*/ 
+    /*731:*/ .uword 0x00000079  /*'y'*/ 
+    /*732:*/ .uword 0x00000020  /*' '*/ 
+    /*733:*/ .uword 0x00000025  /*'%'*/ 
+    /*734:*/ .uword 0x0000006c  /*'l'*/ 
+    /*735:*/ .uword 0x00000064  /*'d'*/ 
+    /*736:*/ .uword 0x0000000a 
+    /*737:*/ .uword 0x00000000 
+sector_32:
+    /*738:*/ .uword 0x00000020  /*' '*/ 
+    /*739:*/ .uword 0x00000020  /*' '*/ 
+    /*740:*/ .uword 0x00000020  /*' '*/ 
+    /*741:*/ .uword 0x00000020  /*' '*/ 
+    /*742:*/ .uword 0x00000053  /*'S'*/ 
+    /*743:*/ .uword 0x00000065  /*'e'*/ 
+    /*744:*/ .uword 0x00000063  /*'c'*/ 
+    /*745:*/ .uword 0x00000074  /*'t'*/ 
+    /*746:*/ .uword 0x0000006f  /*'o'*/ 
+    /*747:*/ .uword 0x00000072  /*'r'*/ 
+    /*748:*/ .uword 0x00000020  /*' '*/ 
+    /*749:*/ .uword 0x0000004e  /*'N'*/ 
+    /*750:*/ .uword 0x00000075  /*'u'*/ 
+    /*751:*/ .uword 0x0000006d  /*'m'*/ 
+    /*752:*/ .uword 0x00000062  /*'b'*/ 
+    /*753:*/ .uword 0x00000065  /*'e'*/ 
+    /*754:*/ .uword 0x00000072  /*'r'*/ 
+    /*755:*/ .uword 0x00000020  /*' '*/ 
+    /*756:*/ .uword 0x0000006f  /*'o'*/ 
+    /*757:*/ .uword 0x00000066  /*'f'*/ 
+    /*758:*/ .uword 0x00000020  /*' '*/ 
+    /*759:*/ .uword 0x00000074  /*'t'*/ 
+    /*760:*/ .uword 0x00000068  /*'h'*/ 
+    /*761:*/ .uword 0x00000065  /*'e'*/ 
+    /*762:*/ .uword 0x00000020  /*' '*/ 
+    /*763:*/ .uword 0x00000046  /*'F'*/ 
+    /*764:*/ .uword 0x00000069  /*'i'*/ 
+    /*765:*/ .uword 0x0000006c  /*'l'*/ 
+    /*766:*/ .uword 0x00000065  /*'e'*/ 
+    /*767:*/ .uword 0x00000053  /*'S'*/ 
+    /*768:*/ .uword 0x00000079  /*'y'*/ 
+    /*769:*/ .uword 0x00000073  /*'s'*/ 
+    /*770:*/ .uword 0x00000074  /*'t'*/ 
+    /*771:*/ .uword 0x00000065  /*'e'*/ 
+    /*772:*/ .uword 0x0000006d  /*'m'*/ 
+    /*773:*/ .uword 0x00000020  /*' '*/ 
+    /*774:*/ .uword 0x00000049  /*'I'*/ 
+    /*775:*/ .uword 0x0000006e  /*'n'*/ 
+    /*776:*/ .uword 0x00000066  /*'f'*/ 
+    /*777:*/ .uword 0x0000006f  /*'o'*/ 
+    /*778:*/ .uword 0x00000072  /*'r'*/ 
+    /*779:*/ .uword 0x0000006d  /*'m'*/ 
+    /*780:*/ .uword 0x00000061  /*'a'*/ 
+    /*781:*/ .uword 0x00000074  /*'t'*/ 
+    /*782:*/ .uword 0x00000069  /*'i'*/ 
+    /*783:*/ .uword 0x0000006f  /*'o'*/ 
+    /*784:*/ .uword 0x0000006e  /*'n'*/ 
+    /*785:*/ .uword 0x00000020  /*' '*/ 
+    /*786:*/ .uword 0x00000053  /*'S'*/ 
+    /*787:*/ .uword 0x00000065  /*'e'*/ 
+    /*788:*/ .uword 0x00000063  /*'c'*/ 
+    /*789:*/ .uword 0x00000074  /*'t'*/ 
+    /*790:*/ .uword 0x0000006f  /*'o'*/ 
+    /*791:*/ .uword 0x00000072  /*'r'*/ 
+    /*792:*/ .uword 0x00000020  /*' '*/ 
+    /*793:*/ .uword 0x00000025  /*'%'*/ 
+    /*794:*/ .uword 0x00000064  /*'d'*/ 
+    /*795:*/ .uword 0x0000000a 
+    /*796:*/ .uword 0x00000000 
+sector_33:
+    /*797:*/ .uword 0x00000020  /*' '*/ 
+    /*798:*/ .uword 0x00000020  /*' '*/ 
+    /*799:*/ .uword 0x00000020  /*' '*/ 
+    /*800:*/ .uword 0x00000020  /*' '*/ 
+    /*801:*/ .uword 0x00000053  /*'S'*/ 
+    /*802:*/ .uword 0x00000065  /*'e'*/ 
+    /*803:*/ .uword 0x00000063  /*'c'*/ 
+    /*804:*/ .uword 0x00000074  /*'t'*/ 
+    /*805:*/ .uword 0x0000006f  /*'o'*/ 
+    /*806:*/ .uword 0x00000072  /*'r'*/ 
+    /*807:*/ .uword 0x00000020  /*' '*/ 
+    /*808:*/ .uword 0x0000004e  /*'N'*/ 
+    /*809:*/ .uword 0x00000075  /*'u'*/ 
+    /*810:*/ .uword 0x0000006d  /*'m'*/ 
+    /*811:*/ .uword 0x00000062  /*'b'*/ 
+    /*812:*/ .uword 0x00000065  /*'e'*/ 
+    /*813:*/ .uword 0x00000072  /*'r'*/ 
+    /*814:*/ .uword 0x00000020  /*' '*/ 
+    /*815:*/ .uword 0x0000006f  /*'o'*/ 
+    /*816:*/ .uword 0x00000066  /*'f'*/ 
+    /*817:*/ .uword 0x00000020  /*' '*/ 
+    /*818:*/ .uword 0x00000074  /*'t'*/ 
+    /*819:*/ .uword 0x00000068  /*'h'*/ 
+    /*820:*/ .uword 0x00000065  /*'e'*/ 
+    /*821:*/ .uword 0x00000020  /*' '*/ 
+    /*822:*/ .uword 0x00000042  /*'B'*/ 
+    /*823:*/ .uword 0x00000061  /*'a'*/ 
+    /*824:*/ .uword 0x00000063  /*'c'*/ 
+    /*825:*/ .uword 0x0000006b  /*'k'*/ 
+    /*826:*/ .uword 0x00000075  /*'u'*/ 
+    /*827:*/ .uword 0x00000070  /*'p'*/ 
+    /*828:*/ .uword 0x00000020  /*' '*/ 
+    /*829:*/ .uword 0x00000042  /*'B'*/ 
+    /*830:*/ .uword 0x0000006f  /*'o'*/ 
+    /*831:*/ .uword 0x0000006f  /*'o'*/ 
+    /*832:*/ .uword 0x00000074  /*'t'*/ 
+    /*833:*/ .uword 0x00000020  /*' '*/ 
+    /*834:*/ .uword 0x00000053  /*'S'*/ 
+    /*835:*/ .uword 0x00000065  /*'e'*/ 
+    /*836:*/ .uword 0x00000063  /*'c'*/ 
+    /*837:*/ .uword 0x00000074  /*'t'*/ 
+    /*838:*/ .uword 0x0000006f  /*'o'*/ 
+    /*839:*/ .uword 0x00000072  /*'r'*/ 
+    /*840:*/ .uword 0x00000020  /*' '*/ 
+    /*841:*/ .uword 0x00000025  /*'%'*/ 
+    /*842:*/ .uword 0x00000064  /*'d'*/ 
+    /*843:*/ .uword 0x0000000a 
+    /*844:*/ .uword 0x00000000 
+logica_34:
+    /*845:*/ .uword 0x00000020  /*' '*/ 
+    /*846:*/ .uword 0x00000020  /*' '*/ 
+    /*847:*/ .uword 0x00000020  /*' '*/ 
+    /*848:*/ .uword 0x00000020  /*' '*/ 
+    /*849:*/ .uword 0x0000004c  /*'L'*/ 
+    /*850:*/ .uword 0x0000006f  /*'o'*/ 
+    /*851:*/ .uword 0x00000067  /*'g'*/ 
+    /*852:*/ .uword 0x00000069  /*'i'*/ 
+    /*853:*/ .uword 0x00000063  /*'c'*/ 
+    /*854:*/ .uword 0x00000061  /*'a'*/ 
+    /*855:*/ .uword 0x0000006c  /*'l'*/ 
+    /*856:*/ .uword 0x00000020  /*' '*/ 
+    /*857:*/ .uword 0x00000044  /*'D'*/ 
+    /*858:*/ .uword 0x00000072  /*'r'*/ 
+    /*859:*/ .uword 0x00000069  /*'i'*/ 
+    /*860:*/ .uword 0x00000076  /*'v'*/ 
+    /*861:*/ .uword 0x00000065  /*'e'*/ 
+    /*862:*/ .uword 0x00000020  /*' '*/ 
+    /*863:*/ .uword 0x0000004e  /*'N'*/ 
+    /*864:*/ .uword 0x00000075  /*'u'*/ 
+    /*865:*/ .uword 0x0000006d  /*'m'*/ 
+    /*866:*/ .uword 0x00000062  /*'b'*/ 
+    /*867:*/ .uword 0x00000065  /*'e'*/ 
+    /*868:*/ .uword 0x00000072  /*'r'*/ 
+    /*869:*/ .uword 0x00000020  /*' '*/ 
+    /*870:*/ .uword 0x0000006f  /*'o'*/ 
+    /*871:*/ .uword 0x00000066  /*'f'*/ 
+    /*872:*/ .uword 0x00000020  /*' '*/ 
+    /*873:*/ .uword 0x00000050  /*'P'*/ 
+    /*874:*/ .uword 0x00000061  /*'a'*/ 
+    /*875:*/ .uword 0x00000072  /*'r'*/ 
+    /*876:*/ .uword 0x00000074  /*'t'*/ 
+    /*877:*/ .uword 0x00000069  /*'i'*/ 
+    /*878:*/ .uword 0x00000074  /*'t'*/ 
+    /*879:*/ .uword 0x00000069  /*'i'*/ 
+    /*880:*/ .uword 0x0000006f  /*'o'*/ 
+    /*881:*/ .uword 0x0000006e  /*'n'*/ 
+    /*882:*/ .uword 0x00000020  /*' '*/ 
+    /*883:*/ .uword 0x00000025  /*'%'*/ 
+    /*884:*/ .uword 0x00000064  /*'d'*/ 
+    /*885:*/ .uword 0x0000000a 
+    /*886:*/ .uword 0x00000000 
+extend_35:
+    /*887:*/ .uword 0x00000020  /*' '*/ 
+    /*888:*/ .uword 0x00000020  /*' '*/ 
+    /*889:*/ .uword 0x00000020  /*' '*/ 
+    /*890:*/ .uword 0x00000020  /*' '*/ 
+    /*891:*/ .uword 0x00000045  /*'E'*/ 
+    /*892:*/ .uword 0x00000078  /*'x'*/ 
+    /*893:*/ .uword 0x00000074  /*'t'*/ 
+    /*894:*/ .uword 0x00000065  /*'e'*/ 
+    /*895:*/ .uword 0x0000006e  /*'n'*/ 
+    /*896:*/ .uword 0x00000064  /*'d'*/ 
+    /*897:*/ .uword 0x00000065  /*'e'*/ 
+    /*898:*/ .uword 0x00000064  /*'d'*/ 
+    /*899:*/ .uword 0x00000020  /*' '*/ 
+    /*900:*/ .uword 0x00000053  /*'S'*/ 
+    /*901:*/ .uword 0x00000069  /*'i'*/ 
+    /*902:*/ .uword 0x00000067  /*'g'*/ 
+    /*903:*/ .uword 0x0000006e  /*'n'*/ 
+    /*904:*/ .uword 0x00000061  /*'a'*/ 
+    /*905:*/ .uword 0x00000074  /*'t'*/ 
+    /*906:*/ .uword 0x00000075  /*'u'*/ 
+    /*907:*/ .uword 0x00000072  /*'r'*/ 
+    /*908:*/ .uword 0x00000065  /*'e'*/ 
+    /*909:*/ .uword 0x00000020  /*' '*/ 
+    /*910:*/ .uword 0x00000028  /*'('*/ 
+    /*911:*/ .uword 0x00000030  /*'0'*/ 
+    /*912:*/ .uword 0x00000078  /*'x'*/ 
+    /*913:*/ .uword 0x00000032  /*'2'*/ 
+    /*914:*/ .uword 0x00000039  /*'9'*/ 
+    /*915:*/ .uword 0x00000029  /*')'*/ 
+    /*916:*/ .uword 0x00000020  /*' '*/ 
+    /*917:*/ .uword 0x00000030  /*'0'*/ 
+    /*918:*/ .uword 0x00000078  /*'x'*/ 
+    /*919:*/ .uword 0x00000025  /*'%'*/ 
+    /*920:*/ .uword 0x00000078  /*'x'*/ 
+    /*921:*/ .uword 0x0000000a 
+    /*922:*/ .uword 0x00000000 
+serial_36:
+    /*923:*/ .uword 0x00000020  /*' '*/ 
+    /*924:*/ .uword 0x00000020  /*' '*/ 
+    /*925:*/ .uword 0x00000020  /*' '*/ 
+    /*926:*/ .uword 0x00000020  /*' '*/ 
+    /*927:*/ .uword 0x00000053  /*'S'*/ 
+    /*928:*/ .uword 0x00000065  /*'e'*/ 
+    /*929:*/ .uword 0x00000072  /*'r'*/ 
+    /*930:*/ .uword 0x00000069  /*'i'*/ 
+    /*931:*/ .uword 0x00000061  /*'a'*/ 
+    /*932:*/ .uword 0x0000006c  /*'l'*/ 
+    /*933:*/ .uword 0x00000020  /*' '*/ 
+    /*934:*/ .uword 0x0000004e  /*'N'*/ 
+    /*935:*/ .uword 0x00000075  /*'u'*/ 
+    /*936:*/ .uword 0x0000006d  /*'m'*/ 
+    /*937:*/ .uword 0x00000062  /*'b'*/ 
+    /*938:*/ .uword 0x00000065  /*'e'*/ 
+    /*939:*/ .uword 0x00000072  /*'r'*/ 
+    /*940:*/ .uword 0x00000020  /*' '*/ 
+    /*941:*/ .uword 0x0000006f  /*'o'*/ 
+    /*942:*/ .uword 0x00000066  /*'f'*/ 
+    /*943:*/ .uword 0x00000020  /*' '*/ 
+    /*944:*/ .uword 0x00000050  /*'P'*/ 
+    /*945:*/ .uword 0x00000061  /*'a'*/ 
+    /*946:*/ .uword 0x00000072  /*'r'*/ 
+    /*947:*/ .uword 0x00000074  /*'t'*/ 
+    /*948:*/ .uword 0x00000069  /*'i'*/ 
+    /*949:*/ .uword 0x00000074  /*'t'*/ 
+    /*950:*/ .uword 0x00000069  /*'i'*/ 
+    /*951:*/ .uword 0x0000006f  /*'o'*/ 
+    /*952:*/ .uword 0x0000006e  /*'n'*/ 
+    /*953:*/ .uword 0x00000020  /*' '*/ 
+    /*954:*/ .uword 0x00000030  /*'0'*/ 
+    /*955:*/ .uword 0x00000078  /*'x'*/ 
+    /*956:*/ .uword 0x00000025  /*'%'*/ 
+    /*957:*/ .uword 0x00000030  /*'0'*/ 
+    /*958:*/ .uword 0x00000034  /*'4'*/ 
+    /*959:*/ .uword 0x0000006c  /*'l'*/ 
+    /*960:*/ .uword 0x00000078  /*'x'*/ 
+    /*961:*/ .uword 0x0000000a 
+    /*962:*/ .uword 0x00000000 
+volume_37:
+    /*963:*/ .uword 0x00000020  /*' '*/ 
+    /*964:*/ .uword 0x00000020  /*' '*/ 
+    /*965:*/ .uword 0x00000020  /*' '*/ 
+    /*966:*/ .uword 0x00000020  /*' '*/ 
+    /*967:*/ .uword 0x00000056  /*'V'*/ 
+    /*968:*/ .uword 0x0000006f  /*'o'*/ 
+    /*969:*/ .uword 0x0000006c  /*'l'*/ 
+    /*970:*/ .uword 0x00000075  /*'u'*/ 
+    /*971:*/ .uword 0x0000006d  /*'m'*/ 
+    /*972:*/ .uword 0x00000065  /*'e'*/ 
+    /*973:*/ .uword 0x00000020  /*' '*/ 
+    /*974:*/ .uword 0x0000006e  /*'n'*/ 
+    /*975:*/ .uword 0x00000061  /*'a'*/ 
+    /*976:*/ .uword 0x0000006d  /*'m'*/ 
+    /*977:*/ .uword 0x00000065  /*'e'*/ 
+    /*978:*/ .uword 0x00000020  /*' '*/ 
+    /*979:*/ .uword 0x0000006f  /*'o'*/ 
+    /*980:*/ .uword 0x00000066  /*'f'*/ 
+    /*981:*/ .uword 0x00000020  /*' '*/ 
+    /*982:*/ .uword 0x00000050  /*'P'*/ 
+    /*983:*/ .uword 0x00000061  /*'a'*/ 
+    /*984:*/ .uword 0x00000072  /*'r'*/ 
+    /*985:*/ .uword 0x00000074  /*'t'*/ 
+    /*986:*/ .uword 0x00000069  /*'i'*/ 
+    /*987:*/ .uword 0x00000074  /*'t'*/ 
+    /*988:*/ .uword 0x00000069  /*'i'*/ 
+    /*989:*/ .uword 0x0000006f  /*'o'*/ 
+    /*990:*/ .uword 0x0000006e  /*'n'*/ 
+    /*991:*/ .uword 0x0000003a  /*':'*/ 
+    /*992:*/ .uword 0x00000000 
+bootr_38:
+    /*993:*/ .uword 0x00000020  /*' '*/ 
+    /*994:*/ .uword 0x00000020  /*' '*/ 
+    /*995:*/ .uword 0x00000020  /*' '*/ 
+    /*996:*/ .uword 0x00000020  /*' '*/ 
+    /*997:*/ .uword 0x00000042  /*'B'*/ 
+    /*998:*/ .uword 0x0000006f  /*'o'*/ 
+    /*999:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1000:*/ .uword 0x00000074  /*'t'*/ 
+    /*1001:*/ .uword 0x00000020  /*' '*/ 
+    /*1002:*/ .uword 0x00000052  /*'R'*/ 
+    /*1003:*/ .uword 0x00000065  /*'e'*/ 
+    /*1004:*/ .uword 0x00000063  /*'c'*/ 
+    /*1005:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1006:*/ .uword 0x00000072  /*'r'*/ 
+    /*1007:*/ .uword 0x00000064  /*'d'*/ 
+    /*1008:*/ .uword 0x00000020  /*' '*/ 
+    /*1009:*/ .uword 0x00000053  /*'S'*/ 
+    /*1010:*/ .uword 0x00000069  /*'i'*/ 
+    /*1011:*/ .uword 0x00000067  /*'g'*/ 
+    /*1012:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1013:*/ .uword 0x00000061  /*'a'*/ 
+    /*1014:*/ .uword 0x00000074  /*'t'*/ 
+    /*1015:*/ .uword 0x00000075  /*'u'*/ 
+    /*1016:*/ .uword 0x00000072  /*'r'*/ 
+    /*1017:*/ .uword 0x00000065  /*'e'*/ 
+    /*1018:*/ .uword 0x00000020  /*' '*/ 
+    /*1019:*/ .uword 0x00000028  /*'('*/ 
+    /*1020:*/ .uword 0x00000030  /*'0'*/ 
+    /*1021:*/ .uword 0x00000078  /*'x'*/ 
+    /*1022:*/ .uword 0x00000035  /*'5'*/ 
+    /*1023:*/ .uword 0x00000035  /*'5'*/ 
+    /*1024:*/ .uword 0x00000020  /*' '*/ 
+    /*1025:*/ .uword 0x00000030  /*'0'*/ 
+    /*1026:*/ .uword 0x00000078  /*'x'*/ 
+    /*1027:*/ .uword 0x00000061  /*'a'*/ 
+    /*1028:*/ .uword 0x00000061  /*'a'*/ 
+    /*1029:*/ .uword 0x00000029  /*')'*/ 
+    /*1030:*/ .uword 0x00000020  /*' '*/ 
+    /*1031:*/ .uword 0x00000030  /*'0'*/ 
+    /*1032:*/ .uword 0x00000078  /*'x'*/ 
+    /*1033:*/ .uword 0x00000025  /*'%'*/ 
+    /*1034:*/ .uword 0x00000030  /*'0'*/ 
+    /*1035:*/ .uword 0x00000032  /*'2'*/ 
+    /*1036:*/ .uword 0x00000078  /*'x'*/ 
+    /*1037:*/ .uword 0x00000020  /*' '*/ 
+    /*1038:*/ .uword 0x00000030  /*'0'*/ 
+    /*1039:*/ .uword 0x00000078  /*'x'*/ 
+    /*1040:*/ .uword 0x00000025  /*'%'*/ 
+    /*1041:*/ .uword 0x00000030  /*'0'*/ 
+    /*1042:*/ .uword 0x00000032  /*'2'*/ 
+    /*1043:*/ .uword 0x00000078  /*'x'*/ 
+    /*1044:*/ .uword 0x0000000a 
+    /*1045:*/ .uword 0x00000000 
+fat32sect_39:
+    /*1046:*/ .uword 0x00000046  /*'F'*/ 
+    /*1047:*/ .uword 0x00000041  /*'A'*/ 
+    /*1048:*/ .uword 0x00000054  /*'T'*/ 
+    /*1049:*/ .uword 0x00000033  /*'3'*/ 
+    /*1050:*/ .uword 0x00000032  /*'2'*/ 
+    /*1051:*/ .uword 0x00000020  /*' '*/ 
+    /*1052:*/ .uword 0x00000053  /*'S'*/ 
+    /*1053:*/ .uword 0x00000045  /*'E'*/ 
+    /*1054:*/ .uword 0x00000043  /*'C'*/ 
+    /*1055:*/ .uword 0x00000054  /*'T'*/ 
+    /*1056:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1057:*/ .uword 0x00000052  /*'R'*/ 
+    /*1058:*/ .uword 0x00000020  /*' '*/ 
+    /*1059:*/ .uword 0x00000031  /*'1'*/ 
+    /*1060:*/ .uword 0x0000003a  /*':'*/ 
+    /*1061:*/ .uword 0x00000000 
+first_40:
+    /*1062:*/ .uword 0x00000020  /*' '*/ 
+    /*1063:*/ .uword 0x00000020  /*' '*/ 
+    /*1064:*/ .uword 0x00000020  /*' '*/ 
+    /*1065:*/ .uword 0x00000020  /*' '*/ 
+    /*1066:*/ .uword 0x00000046  /*'F'*/ 
+    /*1067:*/ .uword 0x00000069  /*'i'*/ 
+    /*1068:*/ .uword 0x00000072  /*'r'*/ 
+    /*1069:*/ .uword 0x00000073  /*'s'*/ 
+    /*1070:*/ .uword 0x00000074  /*'t'*/ 
+    /*1071:*/ .uword 0x00000020  /*' '*/ 
+    /*1072:*/ .uword 0x00000053  /*'S'*/ 
+    /*1073:*/ .uword 0x00000069  /*'i'*/ 
+    /*1074:*/ .uword 0x00000067  /*'g'*/ 
+    /*1075:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1076:*/ .uword 0x00000061  /*'a'*/ 
+    /*1077:*/ .uword 0x00000074  /*'t'*/ 
+    /*1078:*/ .uword 0x00000075  /*'u'*/ 
+    /*1079:*/ .uword 0x00000072  /*'r'*/ 
+    /*1080:*/ .uword 0x00000065  /*'e'*/ 
+    /*1081:*/ .uword 0x00000020  /*' '*/ 
+    /*1082:*/ .uword 0x00000028  /*'('*/ 
+    /*1083:*/ .uword 0x00000030  /*'0'*/ 
+    /*1084:*/ .uword 0x00000078  /*'x'*/ 
+    /*1085:*/ .uword 0x00000035  /*'5'*/ 
+    /*1086:*/ .uword 0x00000032  /*'2'*/ 
+    /*1087:*/ .uword 0x00000020  /*' '*/ 
+    /*1088:*/ .uword 0x00000030  /*'0'*/ 
+    /*1089:*/ .uword 0x00000078  /*'x'*/ 
+    /*1090:*/ .uword 0x00000035  /*'5'*/ 
+    /*1091:*/ .uword 0x00000032  /*'2'*/ 
+    /*1092:*/ .uword 0x00000020  /*' '*/ 
+    /*1093:*/ .uword 0x00000030  /*'0'*/ 
+    /*1094:*/ .uword 0x00000078  /*'x'*/ 
+    /*1095:*/ .uword 0x00000036  /*'6'*/ 
+    /*1096:*/ .uword 0x00000031  /*'1'*/ 
+    /*1097:*/ .uword 0x00000020  /*' '*/ 
+    /*1098:*/ .uword 0x00000030  /*'0'*/ 
+    /*1099:*/ .uword 0x00000078  /*'x'*/ 
+    /*1100:*/ .uword 0x00000034  /*'4'*/ 
+    /*1101:*/ .uword 0x00000031  /*'1'*/ 
+    /*1102:*/ .uword 0x00000029  /*')'*/ 
+    /*1103:*/ .uword 0x00000020  /*' '*/ 
+    /*1104:*/ .uword 0x00000030  /*'0'*/ 
+    /*1105:*/ .uword 0x00000078  /*'x'*/ 
+    /*1106:*/ .uword 0x00000025  /*'%'*/ 
+    /*1107:*/ .uword 0x00000030  /*'0'*/ 
+    /*1108:*/ .uword 0x00000032  /*'2'*/ 
+    /*1109:*/ .uword 0x00000078  /*'x'*/ 
+    /*1110:*/ .uword 0x00000020  /*' '*/ 
+    /*1111:*/ .uword 0x00000030  /*'0'*/ 
+    /*1112:*/ .uword 0x00000078  /*'x'*/ 
+    /*1113:*/ .uword 0x00000025  /*'%'*/ 
+    /*1114:*/ .uword 0x00000030  /*'0'*/ 
+    /*1115:*/ .uword 0x00000032  /*'2'*/ 
+    /*1116:*/ .uword 0x00000078  /*'x'*/ 
+    /*1117:*/ .uword 0x00000020  /*' '*/ 
+    /*1118:*/ .uword 0x00000030  /*'0'*/ 
+    /*1119:*/ .uword 0x00000078  /*'x'*/ 
+    /*1120:*/ .uword 0x00000025  /*'%'*/ 
+    /*1121:*/ .uword 0x00000030  /*'0'*/ 
+    /*1122:*/ .uword 0x00000032  /*'2'*/ 
+    /*1123:*/ .uword 0x00000078  /*'x'*/ 
+    /*1124:*/ .uword 0x00000020  /*' '*/ 
+    /*1125:*/ .uword 0x00000030  /*'0'*/ 
+    /*1126:*/ .uword 0x00000078  /*'x'*/ 
+    /*1127:*/ .uword 0x00000025  /*'%'*/ 
+    /*1128:*/ .uword 0x00000030  /*'0'*/ 
+    /*1129:*/ .uword 0x00000032  /*'2'*/ 
+    /*1130:*/ .uword 0x00000078  /*'x'*/ 
+    /*1131:*/ .uword 0x0000000a 
+    /*1132:*/ .uword 0x00000000 
+signat_41:
+    /*1133:*/ .uword 0x00000020  /*' '*/ 
+    /*1134:*/ .uword 0x00000020  /*' '*/ 
+    /*1135:*/ .uword 0x00000020  /*' '*/ 
+    /*1136:*/ .uword 0x00000020  /*' '*/ 
+    /*1137:*/ .uword 0x00000053  /*'S'*/ 
+    /*1138:*/ .uword 0x00000069  /*'i'*/ 
+    /*1139:*/ .uword 0x00000067  /*'g'*/ 
+    /*1140:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1141:*/ .uword 0x00000061  /*'a'*/ 
+    /*1142:*/ .uword 0x00000074  /*'t'*/ 
+    /*1143:*/ .uword 0x00000075  /*'u'*/ 
+    /*1144:*/ .uword 0x00000072  /*'r'*/ 
+    /*1145:*/ .uword 0x00000065  /*'e'*/ 
+    /*1146:*/ .uword 0x00000020  /*' '*/ 
+    /*1147:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1148:*/ .uword 0x00000066  /*'f'*/ 
+    /*1149:*/ .uword 0x00000020  /*' '*/ 
+    /*1150:*/ .uword 0x00000046  /*'F'*/ 
+    /*1151:*/ .uword 0x00000053  /*'S'*/ 
+    /*1152:*/ .uword 0x00000049  /*'I'*/ 
+    /*1153:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1154:*/ .uword 0x00000066  /*'f'*/ 
+    /*1155:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1156:*/ .uword 0x00000020  /*' '*/ 
+    /*1157:*/ .uword 0x00000053  /*'S'*/ 
+    /*1158:*/ .uword 0x00000065  /*'e'*/ 
+    /*1159:*/ .uword 0x00000063  /*'c'*/ 
+    /*1160:*/ .uword 0x00000074  /*'t'*/ 
+    /*1161:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1162:*/ .uword 0x00000072  /*'r'*/ 
+    /*1163:*/ .uword 0x00000020  /*' '*/ 
+    /*1164:*/ .uword 0x00000028  /*'('*/ 
+    /*1165:*/ .uword 0x00000030  /*'0'*/ 
+    /*1166:*/ .uword 0x00000078  /*'x'*/ 
+    /*1167:*/ .uword 0x00000037  /*'7'*/ 
+    /*1168:*/ .uword 0x00000032  /*'2'*/ 
+    /*1169:*/ .uword 0x00000020  /*' '*/ 
+    /*1170:*/ .uword 0x00000030  /*'0'*/ 
+    /*1171:*/ .uword 0x00000078  /*'x'*/ 
+    /*1172:*/ .uword 0x00000037  /*'7'*/ 
+    /*1173:*/ .uword 0x00000032  /*'2'*/ 
+    /*1174:*/ .uword 0x00000020  /*' '*/ 
+    /*1175:*/ .uword 0x00000030  /*'0'*/ 
+    /*1176:*/ .uword 0x00000078  /*'x'*/ 
+    /*1177:*/ .uword 0x00000034  /*'4'*/ 
+    /*1178:*/ .uword 0x00000031  /*'1'*/ 
+    /*1179:*/ .uword 0x00000020  /*' '*/ 
+    /*1180:*/ .uword 0x00000030  /*'0'*/ 
+    /*1181:*/ .uword 0x00000078  /*'x'*/ 
+    /*1182:*/ .uword 0x00000036  /*'6'*/ 
+    /*1183:*/ .uword 0x00000031  /*'1'*/ 
+    /*1184:*/ .uword 0x00000029  /*')'*/ 
+    /*1185:*/ .uword 0x00000020  /*' '*/ 
+    /*1186:*/ .uword 0x00000030  /*'0'*/ 
+    /*1187:*/ .uword 0x00000078  /*'x'*/ 
+    /*1188:*/ .uword 0x00000025  /*'%'*/ 
+    /*1189:*/ .uword 0x00000030  /*'0'*/ 
+    /*1190:*/ .uword 0x00000032  /*'2'*/ 
+    /*1191:*/ .uword 0x00000078  /*'x'*/ 
+    /*1192:*/ .uword 0x00000020  /*' '*/ 
+    /*1193:*/ .uword 0x00000030  /*'0'*/ 
+    /*1194:*/ .uword 0x00000078  /*'x'*/ 
+    /*1195:*/ .uword 0x00000025  /*'%'*/ 
+    /*1196:*/ .uword 0x00000030  /*'0'*/ 
+    /*1197:*/ .uword 0x00000032  /*'2'*/ 
+    /*1198:*/ .uword 0x00000078  /*'x'*/ 
+    /*1199:*/ .uword 0x00000020  /*' '*/ 
+    /*1200:*/ .uword 0x00000030  /*'0'*/ 
+    /*1201:*/ .uword 0x00000078  /*'x'*/ 
+    /*1202:*/ .uword 0x00000025  /*'%'*/ 
+    /*1203:*/ .uword 0x00000030  /*'0'*/ 
+    /*1204:*/ .uword 0x00000032  /*'2'*/ 
+    /*1205:*/ .uword 0x00000078  /*'x'*/ 
+    /*1206:*/ .uword 0x00000020  /*' '*/ 
+    /*1207:*/ .uword 0x00000030  /*'0'*/ 
+    /*1208:*/ .uword 0x00000078  /*'x'*/ 
+    /*1209:*/ .uword 0x00000025  /*'%'*/ 
+    /*1210:*/ .uword 0x00000030  /*'0'*/ 
+    /*1211:*/ .uword 0x00000032  /*'2'*/ 
+    /*1212:*/ .uword 0x00000078  /*'x'*/ 
+    /*1213:*/ .uword 0x0000000a 
+    /*1214:*/ .uword 0x00000000 
+number_42:
+    /*1215:*/ .uword 0x00000020  /*' '*/ 
+    /*1216:*/ .uword 0x00000020  /*' '*/ 
+    /*1217:*/ .uword 0x00000020  /*' '*/ 
+    /*1218:*/ .uword 0x00000020  /*' '*/ 
+    /*1219:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1220:*/ .uword 0x00000075  /*'u'*/ 
+    /*1221:*/ .uword 0x0000006d  /*'m'*/ 
+    /*1222:*/ .uword 0x00000062  /*'b'*/ 
+    /*1223:*/ .uword 0x00000065  /*'e'*/ 
+    /*1224:*/ .uword 0x00000072  /*'r'*/ 
+    /*1225:*/ .uword 0x00000020  /*' '*/ 
+    /*1226:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1227:*/ .uword 0x00000066  /*'f'*/ 
+    /*1228:*/ .uword 0x00000020  /*' '*/ 
+    /*1229:*/ .uword 0x00000046  /*'F'*/ 
+    /*1230:*/ .uword 0x00000072  /*'r'*/ 
+    /*1231:*/ .uword 0x00000065  /*'e'*/ 
+    /*1232:*/ .uword 0x00000065  /*'e'*/ 
+    /*1233:*/ .uword 0x00000020  /*' '*/ 
+    /*1234:*/ .uword 0x00000043  /*'C'*/ 
+    /*1235:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1236:*/ .uword 0x00000075  /*'u'*/ 
+    /*1237:*/ .uword 0x00000073  /*'s'*/ 
+    /*1238:*/ .uword 0x00000074  /*'t'*/ 
+    /*1239:*/ .uword 0x00000065  /*'e'*/ 
+    /*1240:*/ .uword 0x00000072  /*'r'*/ 
+    /*1241:*/ .uword 0x00000073  /*'s'*/ 
+    /*1242:*/ .uword 0x00000020  /*' '*/ 
+    /*1243:*/ .uword 0x00000030  /*'0'*/ 
+    /*1244:*/ .uword 0x00000078  /*'x'*/ 
+    /*1245:*/ .uword 0x00000025  /*'%'*/ 
+    /*1246:*/ .uword 0x00000030  /*'0'*/ 
+    /*1247:*/ .uword 0x00000038  /*'8'*/ 
+    /*1248:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1249:*/ .uword 0x00000078  /*'x'*/ 
+    /*1250:*/ .uword 0x0000000a 
+    /*1251:*/ .uword 0x00000000 
+mostr_43:
+    /*1252:*/ .uword 0x00000020  /*' '*/ 
+    /*1253:*/ .uword 0x00000020  /*' '*/ 
+    /*1254:*/ .uword 0x00000020  /*' '*/ 
+    /*1255:*/ .uword 0x00000020  /*' '*/ 
+    /*1256:*/ .uword 0x0000004d  /*'M'*/ 
+    /*1257:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1258:*/ .uword 0x00000073  /*'s'*/ 
+    /*1259:*/ .uword 0x00000074  /*'t'*/ 
+    /*1260:*/ .uword 0x00000020  /*' '*/ 
+    /*1261:*/ .uword 0x00000052  /*'R'*/ 
+    /*1262:*/ .uword 0x00000065  /*'e'*/ 
+    /*1263:*/ .uword 0x00000063  /*'c'*/ 
+    /*1264:*/ .uword 0x00000065  /*'e'*/ 
+    /*1265:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1266:*/ .uword 0x00000074  /*'t'*/ 
+    /*1267:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1268:*/ .uword 0x00000079  /*'y'*/ 
+    /*1269:*/ .uword 0x00000020  /*' '*/ 
+    /*1270:*/ .uword 0x00000041  /*'A'*/ 
+    /*1271:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1272:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1273:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1274:*/ .uword 0x00000063  /*'c'*/ 
+    /*1275:*/ .uword 0x00000061  /*'a'*/ 
+    /*1276:*/ .uword 0x00000074  /*'t'*/ 
+    /*1277:*/ .uword 0x00000065  /*'e'*/ 
+    /*1278:*/ .uword 0x00000064  /*'d'*/ 
+    /*1279:*/ .uword 0x00000020  /*' '*/ 
+    /*1280:*/ .uword 0x00000043  /*'C'*/ 
+    /*1281:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1282:*/ .uword 0x00000075  /*'u'*/ 
+    /*1283:*/ .uword 0x00000073  /*'s'*/ 
+    /*1284:*/ .uword 0x00000074  /*'t'*/ 
+    /*1285:*/ .uword 0x00000065  /*'e'*/ 
+    /*1286:*/ .uword 0x00000072  /*'r'*/ 
+    /*1287:*/ .uword 0x00000020  /*' '*/ 
+    /*1288:*/ .uword 0x00000030  /*'0'*/ 
+    /*1289:*/ .uword 0x00000078  /*'x'*/ 
+    /*1290:*/ .uword 0x00000025  /*'%'*/ 
+    /*1291:*/ .uword 0x00000030  /*'0'*/ 
+    /*1292:*/ .uword 0x00000038  /*'8'*/ 
+    /*1293:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1294:*/ .uword 0x00000078  /*'x'*/ 
+    /*1295:*/ .uword 0x0000000a 
+    /*1296:*/ .uword 0x00000000 
+fatstart_44:
+    /*1297:*/ .uword 0x00000066  /*'f'*/ 
+    /*1298:*/ .uword 0x00000061  /*'a'*/ 
+    /*1299:*/ .uword 0x00000074  /*'t'*/ 
+    /*1300:*/ .uword 0x00000053  /*'S'*/ 
+    /*1301:*/ .uword 0x00000074  /*'t'*/ 
+    /*1302:*/ .uword 0x00000061  /*'a'*/ 
+    /*1303:*/ .uword 0x00000072  /*'r'*/ 
+    /*1304:*/ .uword 0x00000074  /*'t'*/ 
+    /*1305:*/ .uword 0x00000020  /*' '*/ 
+    /*1306:*/ .uword 0x00000025  /*'%'*/ 
+    /*1307:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1308:*/ .uword 0x00000064  /*'d'*/ 
+    /*1309:*/ .uword 0x0000002c  /*','*/ 
+    /*1310:*/ .uword 0x00000020  /*' '*/ 
+    /*1311:*/ .uword 0x00000066  /*'f'*/ 
+    /*1312:*/ .uword 0x00000061  /*'a'*/ 
+    /*1313:*/ .uword 0x00000074  /*'t'*/ 
+    /*1314:*/ .uword 0x00000053  /*'S'*/ 
+    /*1315:*/ .uword 0x00000069  /*'i'*/ 
+    /*1316:*/ .uword 0x0000007a  /*'z'*/ 
+    /*1317:*/ .uword 0x00000065  /*'e'*/ 
+    /*1318:*/ .uword 0x00000020  /*' '*/ 
+    /*1319:*/ .uword 0x00000025  /*'%'*/ 
+    /*1320:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1321:*/ .uword 0x00000064  /*'d'*/ 
+    /*1322:*/ .uword 0x0000002c  /*','*/ 
+    /*1323:*/ .uword 0x00000020  /*' '*/ 
+    /*1324:*/ .uword 0x00000072  /*'r'*/ 
+    /*1325:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1326:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1327:*/ .uword 0x00000074  /*'t'*/ 
+    /*1328:*/ .uword 0x00000053  /*'S'*/ 
+    /*1329:*/ .uword 0x00000074  /*'t'*/ 
+    /*1330:*/ .uword 0x00000061  /*'a'*/ 
+    /*1331:*/ .uword 0x00000072  /*'r'*/ 
+    /*1332:*/ .uword 0x00000074  /*'t'*/ 
+    /*1333:*/ .uword 0x00000020  /*' '*/ 
+    /*1334:*/ .uword 0x00000025  /*'%'*/ 
+    /*1335:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1336:*/ .uword 0x00000064  /*'d'*/ 
+    /*1337:*/ .uword 0x0000000a 
+    /*1338:*/ .uword 0x00000000 
+fatroots_45:
+    /*1339:*/ .uword 0x00000046  /*'F'*/ 
+    /*1340:*/ .uword 0x00000041  /*'A'*/ 
+    /*1341:*/ .uword 0x00000054  /*'T'*/ 
+    /*1342:*/ .uword 0x00000020  /*' '*/ 
+    /*1343:*/ .uword 0x00000052  /*'R'*/ 
+    /*1344:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1345:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1346:*/ .uword 0x00000054  /*'T'*/ 
+    /*1347:*/ .uword 0x00000020  /*' '*/ 
+    /*1348:*/ .uword 0x00000053  /*'S'*/ 
+    /*1349:*/ .uword 0x00000045  /*'E'*/ 
+    /*1350:*/ .uword 0x00000043  /*'C'*/ 
+    /*1351:*/ .uword 0x00000054  /*'T'*/ 
+    /*1352:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1353:*/ .uword 0x00000052  /*'R'*/ 
+    /*1354:*/ .uword 0x00000020  /*' '*/ 
+    /*1355:*/ .uword 0x00000030  /*'0'*/ 
+    /*1356:*/ .uword 0x00000078  /*'x'*/ 
+    /*1357:*/ .uword 0x00000025  /*'%'*/ 
+    /*1358:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1359:*/ .uword 0x00000078  /*'x'*/ 
+    /*1360:*/ .uword 0x00000020  /*' '*/ 
+    /*1361:*/ .uword 0x00000028  /*'('*/ 
+    /*1362:*/ .uword 0x00000025  /*'%'*/ 
+    /*1363:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1364:*/ .uword 0x00000064  /*'d'*/ 
+    /*1365:*/ .uword 0x00000029  /*')'*/ 
+    /*1366:*/ .uword 0x0000000a 
+    /*1367:*/ .uword 0x00000000 
+paramspl_46:
+    /*1368:*/ .uword 0x00000050  /*'P'*/ 
+    /*1369:*/ .uword 0x00000061  /*'a'*/ 
+    /*1370:*/ .uword 0x00000072  /*'r'*/ 
+    /*1371:*/ .uword 0x00000061  /*'a'*/ 
+    /*1372:*/ .uword 0x0000006d  /*'m'*/ 
+    /*1373:*/ .uword 0x00000053  /*'S'*/ 
+    /*1374:*/ .uword 0x00000070  /*'p'*/ 
+    /*1375:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1376:*/ .uword 0x00000000 
+h_47:
+    /*1377:*/ .uword 0x0000002d  /*'-'*/ 
+    /*1378:*/ .uword 0x00000068  /*'h'*/ 
+    /*1379:*/ .uword 0x00000000 
+usagefat_48:
+    /*1380:*/ .uword 0x00000055  /*'U'*/ 
+    /*1381:*/ .uword 0x00000073  /*'s'*/ 
+    /*1382:*/ .uword 0x00000061  /*'a'*/ 
+    /*1383:*/ .uword 0x00000067  /*'g'*/ 
+    /*1384:*/ .uword 0x00000065  /*'e'*/ 
+    /*1385:*/ .uword 0x0000003a  /*':'*/ 
+    /*1386:*/ .uword 0x00000020  /*' '*/ 
+    /*1387:*/ .uword 0x00000046  /*'F'*/ 
+    /*1388:*/ .uword 0x00000061  /*'a'*/ 
+    /*1389:*/ .uword 0x00000074  /*'t'*/ 
+    /*1390:*/ .uword 0x00000049  /*'I'*/ 
+    /*1391:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1392:*/ .uword 0x00000066  /*'f'*/ 
+    /*1393:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1394:*/ .uword 0x00000020  /*' '*/ 
+    /*1395:*/ .uword 0x00000078  /*'x'*/ 
+    /*1396:*/ .uword 0x0000003a  /*':'*/ 
+    /*1397:*/ .uword 0x00000020  /*' '*/ 
+    /*1398:*/ .uword 0x0000005b  /*'['*/ 
+    /*1399:*/ .uword 0x00000062  /*'b'*/ 
+    /*1400:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1401:*/ .uword 0x0000006b  /*'k'*/ 
+    /*1402:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1403:*/ .uword 0x00000075  /*'u'*/ 
+    /*1404:*/ .uword 0x0000006d  /*'m'*/ 
+    /*1405:*/ .uword 0x0000005d  /*']'*/ 
+    /*1406:*/ .uword 0x00000020  /*' '*/ 
+    /*1407:*/ .uword 0x0000005b  /*'['*/ 
+    /*1408:*/ .uword 0x0000002d  /*'-'*/ 
+    /*1409:*/ .uword 0x00000076  /*'v'*/ 
+    /*1410:*/ .uword 0x0000007c  /*'|'*/ 
+    /*1411:*/ .uword 0x0000002b  /*'+'*/ 
+    /*1412:*/ .uword 0x00000076  /*'v'*/ 
+    /*1413:*/ .uword 0x0000007c  /*'|'*/ 
+    /*1414:*/ .uword 0x0000002d  /*'-'*/ 
+    /*1415:*/ .uword 0x00000068  /*'h'*/ 
+    /*1416:*/ .uword 0x0000005d  /*']'*/ 
+    /*1417:*/ .uword 0x00000000 
+xdriven_49:
+    /*1418:*/ .uword 0x00000078  /*'x'*/ 
+    /*1419:*/ .uword 0x0000003a  /*':'*/ 
+    /*1420:*/ .uword 0x00000009 
+    /*1421:*/ .uword 0x00000044  /*'D'*/ 
+    /*1422:*/ .uword 0x00000072  /*'r'*/ 
+    /*1423:*/ .uword 0x00000069  /*'i'*/ 
+    /*1424:*/ .uword 0x00000076  /*'v'*/ 
+    /*1425:*/ .uword 0x00000065  /*'e'*/ 
+    /*1426:*/ .uword 0x00000020  /*' '*/ 
+    /*1427:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1428:*/ .uword 0x00000061  /*'a'*/ 
+    /*1429:*/ .uword 0x0000006d  /*'m'*/ 
+    /*1430:*/ .uword 0x00000065  /*'e'*/ 
+    /*1431:*/ .uword 0x00000000 
+blknumpri_50:
+    /*1432:*/ .uword 0x00000062  /*'b'*/ 
+    /*1433:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1434:*/ .uword 0x0000006b  /*'k'*/ 
+    /*1435:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1436:*/ .uword 0x00000075  /*'u'*/ 
+    /*1437:*/ .uword 0x0000006d  /*'m'*/ 
+    /*1438:*/ .uword 0x00000009 
+    /*1439:*/ .uword 0x00000050  /*'P'*/ 
+    /*1440:*/ .uword 0x00000072  /*'r'*/ 
+    /*1441:*/ .uword 0x00000069  /*'i'*/ 
+    /*1442:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1443:*/ .uword 0x00000074  /*'t'*/ 
+    /*1444:*/ .uword 0x00000020  /*' '*/ 
+    /*1445:*/ .uword 0x00000063  /*'c'*/ 
+    /*1446:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1447:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1448:*/ .uword 0x00000074  /*'t'*/ 
+    /*1449:*/ .uword 0x00000065  /*'e'*/ 
+    /*1450:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1451:*/ .uword 0x00000074  /*'t'*/ 
+    /*1452:*/ .uword 0x00000073  /*'s'*/ 
+    /*1453:*/ .uword 0x00000020  /*' '*/ 
+    /*1454:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1455:*/ .uword 0x00000066  /*'f'*/ 
+    /*1456:*/ .uword 0x00000020  /*' '*/ 
+    /*1457:*/ .uword 0x00000061  /*'a'*/ 
+    /*1458:*/ .uword 0x00000020  /*' '*/ 
+    /*1459:*/ .uword 0x00000064  /*'d'*/ 
+    /*1460:*/ .uword 0x00000069  /*'i'*/ 
+    /*1461:*/ .uword 0x00000073  /*'s'*/ 
+    /*1462:*/ .uword 0x0000006b  /*'k'*/ 
+    /*1463:*/ .uword 0x00000020  /*' '*/ 
+    /*1464:*/ .uword 0x00000062  /*'b'*/ 
+    /*1465:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1466:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1467:*/ .uword 0x00000063  /*'c'*/ 
+    /*1468:*/ .uword 0x0000006b  /*'k'*/ 
+    /*1469:*/ .uword 0x00000000 
+vvverb_51:
+    /*1470:*/ .uword 0x0000002d  /*'-'*/ 
+    /*1471:*/ .uword 0x00000076  /*'v'*/ 
+    /*1472:*/ .uword 0x0000007c  /*'|'*/ 
+    /*1473:*/ .uword 0x0000002b  /*'+'*/ 
+    /*1474:*/ .uword 0x00000076  /*'v'*/ 
+    /*1475:*/ .uword 0x00000009 
+    /*1476:*/ .uword 0x00000056  /*'V'*/ 
+    /*1477:*/ .uword 0x00000065  /*'e'*/ 
+    /*1478:*/ .uword 0x00000072  /*'r'*/ 
+    /*1479:*/ .uword 0x00000062  /*'b'*/ 
+    /*1480:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1481:*/ .uword 0x00000073  /*'s'*/ 
+    /*1482:*/ .uword 0x00000065  /*'e'*/ 
+    /*1483:*/ .uword 0x00000020  /*' '*/ 
+    /*1484:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1485:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1486:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1487:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1488:*/ .uword 0x00000066  /*'f'*/ 
+    /*1489:*/ .uword 0x00000066  /*'f'*/ 
+    /*1490:*/ .uword 0x00000000 
+hshowth_52:
+    /*1491:*/ .uword 0x0000002d  /*'-'*/ 
+    /*1492:*/ .uword 0x00000068  /*'h'*/ 
+    /*1493:*/ .uword 0x00000009 
+    /*1494:*/ .uword 0x00000053  /*'S'*/ 
+    /*1495:*/ .uword 0x00000068  /*'h'*/ 
+    /*1496:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1497:*/ .uword 0x00000077  /*'w'*/ 
+    /*1498:*/ .uword 0x00000020  /*' '*/ 
+    /*1499:*/ .uword 0x00000074  /*'t'*/ 
+    /*1500:*/ .uword 0x00000068  /*'h'*/ 
+    /*1501:*/ .uword 0x00000069  /*'i'*/ 
+    /*1502:*/ .uword 0x00000073  /*'s'*/ 
+    /*1503:*/ .uword 0x00000020  /*' '*/ 
+    /*1504:*/ .uword 0x00000068  /*'h'*/ 
+    /*1505:*/ .uword 0x00000065  /*'e'*/ 
+    /*1506:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1507:*/ .uword 0x00000070  /*'p'*/ 
+    /*1508:*/ .uword 0x0000000a 
+    /*1509:*/ .uword 0x00000000 
+v_53:
+    /*1510:*/ .uword 0x0000002d  /*'-'*/ 
+    /*1511:*/ .uword 0x00000076  /*'v'*/ 
+    /*1512:*/ .uword 0x00000000 
+v_54:
+    /*1513:*/ .uword 0x0000002b  /*'+'*/ 
+    /*1514:*/ .uword 0x00000076  /*'v'*/ 
+    /*1515:*/ .uword 0x00000000 
+enodriv_55:
+    /*1516:*/ .uword 0x00000045  /*'E'*/ 
+    /*1517:*/ .uword 0x0000003a  /*':'*/ 
+    /*1518:*/ .uword 0x00000020  /*' '*/ 
+    /*1519:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1520:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1521:*/ .uword 0x00000020  /*' '*/ 
+    /*1522:*/ .uword 0x00000064  /*'d'*/ 
+    /*1523:*/ .uword 0x00000072  /*'r'*/ 
+    /*1524:*/ .uword 0x00000069  /*'i'*/ 
+    /*1525:*/ .uword 0x00000076  /*'v'*/ 
+    /*1526:*/ .uword 0x00000065  /*'e'*/ 
+    /*1527:*/ .uword 0x00000020  /*' '*/ 
+    /*1528:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1529:*/ .uword 0x00000065  /*'e'*/ 
+    /*1530:*/ .uword 0x00000074  /*'t'*/ 
+    /*1531:*/ .uword 0x00000074  /*'t'*/ 
+    /*1532:*/ .uword 0x00000065  /*'e'*/ 
+    /*1533:*/ .uword 0x00000072  /*'r'*/ 
+    /*1534:*/ .uword 0x00000020  /*' '*/ 
+    /*1535:*/ .uword 0x00000073  /*'s'*/ 
+    /*1536:*/ .uword 0x00000070  /*'p'*/ 
+    /*1537:*/ .uword 0x00000065  /*'e'*/ 
+    /*1538:*/ .uword 0x00000063  /*'c'*/ 
+    /*1539:*/ .uword 0x00000069  /*'i'*/ 
+    /*1540:*/ .uword 0x00000066  /*'f'*/ 
+    /*1541:*/ .uword 0x00000069  /*'i'*/ 
+    /*1542:*/ .uword 0x00000065  /*'e'*/ 
+    /*1543:*/ .uword 0x00000064  /*'d'*/ 
+    /*1544:*/ .uword 0x0000000a 
+    /*1545:*/ .uword 0x00000000 
+eillegal_56:
+    /*1546:*/ .uword 0x00000045  /*'E'*/ 
+    /*1547:*/ .uword 0x0000003a  /*':'*/ 
+    /*1548:*/ .uword 0x00000020  /*' '*/ 
+    /*1549:*/ .uword 0x00000049  /*'I'*/ 
+    /*1550:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1551:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1552:*/ .uword 0x00000065  /*'e'*/ 
+    /*1553:*/ .uword 0x00000067  /*'g'*/ 
+    /*1554:*/ .uword 0x00000061  /*'a'*/ 
+    /*1555:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1556:*/ .uword 0x00000020  /*' '*/ 
+    /*1557:*/ .uword 0x00000064  /*'d'*/ 
+    /*1558:*/ .uword 0x00000072  /*'r'*/ 
+    /*1559:*/ .uword 0x00000069  /*'i'*/ 
+    /*1560:*/ .uword 0x00000076  /*'v'*/ 
+    /*1561:*/ .uword 0x00000065  /*'e'*/ 
+    /*1562:*/ .uword 0x00000020  /*' '*/ 
+    /*1563:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1564:*/ .uword 0x00000061  /*'a'*/ 
+    /*1565:*/ .uword 0x0000006d  /*'m'*/ 
+    /*1566:*/ .uword 0x00000065  /*'e'*/ 
+    /*1567:*/ .uword 0x00000020  /*' '*/ 
+    /*1568:*/ .uword 0x00000022  /*'"'*/ 
+    /*1569:*/ .uword 0x00000025  /*'%'*/ 
+    /*1570:*/ .uword 0x00000073  /*'s'*/ 
+    /*1571:*/ .uword 0x00000022  /*'"'*/ 
+    /*1572:*/ .uword 0x0000000a 
+    /*1573:*/ .uword 0x00000000 
+enonexi_57:
+    /*1574:*/ .uword 0x00000045  /*'E'*/ 
+    /*1575:*/ .uword 0x0000003a  /*':'*/ 
+    /*1576:*/ .uword 0x00000020  /*' '*/ 
+    /*1577:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1578:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1579:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1580:*/ .uword 0x0000002d  /*'-'*/ 
+    /*1581:*/ .uword 0x00000065  /*'e'*/ 
+    /*1582:*/ .uword 0x00000078  /*'x'*/ 
+    /*1583:*/ .uword 0x00000069  /*'i'*/ 
+    /*1584:*/ .uword 0x00000073  /*'s'*/ 
+    /*1585:*/ .uword 0x00000074  /*'t'*/ 
+    /*1586:*/ .uword 0x00000069  /*'i'*/ 
+    /*1587:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1588:*/ .uword 0x00000067  /*'g'*/ 
+    /*1589:*/ .uword 0x00000020  /*' '*/ 
+    /*1590:*/ .uword 0x00000064  /*'d'*/ 
+    /*1591:*/ .uword 0x00000072  /*'r'*/ 
+    /*1592:*/ .uword 0x00000069  /*'i'*/ 
+    /*1593:*/ .uword 0x00000076  /*'v'*/ 
+    /*1594:*/ .uword 0x00000065  /*'e'*/ 
+    /*1595:*/ .uword 0x00000020  /*' '*/ 
+    /*1596:*/ .uword 0x00000022  /*'"'*/ 
+    /*1597:*/ .uword 0x00000025  /*'%'*/ 
+    /*1598:*/ .uword 0x00000073  /*'s'*/ 
+    /*1599:*/ .uword 0x00000022  /*'"'*/ 
+    /*1600:*/ .uword 0x0000000a 
+    /*1601:*/ .uword 0x00000000 
+fatfound_58:
+    /*1602:*/ .uword 0x00000046  /*'F'*/ 
+    /*1603:*/ .uword 0x00000041  /*'A'*/ 
+    /*1604:*/ .uword 0x00000054  /*'T'*/ 
+    /*1605:*/ .uword 0x00000020  /*' '*/ 
+    /*1606:*/ .uword 0x00000046  /*'F'*/ 
+    /*1607:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1608:*/ .uword 0x00000055  /*'U'*/ 
+    /*1609:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1610:*/ .uword 0x00000044  /*'D'*/ 
+    /*1611:*/ .uword 0x00000020  /*' '*/ 
+    /*1612:*/ .uword 0x00000049  /*'I'*/ 
+    /*1613:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1614:*/ .uword 0x00000020  /*' '*/ 
+    /*1615:*/ .uword 0x00000052  /*'R'*/ 
+    /*1616:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1617:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1618:*/ .uword 0x00000054  /*'T'*/ 
+    /*1619:*/ .uword 0x00000020  /*' '*/ 
+    /*1620:*/ .uword 0x00000042  /*'B'*/ 
+    /*1621:*/ .uword 0x0000004c  /*'L'*/ 
+    /*1622:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1623:*/ .uword 0x00000043  /*'C'*/ 
+    /*1624:*/ .uword 0x0000004b  /*'K'*/ 
+    /*1625:*/ .uword 0x0000000a 
+    /*1626:*/ .uword 0x00000000 
+foundpart_59:
+    /*1627:*/ .uword 0x00000046  /*'F'*/ 
+    /*1628:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1629:*/ .uword 0x00000055  /*'U'*/ 
+    /*1630:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1631:*/ .uword 0x00000044  /*'D'*/ 
+    /*1632:*/ .uword 0x00000020  /*' '*/ 
+    /*1633:*/ .uword 0x00000050  /*'P'*/ 
+    /*1634:*/ .uword 0x00000041  /*'A'*/ 
+    /*1635:*/ .uword 0x00000052  /*'R'*/ 
+    /*1636:*/ .uword 0x00000054  /*'T'*/ 
+    /*1637:*/ .uword 0x00000049  /*'I'*/ 
+    /*1638:*/ .uword 0x00000054  /*'T'*/ 
+    /*1639:*/ .uword 0x00000049  /*'I'*/ 
+    /*1640:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1641:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1642:*/ .uword 0x00000020  /*' '*/ 
+    /*1643:*/ .uword 0x00000054  /*'T'*/ 
+    /*1644:*/ .uword 0x00000041  /*'A'*/ 
+    /*1645:*/ .uword 0x00000042  /*'B'*/ 
+    /*1646:*/ .uword 0x0000004c  /*'L'*/ 
+    /*1647:*/ .uword 0x00000045  /*'E'*/ 
+    /*1648:*/ .uword 0x0000000a 
+    /*1649:*/ .uword 0x00000000 
+partition_60:
+    /*1650:*/ .uword 0x00000050  /*'P'*/ 
+    /*1651:*/ .uword 0x00000041  /*'A'*/ 
+    /*1652:*/ .uword 0x00000052  /*'R'*/ 
+    /*1653:*/ .uword 0x00000054  /*'T'*/ 
+    /*1654:*/ .uword 0x00000049  /*'I'*/ 
+    /*1655:*/ .uword 0x00000054  /*'T'*/ 
+    /*1656:*/ .uword 0x00000049  /*'I'*/ 
+    /*1657:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1658:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1659:*/ .uword 0x00000025  /*'%'*/ 
+    /*1660:*/ .uword 0x00000064  /*'d'*/ 
+    /*1661:*/ .uword 0x00000020  /*' '*/ 
+    /*1662:*/ .uword 0x0000003d  /*'='*/ 
+    /*1663:*/ .uword 0x00000020  /*' '*/ 
+    /*1664:*/ .uword 0x00000030  /*'0'*/ 
+    /*1665:*/ .uword 0x00000078  /*'x'*/ 
+    /*1666:*/ .uword 0x00000025  /*'%'*/ 
+    /*1667:*/ .uword 0x00000030  /*'0'*/ 
+    /*1668:*/ .uword 0x00000038  /*'8'*/ 
+    /*1669:*/ .uword 0x0000006c  /*'l'*/ 
+    /*1670:*/ .uword 0x00000078  /*'x'*/ 
+    /*1671:*/ .uword 0x00000000 
+_partTypes93ab90:
+    /*1672:*/ .uword 0x000006d7  //Symb00BCE4FC String_65+0; 	Sect voxdata_1+1751  UWord 0x000006d7 (<<6)
+          // RE Sym(00BCE4FC)String_65 Sec(voxdata_1) Value(1751) Symoffset(0) curval(1751) 
+    /*1673:*/ .uword 0x000006dd  //Symb00BCE658 String_66+0; 	Sect voxdata_1+1757  UWord 0x000006dd (<<6)
+          // RE Sym(00BCE658)String_66 Sec(voxdata_1) Value(1757) Symoffset(0) curval(1757) 
+    /*1674:*/ .uword 0x000006e3  //Symb00BCE7B4 String_67+0; 	Sect voxdata_1+1763  UWord 0x000006e3 (<<6)
+          // RE Sym(00BCE7B4)String_67 Sec(voxdata_1) Value(1763) Symoffset(0) curval(1763) 
+    /*1675:*/ .uword 0x000006ee  //Symb00BCE910 String_68+0; 	Sect voxdata_1+1774  UWord 0x000006ee (<<6)
+          // RE Sym(00BCE910)String_68 Sec(voxdata_1) Value(1774) Symoffset(0) curval(1774) 
+    /*1676:*/ .uword 0x000006f8  //Symb00BCEA6C String_69+0; 	Sect voxdata_1+1784  UWord 0x000006f8 (<<6)
+          // RE Sym(00BCEA6C)String_69 Sec(voxdata_1) Value(1784) Symoffset(0) curval(1784) 
+    /*1677:*/ .uword 0x000006fe  //Symb00BCEBC8 String_70+0; 	Sect voxdata_1+1790  UWord 0x000006fe (<<6)
+          // RE Sym(00BCEBC8)String_70 Sec(voxdata_1) Value(1790) Symoffset(0) curval(1790) 
+    /*1678:*/ .uword 0x0000070c  //Symb00BCED24 String_71+0; 	Sect voxdata_1+1804  UWord 0x0000070c (<<6)
+          // RE Sym(00BCED24)String_71 Sec(voxdata_1) Value(1804) Symoffset(0) curval(1804) 
+    /*1679:*/ .uword 0x00000713  //Symb00BCEE80 String_72+0; 	Sect voxdata_1+1811  UWord 0x00000713 (<<6)
+          // RE Sym(00BCEE80)String_72 Sec(voxdata_1) Value(1811) Symoffset(0) curval(1811) 
+    /*1680:*/ .uword 0x0000072b  //Symb00BCEFDC String_73+0; 	Sect voxdata_1+1835  UWord 0x0000072b (<<6)
+          // RE Sym(00BCEFDC)String_73 Sec(voxdata_1) Value(1835) Symoffset(0) curval(1835) 
+    /*1681:*/ .uword 0x00000743  //Symb00BCF138 String_74+0; 	Sect voxdata_1+1859  UWord 0x00000743 (<<6)
+          // RE Sym(00BCF138)String_74 Sec(voxdata_1) Value(1859) Symoffset(0) curval(1859) 
+    /*1682:*/ .uword 0x00000753  //Symb00BCF294 String_75+0; 	Sect voxdata_1+1875  UWord 0x00000753 (<<6)
+          // RE Sym(00BCF294)String_75 Sec(voxdata_1) Value(1875) Symoffset(0) curval(1875) 
+    /*1683:*/ .uword 0x0000076a  //Symb00BCF3F0 String_76+0; 	Sect voxdata_1+1898  UWord 0x0000076a (<<6)
+          // RE Sym(00BCF3F0)String_76 Sec(voxdata_1) Value(1898) Symoffset(0) curval(1898) 
+    /*1684:*/ .uword 0x00000774  //Symb00BCF54C String_77+0; 	Sect voxdata_1+1908  UWord 0x00000774 (<<6)
+          // RE Sym(00BCF54C)String_77 Sec(voxdata_1) Value(1908) Symoffset(0) curval(1908) 
+    /*1685:*/ .uword 0x0000077e  //Symb00BCF6A8 String_78+0; 	Sect voxdata_1+1918  UWord 0x0000077e (<<6)
+          // RE Sym(00BCF6A8)String_78 Sec(voxdata_1) Value(1918) Symoffset(0) curval(1918) 
+    /*1686:*/ .uword 0x00000787  //Symb00BCF804 String_79+0; 	Sect voxdata_1+1927  UWord 0x00000787 (<<6)
+          // RE Sym(00BCF804)String_79 Sec(voxdata_1) Value(1927) Symoffset(0) curval(1927) 
+    /*1687:*/ .uword 0x00000792  //Symb00BCF960 String_80+0; 	Sect voxdata_1+1938  UWord 0x00000792 (<<6)
+          // RE Sym(00BCF960)String_80 Sec(voxdata_1) Value(1938) Symoffset(0) curval(1938) 
+unknown_61:
+    /*1688:*/ .uword 0x00000075  /*'u'*/ 
+    /*1689:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1690:*/ .uword 0x0000006b  /*'k'*/ 
+    /*1691:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1692:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1693:*/ .uword 0x00000077  /*'w'*/ 
+    /*1694:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1695:*/ .uword 0x00000000 
+type0x_62:
+    /*1696:*/ .uword 0x0000002c  /*','*/ 
+    /*1697:*/ .uword 0x00000020  /*' '*/ 
+    /*1698:*/ .uword 0x00000074  /*'t'*/ 
+    /*1699:*/ .uword 0x00000079  /*'y'*/ 
+    /*1700:*/ .uword 0x00000070  /*'p'*/ 
+    /*1701:*/ .uword 0x00000065  /*'e'*/ 
+    /*1702:*/ .uword 0x00000020  /*' '*/ 
+    /*1703:*/ .uword 0x00000030  /*'0'*/ 
+    /*1704:*/ .uword 0x00000078  /*'x'*/ 
+    /*1705:*/ .uword 0x00000025  /*'%'*/ 
+    /*1706:*/ .uword 0x00000030  /*'0'*/ 
+    /*1707:*/ .uword 0x00000032  /*'2'*/ 
+    /*1708:*/ .uword 0x00000078  /*'x'*/ 
+    /*1709:*/ .uword 0x00000020  /*' '*/ 
+    /*1710:*/ .uword 0x00000028  /*'('*/ 
+    /*1711:*/ .uword 0x00000025  /*'%'*/ 
+    /*1712:*/ .uword 0x00000073  /*'s'*/ 
+    /*1713:*/ .uword 0x00000029  /*')'*/ 
+    /*1714:*/ .uword 0x0000000a 
+    /*1715:*/ .uword 0x00000000 
+none_63:
+    /*1716:*/ .uword 0x00000020  /*' '*/ 
+    /*1717:*/ .uword 0x00000028  /*'('*/ 
+    /*1718:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1719:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1720:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1721:*/ .uword 0x00000065  /*'e'*/ 
+    /*1722:*/ .uword 0x00000029  /*')'*/ 
+    /*1723:*/ .uword 0x0000000a 
+    /*1724:*/ .uword 0x00000000 
+foundnoth_64:
+    /*1725:*/ .uword 0x00000046  /*'F'*/ 
+    /*1726:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1727:*/ .uword 0x00000055  /*'U'*/ 
+    /*1728:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1729:*/ .uword 0x00000044  /*'D'*/ 
+    /*1730:*/ .uword 0x00000020  /*' '*/ 
+    /*1731:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1732:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1733:*/ .uword 0x00000054  /*'T'*/ 
+    /*1734:*/ .uword 0x00000048  /*'H'*/ 
+    /*1735:*/ .uword 0x00000049  /*'I'*/ 
+    /*1736:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1737:*/ .uword 0x00000047  /*'G'*/ 
+    /*1738:*/ .uword 0x00000020  /*' '*/ 
+    /*1739:*/ .uword 0x00000049  /*'I'*/ 
+    /*1740:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1741:*/ .uword 0x00000020  /*' '*/ 
+    /*1742:*/ .uword 0x00000042  /*'B'*/ 
+    /*1743:*/ .uword 0x0000004c  /*'L'*/ 
+    /*1744:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1745:*/ .uword 0x00000043  /*'C'*/ 
+    /*1746:*/ .uword 0x0000004b  /*'K'*/ 
+    /*1747:*/ .uword 0x00000020  /*' '*/ 
+    /*1748:*/ .uword 0x00000030  /*'0'*/ 
+    /*1749:*/ .uword 0x0000000a 
+    /*1750:*/ .uword 0x00000000 
+String_65:
+    /*1751:*/ .uword 0x00000065  /*'e'*/ 
+    /*1752:*/ .uword 0x0000006d  /*'m'*/ 
+    /*1753:*/ .uword 0x00000070  /*'p'*/ 
+    /*1754:*/ .uword 0x00000074  /*'t'*/ 
+    /*1755:*/ .uword 0x00000079  /*'y'*/ 
+    /*1756:*/ .uword 0x00000000 
+String_66:
+    /*1757:*/ .uword 0x00000046  /*'F'*/ 
+    /*1758:*/ .uword 0x00000041  /*'A'*/ 
+    /*1759:*/ .uword 0x00000054  /*'T'*/ 
+    /*1760:*/ .uword 0x00000031  /*'1'*/ 
+    /*1761:*/ .uword 0x00000032  /*'2'*/ 
+    /*1762:*/ .uword 0x00000000 
+String_67:
+    /*1763:*/ .uword 0x00000058  /*'X'*/ 
+    /*1764:*/ .uword 0x00000045  /*'E'*/ 
+    /*1765:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1766:*/ .uword 0x00000049  /*'I'*/ 
+    /*1767:*/ .uword 0x00000058  /*'X'*/ 
+    /*1768:*/ .uword 0x00000020  /*' '*/ 
+    /*1769:*/ .uword 0x00000072  /*'r'*/ 
+    /*1770:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1771:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1772:*/ .uword 0x00000074  /*'t'*/ 
+    /*1773:*/ .uword 0x00000000 
+String_68:
+    /*1774:*/ .uword 0x00000058  /*'X'*/ 
+    /*1775:*/ .uword 0x00000045  /*'E'*/ 
+    /*1776:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1777:*/ .uword 0x00000049  /*'I'*/ 
+    /*1778:*/ .uword 0x00000058  /*'X'*/ 
+    /*1779:*/ .uword 0x00000020  /*' '*/ 
+    /*1780:*/ .uword 0x00000075  /*'u'*/ 
+    /*1781:*/ .uword 0x00000073  /*'s'*/ 
+    /*1782:*/ .uword 0x00000072  /*'r'*/ 
+    /*1783:*/ .uword 0x00000000 
+String_69:
+    /*1784:*/ .uword 0x00000046  /*'F'*/ 
+    /*1785:*/ .uword 0x00000041  /*'A'*/ 
+    /*1786:*/ .uword 0x00000054  /*'T'*/ 
+    /*1787:*/ .uword 0x00000031  /*'1'*/ 
+    /*1788:*/ .uword 0x00000036  /*'6'*/ 
+    /*1789:*/ .uword 0x00000000 
+String_70:
+    /*1790:*/ .uword 0x00000045  /*'E'*/ 
+    /*1791:*/ .uword 0x00000078  /*'x'*/ 
+    /*1792:*/ .uword 0x00000074  /*'t'*/ 
+    /*1793:*/ .uword 0x0000002e  /*'.'*/ 
+    /*1794:*/ .uword 0x00000070  /*'p'*/ 
+    /*1795:*/ .uword 0x00000061  /*'a'*/ 
+    /*1796:*/ .uword 0x00000072  /*'r'*/ 
+    /*1797:*/ .uword 0x00000074  /*'t'*/ 
+    /*1798:*/ .uword 0x0000002e  /*'.'*/ 
+    /*1799:*/ .uword 0x00000020  /*' '*/ 
+    /*1800:*/ .uword 0x00000043  /*'C'*/ 
+    /*1801:*/ .uword 0x00000048  /*'H'*/ 
+    /*1802:*/ .uword 0x00000053  /*'S'*/ 
+    /*1803:*/ .uword 0x00000000 
+String_71:
+    /*1804:*/ .uword 0x00000046  /*'F'*/ 
+    /*1805:*/ .uword 0x00000041  /*'A'*/ 
+    /*1806:*/ .uword 0x00000054  /*'T'*/ 
+    /*1807:*/ .uword 0x00000031  /*'1'*/ 
+    /*1808:*/ .uword 0x00000036  /*'6'*/ 
+    /*1809:*/ .uword 0x00000042  /*'B'*/ 
+    /*1810:*/ .uword 0x00000000 
+String_72:
+    /*1811:*/ .uword 0x00000049  /*'I'*/ 
+    /*1812:*/ .uword 0x00000046  /*'F'*/ 
+    /*1813:*/ .uword 0x00000053  /*'S'*/ 
+    /*1814:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1815:*/ .uword 0x00000048  /*'H'*/ 
+    /*1816:*/ .uword 0x00000050  /*'P'*/ 
+    /*1817:*/ .uword 0x00000046  /*'F'*/ 
+    /*1818:*/ .uword 0x00000053  /*'S'*/ 
+    /*1819:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1820:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1821:*/ .uword 0x00000054  /*'T'*/ 
+    /*1822:*/ .uword 0x00000046  /*'F'*/ 
+    /*1823:*/ .uword 0x00000053  /*'S'*/ 
+    /*1824:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1825:*/ .uword 0x00000065  /*'e'*/ 
+    /*1826:*/ .uword 0x00000078  /*'x'*/ 
+    /*1827:*/ .uword 0x00000046  /*'F'*/ 
+    /*1828:*/ .uword 0x00000041  /*'A'*/ 
+    /*1829:*/ .uword 0x00000054  /*'T'*/ 
+    /*1830:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1831:*/ .uword 0x00000051  /*'Q'*/ 
+    /*1832:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1833:*/ .uword 0x00000058  /*'X'*/ 
+    /*1834:*/ .uword 0x00000000 
+String_73:
+    /*1835:*/ .uword 0x00000046  /*'F'*/ 
+    /*1836:*/ .uword 0x00000041  /*'A'*/ 
+    /*1837:*/ .uword 0x00000054  /*'T'*/ 
+    /*1838:*/ .uword 0x00000031  /*'1'*/ 
+    /*1839:*/ .uword 0x00000032  /*'2'*/ 
+    /*1840:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1841:*/ .uword 0x00000046  /*'F'*/ 
+    /*1842:*/ .uword 0x00000041  /*'A'*/ 
+    /*1843:*/ .uword 0x00000054  /*'T'*/ 
+    /*1844:*/ .uword 0x00000031  /*'1'*/ 
+    /*1845:*/ .uword 0x00000036  /*'6'*/ 
+    /*1846:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1847:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1848:*/ .uword 0x00000053  /*'S'*/ 
+    /*1849:*/ .uword 0x00000032  /*'2'*/ 
+    /*1850:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1851:*/ .uword 0x00000041  /*'A'*/ 
+    /*1852:*/ .uword 0x00000049  /*'I'*/ 
+    /*1853:*/ .uword 0x00000058  /*'X'*/ 
+    /*1854:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1855:*/ .uword 0x00000065  /*'e'*/ 
+    /*1856:*/ .uword 0x00000074  /*'t'*/ 
+    /*1857:*/ .uword 0x00000063  /*'c'*/ 
+    /*1858:*/ .uword 0x00000000 
+String_74:
+    /*1859:*/ .uword 0x00000051  /*'Q'*/ 
+    /*1860:*/ .uword 0x0000004e  /*'N'*/ 
+    /*1861:*/ .uword 0x00000058  /*'X'*/ 
+    /*1862:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1863:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1864:*/ .uword 0x00000053  /*'S'*/ 
+    /*1865:*/ .uword 0x00000039  /*'9'*/ 
+    /*1866:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1867:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1868:*/ .uword 0x00000053  /*'S'*/ 
+    /*1869:*/ .uword 0x00000032  /*'2'*/ 
+    /*1870:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1871:*/ .uword 0x00000065  /*'e'*/ 
+    /*1872:*/ .uword 0x00000074  /*'t'*/ 
+    /*1873:*/ .uword 0x00000063  /*'c'*/ 
+    /*1874:*/ .uword 0x00000000 
+String_75:
+    /*1875:*/ .uword 0x0000004f  /*'O'*/ 
+    /*1876:*/ .uword 0x00000053  /*'S'*/ 
+    /*1877:*/ .uword 0x00000032  /*'2'*/ 
+    /*1878:*/ .uword 0x00000020  /*' '*/ 
+    /*1879:*/ .uword 0x00000042  /*'B'*/ 
+    /*1880:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1881:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1882:*/ .uword 0x00000074  /*'t'*/ 
+    /*1883:*/ .uword 0x0000002f  /*'/'*/ 
+    /*1884:*/ .uword 0x00000043  /*'C'*/ 
+    /*1885:*/ .uword 0x0000006f  /*'o'*/ 
+    /*1886:*/ .uword 0x00000068  /*'h'*/ 
+    /*1887:*/ .uword 0x00000065  /*'e'*/ 
+    /*1888:*/ .uword 0x00000072  /*'r'*/ 
+    /*1889:*/ .uword 0x00000065  /*'e'*/ 
+    /*1890:*/ .uword 0x0000006e  /*'n'*/ 
+    /*1891:*/ .uword 0x00000074  /*'t'*/ 
+    /*1892:*/ .uword 0x00000020  /*' '*/ 
+    /*1893:*/ .uword 0x00000073  /*'s'*/ 
+    /*1894:*/ .uword 0x00000077  /*'w'*/ 
+    /*1895:*/ .uword 0x00000061  /*'a'*/ 
+    /*1896:*/ .uword 0x00000070  /*'p'*/ 
+    /*1897:*/ .uword 0x00000000 
+String_76:
+    /*1898:*/ .uword 0x00000046  /*'F'*/ 
+    /*1899:*/ .uword 0x00000041  /*'A'*/ 
+    /*1900:*/ .uword 0x00000054  /*'T'*/ 
+    /*1901:*/ .uword 0x00000033  /*'3'*/ 
+    /*1902:*/ .uword 0x00000032  /*'2'*/ 
+    /*1903:*/ .uword 0x00000020  /*' '*/ 
+    /*1904:*/ .uword 0x00000043  /*'C'*/ 
+    /*1905:*/ .uword 0x00000048  /*'H'*/ 
+    /*1906:*/ .uword 0x00000053  /*'S'*/ 
+    /*1907:*/ .uword 0x00000000 
+String_77:
+    /*1908:*/ .uword 0x00000046  /*'F'*/ 
+    /*1909:*/ .uword 0x00000041  /*'A'*/ 
+    /*1910:*/ .uword 0x00000054  /*'T'*/ 
+    /*1911:*/ .uword 0x00000033  /*'3'*/ 
+    /*1912:*/ .uword 0x00000032  /*'2'*/ 
+    /*1913:*/ .uword 0x00000020  /*' '*/ 
+    /*1914:*/ .uword 0x0000004c  /*'L'*/ 
+    /*1915:*/ .uword 0x00000042  /*'B'*/ 
+    /*1916:*/ .uword 0x00000041  /*'A'*/ 
+    /*1917:*/ .uword 0x00000000 
+String_78:
+    /*1918:*/ .uword 0x00000072  /*'r'*/ 
+    /*1919:*/ .uword 0x00000065  /*'e'*/ 
+    /*1920:*/ .uword 0x00000073  /*'s'*/ 
+    /*1921:*/ .uword 0x00000065  /*'e'*/ 
+    /*1922:*/ .uword 0x00000072  /*'r'*/ 
+    /*1923:*/ .uword 0x00000076  /*'v'*/ 
+    /*1924:*/ .uword 0x00000065  /*'e'*/ 
+    /*1925:*/ .uword 0x00000064  /*'d'*/ 
+    /*1926:*/ .uword 0x00000000 
+String_79:
+    /*1927:*/ .uword 0x00000046  /*'F'*/ 
+    /*1928:*/ .uword 0x00000041  /*'A'*/ 
+    /*1929:*/ .uword 0x00000054  /*'T'*/ 
+    /*1930:*/ .uword 0x00000031  /*'1'*/ 
+    /*1931:*/ .uword 0x00000036  /*'6'*/ 
+    /*1932:*/ .uword 0x00000042  /*'B'*/ 
+    /*1933:*/ .uword 0x00000020  /*' '*/ 
+    /*1934:*/ .uword 0x0000004c  /*'L'*/ 
+    /*1935:*/ .uword 0x00000042  /*'B'*/ 
+    /*1936:*/ .uword 0x00000041  /*'A'*/ 
+    /*1937:*/ .uword 0x00000000 
+String_80:
+    /*1938:*/ .uword 0x00000045  /*'E'*/ 
+    /*1939:*/ .uword 0x00000078  /*'x'*/ 
+    /*1940:*/ .uword 0x00000074  /*'t'*/ 
+    /*1941:*/ .uword 0x0000002e  /*'.'*/ 
+    /*1942:*/ .uword 0x00000070  /*'p'*/ 
+    /*1943:*/ .uword 0x00000061  /*'a'*/ 
+    /*1944:*/ .uword 0x00000072  /*'r'*/ 
+    /*1945:*/ .uword 0x00000074  /*'t'*/ 
+    /*1946:*/ .uword 0x0000002e  /*'.'*/ 
+    /*1947:*/ .uword 0x00000020  /*' '*/ 
+    /*1948:*/ .uword 0x0000004c  /*'L'*/ 
+    /*1949:*/ .uword 0x00000042  /*'B'*/ 
+    /*1950:*/ .uword 0x00000041  /*'A'*/ 
+    /*1951:*/ .uword 0x00000000 
+
+.sect data_x, voxdata_bss_2
+_myBuf:
+    /*  0:*/ .uword 0x00000000 
+    /*  1:*/ .uword 0x00000000 
+    /*  2:*/ .uword 0x00000000 
+    /*  3:*/ .uword 0x00000000 
+    /*  4:*/ .uword 0x00000000 
+    /*  5:*/ .uword 0x00000000 
+    /*  6:*/ .uword 0x00000000 
+    /*  7:*/ .uword 0x00000000 
+    /*  8:*/ .uword 0x00000000 
+    /*  9:*/ .uword 0x00000000 
+    /* 10:*/ .uword 0x00000000 
+    /* 11:*/ .uword 0x00000000 
+    /* 12:*/ .uword 0x00000000 
+    /* 13:*/ .uword 0x00000000 
+    /* 14:*/ .uword 0x00000000 
+    /* 15:*/ .uword 0x00000000 
+    /* 16:*/ .uword 0x00000000 
+    /* 17:*/ .uword 0x00000000 
+    /* 18:*/ .uword 0x00000000 
+    /* 19:*/ .uword 0x00000000 
+    /* 20:*/ .uword 0x00000000 
+    /* 21:*/ .uword 0x00000000 
+    /* 22:*/ .uword 0x00000000 
+    /* 23:*/ .uword 0x00000000 
+    /* 24:*/ .uword 0x00000000 
+    /* 25:*/ .uword 0x00000000 
+    /* 26:*/ .uword 0x00000000 
+    /* 27:*/ .uword 0x00000000 
+    /* 28:*/ .uword 0x00000000 
+    /* 29:*/ .uword 0x00000000 
+    /* 30:*/ .uword 0x00000000 
+    /* 31:*/ .uword 0x00000000 
+    /* 32:*/ .uword 0x00000000 
+    /* 33:*/ .uword 0x00000000 
+    /* 34:*/ .uword 0x00000000 
+    /* 35:*/ .uword 0x00000000 
+    /* 36:*/ .uword 0x00000000 
+    /* 37:*/ .uword 0x00000000 
+    /* 38:*/ .uword 0x00000000 
+    /* 39:*/ .uword 0x00000000 
+    /* 40:*/ .uword 0x00000000 
+    /* 41:*/ .uword 0x00000000 
+    /* 42:*/ .uword 0x00000000 
+    /* 43:*/ .uword 0x00000000 
+    /* 44:*/ .uword 0x00000000 
+    /* 45:*/ .uword 0x00000000 
+    /* 46:*/ .uword 0x00000000 
+    /* 47:*/ .uword 0x00000000 
+    /* 48:*/ .uword 0x00000000 
+    /* 49:*/ .uword 0x00000000 
+    /* 50:*/ .uword 0x00000000 
+    /* 51:*/ .uword 0x00000000 
+    /* 52:*/ .uword 0x00000000 
+    /* 53:*/ .uword 0x00000000 
+    /* 54:*/ .uword 0x00000000 
+    /* 55:*/ .uword 0x00000000 
+    /* 56:*/ .uword 0x00000000 
+    /* 57:*/ .uword 0x00000000 
+    /* 58:*/ .uword 0x00000000 
+    /* 59:*/ .uword 0x00000000 
+    /* 60:*/ .uword 0x00000000 
+    /* 61:*/ .uword 0x00000000 
+    /* 62:*/ .uword 0x00000000 
+    /* 63:*/ .uword 0x00000000 
+    /* 64:*/ .uword 0x00000000 
+    /* 65:*/ .uword 0x00000000 
+    /* 66:*/ .uword 0x00000000 
+    /* 67:*/ .uword 0x00000000 
+    /* 68:*/ .uword 0x00000000 
+    /* 69:*/ .uword 0x00000000 
+    /* 70:*/ .uword 0x00000000 
+    /* 71:*/ .uword 0x00000000 
+    /* 72:*/ .uword 0x00000000 
+    /* 73:*/ .uword 0x00000000 
+    /* 74:*/ .uword 0x00000000 
+    /* 75:*/ .uword 0x00000000 
+    /* 76:*/ .uword 0x00000000 
+    /* 77:*/ .uword 0x00000000 
+    /* 78:*/ .uword 0x00000000 
+    /* 79:*/ .uword 0x00000000 
+    /* 80:*/ .uword 0x00000000 
+    /* 81:*/ .uword 0x00000000 
+    /* 82:*/ .uword 0x00000000 
+    /* 83:*/ .uword 0x00000000 
+    /* 84:*/ .uword 0x00000000 
+    /* 85:*/ .uword 0x00000000 
+    /* 86:*/ .uword 0x00000000 
+    /* 87:*/ .uword 0x00000000 
+    /* 88:*/ .uword 0x00000000 
+    /* 89:*/ .uword 0x00000000 
+    /* 90:*/ .uword 0x00000000 
+    /* 91:*/ .uword 0x00000000 
+    /* 92:*/ .uword 0x00000000 
+    /* 93:*/ .uword 0x00000000 
+    /* 94:*/ .uword 0x00000000 
+    /* 95:*/ .uword 0x00000000 
+    /* 96:*/ .uword 0x00000000 
+    /* 97:*/ .uword 0x00000000 
+    /* 98:*/ .uword 0x00000000 
+    /* 99:*/ .uword 0x00000000 
+    /*100:*/ .uword 0x00000000 
+    /*101:*/ .uword 0x00000000 
+    /*102:*/ .uword 0x00000000 
+    /*103:*/ .uword 0x00000000 
+    /*104:*/ .uword 0x00000000 
+    /*105:*/ .uword 0x00000000 
+    /*106:*/ .uword 0x00000000 
+    /*107:*/ .uword 0x00000000 
+    /*108:*/ .uword 0x00000000 
+    /*109:*/ .uword 0x00000000 
+    /*110:*/ .uword 0x00000000 
+    /*111:*/ .uword 0x00000000 
+    /*112:*/ .uword 0x00000000 
+    /*113:*/ .uword 0x00000000 
+    /*114:*/ .uword 0x00000000 
+    /*115:*/ .uword 0x00000000 
+    /*116:*/ .uword 0x00000000 
+    /*117:*/ .uword 0x00000000 
+    /*118:*/ .uword 0x00000000 
+    /*119:*/ .uword 0x00000000 
+    /*120:*/ .uword 0x00000000 
+    /*121:*/ .uword 0x00000000 
+    /*122:*/ .uword 0x00000000 
+    /*123:*/ .uword 0x00000000 
+    /*124:*/ .uword 0x00000000 
+    /*125:*/ .uword 0x00000000 
+    /*126:*/ .uword 0x00000000 
+    /*127:*/ .uword 0x00000000 
+    /*128:*/ .uword 0x00000000 
+    /*129:*/ .uword 0x00000000 
+    /*130:*/ .uword 0x00000000 
+    /*131:*/ .uword 0x00000000 
+    /*132:*/ .uword 0x00000000 
+    /*133:*/ .uword 0x00000000 
+    /*134:*/ .uword 0x00000000 
+    /*135:*/ .uword 0x00000000 
+    /*136:*/ .uword 0x00000000 
+    /*137:*/ .uword 0x00000000 
+    /*138:*/ .uword 0x00000000 
+    /*139:*/ .uword 0x00000000 
+    /*140:*/ .uword 0x00000000 
+    /*141:*/ .uword 0x00000000 
+    /*142:*/ .uword 0x00000000 
+    /*143:*/ .uword 0x00000000 
+    /*144:*/ .uword 0x00000000 
+    /*145:*/ .uword 0x00000000 
+    /*146:*/ .uword 0x00000000 
+    /*147:*/ .uword 0x00000000 
+    /*148:*/ .uword 0x00000000 
+    /*149:*/ .uword 0x00000000 
+    /*150:*/ .uword 0x00000000 
+    /*151:*/ .uword 0x00000000 
+    /*152:*/ .uword 0x00000000 
+    /*153:*/ .uword 0x00000000 
+    /*154:*/ .uword 0x00000000 
+    /*155:*/ .uword 0x00000000 
+    /*156:*/ .uword 0x00000000 
+    /*157:*/ .uword 0x00000000 
+    /*158:*/ .uword 0x00000000 
+    /*159:*/ .uword 0x00000000 
+    /*160:*/ .uword 0x00000000 
+    /*161:*/ .uword 0x00000000 
+    /*162:*/ .uword 0x00000000 
+    /*163:*/ .uword 0x00000000 
+    /*164:*/ .uword 0x00000000 
+    /*165:*/ .uword 0x00000000 
+    /*166:*/ .uword 0x00000000 
+    /*167:*/ .uword 0x00000000 
+    /*168:*/ .uword 0x00000000 
+    /*169:*/ .uword 0x00000000 
+    /*170:*/ .uword 0x00000000 
+    /*171:*/ .uword 0x00000000 
+    /*172:*/ .uword 0x00000000 
+    /*173:*/ .uword 0x00000000 
+    /*174:*/ .uword 0x00000000 
+    /*175:*/ .uword 0x00000000 
+    /*176:*/ .uword 0x00000000 
+    /*177:*/ .uword 0x00000000 
+    /*178:*/ .uword 0x00000000 
+    /*179:*/ .uword 0x00000000 
+    /*180:*/ .uword 0x00000000 
+    /*181:*/ .uword 0x00000000 
+    /*182:*/ .uword 0x00000000 
+    /*183:*/ .uword 0x00000000 
+    /*184:*/ .uword 0x00000000 
+    /*185:*/ .uword 0x00000000 
+    /*186:*/ .uword 0x00000000 
+    /*187:*/ .uword 0x00000000 
+    /*188:*/ .uword 0x00000000 
+    /*189:*/ .uword 0x00000000 
+    /*190:*/ .uword 0x00000000 
+    /*191:*/ .uword 0x00000000 
+    /*192:*/ .uword 0x00000000 
+    /*193:*/ .uword 0x00000000 
+    /*194:*/ .uword 0x00000000 
+    /*195:*/ .uword 0x00000000 
+    /*196:*/ .uword 0x00000000 
+    /*197:*/ .uword 0x00000000 
+    /*198:*/ .uword 0x00000000 
+    /*199:*/ .uword 0x00000000 
+    /*200:*/ .uword 0x00000000 
+    /*201:*/ .uword 0x00000000 
+    /*202:*/ .uword 0x00000000 
+    /*203:*/ .uword 0x00000000 
+    /*204:*/ .uword 0x00000000 
+    /*205:*/ .uword 0x00000000 
+    /*206:*/ .uword 0x00000000 
+    /*207:*/ .uword 0x00000000 
+    /*208:*/ .uword 0x00000000 
+    /*209:*/ .uword 0x00000000 
+    /*210:*/ .uword 0x00000000 
+    /*211:*/ .uword 0x00000000 
+    /*212:*/ .uword 0x00000000 
+    /*213:*/ .uword 0x00000000 
+    /*214:*/ .uword 0x00000000 
+    /*215:*/ .uword 0x00000000 
+    /*216:*/ .uword 0x00000000 
+    /*217:*/ .uword 0x00000000 
+    /*218:*/ .uword 0x00000000 
+    /*219:*/ .uword 0x00000000 
+    /*220:*/ .uword 0x00000000 
+    /*221:*/ .uword 0x00000000 
+    /*222:*/ .uword 0x00000000 
+    /*223:*/ .uword 0x00000000 
+    /*224:*/ .uword 0x00000000 
+    /*225:*/ .uword 0x00000000 
+    /*226:*/ .uword 0x00000000 
+    /*227:*/ .uword 0x00000000 
+    /*228:*/ .uword 0x00000000 
+    /*229:*/ .uword 0x00000000 
+    /*230:*/ .uword 0x00000000 
+    /*231:*/ .uword 0x00000000 
+    /*232:*/ .uword 0x00000000 
+    /*233:*/ .uword 0x00000000 
+    /*234:*/ .uword 0x00000000 
+    /*235:*/ .uword 0x00000000 
+    /*236:*/ .uword 0x00000000 
+    /*237:*/ .uword 0x00000000 
+    /*238:*/ .uword 0x00000000 
+    /*239:*/ .uword 0x00000000 
+    /*240:*/ .uword 0x00000000 
+    /*241:*/ .uword 0x00000000 
+    /*242:*/ .uword 0x00000000 
+    /*243:*/ .uword 0x00000000 
+    /*244:*/ .uword 0x00000000 
+    /*245:*/ .uword 0x00000000 
+    /*246:*/ .uword 0x00000000 
+    /*247:*/ .uword 0x00000000 
+    /*248:*/ .uword 0x00000000 
+    /*249:*/ .uword 0x00000000 
+    /*250:*/ .uword 0x00000000 
+    /*251:*/ .uword 0x00000000 
+    /*252:*/ .uword 0x00000000 
+    /*253:*/ .uword 0x00000000 
+    /*254:*/ .uword 0x00000000 
+    /*255:*/ .uword 0x00000000 
+.end
+Text of Section 0,page 0 votext:
+  length 1007 words.
+Text of Section 1,page 1 voxdata_1:
+  length 1952 words.
+Text of Section 2,page 1 voxdata_bss_2 (bss):
+  length 256 words.
+Relocations of Section 0,page 0 votext:
+  Reloc 0 (Internal: printblock_1):  Target section 1:
+    5 
+  Reloc 1 (Internal: _myBuf):  Target section 2:
+    10 19 153 174 178 209 218 227 245 263 272 290 299 308 318 329 341 350 359 369 378 387 396 405 424 428 455 465 469 475 491 495 500 504 513 517 522 527 537 547 557 561 724 739 748 801 817 
+  Reloc 2 (External: _vo_printf):  Target symbol _vo_printf:
+    16 53 58 69 78 83 117 124 145 148 159 164 167 186 194 207 216 225 234 242 252 260 270 279 287 297 306 316 326 339 348 357 367 376 385 394 403 413 417 436 444 463 511 535 545 555 569 581 592 758 791 809 832 851 857 866 870 877 884 900 
+  Reloc 3 (Internal: _PrintBlock):  Target section 0:
+    28 31 35 56 64 72 89 92 108 112 120 122 126 141 486 596 762 795 893 
+  Reloc 4 (Internal: emediac_2):  Target section 1:
+    30 864 
+  Reloc 5 (Internal: block0x_3):  Target section 1:
+    34 47 
+  Reloc 6 (Internal: x_4):  Target section 1:
+    68 
+  Reloc 7 (Internal: x_5):  Target section 1:
+    77 
+  Reloc 8 (Internal: String_6):  Target section 1:
+    81 
+  Reloc 9 (Internal: String_8):  Target section 1:
+    88 162 
+  Reloc 10 (External: _isprint):  Target symbol _isprint:
+    104 
+  Reloc 11 (Internal: c_7):  Target section 1:
+    114 201 451 
+  Reloc 12 (Internal: fat32sect_9):  Target section 1:
+    143 
+  Reloc 13 (Internal: jumpc_10):  Target section 1:
+    147 
+  Reloc 14 (Internal: _PrintFat32):  Target section 0:
+    151 173 176 183 191 196 198 200 238 256 283 330 423 426 433 441 446 448 450 844 862 
+  Reloc 15 (Internal: _GetBE8):  Target section 0:
+    154 179 211 229 265 398 429 453 458 477 493 498 502 506 515 520 525 530 559 564 740 818 938 941 950 954 
+  Reloc 16 (Internal: x_11):  Target section 1:
+    158 184 434 
+  Reloc 17 (Internal: oemna_12):  Target section 1:
+    166 
+  Reloc 18 (Internal: String_13):  Target section 1:
+    190 440 
+  Reloc 19 (Internal: String_14):  Target section 1:
+    199 449 
+  Reloc 20 (Internal: _GetLE16):  Target section 0:
+    202 220 247 274 292 301 343 352 371 380 389 467 960 963 
+  Reloc 21 (Internal: bytes_15):  Target section 1:
+    206 
+  Reloc 22 (Internal: sector_16):  Target section 1:
+    215 
+  Reloc 23 (Internal: reserv_17):  Target section 1:
+    224 
+  Reloc 24 (Internal: number_18):  Target section 1:
+    233 
+  Reloc 25 (Internal: c_19):  Target section 1:
+    240 
+  Reloc 26 (Internal: bit_20):  Target section 1:
+    251 
+  Reloc 27 (Internal: c_21):  Target section 1:
+    258 285 
+  Reloc 28 (Internal: media_22):  Target section 1:
+    269 
+  Reloc 29 (Internal: bit_23):  Target section 1:
+    278 
+  Reloc 30 (Internal: sector_24):  Target section 1:
+    296 
+  Reloc 31 (Internal: number_25):  Target section 1:
+    305 
+  Reloc 32 (Internal: _GetLE32):  Target section 0:
+    310 320 333 361 407 473 539 549 802 
+  Reloc 33 (Internal: number_26):  Target section 1:
+    314 
+  Reloc 34 (Internal: bit_27):  Target section 1:
+    324 
+  Reloc 35 (Internal: bit_28):  Target section 1:
+    337 
+  Reloc 36 (Internal: flags_29):  Target section 1:
+    347 
+  Reloc 37 (Internal: versio_30):  Target section 1:
+    356 
+  Reloc 38 (Internal: cluste_31):  Target section 1:
+    365 
+  Reloc 39 (Internal: sector_32):  Target section 1:
+    375 
+  Reloc 40 (Internal: sector_33):  Target section 1:
+    384 
+  Reloc 41 (Internal: logica_34):  Target section 1:
+    393 
+  Reloc 42 (Internal: extend_35):  Target section 1:
+    402 
+  Reloc 43 (Internal: serial_36):  Target section 1:
+    411 
+  Reloc 44 (Internal: volume_37):  Target section 1:
+    415 
+  Reloc 45 (Internal: bootr_38):  Target section 1:
+    462 568 
+  Reloc 46 (Internal: fat32sect_39):  Target section 1:
+    488 
+  Reloc 47 (Internal: _vo_puts):  Target section 0:
+    489 910 913 916 919 923 979 994 
+  Reloc 48 (Internal: first_40):  Target section 1:
+    510 
+  Reloc 49 (Internal: signat_41):  Target section 1:
+    534 
+  Reloc 50 (Internal: number_42):  Target section 1:
+    543 
+  Reloc 51 (Internal: mostr_43):  Target section 1:
+    553 
+  Reloc 52 (Internal: fatstart_44):  Target section 1:
+    579 
+  Reloc 53 (Internal: fatroots_45):  Target section 1:
+    587 
+  Reloc 54 (Internal: paramspl_46):  Target section 1:
+    625 
+  Reloc 55 (Internal: _main):  Target section 0:
+    632 644 651 657 664 675 681 685 689 698 712 718 722 734 737 746 756 769 798 814 826 840 849 853 863 868 872 879 886 890 897 902 904 907 924 
+  Reloc 56 (External: _strtol):  Target symbol _strtol:
+    636 
+  Reloc 57 (Internal: h_47):  Target section 1:
+    638 
+  Reloc 58 (Internal: _strcmp):  Target section 0:
+    640 647 653 
+  Reloc 59 (Internal: v_53):  Target section 1:
+    648 
+  Reloc 60 (Internal: v_54):  Target section 1:
+    654 
+  Reloc 61 (External: _toupper):  Target symbol _toupper:
+    666 
+  Reloc 62 (External: _strlen):  Target symbol _strlen:
+    669 705 
+  Reloc 63 (Internal: enodriv_55):  Target section 1:
+    721 889 
+  Reloc 64 (Internal: _GetBE16):  Target section 0:
+    750 
+  Reloc 65 (Internal: foundnoth_64):  Target section 1:
+    755 
+  Reloc 66 (Internal: foundpart_59):  Target section 1:
+    789 
+  Reloc 67 (Internal: partition_60):  Target section 1:
+    808 
+  Reloc 68 (Internal: none_63):  Target section 1:
+    813 
+  Reloc 69 (Internal: _partTypes93ab90):  Target section 1:
+    820 
+  Reloc 70 (Internal: unknown_61):  Target section 1:
+    828 
+  Reloc 71 (Internal: type0x_62):  Target section 1:
+    831 
+  Reloc 72 (Internal: fatfound_58):  Target section 1:
+    855 
+  Reloc 73 (Internal: enonexi_57):  Target section 1:
+    874 
+  Reloc 74 (Internal: eillegal_56):  Target section 1:
+    881 
+  Reloc 75 (Internal: usagefat_48):  Target section 1:
+    909 
+  Reloc 76 (Internal: xdriven_49):  Target section 1:
+    912 
+  Reloc 77 (Internal: blknumpri_50):  Target section 1:
+    915 
+  Reloc 78 (Internal: vvverb_51):  Target section 1:
+    918 
+  Reloc 79 (Internal: hshowth_52):  Target section 1:
+    921 
+  Reloc 80 (Internal: _GetBE8@1):  Target section 0:
+    930 
+  Reloc 81 (Internal: _strcmp@1):  Target section 0:
+    1000 
+  Reloc 82 (Internal: _strcmp@0):  Target section 0:
+    1003 
+Relocations of Section 1,page 1 voxdata_1:
+  Reloc 0 (Internal: String_65):  Target section 1:
+    1672 
+  Reloc 1 (Internal: String_66):  Target section 1:
+    1673 
+  Reloc 2 (Internal: String_67):  Target section 1:
+    1674 
+  Reloc 3 (Internal: String_68):  Target section 1:
+    1675 
+  Reloc 4 (Internal: String_69):  Target section 1:
+    1676 
+  Reloc 5 (Internal: String_70):  Target section 1:
+    1677 
+  Reloc 6 (Internal: String_71):  Target section 1:
+    1678 
+  Reloc 7 (Internal: String_72):  Target section 1:
+    1679 
+  Reloc 8 (Internal: String_73):  Target section 1:
+    1680 
+  Reloc 9 (Internal: String_74):  Target section 1:
+    1681 
+  Reloc 10 (Internal: String_75):  Target section 1:
+    1682 
+  Reloc 11 (Internal: String_76):  Target section 1:
+    1683 
+  Reloc 12 (Internal: String_77):  Target section 1:
+    1684 
+  Reloc 13 (Internal: String_78):  Target section 1:
+    1685 
+  Reloc 14 (Internal: String_79):  Target section 1:
+    1686 
+  Reloc 15 (Internal: String_80):  Target section 1:
+    1687 

@@ -1,0 +1,41 @@
+[0]
+# Default configuration, no buttons pressed during boot.
+# This configuration runs the VSOS Shell automatically
+# NOTE! If not using audio, you can comment out audio drivers.
+# Start USB Host (memory stick) as device D
+USBHOST F
+# New 2015 audio DAC out driver
+AUODAC s
+# New 2015 audio ADC in driver
+AUIADC s 48000 line1_1 line1_2
+# Start UART in/out driver
+UARTIN
+# Start the shell
+S:SHELL.AP3
+
+
+[1]
+# Button[S1] pressed.
+# Configuration S1 is fixed to be the USB Upload Configuration 
+# in the Kernel. [S1] for SPI Flash (System disk)
+# For usability reasons, the chip will remain in the USB mode until
+# it is reset, so no further drivers can be loaded in this configuration.
+
+
+[2]
+
+[3]
+
+[4]
+
+[5]
+
+[6]
+
+[7]
+
+[8]
+
+[9] 
+USBHOST F
+

@@ -1,0 +1,3749 @@
+
+//_____________________________________________________________
+//
+	.sect code,callback	// 145 words
+	.export _callback
+_callback:
+	ldc 41,I7
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)*,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	ldc 128,C0	// 128 -> 1 -> ET14
+	ldc 40,B1	// 40 -> 1 -> ETf
+	stx C1,(I6) ; sty D0,(I6)+1
+	ldc 63,C1	// 63 -> 1 -> ET18
+	stx D1,(I6) ; sty I0,(I6)+1
+	stx I1,(I6) ; sty I2,(I6)
+	ldc _vo_stdout,I2	// ET4
+	ldx (I4)-5,NULL ; and NULL,NULL,A1	// I4 += -5
+	ldx (I4)+6,A0	// unspill A0 from #0
+	mv A0,I0 ; mv I4,B0	// 'value' lsw 'str'
+// str
+// counter
+// (*str)
+	j F0B6
+	ldx (I4)-1,NULL	// I4 += -1
+// jumped away
+F0B3:	// (loop lvl 2)
+	ldc 2048,D0	// 2048 -> ET3
+	ldx (I0),A0 ; ldy (I6)-1,NULL
+//     }
+//     {
+//         if (*str >= 0x800)
+	sub A0,D0,D1	// ET2 >= ET3 -> AT37
+	nop
+	jcs F0B7	// unsigned compare
+	nop
+// jumped away
+//         else if (*str >= 0x80)
+	ldx (I0),A0	// 'str' ==> ET2
+	sub A0,C0,D1	// ET2 >= ET14 -> AT3b
+	nop
+	jcs F0B19	// unsigned compare
+	nop
+// jumped away
+	ldy (I6)+1,NULL ; ldx (I2),A0/*V*/	// I6 += 1
+//         }
+//         else
+//         {
+//             testing[(counter < 40) ? counter++ : 39] =(vo_fputc((*str),vo_stdout));
+	stx A0,(I6)+1	// 'vo_stdout'
+	ldx (I0),A0	// 'str' ==> ET2e
+	call _vo_fputc
+	stx A0,(I6)	// ET2e
+// jumped away
+	ldx (I6)-2,NULL ; sub A1,B1,D1	// I6 += -2
+	ldc 39,D0	// 39 -> AT30
+	jcs F0B30	// unsigned compare
+	nop
+// jumped away
+	mv A1,D0 ; sub A1,ONES,D1	// 'counter' -> AT30
+	mv D1,A1	// AT52 -> 'counter'
+F0B30:	// (loop lvl 2)
+	add B0,D0,D0 ; ldy (I0)+1,NULL	// ETc + AT30 -> AT4c
+	mv D0,I1	// AT4c -> ET31
+	stx A0,(I1)	// ET2f ==> ET31
+//         str++;
+F0B6:	// (loop lvl 2)
+	ldx (I0),A0 ; ldy (I6)+1,NULL	// 'str' ==> ET2
+	sub A0,NULL,A0	// ET2 != (0) -> (0)
+	ldc String_1,A0	// ET35
+	jzc F0B3	// unsigned compare
+	nop	// I6 += 1
+// jumped away
+//  vo_printf("\n");
+	call _vo_printf
+	stx A0,(I6)	// ET35
+// jumped away
+	ldx (I4)+1,NULL ; ldy (I6)-1,NULL	// I4 += 1
+	mv I4,A0	// ETc returns via A0
+//   return testing;
+	ldy (I6),I2 ; ldx (I6)-1,I1	// I4 += -1
+	ldy (I6),I0 ; ldx (I6)-1,D1
+	ldy (I6),D0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldy (I4)-1,NULL
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F0B19:	// (loop lvl 2)
+	ldy (I6)+1,NULL ; ldx (I2),D0/*V*/	// I6 += 1
+	stx D0,(I6)+1 ; and D1,NULL,D1
+	mv A0,D0	// 'vo_stdout'
+//         }
+//         {
+//             testing[(counter < 40) ? counter++ : 39] =(vo_fputc((0xc0 | (*str>>6)),vo_stdout));
+	ldc -6,A0	// -6 -> ET16
+	ashl D,A0,D	// AT41 <- ET16 -> AT42
+	ldc 192,A0	// 192 -> ET25
+	or A0,D0,A0	// ET25 or ET17 -> ET26
+	call _vo_fputc
+	stx A0,(I6)	// ET26
+// jumped away
+	ldx (I6)-2,NULL ; sub A1,B1,D1	// I6 += -2
+	ldc 39,D0	// 39 -> AT29
+	jcs F0B24	// unsigned compare
+	nop
+// jumped away
+	mv A1,D0 ; sub A1,ONES,D1	// 'counter' -> AT29
+	mv D1,A1	// AT50 -> 'counter'
+F0B24:	// (loop lvl 2)
+	add B0,D0,D0 ; ldy (I6)+1,NULL	// I6 += 1
+	mv D0,I1	// AT4a -> ET2a
+	stx A0,(I1)	// ET28 ==> ET2a
+//             testing[(counter < 40) ? counter++ : 39] =(vo_fputc((0x80 | (*str & 0x3f)),vo_stdout));
+	ldx (I2),A0/*V*/	// ET4 ==> 'vo_stdout'
+	stx A0,(I6)+1	// 'vo_stdout'
+	ldx (I0),A0	// 'str' ==> ET2
+	and A0,C1,A0	// ET2 and ET18 -> ET1f
+	or C0,A0,A0	// ET14 or ET1f -> ET21
+	call _vo_fputc
+	stx A0,(I6)	// ET21
+// jumped away
+	ldx (I6)-2,NULL ; sub A1,B1,D1	// I6 += -2
+	ldc 39,D0	// 39 -> AT2c
+	jcs F0B30	// unsigned compare
+	nop
+// jumped away
+	mv A1,D0 ; sub A1,ONES,D1	// 'counter' -> AT2c
+	j F0B30
+	mv D1,A1	// AT51 -> 'counter'
+// jumped away
+F0B7:	// (loop lvl 2)
+	ldy (I6)+1,NULL ; ldx (I2),D0/*V*/	// I6 += 1
+	stx D0,(I6)+1 ; and D1,NULL,D1
+	mv A0,D0	// 'vo_stdout'
+//         }
+//         {
+//             testing[(counter < 40) ? counter++ : 39] =(vo_fputc((0xe0 | (*str>>12)),vo_stdout));
+	ldc -12,A0	// -12 -> ET7
+	ashl D,A0,D	// AT39 <- ET7 -> AT3a
+	ldc 224,A0	// 224 -> ET5
+	or A0,D0,A0	// ET5 or ET8 -> ET9
+	call _vo_fputc
+	stx A0,(I6)	// ET9
+// jumped away
+	sub A1,B1,D1 ; ldx (I6)-2,NULL	// I6 += -2
+	ldc 39,D0	// 39 -> ATe
+	jcs F0B12	// unsigned compare
+	sub A1,ONES,D1	// 'counter' - (-1) -> AT4d
+// jumped away
+	mv D1,A1 ; add A1,NULL,D0	// AT4d -> 'counter'
+F0B12:	// (loop lvl 2)
+	add B0,D0,D0 ; ldy (I6)+1,NULL	// I6 += 1
+	mv D0,I1 ; and D1,NULL,D1	// AT47 -> ET13
+	stx A0,(I1)	// ETb ==> ET13
+//             testing[(counter < 40) ? counter++ : 39] =(vo_fputc((0x80 | ((*str>>6) & 0x3f)),vo_stdout));
+	ldx (I2),A0/*V*/	// ET4 ==> 'vo_stdout'
+	stx A0,(I6)+1	// 'vo_stdout'
+	ldc -6,A0	// -6 -> ET16
+	ldx (I0),D0	// 'str' ==> ET2
+	ashl D,A0,D	// AT3d <- ET16 -> AT3e
+	and D0,C1,A0	// ET17 and ET18 -> ET19
+	or C0,A0,A0	// ET14 or ET19 -> ET1a
+	call _vo_fputc
+	stx A0,(I6)	// ET1a
+// jumped away
+	ldx (I6)-2,NULL ; sub A1,B1,D1	// I6 += -2
+	ldc 39,D0	// 39 -> AT1d
+	jcs F0B15	// unsigned compare
+	nop
+// jumped away
+	mv A1,D0 ; sub A1,ONES,D1	// 'counter' -> AT1d
+	mv D1,A1	// AT4e -> 'counter'
+F0B15:	// (loop lvl 2)
+	add B0,D0,D0 ; ldy (I6)+1,NULL	// I6 += 1
+	mv D0,I1	// AT48 -> ET1e
+	stx A0,(I1)	// ET1c ==> ET1e
+//             testing[(counter < 40) ? counter++ : 39] =(vo_fputc((0x80 | (*str & 0x3f)),vo_stdout));
+	ldx (I2),A0/*V*/	// ET4 ==> 'vo_stdout'
+	stx A0,(I6)+1	// 'vo_stdout'
+	ldx (I0),A0	// 'str' ==> ET2
+	and A0,C1,A0	// ET2 and ET18 -> ET1f
+	or C0,A0,A0	// ET14 or ET1f -> ET20
+	call _vo_fputc
+	stx A0,(I6)	// ET20
+// jumped away
+	ldx (I6)-2,NULL ; sub A1,B1,D1	// I6 += -2
+	ldc 39,D0	// 39 -> AT23
+	jcs F0B30	// unsigned compare
+	nop
+// jumped away
+	mv A1,D0 ; sub A1,ONES,D1	// 'counter' -> AT23
+	j F0B30
+	mv D1,A1	// AT4f -> 'counter'
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,GetID3Size7	// 31 words
+	.export _GetID3Size7
+_GetID3Size7:
+	ldx (I6)+1,NULL ; sub NULL,ONES,A1	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+3,I4
+	stx B0,(I6) ; sty B1,(I6)+1
+	ldc 127,B1	// 127 -> 0 -> ET6
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx D0,(I6) ; sty D1,(I6)+1
+	ldc 7,D0	// 7 -> 0 -> ET3
+	stx LC,(I6) ; sty LS,(I6)+1
+	ldc 3,LC	// loop 4 iterations
+	stx LE,(I6)+1 ; ldy (I4)-2,NULL
+// res
+// (i = 0; i < 4; i++)
+	loop LC,F1B4-1
+	and C,NULL,C ; ldx (I4)+2,B0	// 0 -> 'res'
+//loop resumes
+// 	}
+// 	{
+// 		res <<= 7;
+// 		res |= vo_fgetc(fp) & 0x7F;
+	call _vo_fgetc
+	ashl C,D0,C ; stx B0,(I6)	// 'res' << ET3 -> 'res'
+// jumped away
+	ldx (I4)+1,NULL ; and A0,B1,A0	// I4 += 1
+	stx D0,(I4)-1 ; sty D1,(I4)	// D0 spills to #0
+	mulss A0,A1	// ET7 sXtd ET8 -> P
+	or C,P,C	// 'res' or ET9 -> 'res'
+//	(0 nop's needed)
+// loop end
+F1B4:	// loop exit
+	ldx (I6)-1,NULL ; add C,NULL,A
+// 	return res;
+	ldx (I6)-1,LE	// 'res' returns via A
+	ldy (I6),LS ; ldx (I6)-1,LC
+	ldy (I6),D1 ; ldx (I6)-1,D0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,GetID3Size8	// 29 words
+	.export _GetID3Size8
+_GetID3Size8:
+	ldx (I6)+1,NULL ; sub NULL,ONES,A1	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx B0,(I6) ; sty B1,(I6)+1
+	ldc 8,B0	// 8 -> 0 -> ET3
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx D0,(I6) ; sty D1,(I6)+1
+	stx LC,(I6) ; sty LS,(I6)+1
+	ldc 3,LC	// loop 4 iterations
+	stx LE,(I6)+1 ; ldy (I4)-2,NULL
+// res
+// (i = 0; i < 4; i++)
+	loop LC,F2B4-1
+	and C,NULL,C ; ldx (I4)+2,B1	// 0 -> 'res'
+//loop resumes
+// 	}
+// 	{
+// 		res <<= 8;
+// 		res |= vo_fgetc(fp);
+	call _vo_fgetc
+	ashl C,B0,C ; stx B1,(I6)	// 'res' << ET3 -> 'res'
+// jumped away
+	mulss A0,A1	// I6 += -1
+	add NULL,P,D	// P -> ET7
+	or C,D,C	// 'res' or ET7 -> 'res'
+//	(0 nop's needed)
+// loop end
+F2B4:	// loop exit
+	ldx (I6)-1,NULL ; add C,NULL,A
+// 	return res;
+	ldx (I6)-1,LE	// 'res' returns via A
+	ldy (I6),LS ; ldx (I6)-1,LC
+	ldy (I6),D1 ; ldx (I6)-1,D0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,TrimAndSend	// 44 words
+_TrimAndSend:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	mv I2,A1	// I2 -> 'string'
+	ldc 30,A0	// 30 -> A0
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx I0,(I6) ; sty I1,(I6)
+	mv A1,I1	// 'string' -> I1
+	ldc _currTmpStr,I0	// I0
+
+// (currTmpStr, string, 30);
+	call _strncpy
+	ldc _currTmpStr+29,I2	// 'c'
+// jumped away
+// 	currTmpStr[30] = '\0';
+	ldc _currTmpStr+30,I0	// ET7
+	ldc 0,A0	// 0 -> 1 -> ET5
+	ldc 32,B0	// 32 -> 0 -> ET9
+// 	while( (*c == ' ') && (c > string) )
+	j F3B7
+	stx A0,(I0)	// ET5 ==> ET7
+// jumped away
+F3B8:	// (loop lvl 2)
+	sub B1,A1,B1	// AT12 <= 'string' -> AT11
+	nop
+	jle F3B5	// signed compare
+	nop
+// jumped away
+// 	}
+// 	{
+// 		*c-- = '\0';
+	stx A0,(I2)-1	// ETa ==> 'c'
+F3B7:	// (loop lvl 2)
+	ldx (I2),B1	// 'c' ==> ET8
+	sub B1,B0,B1	// ET8 == ET9 -> AT10
+	mv I2,B1	// 'c' -> AT12
+	jzs F3B8	// signed compare
+	nop
+// jumped away
+F3B5:
+	ldc _currTmpStr,A0	// ET0
+	ldx (I6)+1,NULL ; and A1,NULL,A1	// I6 += 1
+// 	callback(-1, uiMsg, (u_int32) currTmpStr);
+	stx A0,(I6)+1 ; or NULL,ONES,A0
+	stx A1,(I6)+1	// A1
+	stx C0,(I6)+1	// 'uiMsg'
+	call _callback
+	stx A0,(I6)	// ETc
+// jumped away
+	ldx (I6)-4,NULL	// I6 += -4
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,ReturnID3	// 452 words
+	.export _ReturnID3
+_ReturnID3:
+	ldc 142,I7
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)*,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx C1,(I6) ; sty D0,(I6)+1
+	stx D1,(I6) ; sty I0,(I6)+1
+	stx I1,(I6) ; sty I2,(I6)+1
+	stx I3,(I6) ; sty LC,(I6)+1
+	stx LS,(I6)+1 ; sty LE,(I6)
+	ldx (I4)-3,NULL	// I4 += -3
+	ldx (I4)+6,C1	// unspill 'fp' from #-3
+// oldPos
+	call _vo_ftell
+	stx C1,(I6)	// 'fp'
+// jumped away
+	stx A0,(I4) ; sty A1,(I4)-3	// A0 spills to #0
+	ldc 0,A0	// 0 -> 0 -> ET2
+// (fp, 0,0);
+	stx A0,(I6)+1 ; and A,NULL,A	// ET2
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	call _vo_fseek
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldx (I6)-3,NULL	// I6 += 1
+// 	if ((vo_fgetc(fp) == 'I') && (vo_fgetc(fp) == 'D') && (vo_fgetc(fp) == '3') && ( (vo_fgetc(fp) + 1) >> 1 ) == 2 && vo_fgetc(fp) == 0x00)
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldc 73,A1	// 73 -> 0 -> ET6
+	ldx (I6)-1,NULL ; sub A0,A1,A0	// I6 += -1
+	nop
+	jzc F4B6	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldc 68,A1	// 68 -> 0 -> ET8
+	sub A0,A1,A0	// I6 += -1
+	nop
+	jzs F4B10	// signed compare
+	nop
+// jumped away
+	ldx (I6)-1,NULL
+F4B6:
+	ldc 2,A0	// 2 -> 0 -> ET10
+	ldc _currTmpStr,I0	// 'c'
+	ldx (I6)+1,NULL ; or NULL,ONES,A1	// I6 += 1
+// 	}
+
+// (fp, -128,2);
+	stx A0,(I6)+1	// ET10
+	ldc -128,A0	// -128 -> 2 -> A0
+	stx A0,(I6)+1	// -1 -> A1
+	stx A1,(I6)+1	// A1
+	call _vo_fseek
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldc id3v1tag_7,A0	// ET72
+	ldx (I6)-3,NULL	// I6 += 1
+//  vo_printf("ID3v1 tag! \n");
+	call _vo_printf
+	stx A0,(I6)	// ET72
+// jumped away
+	ldc 127,LC	// loop 128 iterations
+	ldy (I4)-2,NULL	// I6 += -1
+// 		for(i = 0; i < 128; i++)
+	loop LC,F4B87-1
+	ldx (I4)+2,I3	// unspill AT0 from #-2
+//loop resumes
+// 		}
+// 		{
+// 			*c++ = vo_fgetc(fp);
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	stx A0,(I0)+1	// I6 += -1
+//	(0 nop's needed)
+// loop end
+F4B87:	// loop exit
+	ldc tag_8,I1	// I1
+	ldc 3,A0	// 3 -> A0
+	ldx (I6)-1,NULL
+// 		c = (char *) currTmpStr;
+// 		if (!strncmp(c, "TAG", 3))
+	call _strncmp
+	ldc _currTmpStr,I0	// 'c'
+// jumped away
+	sub A0,NULL,A0	// ET7b != (0) -> (0)
+	nop
+	jzc F4B7	// signed compare
+	nop
+// jumped away
+// 		}
+// 		{
+// 			TrimAndSend(c + 3,0x0503);
+	ldc _currTmpStr+97,I0	// ET86
+	ldc 1283,C0	// 1283 -> C0
+	call _TrimAndSend
+	ldc _currTmpStr+3,I2	// I2
+// jumped away
+// 			TrimAndSend(c + 33,0x0505);
+	ldc 1285,C0	// 1285 -> C0
+	call _TrimAndSend
+	ldc _currTmpStr+33,I2	// I2
+// jumped away
+// 			TrimAndSend(c + 63,0x0504);
+	ldc 1284,C0	// 1284 -> C0
+	call _TrimAndSend
+	ldc _currTmpStr+63,I2	// I2
+// jumped away
+	and NULL,NULL,A0 ; ldy (I6)+1,NULL	// I6 += 1
+// 			c += 93;
+// 			c[4] = 0;
+	stx A0,(I0) ; and A1,NULL,A1	// ET2 ==> ET86
+// 			callback(-1,0x0506, (u_int32) c);
+	ldc _currTmpStr+93,A0	// 'c'
+	stx A0,(I6)+1
+	ldc 1286,A0	// 1286 -> 1 -> ET88
+	stx A1,(I6)+1	// A1
+	stx A0,(I6)+1 ; or NULL,ONES,A0	// ET88
+	call _callback
+	stx A0,(I6)	// ETe
+// jumped away
+	ldx (I6)-4,NULL	// I6 += -4
+F4B7:
+	ldx (I4)+3,NULL ; ldy (I6)+1,NULL	// I4 += 3
+	ldy (I4),A1 ; and NULL,NULL,A0	// 0 -> 0 -> ET2
+//  vo_fseek(fp, oldPos,0);
+	stx A0,(I6)+1	// ET2
+	ldx (I4)-3,A0	// unspill A0 from #0
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	call _vo_fseek
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldc 129,LC	// copy 131 words
+	ldx (I4)+7,NULL ; ldy (I6)-4,NULL	// I4 += 7
+// 	return songinfotest;
+	loop LC,MEMCOPY0-1
+	ldx (I4)+1,A0
+//loop resumes
+	stx A0,(I3)+1
+	ldx (I4)+1,A0
+//	(0 nop's needed)
+// loop end
+	// memcopy
+MEMCOPY0:
+	ldc -138,I5
+	stx A0,(I3)-7 ; ldy (I4)*,NULL
+	ldx (I3)-7,NULL ; ldy (I6),LE	// ...
+	ldy (I3)-7,NULL ; ldx (I6)-1,LS	// ...
+	ldx (I3)-7,NULL ; ldy (I6),LC	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-7,NULL	// ...
+	ldx (I3)-4,NULL	// ...
+	mv I3,A0	// AT0 returns via A0
+	ldx (I6)-1,I3
+	ldy (I6),I2 ; ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,D1
+	ldy (I6),D0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+F4B10:
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	add A0,NULL,A1 ; ldx (I6)-1,NULL	// I6 += -1
+	ldc 51,A0	// 51 -> 0 -> ETa
+	sub A1,A0,A0	// ET9 == ETa -> AT91
+	nop
+	jzc F4B6	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	sub A0,ONES,A0 ; ldx (I6)-1,NULL	// I6 += -1
+	asr A0,A1	// ETd << (-1) -> ETf
+	ldc 2,A0	// 2 -> 0 -> ET10
+	sub A1,A0,A0	// ETf == ET10 -> AT92
+	nop
+	jzc F4B6	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldx (I6)-1,NULL ; sub A0,NULL,A0	// I6 += -1
+	ldc mojibake_2,A0	// ET12
+	jzc F4B6	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+// 	}
+// stringDecoderLib
+	call _LoadLibrary
+	stx A0,(I6)	// ET12
+// jumped away
+	ldy (I4)+1,NULL ; stx C1,(I6)	// I4 += 1
+// flags
+	call _vo_fgetc
+	sty A0,(I4)-1	// A0 spills to #0
+// jumped away
+// id3Left
+	call _GetID3Size7
+	stx C1,(I6) ; add A0,NULL,C0	// I6 += 1
+// jumped away
+	ldx (I4)+5,NULL ; ldy (I6)-1,NULL	// I4 += 5
+	stx A0,(I4) ; sty A1,(I4)-1	// A0 spills to #0
+	ldc 64,A0	// 64 -> 1 -> ET17
+// (flags & 0x40)
+	and C0,A0,A0	// 'flags' and ET17 -> ET18
+	ldc _currTmpStr,A0
+	jzs F4B107	// compare against zero
+	nop
+// jumped away
+	ldy (I6)+1,NULL ; ldx (I4)-4,NULL
+// 		}
+// extSize
+	call _GetID3Size8
+	stx C1,(I6)	// 'fp'
+// jumped away
+	add A,NULL,B	// I6 += 1
+	sub NULL,ONES,A0	// 1 -> 0 -> ETc
+// (fp, extSize,1);
+	stx A0,(I6)+1 ; and B1,NULL,B1	// ETc
+	stx B0,(I6)+1
+	stx B1,(I6)+1	// B1
+	call _vo_fseek
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldx (I4)+5,NULL ; ldy (I6)-4,NULL	// I4 += 5
+// 			id3Left -= extSize;
+	ldx (I4),A0 ; ldy (I4),A1	// unspill A0 from #0
+	sub A,B,A	// 'id3Left' - ET1b -> 'id3Left'
+	stx A0,(I4) ; sty A1,(I4)-1	// A0 spills to #0
+	ldc _currTmpStr,A0	// ET3b
+F4B107:
+	and A1,NULL,A1 ; stx A0,(I4)
+	sty A1,(I4)-2 ; sub NULL,ONES,A0	// A1 spills to #0
+	stx A0,(I4)-4	// ETc spills to #0
+	j F4B27
+	ldx (I4)+2,I3	// unspill AT0 from #-2
+// jumped away
+F4B29:	// (loop lvl 2)
+// 			if(thereIsFrameId && id3Left >= 6)
+	sub A1,NULL,A1 ; ldx (I4)+2,NULL	// 'thereIsFrameId' == (0) -> (0)
+	ldy (I6)+1,NULL
+	jzs F4B35	// unsigned compare
+	ldc 6,A0	// 6 -> A0
+// jumped away
+	ldx (I4)+3,NULL ; and NULL,NULL,A1
+	mv A1,A1	// update guard bits (cmp)
+	ldx (I4),B0 ; ldy (I4)-3,B1	// unspill B0 from #0
+	mv B1,B1	// 0 -> A1
+	sub B,A,A	// 'id3Left' >= ET2a -> AT9a
+	nop
+	jge F4B34	// signed compare
+	nop	// I6 += 1
+// jumped away
+F4B35:	// (loop lvl 2)
+// 			}
+// 			else
+// 			{
+//  vo_fseek(fp, id3Left,1);
+	ldx (I4)+3,A0	// unspill ETc from #0
+	stx A0,(I6)+1 ; ldy (I4),A1	// ETc
+	ldx (I4)-5,A0	// unspill A0 from #0
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	call _vo_fseek
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldx (I4)+5,NULL ; ldy (I6)-4,NULL	// I4 += 5
+	and A,NULL,A	// 0 -> 'id3Left'
+// 				id3Left = 0;
+	stx A0,(I4) ; sty A1,(I4)-5	// A0 spills to #0
+F4B27:	// (loop lvl 2)
+	ldx (I4)+5,NULL	// I4 += 5
+	ldx (I4),A0 ; ldy (I4)-4,A1	// unspill A0 from #0
+	mv A1,A1	// update guard bits (cmp)
+	sub A,NULL,A	// 'id3Left' <= (0) -> (0)
+	ldy (I4),A0	// unspill 'stringDecoderLib' from #0
+	jle F4B25	// signed compare
+	nop
+// jumped away
+	and NULL,NULL,C0 ; ldx (I4)-1,NULL
+// 		}
+// thereIsFrameId
+// (i = 0; i < 4 && id3Left > 0; i++)
+	j F4B31
+	and NULL,NULL,A1	// 0 -> 'thereIsFrameId'
+// jumped away
+F4B32:	// (loop lvl 3)
+	ldx (I4),B0 ; ldy (I4)-5,B1	// unspill B0 from #0
+	mv B1,B1	// update guard bits (cmp)
+	sub B,NULL,B	// 'id3Left' <= (0) -> (0)
+	nop
+	jle F4B29	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+// 			}
+// 			{
+// 				thereIsFrameId |= (frameId[i] = vo_fgetc(fp));
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	ldc 138,I5
+	ldx (I4)*,NULL ; ldy (I6)-1,NULL	// I4 += 138
+	mv I4,B0	// I4 -> [] -> ET21
+	ldc -133,I5
+	ldx (I4)*,NULL ; add B0,C0,B0	// I4 += -133
+	mv B0,I0 ; sub C0,ONES,C0	// ATa4 -> ET22
+	stx A0,(I0) ; ldy (I4),B1	// ET20 ==> ET22
+	or A1,A0,A1 ; ldx (I4),B0	// 'thereIsFrameId' or ET20 -> 'thereIsFrameId'
+	sub NULL,ONES,A0	// 1 -> 0 -> ETc
+// 				id3Left--;
+	add B,ONES,B	// 'id3Left' + (-1) -> 'id3Left'
+	stx B0,(I4) ; sty B1,(I4)-3	// B0 spills to #0
+	stx A0,(I4)-2	// ETc spills to #0
+F4B31:	// (loop lvl 3)
+	ldc 4,A0	// 4 -> 0 -> ET1f
+	sub C0,A0,A0 ; ldx (I4)+5,NULL	// 'i' < ET1f -> AT98
+	nop
+	jlt F4B32	// signed compare
+	nop	// I4 += 5
+// jumped away
+	j F4B29
+	ldx (I4)-5,NULL
+// jumped away
+F4B25:
+// 			if(stringDecoderLib)
+	sub A0,NULL,A0 ; ldx (I4)-1,NULL	// 'stringDecoderLib' == (0) -> (0)
+	nop
+	jzs F4B7	// signed compare
+	nop
+// jumped away
+	ldx (I4)+1,NULL ; ldy (I6)+1,NULL	// I4 += 1
+// 			}
+// 			{
+// 				DropLibrary(stringDecoderLib);
+	ldy (I4)-1,A0	// unspill 'stringDecoderLib' from #0
+	call _DropLibrary
+	stx A0,(I6)	// 'stringDecoderLib'
+// jumped away
+	j F4B7
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+F4B34:	// (loop lvl 2)
+// 			}
+// = GetID3Size8(fp);
+	call _GetID3Size8
+	ldy (I4)-2,NULL ; stx C1,(I6)
+// jumped away
+// 				frameFlags = (u_int16)vo_fgetc(fp) << 8;
+	call _vo_fgetc
+	stx C1,(I6) ; add A,NULL,B	// I6 += 1
+// jumped away
+// 				frameFlags |= vo_fgetc(fp);
+	call _vo_fgetc
+	stx C1,(I6)	// I6 += 1
+// jumped away
+	ldc 6,A0	// 6 -> A0
+	ldx (I4)+5,NULL ; and NULL,NULL,A1	// 0 -> A1
+	ldx (I4),D0 ; ldy (I4)-5,D1	// I4 += 5
+// 				id3Left -= 6;
+	sub D,A,A ; ldx (I6)-1,NULL	// 'id3Left' - ET2a -> 'id3Left'
+	mv A1,A1	// update guard bits (cmp)
+// 				if(id3Left < frameSize)
+// (B2 already up to date)
+	sub A,B,D	// 'id3Left' >= 'frameSize' -> AT9b
+	ldc _id3Tags,I0
+	jge F4B42	// signed compare
+	nop	// 'cTag'
+// jumped away
+// 				}
+// 				{
+// 					frameSize = id3Left;
+	add A,NULL,B	// 'id3Left' -> 'frameSize'
+F4B42:	// (loop lvl 2)
+	ldx (I4)+5,NULL ; sub A,B,A	// I4 += 5
+// 				id3Left -= frameSize;
+// 				i = 0;
+// 				cTag = id3Tags;
+// 				while (cTag->uiMessage != 0x0000)
+	j F4B46
+	stx A0,(I4) ; sty A1,(I4)-4	// A0 spills to #0
+// jumped away
+F4B63:	// (loop lvl 3)
+	ldx (I4)+4,NULL ; ldy (I6)+1,NULL	// I4 += 4
+// 									songinfotest.title = callback(-1,cTag->uiMessage,(u_int32)currTmpStr);
+	ldx (I4),A0 ; ldy (I4)-3,A1	// unspill A0 from #0
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	ldx (I4)-1,I0	// unspill 'cTag' from #0
+	ldx (I0),A0	// 'cTag' ==> ET36
+	stx A0,(I6)+1 ; or NULL,ONES,A0	// ET36
+	call _callback
+	stx A0,(I6)	// ETe
+// jumped away
+	ldx (I4)+7,NULL ; ldy (I6)-3,NULL	// I4 += 7
+	stx A0,(I4)-7
+//  vo_printf("%i - ", sizeof(songinfotest.title));
+	ldc 31,A0	// 31 -> ET56
+	stx A0,(I6)+1	// ET56
+	ldc i_5,A0	// ET57
+	call _vo_printf
+	stx A0,(I6)	// ET57
+// jumped away
+	ldc 30,LC	// loop 31 iterations
+// 									  for (k = 0; k < sizeof(songinfotest.title); k++)
+	and NULL,NULL,A1 ; ldy (I6)-1,NULL	// I6 += -2
+	loop LC,L1-1
+	ldx (I4)+7,NULL	// I4 += 7
+//loop resumes
+	mv I4,A0	// I4 -> [] -> ET55
+// 										}
+// 									  {
+//  vo_printf("(%c)", (unsigned char) songinfotest.title[k]);
+	add A0,A1,A0 ; ldy (I4)-7,NULL	// I4 += -7
+	mv A0,I0	// ATa8 -> ET5a
+	ldx (I0),A0	// ET5a ==> ET5b
+	stx A0,(I6)+1	// ET5b
+	ldc c_6,A0	// ET5d
+	call _vo_printf
+	stx A0,(I6)	// ET5d
+// jumped away
+	sub A1,ONES,A1 ; ldy (I6)-1,NULL	// I6 += -2
+	ldx (I4)+7,NULL
+//	(0 nop's needed)
+// loop end
+L1:
+	ldx (I4)-7,NULL ; ldy (I6)-1,NULL
+F4B72:	// loop exit
+// 									break;
+	ldx (I4)+1,NULL	// I4 += 1
+// 					++cTag;
+	ldx (I4),I0	// unspill 'cTag' from #0
+	ldx (I0)+6,NULL	// 'cTag' += 6
+F4B46:	// (loop lvl 3)
+	stx I0,(I4)+1 ; ldy (I6)+1,NULL	// 'cTag' spills to #0
+	ldx (I0),A0	// 'cTag' ==> ET36
+	sub A0,NULL,A0	// ET36 == (0) -> (0)
+	ldc 4,A0	// 4 -> A0
+	jzs F4B44	// unsigned compare
+	nop	// I4 += 2
+// jumped away
+	ldc 137,I5
+	ldx (I4)-1,NULL ; ldy (I6)-1,NULL
+// 				}
+// 				{
+// 					if (!memcmp(cTag->tagStr, frameId, 4))
+	ldx (I4)*,I2	// unspill 'cTag' from #0
+	mv I4,I1	// I4 -> [] -> I1
+	ldc -137,I5
+	ldx (I2)+1,NULL ; ldy (I4)*,NULL	// 'cTag' += 1
+	mv I2,I0	// 'cTag' -> I0
+	ldx (I2)-1,NULL	// 'cTag' += -1
+	call _memcmp
+	stx I2,(I4)-1	// 'cTag' spills to #0
+// jumped away
+	sub A0,NULL,A0	// ET3a != (0) -> (0)
+	nop
+	jzc F4B72	// signed compare
+	nop
+// jumped away
+	ldc _currTmpStr,I1	// 'write'
+	ldx (I6)+1,NULL	// I6 += 1
+// 					}
+// write
+// coding
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	mv A0,C0	// I6 += -1
+	ldc 254,A1	// 254 -> ET3f
+	add B,ONES,B ; ldx (I6)-1,NULL	// 'frameSize' + (-1) -> 'frameSize'
+// frameSize;
+// 						s = (u_int16) frameSize;
+// 						if(s > 256 -2)
+	sub A1,B0,A1 ; mv B0,A0	// ET3f > ATab -> AT9e
+	nop
+	jcs F4B56	// unsigned compare
+	nop
+// jumped away
+// 						}
+// 						{
+// 							s = 256 -2;
+	ldc 254,A0	// 254 -> ATab
+F4B56:	// (loop lvl 4)
+	add A0,ONES,A1	// ATab + (-1) -> ATaa
+	sub NULL,A0,A0	// (0) > ATab -> (0)
+	ldc 0,D0	// 0 -> 1 -> ET1e
+	jcs F4B54	// unsigned compare
+	sub NULL,A0,A0	// restore value
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+// 						}
+// 						{
+// 							write[0]= vo_fgetc(fp);
+	call _vo_fgetc
+	stx C1,(I6)	// 'fp'
+// jumped away
+	stx A0,(I1)+1 ; ldy (I4)+2,NULL	// I4 += 2
+	sub NULL,ONES,A0 ; ldy (I6)-1,NULL	// 1 -> 0 -> ETc
+	add B,ONES,B ; stx A0,(I4)-2	// ET43 ==> 'write'
+// 							++write;
+// 							--frameSize;
+	j F4B56
+	add A1,NULL,A0	// ETc spills to #0
+// jumped away
+F4B54:	// (loop lvl 3)
+	ldy (I4)+1,NULL ; stx D0,(I1)+1	// I4 += 1
+// 						write[0] = 0;
+// 							write[1] = 0;
+	stx D0,(I1) ; ldy (I4)-1,A0	// ET1e ==> 'write'
+// 							if(stringDecoderLib)
+	sub A0,NULL,A0	// 'stringDecoderLib' == (0) -> (0)
+	nop
+	jzs F4B60	// signed compare
+	nop
+// jumped away
+	ldc 4,I0	// 4 -> ET8d
+	mv I0,A1	// ET8d -> ATa6
+	ldc _currTmpStr,I2	// I2
+	ldx (I4)+1,NULL	// I4 += 1
+// 							}
+// Decode
+	ldy (I4)-1,A0	// unspill 'stringDecoderLib' from #0
+	add A0,A1,A0	// 'stringDecoderLib' + ATa6 -> ATa5
+	mv A0,I0	// ATa5 -> ET47
+	ldx (I0),A0	// ET47 ==> 4 -> 'Decode'
+	mv A0,LR0
+// (currTmpStr, coding);
+	jr
+	ldc lo(F4B60),LR0	// (return address)
+// jumped away
+F4B60:	// (loop lvl 3)
+	ldc rightbefo_3,A0	// ET4a
+	ldx (I6)+1,NULL	// I6 += 1
+//  vo_printf("right before the message determination \n");
+	call _vo_printf
+	stx A0,(I6)	// ET4a
+// jumped away
+	ldc 1283,A0	// 1283 -> ET4c
+	ldx (I4)+1,NULL ; ldy (I6)-1,NULL	// I4 += 1
+// 						switch (cTag->uiMessage)
+	ldx (I4)-1,I0	// unspill 'cTag' from #0
+	ldx (I0),A1	// 'cTag' ==> ET36
+	sub A1,A0,A0	// ET36 - ET4c -> ET4d
+	ldc 3,A1	// 3 -> ET4e
+	sub A1,A0,A1	// ET4e > ET4d -> ATa1
+	nop
+	jcc F4B72	// unsigned compare
+	nop
+// jumped away
+	ldc JumpTable_4,A1	// ET4f
+	add A0,A1,A0	// ET4d + ET4f -> ATa7
+	mv A0,I0	// ATa7 -> ET50
+	ldx (I0),A0	// ET50 ==> ET51
+	mv A0,LR0
+	jr
+	nop
+// jumped away
+F4B64:	// (loop lvl 3)
+	ldx (I4)+4,NULL ; ldy (I6)+1,NULL	// I4 += 4
+// 									songinfotest.album = callback(-1,cTag->uiMessage,(u_int32)currTmpStr);
+	ldx (I4),A0 ; ldy (I4)-3,A1	// unspill A0 from #0
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	ldx (I4)-1,I0	// unspill 'cTag' from #0
+	ldx (I0),A0	// 'cTag' ==> ET36
+	stx A0,(I6)+1 ; or NULL,ONES,A0	// ET36
+	call _callback
+	stx A0,(I6)	// ETe
+// jumped away
+	ldc 69,I5
+	ldx (I4)*,NULL ; ldy (I6)-4,NULL	// I4 += 69
+	ldc -69,I5
+// 									break;
+	j F4B72
+	stx A0,(I4)*
+// jumped away
+F4B65:	// (loop lvl 3)
+	ldx (I4)+4,NULL ; ldy (I6)+1,NULL	// I4 += 4
+// 									songinfotest.artist = callback(-1,cTag->uiMessage,(u_int32)currTmpStr);
+	ldx (I4),A0 ; ldy (I4)-3,A1	// unspill A0 from #0
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	ldx (I4)-1,I0	// unspill 'cTag' from #0
+	ldx (I0),A0	// 'cTag' ==> ET36
+	stx A0,(I6)+1 ; or NULL,ONES,A0	// ET36
+	call _callback
+	stx A0,(I6)	// ETe
+// jumped away
+	ldc 38,I5
+	ldx (I4)*,NULL ; ldy (I6)-4,NULL	// I4 += 38
+	ldc -38,I5
+// 									break;
+	j F4B72
+	stx A0,(I4)*
+// jumped away
+F4B66:	// (loop lvl 3)
+	ldx (I4)+4,NULL ; ldy (I6)+1,NULL	// I4 += 4
+// 									songinfotest.year = callback(-1,cTag->uiMessage,(u_int32)currTmpStr);
+	ldx (I4),A0 ; ldy (I4)-3,A1	// unspill A0 from #0
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	ldx (I4)-1,I0	// unspill 'cTag' from #0
+	ldx (I0),A0	// 'cTag' ==> ET36
+	stx A0,(I6)+1 ; or NULL,ONES,A0	// ET36
+	call _callback
+	stx A0,(I6)	// ETe
+// jumped away
+	ldc 100,I5
+	ldx (I4)*,NULL ; ldy (I6)-4,NULL	// I4 += 100
+	ldc -100,I5
+// 									break;
+	j F4B72
+	stx A0,(I4)*
+// jumped away
+F4B44:	// (loop lvl 2)
+//  vo_fseek(fp, frameSize,1);
+	ldx (I4)-2,A0	// unspill ETc from #0
+	stx A0,(I6)+1	// ETc
+	stx B0,(I6)+1	// B0
+	stx B1,(I6)+1	// B1
+	call _vo_fseek
+	stx C1,(I6)	// 'fp'
+// jumped away
+	j F4B27
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_x,bss_x	// 256 words
+	.export __LINKINFO_IMPORT_SetHookFunction
+__LINKINFO_IMPORT_SetHookFunction:
+	.bss 0
+	.export __LINKINFO_IMPORT___ReAllocMemXY
+__LINKINFO_IMPORT___ReAllocMemXY:
+	.bss 0
+	.export __LINKINFO_IMPORT___AllocMemXY
+__LINKINFO_IMPORT___AllocMemXY:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorIntBreak
+__LINKINFO_IMPORTASM_MonitorIntBreak:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorBreak
+__LINKINFO_IMPORTASM_MonitorBreak:
+	.bss 0
+	.export __LINKINFO_IMPORT___FreeMemX
+__LINKINFO_IMPORT___FreeMemX:
+	.bss 0
+	.export __LINKINFO_IMPORT___FreeMemY
+__LINKINFO_IMPORT___FreeMemY:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorPutch15
+__LINKINFO_IMPORTASM_MonitorPutch15:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealDelayMicroSec
+__LINKINFO_IMPORT_RealDelayMicroSec:
+	.bss 0
+	.export __LINKINFO_IMPORT_intOS
+__LINKINFO_IMPORT_intOS:
+	.bss 0
+	.export __LINKINFO_IMPORT_Restart
+__LINKINFO_IMPORT_Restart:
+	.bss 0
+	.export __LINKINFO_IMPORT_memPoolX
+__LINKINFO_IMPORT_memPoolX:
+	.bss 0
+	.export __LINKINFO_IMPORT_memPoolY
+__LINKINFO_IMPORT_memPoolY:
+	.bss 0
+	.export __LINKINFO_IMPORT_SinTest
+__LINKINFO_IMPORT_SinTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_PinLoop
+__LINKINFO_IMPORT_PinLoop:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealSetClockDividers
+__LINKINFO_IMPORT_RealSetClockDividers:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_rx_int
+__LINKINFO_IMPORTASM_rx_int:
+	.bss 0
+	.export __LINKINFO_IMPORT_memPoolI
+__LINKINFO_IMPORT_memPoolI:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorJumpWithStack
+__LINKINFO_IMPORTASM_MonitorJumpWithStack:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealSleep
+__LINKINFO_IMPORT_RealSleep:
+	.bss 0
+	.export __LINKINFO_IMPORT___mallocy
+__LINKINFO_IMPORT___mallocy:
+	.bss 0
+	.export __LINKINFO_IMPORT___AllocMemAbsXY
+__LINKINFO_IMPORT___AllocMemAbsXY:
+	.bss 0
+	.export __LINKINFO_IMPORT___FreeMemXY
+__LINKINFO_IMPORT___FreeMemXY:
+	.bss 0
+	.export __LINKINFO_IMPORT_NullHook
+__LINKINFO_IMPORT_NullHook:
+	.bss 0
+	.export __LINKINFO_IMPORT_MemTest5x
+__LINKINFO_IMPORT_MemTest5x:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_yrommux0
+__LINKINFO_IMPORTASM_yrommux0:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_irommux0
+__LINKINFO_IMPORTASM_irommux0:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorJumpLr1Lr0
+__LINKINFO_IMPORTASM_MonitorJumpLr1Lr0:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorPutch
+__LINKINFO_IMPORTASM_MonitorPutch:
+	.bss 0
+	.export __LINKINFO_IMPORT_TestGetByte
+__LINKINFO_IMPORT_TestGetByte:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealGetClockMultiplier
+__LINKINFO_IMPORT_RealGetClockMultiplier:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealForceClockMultiplier
+__LINKINFO_IMPORT_RealForceClockMultiplier:
+	.bss 0
+	.export __LINKINFO_IMPORT___calloc
+__LINKINFO_IMPORT___calloc:
+	.bss 0
+	.export __LINKINFO_IMPORT_MemTests
+__LINKINFO_IMPORT_MemTests:
+	.bss 0
+	.export __LINKINFO_IMPORT_rommain
+__LINKINFO_IMPORT_rommain:
+	.bss 0
+	.export __LINKINFO_IMPORT_SinTest6dB
+__LINKINFO_IMPORT_SinTest6dB:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorPutWord
+__LINKINFO_IMPORTASM_MonitorPutWord:
+	.bss 0
+	.export __LINKINFO_IMPORT_BusyWait1
+__LINKINFO_IMPORT_BusyWait1:
+	.bss 0
+	.export __LINKINFO_IMPORT_resx
+__LINKINFO_IMPORT_resx:
+	.bss 0
+	.export __LINKINFO_IMPORT__stackY
+__LINKINFO_IMPORT__stackY:
+	.bss 0
+	.export __LINKINFO_IMPORT_resy
+__LINKINFO_IMPORT_resy:
+	.bss 0
+	.export __LINKINFO_IMPORT_OldStereoCopy
+__LINKINFO_IMPORT_OldStereoCopy:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_Monitor
+__LINKINFO_IMPORTASM_Monitor:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealPowerOff
+__LINKINFO_IMPORT_RealPowerOff:
+	.bss 0
+	.export __LINKINFO_IMPORT___freey
+__LINKINFO_IMPORT___freey:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_OSInit
+__LINKINFO_IMPORTASM_OSInit:
+	.bss 0
+	.export __LINKINFO_IMPORT___free
+__LINKINFO_IMPORT___free:
+	.bss 0
+	.export __LINKINFO_IMPORT___AllocMemAbsX
+__LINKINFO_IMPORT___AllocMemAbsX:
+	.bss 0
+	.export __LINKINFO_IMPORT___AllocMemAbsY
+__LINKINFO_IMPORT___AllocMemAbsY:
+	.bss 0
+	.export __LINKINFO_IMPORT__stack
+__LINKINFO_IMPORT__stack:
+	.bss 0
+	.export __LINKINFO_IMPORT___malloc
+__LINKINFO_IMPORT___malloc:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorGetWord
+__LINKINFO_IMPORTASM_MonitorGetWord:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorGetch
+__LINKINFO_IMPORTASM_MonitorGetch:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealSetClockSpeed
+__LINKINFO_IMPORT_RealSetClockSpeed:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealInitClockSpeed
+__LINKINFO_IMPORT_RealInitClockSpeed:
+	.bss 0
+	.export __LINKINFO_IMPORT___ReAllocMemX
+__LINKINFO_IMPORT___ReAllocMemX:
+	.bss 0
+	.export __LINKINFO_IMPORT___AllocMemX
+__LINKINFO_IMPORT___AllocMemX:
+	.bss 0
+	.export __LINKINFO_IMPORT___ReAllocMemY
+__LINKINFO_IMPORT___ReAllocMemY:
+	.bss 0
+	.export __LINKINFO_IMPORT___AllocMemY
+__LINKINFO_IMPORT___AllocMemY:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealAudioOutputSamples
+__LINKINFO_IMPORT_RealAudioOutputSamples:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealSetRate
+__LINKINFO_IMPORT_RealSetRate:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealSetVolume
+__LINKINFO_IMPORT_RealSetVolume:
+	.bss 0
+	.export __LINKINFO_IMPORT___reallocy
+__LINKINFO_IMPORT___reallocy:
+	.bss 0
+	.export __LINKINFO_IMPORT___callocy
+__LINKINFO_IMPORT___callocy:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_xrommux0
+__LINKINFO_IMPORTASM_xrommux0:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorGetch15
+__LINKINFO_IMPORTASM_MonitorGetch15:
+	.bss 0
+	.export __LINKINFO_IMPORT_USBMem
+__LINKINFO_IMPORT_USBMem:
+	.bss 0
+	.export __LINKINFO_IMPORT_RealSetClockSpeedLimit
+__LINKINFO_IMPORT_RealSetClockSpeedLimit:
+	.bss 0
+	.export __LINKINFO_IMPORT___realloc
+__LINKINFO_IMPORT___realloc:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_dac_int
+__LINKINFO_IMPORTASM_dac_int:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorRestoreContext
+__LINKINFO_IMPORTASM_MonitorRestoreContext:
+	.bss 0
+	.export __LINKINFO_IMPORT_BusyWait10
+__LINKINFO_IMPORT_BusyWait10:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorBpTable
+__LINKINFO_IMPORTASM_MonitorBpTable:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_MonitorGetInput
+__LINKINFO_IMPORTASM_MonitorGetInput:
+	.bss 0
+	.export __LINKINFO_IMPORT_GetVS1005Permissions
+__LINKINFO_IMPORT_GetVS1005Permissions:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitMem
+__LINKINFO_IMPORT_InitMem:
+	.bss 0
+	.export __LINKINFO_IMPORT_BootSetKey
+__LINKINFO_IMPORT_BootSetKey:
+	.bss 0
+	.export __LINKINFO_IMPORT_BootSetKeyX
+__LINKINFO_IMPORT_BootSetKeyX:
+	.bss 0
+	.export __LINKINFO_IMPORT_PlayerVolume
+__LINKINFO_IMPORT_PlayerVolume:
+	.bss 0
+	.export __LINKINFO_IMPORT_RawUartPutC
+__LINKINFO_IMPORT_RawUartPutC:
+	.bss 0
+	.export __LINKINFO_IMPORT_RawUartPrintF
+__LINKINFO_IMPORT_RawUartPrintF:
+	.bss 0
+	.export __LINKINFO_IMPORT_rand_seed
+__LINKINFO_IMPORT_rand_seed:
+	.bss 0
+	.export __LINKINFO_IMPORT_random_state
+__LINKINFO_IMPORT_random_state:
+	.bss 0
+	.export __LINKINFO_IMPORT_player
+__LINKINFO_IMPORT_player:
+	.bss 0
+	.export __LINKINFO_IMPORT_ph
+__LINKINFO_IMPORT_ph:
+	.bss 0
+	.export __LINKINFO_IMPORT_map
+__LINKINFO_IMPORT_map:
+	.bss 0
+	.export __LINKINFO_IMPORT_cod
+__LINKINFO_IMPORT_cod:
+	.bss 0
+	.export __LINKINFO_IMPORT_bootrc4ks
+__LINKINFO_IMPORT_bootrc4ks:
+	.bss 0
+	.export __LINKINFO_IMPORT_bootrc4Enabled
+__LINKINFO_IMPORT_bootrc4Enabled:
+	.bss 0
+	.export __LINKINFO_IMPORT_xmem_startzeros
+__LINKINFO_IMPORT_xmem_startzeros:
+	.bss 0
+	.export __LINKINFO_IMPORT_ff
+__LINKINFO_IMPORT_ff:
+	.bss 0
+	.export __LINKINFO_IMPORT_fontPtrs
+__LINKINFO_IMPORT_fontPtrs:
+	.bss 0
+	.export __LINKINFO_IMPORT_fontData
+__LINKINFO_IMPORT_fontData:
+	.bss 0
+	.export __LINKINFO_IMPORT_u16RomFont
+__LINKINFO_IMPORT_u16RomFont:
+	.bss 0
+	.export __LINKINFO_IMPORT___InitMemAllocI
+__LINKINFO_IMPORT___InitMemAllocI:
+	.bss 0
+	.export __LINKINFO_IMPORT_ReadFuseMulti
+__LINKINFO_IMPORT_ReadFuseMulti:
+	.bss 0
+	.export __LINKINFO_IMPORT_SpiSendReceive
+__LINKINFO_IMPORT_SpiSendReceive:
+	.bss 0
+	.export __LINKINFO_IMPORT_RC4_KeySetup
+__LINKINFO_IMPORT_RC4_KeySetup:
+	.bss 0
+	.export __LINKINFO_IMPORT_RC4_KeySetupPacked
+__LINKINFO_IMPORT_RC4_KeySetupPacked:
+	.bss 0
+	.export __LINKINFO_IMPORT_volumeReg
+__LINKINFO_IMPORT_volumeReg:
+	.bss 0
+	.export __LINKINFO_IMPORT_libInclude
+__LINKINFO_IMPORT_libInclude:
+	.bss 0
+	.export __LINKINFO_IMPORT_uartByteSpeed
+__LINKINFO_IMPORT_uartByteSpeed:
+	.bss 0
+	.export __LINKINFO_IMPORT_memcpyii
+__LINKINFO_IMPORT_memcpyii:
+	.bss 0
+	.export __LINKINFO_IMPORT_kernelVectorsStart
+__LINKINFO_IMPORT_kernelVectorsStart:
+	.bss 0
+	.export __LINKINFO_IMPORT_os_if_vars_start
+__LINKINFO_IMPORT_os_if_vars_start:
+	.bss 0
+	.export __LINKINFO_IMPORT_memcpy
+__LINKINFO_IMPORT_memcpy:
+	.bss 0
+	.export __LINKINFO_IMPORT_oldExtClock4KHz
+__LINKINFO_IMPORT_oldExtClock4KHz:
+	.bss 0
+	.export __LINKINFO_IMPORT_coreVoltageOffset
+__LINKINFO_IMPORT_coreVoltageOffset:
+	.bss 0
+	.export __LINKINFO_IMPORT_extSymbolSearchRom
+__LINKINFO_IMPORT_extSymbolSearchRom:
+	.bss 0
+	.export __LINKINFO_IMPORT_extSymbolElements
+__LINKINFO_IMPORT_extSymbolElements:
+	.bss 0
+	.export __LINKINFO_IMPORT_extSymbol
+__LINKINFO_IMPORT_extSymbol:
+	.bss 0
+	.export __LINKINFO_IMPORT_memsetY
+__LINKINFO_IMPORT_memsetY:
+	.bss 0
+	.export __LINKINFO_IMPORT_memset
+__LINKINFO_IMPORT_memset:
+	.bss 0
+	.export __LINKINFO_IMPORT_memcpyYX
+__LINKINFO_IMPORT_memcpyYX:
+	.bss 0
+	.export __LINKINFO_IMPORT_voltages
+__LINKINFO_IMPORT_voltages:
+	.bss 0
+	.export __LINKINFO_IMPORT_PowerSetVoltages
+__LINKINFO_IMPORT_PowerSetVoltages:
+	.bss 0
+	.export __LINKINFO_IMPORT_applAddr
+__LINKINFO_IMPORT_applAddr:
+	.bss 0
+	.export __LINKINFO_IMPORT_bassReg
+__LINKINFO_IMPORT_bassReg:
+	.bss 0
+	.export __LINKINFO_IMPORT_CalcFuseCRC
+__LINKINFO_IMPORT_CalcFuseCRC:
+	.bss 0
+	.export __LINKINFO_IMPORT_ReadFusePriv
+__LINKINFO_IMPORT_ReadFusePriv:
+	.bss 0
+	.export __LINKINFO_IMPORT_PowerSetFlash
+__LINKINFO_IMPORT_PowerSetFlash:
+	.bss 0
+	.export __LINKINFO_IMPORT_SpiLoadLong
+__LINKINFO_IMPORT_SpiLoadLong:
+	.bss 0
+	.export __LINKINFO_IMPORT_TEST_WriteIFlashOpenRecord
+__LINKINFO_IMPORT_TEST_WriteIFlashOpenRecord:
+	.bss 0
+	.export __LINKINFO_IMPORT_TEST_ClearRamAndAllowDebug
+__LINKINFO_IMPORT_TEST_ClearRamAndAllowDebug:
+	.bss 0
+	.export __LINKINFO_IMPORT_PowerShutDownFlash
+__LINKINFO_IMPORT_PowerShutDownFlash:
+	.bss 0
+	.export __LINKINFO_IMPORT_TestMode
+__LINKINFO_IMPORT_TestMode:
+	.bss 0
+	.export __LINKINFO_IMPORT_FsPhNandCreate
+__LINKINFO_IMPORT_FsPhNandCreate:
+	.bss 0
+	.export __LINKINFO_IMPORT_BootFromX
+__LINKINFO_IMPORT_BootFromX:
+	.bss 0
+	.export __LINKINFO_IMPORT_ReadIMem
+__LINKINFO_IMPORT_ReadIMem:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitAudio
+__LINKINFO_IMPORT_InitAudio:
+	.bss 0
+	.export __LINKINFO_IMPORT_TimeCountAndScheduleHandler
+__LINKINFO_IMPORT_TimeCountAndScheduleHandler:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddIntServer
+__LINKINFO_IMPORT_AddIntServer:
+	.bss 0
+	.export __LINKINFO_IMPORT_Enable
+__LINKINFO_IMPORT_Enable:
+	.bss 0
+	.export __LINKINFO_IMPORT_neededConfiguration
+__LINKINFO_IMPORT_neededConfiguration:
+	.bss 0
+	.export __LINKINFO_IMPORT_loadLibraryMutex
+__LINKINFO_IMPORT_loadLibraryMutex:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitMutexN
+__LINKINFO_IMPORT_InitMutexN:
+	.bss 0
+	.export __LINKINFO_IMPORT_highestISoFar
+__LINKINFO_IMPORT_highestISoFar:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitStdButtons
+__LINKINFO_IMPORT_InitStdButtons:
+	.bss 0
+	.export __LINKINFO_IMPORT_SysUiMsgInit
+__LINKINFO_IMPORT_SysUiMsgInit:
+	.bss 0
+	.export __LINKINFO_IMPORT_kernel_main
+__LINKINFO_IMPORT_kernel_main:
+	.bss 0
+	.export __LINKINFO_IMPORT_UsbBootLoopNoReturn
+__LINKINFO_IMPORT_UsbBootLoopNoReturn:
+	.bss 0
+	.export __LINKINFO_IMPORT_TEST_ClearIFlash
+__LINKINFO_IMPORT_TEST_ClearIFlash:
+	.bss 0
+	.export __LINKINFO_IMPORT_TEST_ProductionTest
+__LINKINFO_IMPORT_TEST_ProductionTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_extSymbolRom
+__LINKINFO_IMPORT_extSymbolRom:
+	.bss 0
+	.export __LINKINFO_IMPORT_extSymbolRomSize
+__LINKINFO_IMPORT_extSymbolRomSize:
+	.bss 0
+	.export __LINKINFO_IMPORT_i_twiddle_iv
+__LINKINFO_IMPORT_i_twiddle_iv:
+	.bss 0
+	.export __LINKINFO_IMPORT_dctfirmodtab8
+__LINKINFO_IMPORT_dctfirmodtab8:
+	.bss 0
+	.export __LINKINFO_IMPORT_dctiv
+__LINKINFO_IMPORT_dctiv:
+	.bss 0
+	.export __LINKINFO_IMPORT_dctii
+__LINKINFO_IMPORT_dctii:
+	.bss 0
+	.export __LINKINFO_IMPORT_costable_iv8
+__LINKINFO_IMPORT_costable_iv8:
+	.bss 0
+	.export __LINKINFO_IMPORT_dct
+__LINKINFO_IMPORT_dct:
+	.bss 0
+	.export __LINKINFO_IMPORT_dcttype
+__LINKINFO_IMPORT_dcttype:
+	.bss 0
+	.export __LINKINFO_IMPORT_costable_ii8
+__LINKINFO_IMPORT_costable_ii8:
+	.bss 0
+	.export __LINKINFO_IMPORT_dctfir8
+__LINKINFO_IMPORT_dctfir8:
+	.bss 0
+	.export __LINKINFO_IMPORT_dctivpost
+__LINKINFO_IMPORT_dctivpost:
+	.bss 0
+	.export __LINKINFO_IMPORT_isupper
+__LINKINFO_IMPORT_isupper:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_short_to_df
+__LINKINFO_IMPORTASM_short_to_df:
+	.bss 0
+	.export __LINKINFO_IMPORT_PrintFmtAdd
+__LINKINFO_IMPORT_PrintFmtAdd:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_mul
+__LINKINFO_IMPORTASM_df_mul:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_div
+__LINKINFO_IMPORTASM_df_div:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_add
+__LINKINFO_IMPORTASM_df_add:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_sub
+__LINKINFO_IMPORTASM_df_sub:
+	.bss 0
+	.export __LINKINFO_IMPORT_strlen
+__LINKINFO_IMPORT_strlen:
+	.bss 0
+	.export __LINKINFO_IMPORT__modf
+__LINKINFO_IMPORT__modf:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_to_short
+__LINKINFO_IMPORTASM_df_to_short:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_lt
+__LINKINFO_IMPORTASM_df_lt:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_ge
+__LINKINFO_IMPORTASM_df_ge:
+	.bss 0
+	.export __LINKINFO_IMPORT_tolower
+__LINKINFO_IMPORT_tolower:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_divide32unsigned
+__LINKINFO_IMPORTASM_divide32unsigned:
+	.bss 0
+	.export __LINKINFO_IMPORT_memcpyXX
+__LINKINFO_IMPORT_memcpyXX:
+	.bss 0
+	.export __LINKINFO_IMPORT_ispunct
+__LINKINFO_IMPORT_ispunct:
+	.bss 0
+	.export __LINKINFO_IMPORT_toupper
+__LINKINFO_IMPORT_toupper:
+	.bss 0
+	.export __LINKINFO_IMPORT_isgraph
+__LINKINFO_IMPORT_isgraph:
+	.bss 0
+	.export __LINKINFO_IMPORT_isdigit
+__LINKINFO_IMPORT_isdigit:
+	.bss 0
+	.export __LINKINFO_IMPORT_isalpha
+__LINKINFO_IMPORT_isalpha:
+	.bss 0
+	.export __LINKINFO_IMPORT_isalnum
+__LINKINFO_IMPORT_isalnum:
+	.bss 0
+	.export __LINKINFO_IMPORT_isxdigit
+__LINKINFO_IMPORT_isxdigit:
+	.bss 0
+	.export __LINKINFO_IMPORT_isspace
+__LINKINFO_IMPORT_isspace:
+	.bss 0
+	.export __LINKINFO_IMPORT_iscntrl
+__LINKINFO_IMPORT_iscntrl:
+	.bss 0
+	.export __LINKINFO_IMPORT_isprint
+__LINKINFO_IMPORT_isprint:
+	.bss 0
+	.export __LINKINFO_IMPORT_islower
+__LINKINFO_IMPORT_islower:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_int_to_df
+__LINKINFO_IMPORTASM_int_to_df:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_norm
+__LINKINFO_IMPORTASM_df_norm:
+	.bss 0
+	.export __LINKINFO_IMPORT_intStub
+__LINKINFO_IMPORT_intStub:
+	.bss 0
+	.export __LINKINFO_IMPORT_readyQueue
+__LINKINFO_IMPORT_readyQueue:
+	.bss 0
+	.export __LINKINFO_IMPORT_NewList
+__LINKINFO_IMPORT_NewList:
+	.bss 0
+	.export __LINKINFO_IMPORT_useQuantum
+__LINKINFO_IMPORT_useQuantum:
+	.bss 0
+	.export __LINKINFO_IMPORT_quantum
+__LINKINFO_IMPORT_quantum:
+	.bss 0
+	.export __LINKINFO_IMPORT_Halt
+__LINKINFO_IMPORT_Halt:
+	.bss 0
+	.export __LINKINFO_IMPORT_intVectors
+__LINKINFO_IMPORT_intVectors:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetSignal
+__LINKINFO_IMPORT_SetSignal:
+	.bss 0
+	.export __LINKINFO_IMPORT_timerQueue
+__LINKINFO_IMPORT_timerQueue:
+	.bss 0
+	.export __LINKINFO_IMPORT_waitQueue
+__LINKINFO_IMPORT_waitQueue:
+	.bss 0
+	.export __LINKINFO_IMPORT_Enqueue
+__LINKINFO_IMPORT_Enqueue:
+	.bss 0
+	.export __LINKINFO_IMPORT_ScheduleHandler
+__LINKINFO_IMPORT_ScheduleHandler:
+	.bss 0
+	.export __LINKINFO_IMPORT_mainTask
+__LINKINFO_IMPORT_mainTask:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddTask
+__LINKINFO_IMPORT_AddTask:
+	.bss 0
+	.export __LINKINFO_IMPORT_Disable
+__LINKINFO_IMPORT_Disable:
+	.bss 0
+	.export __LINKINFO_IMPORT_forbidCount
+__LINKINFO_IMPORT_forbidCount:
+	.bss 0
+	.export __LINKINFO_IMPORT_scheduleFlag
+__LINKINFO_IMPORT_scheduleFlag:
+	.bss 0
+	.export __LINKINFO_IMPORT___endStack
+__LINKINFO_IMPORT___endStack:
+	.bss 0
+	.export __LINKINFO_IMPORT___intStack
+__LINKINFO_IMPORT___intStack:
+	.bss 0
+	.export __LINKINFO_IMPORT___curStack
+__LINKINFO_IMPORT___curStack:
+	.bss 0
+	.export __LINKINFO_IMPORT_thisTask
+__LINKINFO_IMPORT_thisTask:
+	.bss 0
+	.export __LINKINFO_IMPORT_Expunge
+__LINKINFO_IMPORT_Expunge:
+	.bss 0
+	.export __LINKINFO_IMPORT_HandleTimers
+__LINKINFO_IMPORT_HandleTimers:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetupInterruptStackSize
+__LINKINFO_IMPORT_SetupInterruptStackSize:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetupMainStackSize
+__LINKINFO_IMPORT_SetupMainStackSize:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_CheckWait
+__LINKINFO_IMPORTASM_CheckWait:
+	.bss 0
+	.export __LINKINFO_IMPORT_Signal
+__LINKINFO_IMPORT_Signal:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_IntQuickLeave
+__LINKINFO_IMPORTASM_IntQuickLeave:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_WaitAgain
+__LINKINFO_IMPORTASM_WaitAgain:
+	.bss 0
+	.export __LINKINFO_IMPORT_DoSchedule
+__LINKINFO_IMPORT_DoSchedule:
+	.bss 0
+	.export __LINKINFO_IMPORT_freetaskmem
+__LINKINFO_IMPORT_freetaskmem:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_SearchForTask
+__LINKINFO_IMPORTASM_SearchForTask:
+	.bss 0
+	.export __LINKINFO_IMPORT_Wait
+__LINKINFO_IMPORT_Wait:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddHead
+__LINKINFO_IMPORT_AddHead:
+	.bss 0
+	.export __LINKINFO_IMPORT_xFlist
+__LINKINFO_IMPORT_xFlist:
+	.bss 0
+	.export __LINKINFO_IMPORT_HeadNode
+__LINKINFO_IMPORT_HeadNode:
+	.bss 0
+	.export __LINKINFO_IMPORT_NextNode
+__LINKINFO_IMPORT_NextNode:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemNode
+__LINKINFO_IMPORT_RemNode:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddAfter
+__LINKINFO_IMPORT_AddAfter:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddBefore
+__LINKINFO_IMPORT_AddBefore:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddTail
+__LINKINFO_IMPORT_AddTail:
+	.bss 0
+	.export __LINKINFO_IMPORT_HeadNodeY
+__LINKINFO_IMPORT_HeadNodeY:
+	.bss 0
+	.export __LINKINFO_IMPORT_yFlist
+__LINKINFO_IMPORT_yFlist:
+	.bss 0
+	.export __LINKINFO_IMPORT_NextNodeY
+__LINKINFO_IMPORT_NextNodeY:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemNodeY
+__LINKINFO_IMPORT_RemNodeY:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddAfterY
+__LINKINFO_IMPORT_AddAfterY:
+	.bss 0
+	.export __LINKINFO_IMPORT_memcpyYY
+__LINKINFO_IMPORT_memcpyYY:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddBeforeY
+__LINKINFO_IMPORT_AddBeforeY:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddTailY
+__LINKINFO_IMPORT_AddTailY:
+	.bss 0
+	.export __LINKINFO_IMPORT_sysMemory_xs
+__LINKINFO_IMPORT_sysMemory_xs:
+	.bss 0
+	.export __LINKINFO_IMPORT_sysMemory_ys
+__LINKINFO_IMPORT_sysMemory_ys:
+	.bss 0
+	.export __LINKINFO_IMPORT_NewListY
+__LINKINFO_IMPORT_NewListY:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddHeadY
+__LINKINFO_IMPORT_AddHeadY:
+	.bss 0
+	.export __LINKINFO_IMPORT___AllocMemI
+__LINKINFO_IMPORT___AllocMemI:
+	.bss 0
+	.export __LINKINFO_IMPORT___AllocMemAbsI
+__LINKINFO_IMPORT___AllocMemAbsI:
+	.bss 0
+	.export __LINKINFO_IMPORT___FreeMemI
+__LINKINFO_IMPORT___FreeMemI:
+	.bss 0
+	.export __LINKINFO_IMPORT_sysMemory_is
+__LINKINFO_IMPORT_sysMemory_is:
+	.bss 0
+	.export __LINKINFO_IMPORT_NewListI
+__LINKINFO_IMPORT_NewListI:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetSizeNodeI
+__LINKINFO_IMPORT_SetSizeNodeI:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddHeadI
+__LINKINFO_IMPORT_AddHeadI:
+	.bss 0
+	.export __LINKINFO_IMPORT_HeadNodeI
+__LINKINFO_IMPORT_HeadNodeI:
+	.bss 0
+	.export __LINKINFO_IMPORT_GetSizeNodeI
+__LINKINFO_IMPORT_GetSizeNodeI:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemNodeI
+__LINKINFO_IMPORT_RemNodeI:
+	.bss 0
+	.export __LINKINFO_IMPORT_NextNodeI
+__LINKINFO_IMPORT_NextNodeI:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddAfterI
+__LINKINFO_IMPORT_AddAfterI:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddBeforeI
+__LINKINFO_IMPORT_AddBeforeI:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddTailI
+__LINKINFO_IMPORT_AddTailI:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddTimer
+__LINKINFO_IMPORT_AddTimer:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemoveTimer
+__LINKINFO_IMPORT_RemoveTimer:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitTimer
+__LINKINFO_IMPORT_InitTimer:
+	.bss 0
+	.export __LINKINFO_IMPORT_StartTimer
+__LINKINFO_IMPORT_StartTimer:
+	.bss 0
+	.export __LINKINFO_IMPORT_StopTimer
+__LINKINFO_IMPORT_StopTimer:
+	.bss 0
+	.export __LINKINFO_IMPORT_TailNode
+__LINKINFO_IMPORT_TailNode:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemHead
+__LINKINFO_IMPORT_RemHead:
+	.bss 0
+	.export __LINKINFO_IMPORT_Remove
+__LINKINFO_IMPORT_Remove:
+	.bss 0
+	.export __LINKINFO_IMPORT_PrevNode
+__LINKINFO_IMPORT_PrevNode:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemTail
+__LINKINFO_IMPORT_RemTail:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetTaskPri
+__LINKINFO_IMPORT_SetTaskPri:
+	.bss 0
+	.export __LINKINFO_IMPORT_FindTask
+__LINKINFO_IMPORT_FindTask:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemoveY
+__LINKINFO_IMPORT_RemoveY:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemTailY
+__LINKINFO_IMPORT_RemTailY:
+	.bss 0
+	.export __LINKINFO_IMPORT_PrevNodeY
+__LINKINFO_IMPORT_PrevNodeY:
+	.bss 0
+	.export __LINKINFO_IMPORT_TailNodeY
+__LINKINFO_IMPORT_TailNodeY:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemHeadY
+__LINKINFO_IMPORT_RemHeadY:
+	.bss 0
+	.export __LINKINFO_IMPORT_EnqueueY
+__LINKINFO_IMPORT_EnqueueY:
+	.bss 0
+	.export __LINKINFO_IMPORT_PrevNodeI
+__LINKINFO_IMPORT_PrevNodeI:
+	.bss 0
+	.export __LINKINFO_IMPORT_TailNodeI
+__LINKINFO_IMPORT_TailNodeI:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemHeadI
+__LINKINFO_IMPORT_RemHeadI:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemoveI
+__LINKINFO_IMPORT_RemoveI:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemTailI
+__LINKINFO_IMPORT_RemTailI:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteIMem16
+__LINKINFO_IMPORT_WriteIMem16:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteIMem
+__LINKINFO_IMPORT_WriteIMem:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteIMem16Swapped
+__LINKINFO_IMPORT_WriteIMem16Swapped:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteIMemSwapped
+__LINKINFO_IMPORT_WriteIMemSwapped:
+	.bss 0
+	.export __LINKINFO_IMPORT_getword
+__LINKINFO_IMPORT_getword:
+	.bss 0
+	.export __LINKINFO_IMPORT_putch
+__LINKINFO_IMPORT_putch:
+	.bss 0
+	.export __LINKINFO_IMPORT_getch
+__LINKINFO_IMPORT_getch:
+	.bss 0
+	.export __LINKINFO_IMPORT_putword
+__LINKINFO_IMPORT_putword:
+	.bss 0
+	.export __LINKINFO_IMPORT_Monitor
+__LINKINFO_IMPORT_Monitor:
+	.bss 0
+	.export __LINKINFO_IMPORT_audioBuffer
+__LINKINFO_IMPORT_audioBuffer:
+	.bss 0
+	.export __LINKINFO_IMPORT_DB12
+__LINKINFO_IMPORT_DB12:
+	.bss 0
+	.export __LINKINFO_IMPORT_timeCount
+__LINKINFO_IMPORT_timeCount:
+	.bss 0
+	.export __LINKINFO_IMPORT_AudioBufFree
+__LINKINFO_IMPORT_AudioBufFree:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_divide16signed
+__LINKINFO_IMPORTASM_divide16signed:
+	.bss 0
+	.export __LINKINFO_IMPORT_AudioBufFill
+__LINKINFO_IMPORT_AudioBufFill:
+	.bss 0
+	.export __LINKINFO_IMPORT_audioPtr
+__LINKINFO_IMPORT_audioPtr:
+	.bss 0
+	.export __LINKINFO_IMPORT_dB
+__LINKINFO_IMPORT_dB:
+	.bss 0
+	.export __LINKINFO_IMPORT_ISine
+__LINKINFO_IMPORT_ISine:
+	.bss 0
+	.export __LINKINFO_IMPORT_SinTestCore
+__LINKINFO_IMPORT_SinTestCore:
+	.bss 0
+	.export __LINKINFO_IMPORT_OldSinTest
+__LINKINFO_IMPORT_OldSinTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_UpdateMp3Crc
+__LINKINFO_IMPORT_UpdateMp3Crc:
+	.bss 0
+	.export __LINKINFO_IMPORT_mp3CrcTable
+__LINKINFO_IMPORT_mp3CrcTable:
+	.bss 0
+	.export __LINKINFO_IMPORT_shortSin1k
+__LINKINFO_IMPORT_shortSin1k:
+	.bss 0
+	.export __LINKINFO_IMPORT_tmpBuf
+__LINKINFO_IMPORT_tmpBuf:
+	.bss 0
+	.export __LINKINFO_IMPORT_oldClockX
+__LINKINFO_IMPORT_oldClockX:
+	.bss 0
+	.export __LINKINFO_IMPORT_OldSetRate
+__LINKINFO_IMPORT_OldSetRate:
+	.bss 0
+	.export __LINKINFO_IMPORT_timeToRemovePDown2
+__LINKINFO_IMPORT_timeToRemovePDown2:
+	.bss 0
+	.export __LINKINFO_IMPORT_MuxTest
+__LINKINFO_IMPORT_MuxTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_YRomTest
+__LINKINFO_IMPORT_YRomTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_XRomTest
+__LINKINFO_IMPORT_XRomTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_IRomTest
+__LINKINFO_IMPORT_IRomTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_YRamTest
+__LINKINFO_IMPORT_YRamTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_XRamTest
+__LINKINFO_IMPORT_XRamTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_IRamTest
+__LINKINFO_IMPORT_IRamTest:
+	.bss 0
+	.export __LINKINFO_IMPORT_UartDivider
+__LINKINFO_IMPORT_UartDivider:
+	.bss 0
+	.export __LINKINFO_IMPORT_oldOldClock4KHz
+__LINKINFO_IMPORT_oldOldClock4KHz:
+	.bss 0
+	.export __LINKINFO_IMPORT_curFctl
+__LINKINFO_IMPORT_curFctl:
+	.bss 0
+	.export __LINKINFO_IMPORT_hwSampleRate
+__LINKINFO_IMPORT_hwSampleRate:
+	.bss 0
+	.export __LINKINFO_IMPORT_uiTime
+__LINKINFO_IMPORT_uiTime:
+	.bss 0
+	.export __LINKINFO_IMPORT_uiTrigger
+__LINKINFO_IMPORT_uiTrigger:
+	.bss 0
+	.export __LINKINFO_IMPORT_haltTime
+__LINKINFO_IMPORT_haltTime:
+	.bss 0
+	.export __LINKINFO_IMPORT_bassOn
+__LINKINFO_IMPORT_bassOn:
+	.bss 0
+	.export __LINKINFO_IMPORT_trebleOn
+__LINKINFO_IMPORT_trebleOn:
+	.bss 0
+	.export __LINKINFO_IMPORT_uiCount
+__LINKINFO_IMPORT_uiCount:
+	.bss 0
+	.export __LINKINFO_IMPORT_bassTrebleSampleRate
+__LINKINFO_IMPORT_bassTrebleSampleRate:
+	.bss 0
+	.export __LINKINFO_IMPORT_bassTrebleReg
+__LINKINFO_IMPORT_bassTrebleReg:
+	.bss 0
+	.export __LINKINFO_IMPORT_uartDivs
+__LINKINFO_IMPORT_uartDivs:
+	.bss 0
+	.export __LINKINFO_IMPORT_z
+__LINKINFO_IMPORT_z:
+	.bss 0
+	.export __LINKINFO_IMPORT_clockSpeed
+__LINKINFO_IMPORT_clockSpeed:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_fr_div32
+__LINKINFO_IMPORTASM_fr_div32:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_shiftMultipliers
+__LINKINFO_IMPORTASM_shiftMultipliers:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetBass
+__LINKINFO_IMPORT_SetBass:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetTreble
+__LINKINFO_IMPORT_SetTreble:
+	.bss 0
+	.export __LINKINFO_IMPORT_Bass
+__LINKINFO_IMPORT_Bass:
+	.bss 0
+	.export __LINKINFO_IMPORT_Treble
+__LINKINFO_IMPORT_Treble:
+	.bss 0
+	.export __LINKINFO_IMPORT_PowerMillivoltsToReg
+__LINKINFO_IMPORT_PowerMillivoltsToReg:
+	.bss 0
+	.export __LINKINFO_IMPORT_PowerRegToMillivolts
+__LINKINFO_IMPORT_PowerRegToMillivolts:
+	.bss 0
+	.export __LINKINFO_IMPORT_powerConvTab
+__LINKINFO_IMPORT_powerConvTab:
+	.bss 0
+	.export __LINKINFO_IMPORT_CheckRFLock
+__LINKINFO_IMPORT_CheckRFLock:
+	.bss 0
+	.export __LINKINFO_IMPORT_FindVCOLock
+__LINKINFO_IMPORT_FindVCOLock:
+	.bss 0
+	.export __LINKINFO_IMPORT_CalcClockSpeed
+__LINKINFO_IMPORT_CalcClockSpeed:
+	.bss 0
+	.export __LINKINFO_IMPORT_BusyDelay4x
+__LINKINFO_IMPORT_BusyDelay4x:
+	.bss 0
+	.export __LINKINFO_IMPORT_PrivSpiSendReceive
+__LINKINFO_IMPORT_PrivSpiSendReceive:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_up_GetValue
+__LINKINFO_IMPORTASM_up_GetValue:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_literal
+__LINKINFO_IMPORTASM_literal:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_spiexec
+__LINKINFO_IMPORTASM_spiexec:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_newesc
+__LINKINFO_IMPORTASM_newesc:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_long
+__LINKINFO_IMPORTASM_long:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_GetPutChIH
+__LINKINFO_IMPORTASM_GetPutChIH:
+	.bss 0
+	.export __LINKINFO_IMPORT_RC4_Output
+__LINKINFO_IMPORT_RC4_Output:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_up_GetBits
+__LINKINFO_IMPORTASM_up_GetBits:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_Lwhile
+__LINKINFO_IMPORTASM_Lwhile:
+	.bss 0
+	.export __LINKINFO_IMPORT_SpiLoad
+__LINKINFO_IMPORT_SpiLoad:
+	.bss 0
+	.export __LINKINFO_IMPORT_SpiDelay
+__LINKINFO_IMPORT_SpiDelay:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_lz77
+__LINKINFO_IMPORTASM_lz77:
+	.bss 0
+	.export __LINKINFO_IMPORT_SpiReceiveWord
+__LINKINFO_IMPORT_SpiReceiveWord:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_up_GetByte
+__LINKINFO_IMPORTASM_up_GetByte:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_GetPutChI
+__LINKINFO_IMPORTASM_GetPutChI:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_UnPack
+__LINKINFO_IMPORTASM_UnPack:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_spiy
+__LINKINFO_IMPORTASM_spiy:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_GetPutChX
+__LINKINFO_IMPORTASM_GetPutChX:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_GetPutChY
+__LINKINFO_IMPORTASM_GetPutChY:
+	.bss 0
+	.export __LINKINFO_IMPORT_vo_files
+__LINKINFO_IMPORT_vo_files:
+	.bss 0
+	.export __LINKINFO_IMPORT_consoleFile
+__LINKINFO_IMPORT_consoleFile:
+	.bss 0
+	.export __LINKINFO_IMPORT_vo_get_time_from_rtc_hook
+__LINKINFO_IMPORT_vo_get_time_from_rtc_hook:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatFileSystem
+__LINKINFO_IMPORT_FatFileSystem:
+	.bss 0
+	.export __LINKINFO_IMPORT_AutoVoidNull
+__LINKINFO_IMPORT_AutoVoidNull:
+	.bss 0
+	.export __LINKINFO_IMPORT_encVFloorInv
+__LINKINFO_IMPORT_encVFloorInv:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMInitDct
+__LINKINFO_IMPORT_EncMInitDct:
+	.bss 0
+	.export __LINKINFO_IMPORT_winPtr
+__LINKINFO_IMPORT_winPtr:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_sf
+__LINKINFO_IMPORT_hcb_sf:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMHuff4
+__LINKINFO_IMPORT_EncMHuff4:
+	.bss 0
+	.export __LINKINFO_IMPORT_lpcsin
+__LINKINFO_IMPORT_lpcsin:
+	.bss 0
+	.export __LINKINFO_IMPORT_evAudioMode
+__LINKINFO_IMPORT_evAudioMode:
+	.bss 0
+	.export __LINKINFO_IMPORT_strncmp
+__LINKINFO_IMPORT_strncmp:
+	.bss 0
+	.export __LINKINFO_IMPORT_ISqrt
+__LINKINFO_IMPORT_ISqrt:
+	.bss 0
+	.export __LINKINFO_IMPORT_srandom
+__LINKINFO_IMPORT_srandom:
+	.bss 0
+	.export __LINKINFO_IMPORT_random
+__LINKINFO_IMPORT_random:
+	.bss 0
+	.export __LINKINFO_IMPORT_LongLog2
+__LINKINFO_IMPORT_LongLog2:
+	.bss 0
+	.export __LINKINFO_IMPORT_font16aptrs
+__LINKINFO_IMPORT_font16aptrs:
+	.bss 0
+	.export __LINKINFO_IMPORT_rand
+__LINKINFO_IMPORT_rand:
+	.bss 0
+	.export __LINKINFO_IMPORT_FileParamSeek
+__LINKINFO_IMPORT_FileParamSeek:
+	.bss 0
+	.export __LINKINFO_IMPORT_memcpyXY
+__LINKINFO_IMPORT_memcpyXY:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_divide32signed
+__LINKINFO_IMPORTASM_divide32signed:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_divide16unsigned
+__LINKINFO_IMPORTASM_divide16unsigned:
+	.bss 0
+	.export __LINKINFO_IMPORT_HuffmanMask
+__LINKINFO_IMPORT_HuffmanMask:
+	.bss 0
+	.export __LINKINFO_IMPORT_srand
+__LINKINFO_IMPORT_srand:
+	.bss 0
+	.export __LINKINFO_IMPORT_memcmp
+__LINKINFO_IMPORT_memcmp:
+	.bss 0
+	.export __LINKINFO_IMPORT_SymbolCalcCrc32String
+__LINKINFO_IMPORT_SymbolCalcCrc32String:
+	.bss 0
+	.export __LINKINFO_IMPORT_SymbolCrunchStringCalcCrc32
+__LINKINFO_IMPORT_SymbolCrunchStringCalcCrc32:
+	.bss 0
+	.export __LINKINFO_IMPORT_SymbolFindByCrc
+__LINKINFO_IMPORT_SymbolFindByCrc:
+	.bss 0
+	.export __LINKINFO_IMPORT_SymbolFindRomByCrc
+__LINKINFO_IMPORT_SymbolFindRomByCrc:
+	.bss 0
+	.export __LINKINFO_IMPORT_SymbolDelete
+__LINKINFO_IMPORT_SymbolDelete:
+	.bss 0
+	.export __LINKINFO_IMPORT_SymbolDeleteLib
+__LINKINFO_IMPORT_SymbolDeleteLib:
+	.bss 0
+	.export __LINKINFO_IMPORT_encVOggCrc
+__LINKINFO_IMPORT_encVOggCrc:
+	.bss 0
+	.export __LINKINFO_IMPORT_crc6ToChar
+__LINKINFO_IMPORT_crc6ToChar:
+	.bss 0
+	.export __LINKINFO_IMPORT_strncpy
+__LINKINFO_IMPORT_strncpy:
+	.bss 0
+	.export __LINKINFO_IMPORT_Sine32I
+__LINKINFO_IMPORT_Sine32I:
+	.bss 0
+	.export __LINKINFO_IMPORT_SpiWaitStatus
+__LINKINFO_IMPORT_SpiWaitStatus:
+	.bss 0
+	.export __LINKINFO_IMPORT_TEST_TestMemories
+__LINKINFO_IMPORT_TEST_TestMemories:
+	.bss 0
+	.export __LINKINFO_IMPORT_memseti
+__LINKINFO_IMPORT_memseti:
+	.bss 0
+	.export __LINKINFO_IMPORT_XpFifoRead
+__LINKINFO_IMPORT_XpFifoRead:
+	.bss 0
+	.export __LINKINFO_IMPORT_XpFifoWrite
+__LINKINFO_IMPORT_XpFifoWrite:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandGetOctets
+__LINKINFO_IMPORT_NandGetOctets:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandPutOctets
+__LINKINFO_IMPORT_NandPutOctets:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandPutBlockAddress
+__LINKINFO_IMPORT_NandPutBlockAddress:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandPutDataAddress
+__LINKINFO_IMPORT_NandPutDataAddress:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandPutLargePageSpareAddress
+__LINKINFO_IMPORT_NandPutLargePageSpareAddress:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandGetStatus
+__LINKINFO_IMPORT_NandGetStatus:
+	.bss 0
+	.export __LINKINFO_IMPORT_LargePageWrite
+__LINKINFO_IMPORT_LargePageWrite:
+	.bss 0
+	.export __LINKINFO_IMPORT_LargePageRead
+__LINKINFO_IMPORT_LargePageRead:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandPutPage
+__LINKINFO_IMPORT_NandPutPage:
+	.bss 0
+	.export __LINKINFO_IMPORT_FsPhNandRead
+__LINKINFO_IMPORT_FsPhNandRead:
+	.bss 0
+	.export __LINKINFO_IMPORT_FsPhNandWrite
+__LINKINFO_IMPORT_FsPhNandWrite:
+	.bss 0
+	.export __LINKINFO_IMPORT_FsPhNandErase
+__LINKINFO_IMPORT_FsPhNandErase:
+	.bss 0
+	.export __LINKINFO_IMPORT_fsNandPhys
+__LINKINFO_IMPORT_fsNandPhys:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandWaitIdle
+__LINKINFO_IMPORT_NandWaitIdle:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandPutAddressOctet
+__LINKINFO_IMPORT_NandPutAddressOctet:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandPutCommand
+__LINKINFO_IMPORT_NandPutCommand:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandSetWaits
+__LINKINFO_IMPORT_NandSetWaits:
+	.bss 0
+	.export __LINKINFO_IMPORT_Swap16
+__LINKINFO_IMPORT_Swap16:
+	.bss 0
+	.export __LINKINFO_IMPORT_CountBitsLong
+__LINKINFO_IMPORT_CountBitsLong:
+	.bss 0
+	.export __LINKINFO_IMPORT_NandMingle
+__LINKINFO_IMPORT_NandMingle:
+	.bss 0
+	.export __LINKINFO_IMPORT_FsPhNullOk
+__LINKINFO_IMPORT_FsPhNullOk:
+	.bss 0
+	.export __LINKINFO_IMPORT_DevNullWrite
+__LINKINFO_IMPORT_DevNullWrite:
+	.bss 0
+	.export __LINKINFO_IMPORT_MyDelayHook
+__LINKINFO_IMPORT_MyDelayHook:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetNextApp
+__LINKINFO_IMPORT_SetNextApp:
+	.bss 0
+	.export __LINKINFO_IMPORT_Init0
+__LINKINFO_IMPORT_Init0:
+	.bss 0
+	.export __LINKINFO_IMPORT_PrintTasks
+__LINKINFO_IMPORT_PrintTasks:
+	.bss 0
+	.export __LINKINFO_IMPORT_PrintInt
+__LINKINFO_IMPORT_PrintInt:
+	.bss 0
+	.export __LINKINFO_IMPORT_LoadDrivers
+__LINKINFO_IMPORT_LoadDrivers:
+	.bss 0
+	.export __LINKINFO_IMPORT_audioDevice
+__LINKINFO_IMPORT_audioDevice:
+	.bss 0
+	.export __LINKINFO_IMPORT_sysTasks
+__LINKINFO_IMPORT_sysTasks:
+	.bss 0
+	.export __LINKINFO_IMPORT_romSysTasks
+__LINKINFO_IMPORT_romSysTasks:
+	.bss 0
+	.export __LINKINFO_IMPORT_vo_fprintf
+__LINKINFO_IMPORT_vo_fprintf:
+	.bss 0
+	.export __LINKINFO_IMPORT_strcpy
+__LINKINFO_IMPORT_strcpy:
+	.bss 0
+	.export __LINKINFO_IMPORT_GetI6
+__LINKINFO_IMPORT_GetI6:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitHwLocks
+__LINKINFO_IMPORT_InitHwLocks:
+	.bss 0
+	.export __LINKINFO_IMPORT_CreateTask
+__LINKINFO_IMPORT_CreateTask:
+	.bss 0
+	.export __LINKINFO_IMPORT_ReadFromProgramRam
+__LINKINFO_IMPORT_ReadFromProgramRam:
+	.bss 0
+	.export __LINKINFO_IMPORT_strchr
+__LINKINFO_IMPORT_strchr:
+	.bss 0
+	.export __LINKINFO_IMPORT_LoadLibraryP
+__LINKINFO_IMPORT_LoadLibraryP:
+	.bss 0
+	.export __LINKINFO_IMPORT_CreateCyclic
+__LINKINFO_IMPORT_CreateCyclic:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitBoard
+__LINKINFO_IMPORT_InitBoard:
+	.bss 0
+	.export __LINKINFO_IMPORT_StartOS3
+__LINKINFO_IMPORT_StartOS3:
+	.bss 0
+	.export __LINKINFO_IMPORT_audioout
+__LINKINFO_IMPORT_audioout:
+	.bss 0
+	.export __LINKINFO_IMPORT_sysUiMsg
+__LINKINFO_IMPORT_sysUiMsg:
+	.bss 0
+	.export __LINKINFO_IMPORT_AddCyclic
+__LINKINFO_IMPORT_AddCyclic:
+	.bss 0
+	.export __LINKINFO_IMPORT_RunAppFile3
+__LINKINFO_IMPORT_RunAppFile3:
+	.bss 0
+	.export __LINKINFO_IMPORT_vo_printf
+__LINKINFO_IMPORT_vo_printf:
+	.bss 0
+	.export __LINKINFO_IMPORT_DelayL
+__LINKINFO_IMPORT_DelayL:
+	.bss 0
+	.export __LINKINFO_IMPORT_NextResource
+__LINKINFO_IMPORT_NextResource:
+	.bss 0
+	.export __LINKINFO_IMPORT_ResGet16
+__LINKINFO_IMPORT_ResGet16:
+	.bss 0
+	.export __LINKINFO_IMPORT_ResGet32
+__LINKINFO_IMPORT_ResGet32:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemoveLibFromList
+__LINKINFO_IMPORT_RemoveLibFromList:
+	.bss 0
+	.export __LINKINFO_IMPORT_LoadLibraryFile
+__LINKINFO_IMPORT_LoadLibraryFile:
+	.bss 0
+	.export __LINKINFO_IMPORT_sprintf
+__LINKINFO_IMPORT_sprintf:
+	.bss 0
+	.export __LINKINFO_IMPORT_ObtainMutex
+__LINKINFO_IMPORT_ObtainMutex:
+	.bss 0
+	.export __LINKINFO_IMPORT_ReleaseMutex
+__LINKINFO_IMPORT_ReleaseMutex:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteToProgramRam
+__LINKINFO_IMPORT_WriteToProgramRam:
+	.bss 0
+	.export __LINKINFO_IMPORT_GetMemory
+__LINKINFO_IMPORT_GetMemory:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteToProgramRam16Swapped
+__LINKINFO_IMPORT_WriteToProgramRam16Swapped:
+	.bss 0
+	.export __LINKINFO_IMPORT_AttemptMutex
+__LINKINFO_IMPORT_AttemptMutex:
+	.bss 0
+	.export __LINKINFO_IMPORT_StdButtonDefaultRender
+__LINKINFO_IMPORT_StdButtonDefaultRender:
+	.bss 0
+	.export __LINKINFO_IMPORT_lastButtonPressed
+__LINKINFO_IMPORT_lastButtonPressed:
+	.bss 0
+	.export __LINKINFO_IMPORT_virtualWidth
+__LINKINFO_IMPORT_virtualWidth:
+	.bss 0
+	.export __LINKINFO_IMPORT_virtualHeight
+__LINKINFO_IMPORT_virtualHeight:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetStdAudioOutVolume
+__LINKINFO_IMPORT_SetStdAudioOutVolume:
+	.bss 0
+	.export __LINKINFO_IMPORT_SystemUiMessageCyclic
+__LINKINFO_IMPORT_SystemUiMessageCyclic:
+	.bss 0
+	.export __LINKINFO_IMPORT_SystemUiMessageReceiver
+__LINKINFO_IMPORT_SystemUiMessageReceiver:
+	.bss 0
+	.export __LINKINFO_IMPORT_romSysUiMsg
+__LINKINFO_IMPORT_romSysUiMsg:
+	.bss 0
+	.export __LINKINFO_IMPORT_sysUiMsgFilterValues
+__LINKINFO_IMPORT_sysUiMsgFilterValues:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetAddress
+__LINKINFO_IMPORT_SetAddress:
+	.bss 0
+	.export __LINKINFO_IMPORT_ResetDataToggles
+__LINKINFO_IMPORT_ResetDataToggles:
+	.bss 0
+	.export __LINKINFO_IMPORT_ResetUsbHardware
+__LINKINFO_IMPORT_ResetUsbHardware:
+	.bss 0
+	.export __LINKINFO_IMPORT_GetUsbPacket
+__LINKINFO_IMPORT_GetUsbPacket:
+	.bss 0
+	.export __LINKINFO_IMPORT_HandlePacket
+__LINKINFO_IMPORT_HandlePacket:
+	.bss 0
+	.export __LINKINFO_IMPORT_UsbSender
+__LINKINFO_IMPORT_UsbSender:
+	.bss 0
+	.export __LINKINFO_IMPORT_usp
+__LINKINFO_IMPORT_usp:
+	.bss 0
+	.export __LINKINFO_IMPORT_usbsender
+__LINKINFO_IMPORT_usbsender:
+	.bss 0
+	.export __LINKINFO_IMPORT_usb_xmit_bufptr
+__LINKINFO_IMPORT_usb_xmit_bufptr:
+	.bss 0
+	.export __LINKINFO_IMPORT_tenzeros
+__LINKINFO_IMPORT_tenzeros:
+	.bss 0
+	.export __LINKINFO_IMPORT_setAddress
+__LINKINFO_IMPORT_setAddress:
+	.bss 0
+	.export __LINKINFO_IMPORT_resetDataToggles
+__LINKINFO_IMPORT_resetDataToggles:
+	.bss 0
+	.export __LINKINFO_IMPORT_deviceDescriptor
+__LINKINFO_IMPORT_deviceDescriptor:
+	.bss 0
+	.export __LINKINFO_IMPORT_configurationDescriptor
+__LINKINFO_IMPORT_configurationDescriptor:
+	.bss 0
+	.export __LINKINFO_IMPORT_languageDescriptor
+__LINKINFO_IMPORT_languageDescriptor:
+	.bss 0
+	.export __LINKINFO_IMPORT_vendorStringDescriptor
+__LINKINFO_IMPORT_vendorStringDescriptor:
+	.bss 0
+	.export __LINKINFO_IMPORT_productStringDescriptor
+__LINKINFO_IMPORT_productStringDescriptor:
+	.bss 0
+	.export __LINKINFO_IMPORT_serialNumberDescriptor
+__LINKINFO_IMPORT_serialNumberDescriptor:
+	.bss 0
+	.export __LINKINFO_IMPORT_chapter9
+__LINKINFO_IMPORT_chapter9:
+	.bss 0
+	.export __LINKINFO_IMPORT_inquiry1
+__LINKINFO_IMPORT_inquiry1:
+	.bss 0
+	.export __LINKINFO_IMPORT_sense
+__LINKINFO_IMPORT_sense:
+	.bss 0
+	.export __LINKINFO_IMPORT_capacity
+__LINKINFO_IMPORT_capacity:
+	.bss 0
+	.export __LINKINFO_IMPORT_atapiCapacities
+__LINKINFO_IMPORT_atapiCapacities:
+	.bss 0
+	.export __LINKINFO_IMPORT_diskData
+__LINKINFO_IMPORT_diskData:
+	.bss 0
+	.export __LINKINFO_IMPORT_csw1
+__LINKINFO_IMPORT_csw1:
+	.bss 0
+	.export __LINKINFO_IMPORT_scsi
+__LINKINFO_IMPORT_scsi:
+	.bss 0
+	.export __LINKINFO_IMPORT_diskData0Y
+__LINKINFO_IMPORT_diskData0Y:
+	.bss 0
+	.export __LINKINFO_IMPORT_diskData1Y
+__LINKINFO_IMPORT_diskData1Y:
+	.bss 0
+	.export __LINKINFO_IMPORT_diskData2Y
+__LINKINFO_IMPORT_diskData2Y:
+	.bss 0
+	.export __LINKINFO_IMPORT_diskData3Y
+__LINKINFO_IMPORT_diskData3Y:
+	.bss 0
+	.export __LINKINFO_IMPORT_diskInitTab
+__LINKINFO_IMPORT_diskInitTab:
+	.bss 0
+	.export __LINKINFO_IMPORT_usbHwInitTab
+__LINKINFO_IMPORT_usbHwInitTab:
+	.bss 0
+	.export __LINKINFO_IMPORT_csw
+__LINKINFO_IMPORT_csw:
+	.bss 0
+	.export __LINKINFO_IMPORT_RingBufCopyXfromY
+__LINKINFO_IMPORT_RingBufCopyXfromY:
+	.bss 0
+	.export __LINKINFO_IMPORT_ConsoleWrite
+__LINKINFO_IMPORT_ConsoleWrite:
+	.bss 0
+	.export __LINKINFO_IMPORT_ConsoleFileOperations
+__LINKINFO_IMPORT_ConsoleFileOperations:
+	.bss 0
+	.export __LINKINFO_IMPORT_ConsoleIoctl
+__LINKINFO_IMPORT_ConsoleIoctl:
+	.bss 0
+	.export __LINKINFO_IMPORT_NullFileIdentify
+__LINKINFO_IMPORT_NullFileIdentify:
+	.bss 0
+	.export __LINKINFO_IMPORT_Identify
+__LINKINFO_IMPORT_Identify:
+	.bss 0
+	.export __LINKINFO_IMPORT_FreeBuffer
+__LINKINFO_IMPORT_FreeBuffer:
+	.bss 0
+	.export __LINKINFO_IMPORT_GetBuffer
+__LINKINFO_IMPORT_GetBuffer:
+	.bss 0
+	.export __LINKINFO_IMPORT_MakeFileDescriptor
+__LINKINFO_IMPORT_MakeFileDescriptor:
+	.bss 0
+	.export __LINKINFO_IMPORT_BusyWait
+__LINKINFO_IMPORT_BusyWait:
+	.bss 0
+	.export __LINKINFO_IMPORT_RemovedInterface
+__LINKINFO_IMPORT_RemovedInterface:
+	.bss 0
+	.export __LINKINFO_IMPORT_vs3emubreak
+__LINKINFO_IMPORT_vs3emubreak:
+	.bss 0
+	.export __LINKINFO_IMPORT_fopen_retries
+__LINKINFO_IMPORT_fopen_retries:
+	.bss 0
+	.export __LINKINFO_IMPORT_fopenclose_mutex
+__LINKINFO_IMPORT_fopenclose_mutex:
+	.bss 0
+	.export __LINKINFO_IMPORT_fclose_gettime_mutex
+__LINKINFO_IMPORT_fclose_gettime_mutex:
+	.bss 0
+	.export __LINKINFO_IMPORT_vo_simple_files
+__LINKINFO_IMPORT_vo_simple_files:
+	.bss 0
+	.export __LINKINFO_IMPORT_sbsP
+__LINKINFO_IMPORT_sbsP:
+	.bss 0
+	.export __LINKINFO_IMPORT_nSectorBuffers
+__LINKINFO_IMPORT_nSectorBuffers:
+	.bss 0
+	.export __LINKINFO_IMPORT_nullFileOperations
+__LINKINFO_IMPORT_nullFileOperations:
+	.bss 0
+	.export __LINKINFO_IMPORT_nullFile
+__LINKINFO_IMPORT_nullFile:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatImageWriteBytes
+__LINKINFO_IMPORT_FatImageWriteBytes:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatFlush
+__LINKINFO_IMPORT_FatFlush:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatImageSectorRead
+__LINKINFO_IMPORT_FatImageSectorRead:
+	.bss 0
+	.export __LINKINFO_IMPORT_MegaFatGetByte
+__LINKINFO_IMPORT_MegaFatGetByte:
+	.bss 0
+	.export __LINKINFO_IMPORT_MegaFatGetWord
+__LINKINFO_IMPORT_MegaFatGetWord:
+	.bss 0
+	.export __LINKINFO_IMPORT_MegaFatGetLong
+__LINKINFO_IMPORT_MegaFatGetLong:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatCreate
+__LINKINFO_IMPORT_FatCreate:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatGetFragmentFromFAT
+__LINKINFO_IMPORT_FatGetFragmentFromFAT:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatClusterPos
+__LINKINFO_IMPORT_VoFatClusterPos:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatReadClusterRecord
+__LINKINFO_IMPORT_VoFatReadClusterRecord:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatWriteClusterRecord
+__LINKINFO_IMPORT_VoFatWriteClusterRecord:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatGetFreeFragment
+__LINKINFO_IMPORT_VoFatGetFreeFragment:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteClusterChain
+__LINKINFO_IMPORT_WriteClusterChain:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatFindSector
+__LINKINFO_IMPORT_VoFatFindSector:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatWriteFile
+__LINKINFO_IMPORT_VoFatWriteFile:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatCloseFile
+__LINKINFO_IMPORT_VoFatCloseFile:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatReadFile
+__LINKINFO_IMPORT_VoFatReadFile:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatNameFromDirEntry
+__LINKINFO_IMPORT_FatNameFromDirEntry:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatOpenEntry
+__LINKINFO_IMPORT_FatOpenEntry:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatExtendDirectory
+__LINKINFO_IMPORT_FatExtendDirectory:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatMakeEntry
+__LINKINFO_IMPORT_FatMakeEntry:
+	.bss 0
+	.export __LINKINFO_IMPORT_FileNameCompare
+__LINKINFO_IMPORT_FileNameCompare:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatFindFile
+__LINKINFO_IMPORT_FatFindFile:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatOpenFile
+__LINKINFO_IMPORT_VoFatOpenFile:
+	.bss 0
+	.export __LINKINFO_IMPORT_IdentifyFat
+__LINKINFO_IMPORT_IdentifyFat:
+	.bss 0
+	.export __LINKINFO_IMPORT_FatFileOps
+__LINKINFO_IMPORT_FatFileOps:
+	.bss 0
+	.export __LINKINFO_IMPORT_longFileName
+__LINKINFO_IMPORT_longFileName:
+	.bss 0
+	.export __LINKINFO_IMPORT_lfnStartCluster
+__LINKINFO_IMPORT_lfnStartCluster:
+	.bss 0
+	.export __LINKINFO_IMPORT_MemCopyPackedBigEndian
+__LINKINFO_IMPORT_MemCopyPackedBigEndian:
+	.bss 0
+	.export __LINKINFO_IMPORT_strncasecmp
+__LINKINFO_IMPORT_strncasecmp:
+	.bss 0
+	.export __LINKINFO_IMPORT_atoi
+__LINKINFO_IMPORT_atoi:
+	.bss 0
+	.export __LINKINFO_IMPORT_filtPairs
+__LINKINFO_IMPORT_filtPairs:
+	.bss 0
+	.export __LINKINFO_IMPORT_bassCompand
+__LINKINFO_IMPORT_bassCompand:
+	.bss 0
+	.export __LINKINFO_IMPORT_bTrebleGain
+__LINKINFO_IMPORT_bTrebleGain:
+	.bss 0
+	.export __LINKINFO_IMPORT_bassG
+__LINKINFO_IMPORT_bassG:
+	.bss 0
+	.export __LINKINFO_IMPORT_btmp
+__LINKINFO_IMPORT_btmp:
+	.bss 0
+	.export __LINKINFO_IMPORT_bassCompandMaxGain
+__LINKINFO_IMPORT_bassCompandMaxGain:
+	.bss 0
+	.export __LINKINFO_IMPORT_trebleCoeff
+__LINKINFO_IMPORT_trebleCoeff:
+	.bss 0
+	.export __LINKINFO_IMPORT_trebleFreqs
+__LINKINFO_IMPORT_trebleFreqs:
+	.bss 0
+	.export __LINKINFO_IMPORT_trebleEmph
+__LINKINFO_IMPORT_trebleEmph:
+	.bss 0
+	.export __LINKINFO_IMPORT_lowEmph
+__LINKINFO_IMPORT_lowEmph:
+	.bss 0
+	.export __LINKINFO_IMPORT_trebleIdx
+__LINKINFO_IMPORT_trebleIdx:
+	.bss 0
+	.export __LINKINFO_IMPORT_trebleFiltP
+__LINKINFO_IMPORT_trebleFiltP:
+	.bss 0
+	.export __LINKINFO_IMPORT_trShift
+__LINKINFO_IMPORT_trShift:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_fr_div
+__LINKINFO_IMPORTASM_fr_div:
+	.bss 0
+	.export __LINKINFO_IMPORT_trebleFilt
+__LINKINFO_IMPORT_trebleFilt:
+	.bss 0
+	.export __LINKINFO_IMPORT_trebleCoeffRam
+__LINKINFO_IMPORT_trebleCoeffRam:
+	.bss 0
+	.export __LINKINFO_IMPORT_QueueHwLock
+__LINKINFO_IMPORT_QueueHwLock:
+	.bss 0
+	.export __LINKINFO_IMPORT_ReleaseHwLock
+__LINKINFO_IMPORT_ReleaseHwLock:
+	.bss 0
+	.export __LINKINFO_IMPORT_hwLocks
+__LINKINFO_IMPORT_hwLocks:
+	.bss 0
+	.export __LINKINFO_IMPORT_hwLockOffset
+__LINKINFO_IMPORT_hwLockOffset:
+	.bss 0
+	.export __LINKINFO_IMPORT_hwLockN
+__LINKINFO_IMPORT_hwLockN:
+	.bss 0
+	.export __LINKINFO_IMPORT_MSBSetU32
+__LINKINFO_IMPORT_MSBSetU32:
+	.bss 0
+	.export __LINKINFO_IMPORT_GpioReadInputPin
+__LINKINFO_IMPORT_GpioReadInputPin:
+	.bss 0
+	.export __LINKINFO_IMPORT_vo_gpio_perips
+__LINKINFO_IMPORT_vo_gpio_perips:
+	.bss 0
+	.export __LINKINFO_IMPORT_WritePCL
+__LINKINFO_IMPORT_WritePCL:
+	.bss 0
+	.export __LINKINFO_IMPORT_ResetSdCard
+__LINKINFO_IMPORT_ResetSdCard:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetPWMLevel
+__LINKINFO_IMPORT_SetPWMLevel:
+	.bss 0
+	.export __LINKINFO_IMPORT_powerControlLatchState
+__LINKINFO_IMPORT_powerControlLatchState:
+	.bss 0
+	.export __LINKINFO_IMPORT_HuffmanRLC44ODiff
+__LINKINFO_IMPORT_HuffmanRLC44ODiff:
+	.bss 0
+	.export __LINKINFO_IMPORT_HuffmanRLC16Mono
+__LINKINFO_IMPORT_HuffmanRLC16Mono:
+	.bss 0
+	.export __LINKINFO_IMPORT_kbd_win_128
+__LINKINFO_IMPORT_kbd_win_128:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_1
+__LINKINFO_IMPORT_hcb_1:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_2
+__LINKINFO_IMPORT_hcb_2:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_3
+__LINKINFO_IMPORT_hcb_3:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_4
+__LINKINFO_IMPORT_hcb_4:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_5
+__LINKINFO_IMPORT_hcb_5:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_6
+__LINKINFO_IMPORT_hcb_6:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_7
+__LINKINFO_IMPORT_hcb_7:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_8
+__LINKINFO_IMPORT_hcb_8:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_9
+__LINKINFO_IMPORT_hcb_9:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_10
+__LINKINFO_IMPORT_hcb_10:
+	.bss 0
+	.export __LINKINFO_IMPORT_hcb_11
+__LINKINFO_IMPORT_hcb_11:
+	.bss 0
+	.export __LINKINFO_IMPORT_phiFractQmf_cs
+__LINKINFO_IMPORT_phiFractQmf_cs:
+	.bss 0
+	.export __LINKINFO_IMPORT_phiFractSubQmf20_cs
+__LINKINFO_IMPORT_phiFractSubQmf20_cs:
+	.bss 0
+	.export __LINKINFO_IMPORT_phiFractSubQmf34_cs
+__LINKINFO_IMPORT_phiFractSubQmf34_cs:
+	.bss 0
+	.export __LINKINFO_IMPORT_num_swb_960_window
+__LINKINFO_IMPORT_num_swb_960_window:
+	.bss 0
+	.export __LINKINFO_IMPORT_num_swb_1024_window
+__LINKINFO_IMPORT_num_swb_1024_window:
+	.bss 0
+	.export __LINKINFO_IMPORT_num_swb_128_window
+__LINKINFO_IMPORT_num_swb_128_window:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_1024_96
+__LINKINFO_IMPORT_swb_offset_1024_96:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_128_96
+__LINKINFO_IMPORT_swb_offset_128_96:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_1024_64
+__LINKINFO_IMPORT_swb_offset_1024_64:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_1024_48
+__LINKINFO_IMPORT_swb_offset_1024_48:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_128_48
+__LINKINFO_IMPORT_swb_offset_128_48:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_1024_32
+__LINKINFO_IMPORT_swb_offset_1024_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_1024_24
+__LINKINFO_IMPORT_swb_offset_1024_24:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_128_24
+__LINKINFO_IMPORT_swb_offset_128_24:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_1024_16
+__LINKINFO_IMPORT_swb_offset_1024_16:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_128_16
+__LINKINFO_IMPORT_swb_offset_128_16:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_1024_8
+__LINKINFO_IMPORT_swb_offset_1024_8:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_128_8
+__LINKINFO_IMPORT_swb_offset_128_8:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_1024_window
+__LINKINFO_IMPORT_swb_offset_1024_window:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_128_window
+__LINKINFO_IMPORT_swb_offset_128_window:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_120_96
+__LINKINFO_IMPORT_swb_offset_120_96:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_960_48
+__LINKINFO_IMPORT_swb_offset_960_48:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_120_48
+__LINKINFO_IMPORT_swb_offset_120_48:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_120_24
+__LINKINFO_IMPORT_swb_offset_120_24:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_120_16
+__LINKINFO_IMPORT_swb_offset_120_16:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_960_8
+__LINKINFO_IMPORT_swb_offset_960_8:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_120_8
+__LINKINFO_IMPORT_swb_offset_120_8:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_960_window
+__LINKINFO_IMPORT_swb_offset_960_window:
+	.bss 0
+	.export __LINKINFO_IMPORT_swb_offset_120_window
+__LINKINFO_IMPORT_swb_offset_120_window:
+	.bss 0
+	.export __LINKINFO_IMPORT_iq_tablei_x
+__LINKINFO_IMPORT_iq_tablei_x:
+	.bss 0
+	.export __LINKINFO_IMPORT_NoiseRe
+__LINKINFO_IMPORT_NoiseRe:
+	.bss 0
+	.export __LINKINFO_IMPORT_NoiseIm
+__LINKINFO_IMPORT_NoiseIm:
+	.bss 0
+	.export __LINKINFO_IMPORT_hxx_mix_ab32
+__LINKINFO_IMPORT_hxx_mix_ab32:
+	.bss 0
+	.export __LINKINFO_IMPORT_qFractAllpassQmf_cs
+__LINKINFO_IMPORT_qFractAllpassQmf_cs:
+	.bss 0
+	.export __LINKINFO_IMPORT_qFractAllpassSubQmf20_cs
+__LINKINFO_IMPORT_qFractAllpassSubQmf20_cs:
+	.bss 0
+	.export __LINKINFO_IMPORT_qFractAllpassSubQmf34_cs
+__LINKINFO_IMPORT_qFractAllpassSubQmf34_cs:
+	.bss 0
+	.export __LINKINFO_IMPORT_bitReverse
+__LINKINFO_IMPORT_bitReverse:
+	.bss 0
+	.export __LINKINFO_IMPORT_latin1
+__LINKINFO_IMPORT_latin1:
+	.bss 0
+	.export __LINKINFO_IMPORT_font16a
+__LINKINFO_IMPORT_font16a:
+	.bss 0
+	.export __LINKINFO_IMPORT_FileParamInt
+__LINKINFO_IMPORT_FileParamInt:
+	.bss 0
+	.export __LINKINFO_IMPORT_FileParamStr
+__LINKINFO_IMPORT_FileParamStr:
+	.bss 0
+	.export __LINKINFO_IMPORT_strtol
+__LINKINFO_IMPORT_strtol:
+	.bss 0
+	.export __LINKINFO_IMPORT_strrchr
+__LINKINFO_IMPORT_strrchr:
+	.bss 0
+	.export __LINKINFO_IMPORT_TEST_GetSineAdder
+__LINKINFO_IMPORT_TEST_GetSineAdder:
+	.bss 0
+	.export __LINKINFO_IMPORT_CompareXY
+__LINKINFO_IMPORT_CompareXY:
+	.bss 0
+	.export __LINKINFO_IMPORT_CopyXY
+__LINKINFO_IMPORT_CopyXY:
+	.bss 0
+	.export __LINKINFO_IMPORT_FsPhNullFail
+__LINKINFO_IMPORT_FsPhNullFail:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteToProgramRam16
+__LINKINFO_IMPORT_WriteToProgramRam16:
+	.bss 0
+	.export __LINKINFO_IMPORT_WriteToProgramRamSwapped
+__LINKINFO_IMPORT_WriteToProgramRamSwapped:
+	.bss 0
+	.export __LINKINFO_IMPORT_CyclicMainLoop
+__LINKINFO_IMPORT_CyclicMainLoop:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetInCyclicQueue
+__LINKINFO_IMPORT_SetInCyclicQueue:
+	.bss 0
+	.export __LINKINFO_IMPORT_DropCyclic
+__LINKINFO_IMPORT_DropCyclic:
+	.bss 0
+	.export __LINKINFO_IMPORT_cyclic
+__LINKINFO_IMPORT_cyclic:
+	.bss 0
+	.export __LINKINFO_IMPORT_CreateTaskAndStack
+__LINKINFO_IMPORT_CreateTaskAndStack:
+	.bss 0
+	.export __LINKINFO_IMPORT_ListDevices
+__LINKINFO_IMPORT_ListDevices:
+	.bss 0
+	.export __LINKINFO_IMPORT_devSdSd
+__LINKINFO_IMPORT_devSdSd:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_ushort_to_df
+__LINKINFO_IMPORTASM_ushort_to_df:
+	.bss 0
+	.export __LINKINFO_IMPORT_DevSdSdCreate
+__LINKINFO_IMPORT_DevSdSdCreate:
+	.bss 0
+	.export __LINKINFO_IMPORT_AudioIoctl
+__LINKINFO_IMPORT_AudioIoctl:
+	.bss 0
+	.export __LINKINFO_IMPORT_AudioWrite
+__LINKINFO_IMPORT_AudioWrite:
+	.bss 0
+	.export __LINKINFO_IMPORT_AudioFileOperations
+__LINKINFO_IMPORT_AudioFileOperations:
+	.bss 0
+	.export __LINKINFO_IMPORT_voAudioChannels
+__LINKINFO_IMPORT_voAudioChannels:
+	.bss 0
+	.export __LINKINFO_IMPORT_xp_fiford
+__LINKINFO_IMPORT_xp_fiford:
+	.bss 0
+	.export __LINKINFO_IMPORT_xp_fifowr
+__LINKINFO_IMPORT_xp_fifowr:
+	.bss 0
+	.export __LINKINFO_IMPORT_SDClock32
+__LINKINFO_IMPORT_SDClock32:
+	.bss 0
+	.export __LINKINFO_IMPORT_SDDataRXTX
+__LINKINFO_IMPORT_SDDataRXTX:
+	.bss 0
+	.export __LINKINFO_IMPORT_SDDataRX1
+__LINKINFO_IMPORT_SDDataRX1:
+	.bss 0
+	.export __LINKINFO_IMPORT_DevSdSdDelete
+__LINKINFO_IMPORT_DevSdSdDelete:
+	.bss 0
+	.export __LINKINFO_IMPORT_DevSdSdIdentify
+__LINKINFO_IMPORT_DevSdSdIdentify:
+	.bss 0
+	.export __LINKINFO_IMPORT_DataStop
+__LINKINFO_IMPORT_DataStop:
+	.bss 0
+	.export __LINKINFO_IMPORT_DevSdSdBlockRead
+__LINKINFO_IMPORT_DevSdSdBlockRead:
+	.bss 0
+	.export __LINKINFO_IMPORT_DevSdSdBlockWrite
+__LINKINFO_IMPORT_DevSdSdBlockWrite:
+	.bss 0
+	.export __LINKINFO_IMPORT_DevSdSdIoctl
+__LINKINFO_IMPORT_DevSdSdIoctl:
+	.bss 0
+	.export __LINKINFO_IMPORT_devSdSdDefaults
+__LINKINFO_IMPORT_devSdSdDefaults:
+	.bss 0
+	.export __LINKINFO_IMPORT_devSdSdDefaults1Bit
+__LINKINFO_IMPORT_devSdSdDefaults1Bit:
+	.bss 0
+	.export __LINKINFO_IMPORT_XP_FifoRd8
+__LINKINFO_IMPORT_XP_FifoRd8:
+	.bss 0
+	.export __LINKINFO_IMPORT_XP_FifoWr8
+__LINKINFO_IMPORT_XP_FifoWr8:
+	.bss 0
+	.export __LINKINFO_IMPORT_WaitSdReady
+__LINKINFO_IMPORT_WaitSdReady:
+	.bss 0
+	.export __LINKINFO_IMPORT_SDCmd
+__LINKINFO_IMPORT_SDCmd:
+	.bss 0
+	.export __LINKINFO_IMPORT_IoctlRestart
+__LINKINFO_IMPORT_IoctlRestart:
+	.bss 0
+	.export __LINKINFO_IMPORT_DetectSDCard
+__LINKINFO_IMPORT_DetectSDCard:
+	.bss 0
+	.export __LINKINFO_IMPORT_IDSDCard
+__LINKINFO_IMPORT_IDSDCard:
+	.bss 0
+	.export __LINKINFO_IMPORT_SetupSDData
+__LINKINFO_IMPORT_SetupSDData:
+	.bss 0
+	.export __LINKINFO_IMPORT_SdIdentify
+__LINKINFO_IMPORT_SdIdentify:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMCountHuff2
+__LINKINFO_IMPORT_EncMCountHuff2:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMCountHuff4
+__LINKINFO_IMPORT_EncMCountHuff4:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMHuff2N
+__LINKINFO_IMPORT_EncMHuff2N:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMCountHuff2Asm
+__LINKINFO_IMPORT_EncMCountHuff2Asm:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMOutBits32
+__LINKINFO_IMPORT_EncMOutBits32:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMOutBits16
+__LINKINFO_IMPORT_EncMOutBits16:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMOutBit
+__LINKINFO_IMPORT_EncMOutBit:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMDct18
+__LINKINFO_IMPORT_EncMDct18:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMDct18Asm
+__LINKINFO_IMPORT_EncMDct18Asm:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMInitBits
+__LINKINFO_IMPORT_EncMInitBits:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMAlignBitsToByte
+__LINKINFO_IMPORT_EncMAlignBitsToByte:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMGetBitPtr
+__LINKINFO_IMPORT_EncMGetBitPtr:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMInsertBit
+__LINKINFO_IMPORT_EncMInsertBit:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMInsertBits
+__LINKINFO_IMPORT_EncMInsertBits:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMSetBitBytePtr
+__LINKINFO_IMPORT_EncMSetBitBytePtr:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMMoveBitBytes
+__LINKINFO_IMPORT_EncMMoveBitBytes:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMWriteBitBytes
+__LINKINFO_IMPORT_EncMWriteBitBytes:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMBitMasks
+__LINKINFO_IMPORT_encMBitMasks:
+	.bss 0
+	.export __LINKINFO_IMPORT_memmove
+__LINKINFO_IMPORT_memmove:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMCos32
+__LINKINFO_IMPORT_encMCos32:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMDct18
+__LINKINFO_IMPORT_encMDct18:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncMDct32
+__LINKINFO_IMPORT_EncMDct32:
+	.bss 0
+	.export __LINKINFO_IMPORT_huffEnc2
+__LINKINFO_IMPORT_huffEnc2:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode00
+__LINKINFO_IMPORT_encMHuff2BitsAndCode00:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode01
+__LINKINFO_IMPORT_encMHuff2BitsAndCode01:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode02
+__LINKINFO_IMPORT_encMHuff2BitsAndCode02:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode03
+__LINKINFO_IMPORT_encMHuff2BitsAndCode03:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode04
+__LINKINFO_IMPORT_encMHuff2BitsAndCode04:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode05
+__LINKINFO_IMPORT_encMHuff2BitsAndCode05:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode06
+__LINKINFO_IMPORT_encMHuff2BitsAndCode06:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode07
+__LINKINFO_IMPORT_encMHuff2BitsAndCode07:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode08
+__LINKINFO_IMPORT_encMHuff2BitsAndCode08:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode09
+__LINKINFO_IMPORT_encMHuff2BitsAndCode09:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode10
+__LINKINFO_IMPORT_encMHuff2BitsAndCode10:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode11
+__LINKINFO_IMPORT_encMHuff2BitsAndCode11:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode12
+__LINKINFO_IMPORT_encMHuff2BitsAndCode12:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode13
+__LINKINFO_IMPORT_encMHuff2BitsAndCode13:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHuff2BitsAndCode14
+__LINKINFO_IMPORT_encMHuff2BitsAndCode14:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMWinCoeffI
+__LINKINFO_IMPORT_encMWinCoeffI:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMHybridWinFuncI
+__LINKINFO_IMPORT_encMHybridWinFuncI:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMPow34
+__LINKINFO_IMPORT_encMPow34:
+	.bss 0
+	.export __LINKINFO_IMPORT_encMButrCSCAI
+__LINKINFO_IMPORT_encMButrCSCAI:
+	.bss 0
+	.export __LINKINFO_IMPORT_encDiv256
+__LINKINFO_IMPORT_encDiv256:
+	.bss 0
+	.export __LINKINFO_IMPORT_encVOnePer
+__LINKINFO_IMPORT_encVOnePer:
+	.bss 0
+	.export __LINKINFO_IMPORT_encVDbRatio
+__LINKINFO_IMPORT_encVDbRatio:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands08k_64
+__LINKINFO_IMPORT_evBands08k_64:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean08k_64
+__LINKINFO_IMPORT_evMean08k_64:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands08k_256
+__LINKINFO_IMPORT_evBands08k_256:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean08k_256
+__LINKINFO_IMPORT_evMean08k_256:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands16k_128
+__LINKINFO_IMPORT_evBands16k_128:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean16k_128
+__LINKINFO_IMPORT_evMean16k_128:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands16k_512
+__LINKINFO_IMPORT_evBands16k_512:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean16k_512
+__LINKINFO_IMPORT_evMean16k_512:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands32k_128
+__LINKINFO_IMPORT_evBands32k_128:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean32k_128
+__LINKINFO_IMPORT_evMean32k_128:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands32k_1024
+__LINKINFO_IMPORT_evBands32k_1024:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean32k_1024
+__LINKINFO_IMPORT_evMean32k_1024:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands44k_128
+__LINKINFO_IMPORT_evBands44k_128:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean44k_128
+__LINKINFO_IMPORT_evMean44k_128:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands44k_1024
+__LINKINFO_IMPORT_evBands44k_1024:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean44k_1024
+__LINKINFO_IMPORT_evMean44k_1024:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands48k_256
+__LINKINFO_IMPORT_evBands48k_256:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean48k_256
+__LINKINFO_IMPORT_evMean48k_256:
+	.bss 0
+	.export __LINKINFO_IMPORT_evBands48k_1024
+__LINKINFO_IMPORT_evBands48k_1024:
+	.bss 0
+	.export __LINKINFO_IMPORT_evMean48k_1024
+__LINKINFO_IMPORT_evMean48k_1024:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncVSampleClear
+__LINKINFO_IMPORT_EncVSampleClear:
+	.bss 0
+	.export __LINKINFO_IMPORT_EncVShiftUpAndCopyToSamp
+__LINKINFO_IMPORT_EncVShiftUpAndCopyToSamp:
+	.bss 0
+	.export __LINKINFO_IMPORT_MemCpySampleT
+__LINKINFO_IMPORT_MemCpySampleT:
+	.bss 0
+	.export __LINKINFO_IMPORT_CodMpgDelete
+__LINKINFO_IMPORT_CodMpgDelete:
+	.bss 0
+	.export __LINKINFO_IMPORT_CodMpgDecode
+__LINKINFO_IMPORT_CodMpgDecode:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitCommon
+__LINKINFO_IMPORT_InitCommon:
+	.bss 0
+	.export __LINKINFO_IMPORT_CodMpgInitReadFrame
+__LINKINFO_IMPORT_CodMpgInitReadFrame:
+	.bss 0
+	.export __LINKINFO_IMPORT_CodMpgReadFrame
+__LINKINFO_IMPORT_CodMpgReadFrame:
+	.bss 0
+	.export __LINKINFO_IMPORT_CodMpgPlayFrame
+__LINKINFO_IMPORT_CodMpgPlayFrame:
+	.bss 0
+	.export __LINKINFO_IMPORT_CalcCrc
+__LINKINFO_IMPORT_CalcCrc:
+	.bss 0
+	.export __LINKINFO_IMPORT_rewindbitsy
+__LINKINFO_IMPORT_rewindbitsy:
+	.bss 0
+	.export __LINKINFO_IMPORT_mpeg_crc_table
+__LINKINFO_IMPORT_mpeg_crc_table:
+	.bss 0
+	.export __LINKINFO_IMPORT_InitLayer3
+__LINKINFO_IMPORT_InitLayer3:
+	.bss 0
+	.export __LINKINFO_IMPORT_DecodeHeader
+__LINKINFO_IMPORT_DecodeHeader:
+	.bss 0
+	.export __LINKINFO_IMPORT_mymem16cpy
+__LINKINFO_IMPORT_mymem16cpy:
+	.bss 0
+	.export __LINKINFO_IMPORT_CodMpgSetPointer
+__LINKINFO_IMPORT_CodMpgSetPointer:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgFreqs
+__LINKINFO_IMPORT_codMpgFreqs:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTabsel_123
+__LINKINFO_IMPORT_codMpgTabsel_123:
+	.bss 0
+	.export __LINKINFO_IMPORT_MemCopyPackedBigEndianYY
+__LINKINFO_IMPORT_MemCopyPackedBigEndianYY:
+	.bss 0
+	.export __LINKINFO_IMPORT_getbitsy
+__LINKINFO_IMPORT_getbitsy:
+	.bss 0
+	.export __LINKINFO_IMPORT_MpgLayer3
+__LINKINFO_IMPORT_MpgLayer3:
+	.bss 0
+	.export __LINKINFO_IMPORT_Pow43Gt100
+__LINKINFO_IMPORT_Pow43Gt100:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_get_side_info_1y
+__LINKINFO_IMPORT_III_get_side_info_1y:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_get_side_info_2y
+__LINKINFO_IMPORT_III_get_side_info_2y:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_get_scale_factors_1y
+__LINKINFO_IMPORT_III_get_scale_factors_1y:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_get_scale_factors_2y
+__LINKINFO_IMPORT_III_get_scale_factors_2y:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_huffman_decode_32y
+__LINKINFO_IMPORT_III_huffman_decode_32y:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_check_bands_32
+__LINKINFO_IMPORT_III_check_bands_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_dequantize_32
+__LINKINFO_IMPORT_III_dequantize_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_reorder_32
+__LINKINFO_IMPORT_III_reorder_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_i_stereo_32
+__LINKINFO_IMPORT_III_i_stereo_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_hybrid_32
+__LINKINFO_IMPORT_III_hybrid_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_MpgSendSpectrum
+__LINKINFO_IMPORT_MpgSendSpectrum:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgBandInfo
+__LINKINFO_IMPORT_codMpgBandInfo:
+	.bss 0
+	.export __LINKINFO_IMPORT_pow43tab
+__LINKINFO_IMPORT_pow43tab:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgSlen
+__LINKINFO_IMPORT_codMpgSlen:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgPretab1
+__LINKINFO_IMPORT_codMpgPretab1:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgPretab2
+__LINKINFO_IMPORT_codMpgPretab2:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgNPow2
+__LINKINFO_IMPORT_codMpgNPow2:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgNPow1
+__LINKINFO_IMPORT_codMpgNPow1:
+	.bss 0
+	.export __LINKINFO_IMPORT_pow43_2_mant
+__LINKINFO_IMPORT_pow43_2_mant:
+	.bss 0
+	.export __LINKINFO_IMPORT_pow43_2_exp
+__LINKINFO_IMPORT_pow43_2_exp:
+	.bss 0
+	.export __LINKINFO_IMPORT_pow43_4_mant
+__LINKINFO_IMPORT_pow43_4_mant:
+	.bss 0
+	.export __LINKINFO_IMPORT_pow43_4_exp
+__LINKINFO_IMPORT_pow43_4_exp:
+	.bss 0
+	.export __LINKINFO_IMPORT_Pow43
+__LINKINFO_IMPORT_Pow43:
+	.bss 0
+	.export __LINKINFO_IMPORT_get1bity
+__LINKINFO_IMPORT_get1bity:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgNSlen2
+__LINKINFO_IMPORT_codMpgNSlen2:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgISlen2
+__LINKINFO_IMPORT_codMpgISlen2:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgHt
+__LINKINFO_IMPORT_codMpgHt:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_HuffDecodePairsy
+__LINKINFO_IMPORT_III_HuffDecodePairsy:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgHtc
+__LINKINFO_IMPORT_codMpgHtc:
+	.bss 0
+	.export __LINKINFO_IMPORT_GetYy
+__LINKINFO_IMPORT_GetYy:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_DequantBand
+__LINKINFO_IMPORT_III_DequantBand:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTan1_1
+__LINKINFO_IMPORT_codMpgTan1_1:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTan2_1
+__LINKINFO_IMPORT_codMpgTan2_1:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTan1_2
+__LINKINFO_IMPORT_codMpgTan1_2:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTan2_2
+__LINKINFO_IMPORT_codMpgTan2_2:
+	.bss 0
+	.export __LINKINFO_IMPORT_dct36_32_linear
+__LINKINFO_IMPORT_dct36_32_linear:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_DctSkipped
+__LINKINFO_IMPORT_III_DctSkipped:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgWin
+__LINKINFO_IMPORT_codMpgWin:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgWin1
+__LINKINFO_IMPORT_codMpgWin1:
+	.bss 0
+	.export __LINKINFO_IMPORT_dct12_32_linear
+__LINKINFO_IMPORT_dct12_32_linear:
+	.bss 0
+	.export __LINKINFO_IMPORT_logdb32
+__LINKINFO_IMPORT_logdb32:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_matrix_32
+__LINKINFO_IMPORT_III_matrix_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_antialias_32
+__LINKINFO_IMPORT_III_antialias_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_III_get_synth_32
+__LINKINFO_IMPORT_III_get_synth_32:
+	.bss 0
+	.export __LINKINFO_IMPORT_SynthesisMono32_2
+__LINKINFO_IMPORT_SynthesisMono32_2:
+	.bss 0
+	.export __LINKINFO_IMPORT_Synthesis32_2
+__LINKINFO_IMPORT_Synthesis32_2:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgAaCsca
+__LINKINFO_IMPORT_codMpgAaCsca:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgPowQuarter
+__LINKINFO_IMPORT_codMpgPowQuarter:
+	.bss 0
+	.export __LINKINFO_IMPORT_pow43_1_mant
+__LINKINFO_IMPORT_pow43_1_mant:
+	.bss 0
+	.export __LINKINFO_IMPORT_Pow43_32u
+__LINKINFO_IMPORT_Pow43_32u:
+	.bss 0
+	.export __LINKINFO_IMPORT_pow43_1_exp
+__LINKINFO_IMPORT_pow43_1_exp:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgDecwin16scaled
+__LINKINFO_IMPORT_codMpgDecwin16scaled:
+	.bss 0
+	.export __LINKINFO_IMPORT_cos12Tab
+__LINKINFO_IMPORT_cos12Tab:
+	.bss 0
+	.export __LINKINFO_IMPORT_cos36Tab
+__LINKINFO_IMPORT_cos36Tab:
+	.bss 0
+	.export __LINKINFO_IMPORT_cos64NewTab
+__LINKINFO_IMPORT_cos64NewTab:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab0
+__LINKINFO_IMPORT_codMpgTab0:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab1
+__LINKINFO_IMPORT_codMpgTab1:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab2
+__LINKINFO_IMPORT_codMpgTab2:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab3
+__LINKINFO_IMPORT_codMpgTab3:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab5
+__LINKINFO_IMPORT_codMpgTab5:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab6
+__LINKINFO_IMPORT_codMpgTab6:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab7
+__LINKINFO_IMPORT_codMpgTab7:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab8
+__LINKINFO_IMPORT_codMpgTab8:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab9
+__LINKINFO_IMPORT_codMpgTab9:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab10
+__LINKINFO_IMPORT_codMpgTab10:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab11
+__LINKINFO_IMPORT_codMpgTab11:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab12
+__LINKINFO_IMPORT_codMpgTab12:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab13
+__LINKINFO_IMPORT_codMpgTab13:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab15
+__LINKINFO_IMPORT_codMpgTab15:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab16
+__LINKINFO_IMPORT_codMpgTab16:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab24
+__LINKINFO_IMPORT_codMpgTab24:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab_c0
+__LINKINFO_IMPORT_codMpgTab_c0:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgTab_c1
+__LINKINFO_IMPORT_codMpgTab_c1:
+	.bss 0
+	.export __LINKINFO_IMPORT_codMpgDct64skips2
+__LINKINFO_IMPORT_codMpgDct64skips2:
+	.bss 0
+	.export __LINKINFO_IMPORT_dct64_32
+__LINKINFO_IMPORT_dct64_32:
+	.bss 0
+	.export __LINKINFO_IMPORT__divide16signed
+__LINKINFO_IMPORT__divide16signed:
+	.bss 0
+	.export __LINKINFO_IMPORT_strstr
+__LINKINFO_IMPORT_strstr:
+	.bss 0
+	.export __LINKINFO_IMPORT_strncat
+__LINKINFO_IMPORT_strncat:
+	.bss 0
+	.export __LINKINFO_IMPORT_strxfrm
+__LINKINFO_IMPORT_strxfrm:
+	.bss 0
+	.export __LINKINFO_IMPORT_strspn
+__LINKINFO_IMPORT_strspn:
+	.bss 0
+	.export __LINKINFO_IMPORT_strcspn
+__LINKINFO_IMPORT_strcspn:
+	.bss 0
+	.export __LINKINFO_IMPORT_strcat
+__LINKINFO_IMPORT_strcat:
+	.bss 0
+	.export __LINKINFO_IMPORT_strerror
+__LINKINFO_IMPORT_strerror:
+	.bss 0
+	.export __LINKINFO_IMPORT_strpbrk
+__LINKINFO_IMPORT_strpbrk:
+	.bss 0
+	.export __LINKINFO_IMPORT_memchr
+__LINKINFO_IMPORT_memchr:
+	.bss 0
+	.export __LINKINFO_IMPORT_strncpyXX
+__LINKINFO_IMPORT_strncpyXX:
+	.bss 0
+	.export __LINKINFO_IMPORT_strncpyXY
+__LINKINFO_IMPORT_strncpyXY:
+	.bss 0
+	.export __LINKINFO_IMPORT_strncpyYX
+__LINKINFO_IMPORT_strncpyYX:
+	.bss 0
+	.export __LINKINFO_IMPORT_strncpyYY
+__LINKINFO_IMPORT_strncpyYY:
+	.bss 0
+	.export __LINKINFO_IMPORT_div16approx
+__LINKINFO_IMPORT_div16approx:
+	.bss 0
+	.export __LINKINFO_IMPORT__divide16unsigned
+__LINKINFO_IMPORT__divide16unsigned:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_to_int
+__LINKINFO_IMPORTASM_df_to_int:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_uint_to_df
+__LINKINFO_IMPORTASM_uint_to_df:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_to_uint
+__LINKINFO_IMPORTASM_df_to_uint:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_df_to_ushort
+__LINKINFO_IMPORTASM_df_to_ushort:
+	.bss 0
+	.export __LINKINFO_IMPORT_memmoveXX
+__LINKINFO_IMPORT_memmoveXX:
+	.bss 0
+	.export __LINKINFO_IMPORT_logdb
+__LINKINFO_IMPORT_logdb:
+	.bss 0
+	.export __LINKINFO_IMPORT_win64
+__LINKINFO_IMPORT_win64:
+	.bss 0
+	.export __LINKINFO_IMPORT_win128
+__LINKINFO_IMPORT_win128:
+	.bss 0
+	.export __LINKINFO_IMPORT_win256
+__LINKINFO_IMPORT_win256:
+	.bss 0
+	.export __LINKINFO_IMPORT_win512
+__LINKINFO_IMPORT_win512:
+	.bss 0
+	.export __LINKINFO_IMPORT_win1024
+__LINKINFO_IMPORT_win1024:
+	.bss 0
+	.export __LINKINFO_IMPORT_win2048
+__LINKINFO_IMPORT_win2048:
+	.bss 0
+	.export __LINKINFO_IMPORT_FLOOR1_fromdB_LOOKUP_i
+__LINKINFO_IMPORT_FLOOR1_fromdB_LOOKUP_i:
+	.bss 0
+	.export __LINKINFO_IMPORT_Swap32Words
+__LINKINFO_IMPORT_Swap32Words:
+	.bss 0
+	.export __LINKINFO_IMPORT_Swap32
+__LINKINFO_IMPORT_Swap32:
+	.bss 0
+	.export __LINKINFO_IMPORT_Swap32Mix
+__LINKINFO_IMPORT_Swap32Mix:
+	.bss 0
+	.export __LINKINFO_IMPORTASM_vsstdio
+__LINKINFO_IMPORTASM_vsstdio:
+	.bss 0
+	.export __LINKINFO_IMPORT_iFlist
+__LINKINFO_IMPORT_iFlist:
+	.bss 0
+	.export __LINKINFO_IMPORT_vo_kernel_init
+__LINKINFO_IMPORT_vo_kernel_init:
+	.bss 0
+	.export __LINKINFO_IMPORT_vo_ungetc
+__LINKINFO_IMPORT_vo_ungetc:
+	.bss 0
+	.export __LINKINFO_IMPORT_diskSurfaceY
+__LINKINFO_IMPORT_diskSurfaceY:
+	.bss 0
+	.export __LINKINFO_IMPORT_VoFatNameFromDir
+__LINKINFO_IMPORT_VoFatNameFromDir:
+	.bss 0
+	.export __LINKINFO_IMPORT_ZPC
+__LINKINFO_IMPORT_ZPC:
+	.bss 0
+	.export __LINKINFO_IMPORT_CoarseSine
+__LINKINFO_IMPORT_CoarseSine:
+	.bss 0
+	.export __LINKINFO_IMPORT_GetDivider
+__LINKINFO_IMPORT_GetDivider:
+	.bss 0
+	.export __LINKINFO_IMPORT_timeCountAdd
+__LINKINFO_IMPORT_timeCountAdd:
+	.bss 0
+	.export __LINKINFO_IMPORT_crc_table
+__LINKINFO_IMPORT_crc_table:
+	.bss 0
+	.export __LINKINFO_IMPORT_crc32Tab
+__LINKINFO_IMPORT_crc32Tab:
+	.bss 0
+	.export __LINKINFO_IMPORT_appIXYStart
+__LINKINFO_IMPORT_appIXYStart:
+	.bss 0
+	.export __LINKINFO_DLLENTRY_ReturnID3
+__LINKINFO_DLLENTRY_ReturnID3:
+	.bss 0
+_currTmpStr:
+	.bss 256
+
+//_____________________________________________________________
+//
+	.sect data_x,const_x	// 120 words
+	.export _id3Tags
+_id3Tags:
+	.word 1283
+	.word "TIT2"
+
+	.zero 1
+	.word 1284
+	.word "TALB"
+
+	.zero 1
+	.word 1285
+	.word "TPE1"
+
+	.zero 1
+	.word 1286
+	.word "TYER"
+
+	.zero 1
+	.word 1293
+	.word "TRCK"
+
+	.zero 1
+	.word 0
+
+	.zero 5
+String_1:
+	.word "\n"
+
+	.zero 1
+mojibake_2:
+	.word "MOJIBAKE"
+
+	.zero 1
+rightbefo_3:
+	.word "right before the message determination \n"
+
+	.zero 1
+JumpTable_4:
+	.word F4B63, F4B64, F4B65, F4B66
+i_5:
+	.word "%i - "
+
+	.zero 1
+c_6:
+	.word "(%c)"
+
+	.zero 1
+id3v1tag_7:
+	.word "ID3v1 tag! \n"
+
+	.zero 1
+tag_8:
+	.word "TAG"
+
+	.zero 1
+
+	.end

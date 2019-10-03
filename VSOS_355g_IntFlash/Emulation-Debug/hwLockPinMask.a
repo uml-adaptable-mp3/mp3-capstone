@@ -1,0 +1,54 @@
+
+//_____________________________________________________________
+//
+	.sect code,PinToGpioHwLockMask	// 26 words
+	.export _PinToGpioHwLockMask
+_PinToGpioHwLockMask:
+	ldc 46,A0	// 46 -> 1 -> ET0
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx I0,(I6) ; sub D0,A0,A0
+//   if (pin >= 2*sizeof(hwLockGpioBit)/sizeof(hwLockGpioBit[0]))
+	ldc _hwLockGpioBit,A1
+	jcc F0B4	// unsigned compare
+	and B1,NULL,B1	// 'pin' < ET0 -> AT14
+// jumped away
+//   }
+// {
+//     return 0xFFFFFFFF;
+	or A,ONES,A	// 4294967295 -> 3 -> ET1
+F0B1:
+	ldx (I6)-1,I0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	jr
+	nop
+// jumped away
+//   return 1L << ((hwLockGpioBit[pin>>1] >> ((pin&1)*8)) & 0xFF);
+	ldc _hwLockGpioBit,A1	// ET3
+	ldc 0,B1
+F0B4:
+	lsr D0,A0	// 'pin' << (-1) -> ET6
+	add A1,A0,A0	// ET3 + ET6 -> AT19
+	ldc 3,A1	// 3 -> 0 -> ETc
+	mv A0,I0 ; sub NULL,ONES,A0	// AT19 -> ET7
+	ldy (I0),B0 ; and D0,A0,A0	// ET7 ==> ET8
+	ashl A0,A1,A0	// ETa << ETc -> ETd
+	sub NULL,A0,A0	// (0) - ETd -> ETe
+	ashl B,A0,A ; mv B1,B1	// AT16 <- ETe -> AT17
+	sub NULL,ONES,B0	// 1 -> 2 -> B0
+	ldc 255,A1	// 255 -> 1 -> ET10
+	and A0,A1,A0	// ETf and ET10 -> ET11
+	// update guard bits
+	j F0B1
+	ashl B,A0,A	// ET2 << ET11 -> ET12
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_y,hwLockPinMaskconst_y	// 23 words
+	.export _hwLockGpioBit
+_hwLockGpioBit:
+	.word 0, 0, 0, 0, 0, 256, 3341, 3854
+	.word 1029, 1028, 515, 514, 1799, 2056, 2056, 3081
+	.word 1542, 1542, 2566, 2570, 2570, 2826, 2827
+
+	.end

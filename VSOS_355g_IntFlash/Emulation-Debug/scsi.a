@@ -1,0 +1,3192 @@
+
+//_____________________________________________________________
+//
+	.sect code,ScsiState2	// 7 words
+	.export _ScsiState2
+_ScsiState2:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx I0,(I6)
+//   return SCSI.State;
+	ldc _SCSI,I0	// ET0
+	ldx (I0),A0	// ET0 ==> ET1
+	ldx (I6)-1,I0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBResetEndpoint	// 31 words
+	.export _MyUSBResetEndpoint
+_MyUSBResetEndpoint:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 7,A0	// 7 -> 0 -> ET1
+	ldc 64656,A1	// 64656 -> 1 -> ET0
+	stx I0,(I6) ; and C0,A0,A0
+
+	add A1,A0,A0	// ET0 + ET2 -> ET4
+	mv A0,I0	// ET4 -> 'p'
+// (ep == 0)
+//   if ((ep & 0x80))
+	ldc 128,A0	// 128 -> 0 -> ET7
+	and C0,A0,A0	// 'ep' and ET7 -> ET8
+	ldc 65503,A1
+	jzc F1B5	// compare against zero
+	nop
+// jumped away
+//   }
+// else {
+// (*(__y volatile u_int16 *)(u_int16)(p)) &= ~(1<<13);
+	ldc 57343,A1	// 57343 -> 1 -> ET10
+	ldy (I0),A0/*V*/	// ETa ==> ET11
+	and A0,A1,A0	// ET11 and ET10 -> ET12
+	ldc 8192,A1	// 8192 -> 1 -> ET13
+	sty A0,(I0)/*V*/	// ET12 ==> ETa
+// (*(__y volatile u_int16 *)(u_int16)(p)) |=(1<<13);
+	ldy (I0),A0/*V*/	// ETa ==> ET14
+	or A0,A1,A0	// ET14 or ET13 -> ET15
+F1B1:
+	sty A0,(I0)/*V*/ ; ldx (I6)-1,I0	// ET15 ==> ETa
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	jr
+	nop
+// jumped away
+//   }
+// {
+// (*(__y volatile u_int16 *)(u_int16)(p)) &= ~(1<<5);
+	ldc 65503,A1	// 65503 -> 1 -> ET9
+F1B5:
+	ldy (I0),A0/*V*/	// ETa ==> ETb
+	and A0,A1,A0	// ETb and ET9 -> ETc
+	sty A0,(I0)/*V*/	// ETc ==> ETa
+// (*(__y volatile u_int16 *)(u_int16)(p)) |=(1<<5);
+	ldc 32,A0	// 32 -> 1 -> ETd
+	ldy (I0),A1/*V*/	// ETa ==> ETe
+	j F1B1
+	or A1,A0,A0	// ETe or ETd -> ETf
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBReadLines	// 19 words
+	.export _MyUSBReadLines
+_MyUSBReadLines:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A1,(I6) ; sty B0,(I6)+1
+	ldc 512,A1	// 512 -> 1 -> ET3
+	stx B1,(I6) ; sty I0,(I6)
+//     if ((*(__y volatile u_int16 *)(u_int16)((0xFC80))) &(1<<9))
+	ldc 64640,I0	// 64640 -> ET0
+	ldy (I0)+5,A0/*V*/	// ET0 ==> ET1
+	and A0,A1,A0	// ET1 and ET3 -> ET4
+	ldc -14,A0
+	jzs F2B4	// compare against zero
+	nop
+// jumped away
+//     }
+// {
+// 	return(*(__y volatile u_int16 *)(u_int16)(0xFC85))>>14;
+F2B1:
+	ldy (I0),B0/*V*/ ; and B1,NULL,B1	// ET5 ==> ET6
+	ashl B,A0,A ; ldy (I6),I0	// ATd <- ET8 -> ATe
+	ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	jr
+	nop
+// jumped away
+//     }
+// else {
+// 	return(*(__y volatile u_int16 *)(u_int16)(0xFC85))>>14;
+	ldc -14,A0	// -14 -> 0 -> ET8
+F2B4:
+	j F2B1
+	ldc 64645,I0	// 64645 -> ET5
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBWantsSuspend	// 15 words
+	.export _MyUSBWantsSuspend
+_MyUSBWantsSuspend:
+	ldc 256,A0	// 256 -> 1 -> ET3
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A1,(I6) ; sty I0,(I6)
+//   if ((*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) & 0x100)
+	ldc 64642,I0	// 64642 -> ET0
+	ldy (I0),A1/*V*/	// ET0 ==> ET1
+	and A1,A0,A1	// ET1 and ET3 -> ET4
+	nop
+	jzs F3B4	// compare against zero
+	nop
+// jumped away
+//   }
+// {
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) = 0x100;
+	sty A0,(I0)/*V*/ ; sub NULL,ONES,A0	// ET3 ==> ET0
+//       return 1;
+F3B1:
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	jr
+	nop
+// jumped away
+F3B4:
+//   return 0;
+	j F3B1
+	and NULL,NULL,A0	// 0 -> 1 -> ET6
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBResetStall	// 22 words
+	.export _MyUSBResetStall
+_MyUSBResetStall:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 7,A0	// 7 -> 0 -> ET1
+	ldc 64656,A1	// 64656 -> 1 -> ET0
+	stx I0,(I6) ; and C0,A0,A0
+
+	add A1,A0,A0	// ET0 + ET2 -> ET4
+// (ep & 0x80)
+	ldc 128,A1	// 128 -> 0 -> ET6
+	and C0,A1,A1 ; mv A0,I0	// 'ep' and ET6 -> ET7
+	sub A1,NULL,A1	// ET7 != (0) -> (0)
+	ldc 65519,A1
+	jzc F4B3	// signed compare
+	ldc 61439,A0	// 61439 -> 1 -> ETc
+// jumped away
+//   }
+// else {
+// (*(__y volatile u_int16 *)(u_int16)(p)) &= ~(1<<12);
+	ldy (I0),A1/*V*/	// ET9 ==> ETd
+	and A1,A0,A0	// ETd and ETc -> ETe
+F4B1:
+	sty A0,(I0)/*V*/ ; ldx (I6)-1,I0	// ETe ==> ET9
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	jr
+	nop
+// jumped away
+//   }
+// {
+// (*(__y volatile u_int16 *)(u_int16)(p)) &= ~(1<<4);
+	ldc 65519,A1	// 65519 -> 1 -> ET8
+F4B3:
+	ldy (I0),A0/*V*/	// ET9 ==> ETa
+	j F4B1
+	and A0,A1,A0	// ETa and ET8 -> ETb
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyResetBulkEndpoints	// 24 words
+	.export _MyResetBulkEndpoints
+_MyResetBulkEndpoints:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx I0,(I6) ; and NULL,NULL,A0	// 0 -> 1 -> ET0
+	ldc 64658,I0	// 64658 -> ET2
+	sty I2,(I6)
+// (*(__y volatile u_int16 *)(u_int16)(0xFC90 + 0x03)) = 0;
+	ldc 64659,I2	// 64659 -> ET1
+	sty A0,(I2)/*V*/	// ET0 ==> ET1
+// (*(__y volatile u_int16 *)(u_int16)(0xFC90 + 0x02)) = 0;
+	sty A0,(I0)/*V*/	// ET0 ==> ET2
+// (*(__y volatile u_int16 *)(u_int16)(0xFC90 + 0x03)) =
+// (0<<14) |(1<<13) |(1<<8) * 3;
+	ldc 8960,A0	// 8960 -> 1 -> ET3
+	sty A0,(I2)/*V*/	// ET3 ==> ET1
+// (*(__y volatile u_int16 *)(u_int16)(0xFC90 + 0x02)) =
+// (0<<6) |(1<<5);
+	ldc 32,A0	// 32 -> 1 -> ET4
+	sty A0,(I0)/*V*/	// ET4 ==> ET2
+//   usb->EPReady[0x02] = 1;
+	ldc 304,A0	// 304 -> ATd
+	ldc _usb,I0	// ET7
+	ldx (I0),I0/*V*/ ; ldy (I6),I2	// ET7 ==> 'usb'
+	mv I0,A1	// ET8 -> ATf
+	add A1,A0,A0	// ATf + ATd -> ATe
+	mv A0,I0 ; sub NULL,ONES,A0	// ATe -> ETa
+	stx A0,(I0)+1	// ET5 ==> ETa
+//   usb->EPReady[0x03] = 1;
+	stx A0,(I0)	// ET5 ==> ETa
+	ldx (I6)-1,I0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,USBIsEndpointStalled2	// 20 words
+	.export _USBIsEndpointStalled2
+_USBIsEndpointStalled2:
+	ldc 7,A0	// 7 -> 0 -> ET1
+	ldx (I6)+1,NULL ; and C0,A0,A0	// I6 += 1
+	stx A1,(I6) ; sty I0,(I6)
+	ldc 64656,A1	// 64656 -> 1 -> ET0
+
+	add A1,A0,A0	// ET0 + ET2 -> ET4
+// (ep & 0x80)
+	ldc 128,A1	// 128 -> 0 -> ET6
+	and C0,A1,A1 ; mv A0,I0	// 'ep' and ET6 -> ET7
+	sub A1,NULL,A1	// ET7 == (0) -> (0)
+	ldc 4096,A1
+	jzs F6B4	// signed compare
+	ldc 16,A0	// 16 -> 1 -> ETb
+// jumped away
+//   }
+// {
+//     return(*(__y volatile u_int16 *)(u_int16)(p)) &(1<<4);
+	ldy (I0),A1/*V*/	// ET8 ==> ET9
+	and A1,A0,A0	// ET9 and ETb -> ETc
+F6B1:
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	jr
+	nop
+// jumped away
+//   }
+// else {
+//     return(*(__y volatile u_int16 *)(u_int16)(p)) &(1<<12);
+	ldc 4096,A1	// 4096 -> 1 -> ETf
+F6B4:
+	ldy (I0),A0/*V*/	// ET8 ==> ETd
+	j F6B1
+	and A0,A1,A0	// ETd and ETf -> ET10
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBIsDetached	// 18 words
+	.export _MyUSBIsDetached
+_MyUSBIsDetached:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+
+	call _MyUSBReadLines
+	stx A1,(I6) ; sty B0,(I6)
+// jumped away
+// (MyUSBReadLines() == 3);
+	call _MyUSBReadLines
+	and NULL,NULL,A1	// 0 -> ET4
+// jumped away
+	mv A0,B0	// A0 -> ET2
+	ldc 3,A0	// 3 -> 1 -> ET3
+	sub B0,A0,A0	// ET2 != ET3 -> AT6
+	nop
+	jzc F7B5	// unsigned compare
+	nop
+// jumped away
+	sub NULL,ONES,A1	// 1 -> ET4
+F7B5:
+	add A1,NULL,A0 ; ldy (I6),B0	// ET4 returns via A0
+	ldx (I6)-1,A1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBSendZeroLengthPacketToEndpoint0	// 47 words
+	.export _MyUSBSendZeroLengthPacketToEndpoint0
+_MyUSBSendZeroLengthPacketToEndpoint0:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 2048,A0	// 2048 -> 1 -> ET0
+	stx B0,(I6) ; sty I0,(I6)+1
+	ldc 64642,I0	// 64642 -> ET1
+	stx I2,(I6) ; sty A0,(I0)/*V*/
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) = 0x0800;
+//   while (USBStartTransmission2(0, 0, 0, 1))
+F8B6:	// (loop lvl 2)
+	ldx (I6)+1,NULL ; sub NULL,ONES,A0	// I6 += 1
+	stx A0,(I6)+1 ; and NULL,NULL,A0	// ET2
+	stx A0,(I6)+1 ; and NULL,NULL,A1	// ET3
+	stx A1,(I6)+1	// ET4
+	call _USBStartTransmission2
+	stx A0,(I6)	// ET3
+// jumped away
+	ldx (I6)-4,NULL ; sub A0,NULL,A0	// I6 += -4
+	ldc 64645,I0	// 64645 -> ETb
+	jzc F8B6	// signed compare
+	ldc 4,A0	// 4 -> 1 -> ETe
+// jumped away
+	ldc 64656,I2	// 64656 -> ET6
+	j F8B11
+	ldc 2,A1	// 2 -> 1 -> ET9
+// jumped away
+F8B8:	// (loop lvl 2)
+//   }
+// {
+//     if ((*(__y volatile u_int16 *)(u_int16)(0xFC85)) & 4)
+	ldy (I0),B0/*V*/	// ETb ==> ETc
+	and B0,A0,B0	// ETc and ETe -> ETf
+	nop
+	jzc F8B9	// compare against zero
+	nop
+// jumped away
+F8B11:	// (loop lvl 2)
+	ldy (I2),B0/*V*/	// ET6 ==> ET7
+	and B0,A1,B0	// ET7 and ET9 -> ETa
+	nop
+	jzs F8B8	// compare against zero
+	nop
+// jumped away
+F8B9:
+	ldc 2048,A0	// 2048 -> 1 -> ET0
+	ldc 64642,I0	// 64642 -> ET1
+	sty A0,(I0)/*V*/ ; ldx (I6)+1,NULL	// I6 += 1
+	and NULL,NULL,A0	// 0 -> 1 -> ET3
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) = 0x0800;
+//   USBContinueTransmission2(0);
+	call _USBContinueTransmission2
+	stx A0,(I6)	// ET3
+// jumped away
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,I2
+	ldy (I6),I0 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,USBContinueTransmission2	// 156 words
+	.export _USBContinueTransmission2
+_USBContinueTransmission2:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+2,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 298,A0	// 298 -> 1 -> ET0
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx I0,(I6) ; sty I1,(I6)+1
+	ldc _usb,I0	// ET1
+	stx I2,(I6) ; ldy (I4)-2,NULL
+
+	ldx (I0),A1/*V*/	// ET1 ==> 'usb'
+	add A1,A0,A0 ; ldx (I4)+2,B0	// 'usb' + ET0 -> ET2
+	ldc 2,A1	// 2 -> 1 -> ETb
+	add A0,B0,A0	// ET2 + 'endpoint' -> AT41
+	mv A0,I0	// AT41 -> ET3
+	ldc 64656,A0	// 64656 -> 1 -> ET5
+	ldx (I0),B1 ; add A0,B0,A0	// ET3 ==> 'n'
+	mv A0,I0	// ET7 -> ET8
+// (!((*(__y volatile u_int16 *)(u_int16)(0xFC90 + endpoint)) &(1<<1)))
+	ldy (I0),A0/*V*/	// ET8 ==> ET9
+	and A0,A1,A0	// ET9 and ETb -> ETc
+	nop
+	jzc F9B4	// compare against zero
+	nop
+// jumped away
+F9B1:
+	ldx (I6)-1,I2
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F9B4:
+// 	if (n == 0 && usb->ExtraZeroLengthPacketNeeded[endpoint] == 0)
+	sub B1,NULL,B1	// 'n' != (0) -> (0)
+	ldc 290,A0	// 290 -> 1 -> ETe
+	jzc F9B6	// unsigned compare
+	ldc _usb,I0	// ET1
+// jumped away
+	ldx (I0),A1/*V*/	// ET1 ==> 'usb'
+	add A1,A0,A0	// 'usb' + ETe -> ETf
+	add A0,B0,A0	// ETf + 'endpoint' -> AT43
+	mv A0,I0	// AT43 -> ET10
+	ldx (I0),A0	// ET10 ==> ET11
+	sub A0,NULL,A0	// ET11 != (0) -> (0)
+	ldc 302,A0	// 302 -> 1 -> ET13
+	jzc F9B6	// unsigned compare
+	add A1,A0,A0	// 'usb' + ET13 -> ET14
+// jumped away
+// 	}
+// {
+// 		usb->EPReady[endpoint] = 1;
+	add A0,B0,A0	// ET14 + 'endpoint' -> AT42
+	mv A0,I0 ; sub NULL,ONES,A0	// AT42 -> ET15
+// 		return;
+	j F9B1
+	stx A0,(I0)	// ET12 ==> ET15
+// jumped away
+F9B6:
+// 	if (n >= 64)
+	ldc 64,A0	// 64 -> 1 -> ET16
+	sub B1,A0,A1	// 'n' >= ET16 -> AT3d
+	ldc 290,A1	// 290 -> 1 -> ETe
+	jcs F9B8	// unsigned compare
+	ldc _usb,I0	// ET1
+// jumped away
+// 	}
+// else {
+// 		usb->ExtraZeroLengthPacketNeeded[endpoint] = 0;
+	ldx (I0),A0/*V*/	// ET1 ==> 'usb'
+	add A0,A1,A0	// 'usb' + ETe -> ETf
+	ldc 302,A1	// 302 -> 1 -> ET13
+	add A0,B0,A0	// ETf + 'endpoint' -> AT45
+	mv A0,I2 ; and NULL,NULL,A0	// AT45 -> ET10
+	stx A0,(I2)	// ETd ==> ET10
+// 		usb->EPReady[endpoint] = 1;
+	ldx (I0),A0/*V*/	// ET1 ==> 'usb'
+	add A0,A1,A0	// 'usb' + ET13 -> ET14
+	add A0,B0,A0	// ET14 + 'endpoint' -> AT44
+	mv A0,I0 ; sub NULL,ONES,A0	// AT44 -> ET15
+	stx A0,(I0)	// ET12 ==> ET15
+F9B10:
+// 	usb->XmitLength[endpoint] -= n;
+	ldc 298,A1	// 298 -> 1 -> ET0
+	ldc _usb,I0	// ET1
+	ldx (I0),A0/*V*/	// ET1 ==> 'usb'
+	add A0,A1,A0	// 'usb' + ET0 -> ET2
+	add A0,B0,A0	// ET2 + 'endpoint' -> AT46
+	mv A0,I0	// AT46 -> ET3
+	ldx (I0),A0	// ET3 ==> ET4
+	sub A0,B1,A0	// ET4 - 'n' -> ET17
+	stx A0,(I0)	// ET17 ==> ET3
+// 	if (endpoint == 0x02)
+	ldc 2,A0	// 2 -> 1 -> ETb
+	sub B0,A0,A1	// 'endpoint' == ETb -> AT3f
+	ldc _toggle88d350,I0	// ET18
+	jzs F9B11	// unsigned compare
+	ldc 294,A1	// 294 -> 1 -> ET26
+// jumped away
+// 	}
+// else {
+// 	  memcpyXY(send_map2[endpoint], usb->XmitBuf[endpoint], (n+1)>>1);
+	ldc _usb,I0	// ET1
+	sub B1,ONES,A0	// 'n' - (-1) -> ET23
+	lsr A0,C0 ; ldx (I0),A0/*V*/	// ET23 << (-1) -> ET25
+	add A0,A1,A0	// 'usb' + ET26 -> ET27
+	add A0,B0,A0	// ET27 + 'endpoint' -> AT48
+	mv A0,I0	// AT48 -> ET28
+	ldc _send_map2,A0	// ET2a
+	ldx (I0),I1 ; add A0,B0,A0	// ET28 ==> ET29
+	mv A0,I0 ; add C0,NULL,A0	// AT47 -> ET34
+	call _memcpyXY
+	ldy (I0),I0	// ET34 ==> ET35
+// jumped away
+// (*(__y volatile u_int16 *)(u_int16)(0xFC88 + endpoint)) = (0x8000U | (endpoint<<10) | n);
+	ldc 32768,A1	// 32768 -> 1 -> ET2e
+	ldc 10,A0	// 10 -> 0 -> ET1c
+	ashl B0,A0,A0	// 'endpoint' << ET1c -> ET1d
+	or A1,A0,A0	// ET2e or ET1d -> ET37
+	or A0,B1,A1	// ET37 or 'n' -> ET38
+	ldc 64648,A0	// 64648 -> 1 -> ET31
+F9B13:
+	add A0,B0,A0	// ET31 + 'endpoint' -> ET32
+	mv A0,I0 ; sub B1,ONES,A0	// ET32 -> ET33
+	ldc 294,B1	// 294 -> 1 -> ET26
+	sty A1,(I0)/*V*/ ; lsr A0,A1	// ET38 ==> ET33
+// 	usb->XmitBuf[endpoint] += ((n+1)>>1);
+	ldc _usb,I0	// ET1
+	ldx (I0),A0/*V*/	// ET23 << (-1) -> ET25
+	add A0,B1,A0	// 'usb' + ET26 -> ET27
+	add A0,B0,A0	// ET27 + 'endpoint' -> AT49
+	mv A0,I0	// AT49 -> ET28
+	ldx (I0),A0	// ET28 ==> ET29
+	add A0,A1,A0	// ET29 + ET25 -> ET39
+	stx A0,(I0) ; sub NULL,ONES,A0	// ET39 ==> ET28
+// (*(__y volatile u_int16 *)(u_int16)(0xFC09)) = 1;
+	ldc 64521,I0	// 64521 -> ET3a
+	j F9B1
+	sty A0,(I0)/*V*/	// ET12 ==> ET3a
+// jumped away
+F9B11:
+// 	}
+// (toggle)
+	ldx (I0),A0/*V*/	// ET18 ==> 'toggle'
+	sub A0,NULL,A0	// 'toggle' != (0) -> (0)
+	ldc 2,A0	// 2 -> 0 -> ET19
+	jzc F9B14	// signed compare
+	nop	// 3 -> 0 -> ET1e
+// jumped away
+// 	  }
+// else {
+// 	    map2 = 3;
+	ldc _map288d350,I0	// ET1a
+	sub A0,ONES,A0
+	stx A0,(I0)/*V*/ ; sub NULL,ONES,A0	// ET1e ==> ET1a
+// 	    toggle = 1;
+	ldc _toggle88d350,I0	// ET18
+	stx A0,(I0)/*V*/ ; sub B0,ONES,A1	// ET1f ==> ET18
+// 	    x =  ((endpoint+1)<<10);
+	ldc 10,A0	// 10 -> 0 -> ET1c
+	ashl A1,A0,A1	// ET20 << ET1c -> 'x'
+F9B16:
+	ldc 294,C0	// 294 -> 1 -> ET26
+	ldc 64520,I0	// 64520 -> ET22
+	ldx (I4)+1,NULL ; and NULL,NULL,A0	// I4 += 1
+// 	  delay = 0;
+	stx A0,(I4)-1 ; sub NULL,ONES,A0
+// (*(__y volatile u_int16 *)(u_int16)(0xFC08)) = 1;
+	sty A0,(I0)/*V*/ ; sub B1,ONES,A0	// ET12 ==> ET22
+// 	  memcpyXY(send_map2[map2], usb->XmitBuf[endpoint], (n+1)>>1);
+	ldc _usb,I0	// ET1
+	ldx (I0),A0/*V*/ ; lsr A0,C1	// ET23 << (-1) -> ET25
+	add A0,C0,A0	// 'usb' + ET26 -> ET27
+	ldc _send_map2,C0	// ET2a
+	add A0,B0,A0	// ET27 + 'endpoint' -> AT4b
+	mv A0,I0	// AT4b -> ET28
+	ldx (I0),I1	// ET28 ==> ET29
+	ldc _map288d350,I0	// ET1a
+	ldx (I0),A0/*V*/	// ET1a ==> 'map2'
+	add C0,A0,A0	// ET2a + 'map2' -> AT4a
+	mv A0,I0 ; add C1,NULL,A0	// AT4a -> ET2b
+	call _memcpyXY
+	ldy (I0),I0	// ET2b ==> ET2c
+// jumped away
+// (*(__y volatile u_int16 *)(u_int16)(0xFC88 + endpoint)) = (0x8000U | x | n);
+	ldc 32768,A0	// 32768 -> 1 -> ET2e
+	or A0,A1,A0	// ET2e or 'x' -> ET2f
+	or A0,B1,A1	// ET2f or 'n' -> ET30
+	j F9B13
+	ldc 64648,A0	// 64648 -> 1 -> ET31
+// jumped away
+F9B14:
+// 	  }
+// {
+// 	    map2 = 2;
+	ldc _map288d350,I2	// ET1a
+	stx A0,(I2)/*V*/ ; and NULL,NULL,A0	// ET19 ==> ET1a
+// 	    toggle = 0;
+	stx A0,(I0)/*V*/	// ET1b ==> ET18
+// 	    x =  (endpoint<<10);
+	ldc 10,A0	// 10 -> 0 -> ET1c
+	j F9B16
+	ashl B0,A0,A1	// 'endpoint' << ET1c -> 'x'
+// jumped away
+F9B8:
+// 	}
+// {
+// 		n = 64;
+	j F9B10
+	ldc 64,B1	// 64 -> 'n'
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,USBStartTransmission2	// 85 words
+	.export _USBStartTransmission2
+_USBStartTransmission2:
+	ldc 302,A0	// 302 -> 1 -> ET0
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	stx C1,(I6) ; sty I0,(I6)+1
+	ldc _usb,I0	// ET1
+	stx I2,(I6) ; ldy (I4)-2,NULL
+//   if (!usb->EPReady[endpoint])
+	ldx (I0),A1/*V*/	// ET1 ==> 'usb'
+	add A1,A0,A0 ; ldx (I4)+2,B1	// 'usb' + ET0 -> ET2
+	add A0,B1,A0	// ET2 + 'endpoint' -> AT21
+	mv A0,I0	// AT21 -> ET3
+	ldx (I0),A0	// ET3 ==> ET4
+	sub A0,NULL,A0	// ET4 != (0) -> (0)
+	ldc 2,A0
+	jzc F10B4	// unsigned compare
+	sub B1,A0,A1
+// jumped away
+//   }
+// {
+//     return 1;
+	sub NULL,ONES,A0	// 1 -> 0 -> ET5
+F10B1:
+	ldx (I6)-1,I2
+	ldy (I6),I0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+//   if (endpoint == 0x02)
+	ldc 2,A0	// 2 -> 1 -> ET7
+	sub B1,A0,A1	// 'endpoint' != ET7 -> AT1b
+F10B4:
+	ldc 64658,I0	// 64658 -> ET8
+	jzc F10B6	// unsigned compare
+	nop
+// jumped away
+//   }
+// {
+//     if (!((*(__y volatile u_int16 *)(u_int16)(0xFC90 + 0x02)) &(1<<1)))
+	ldy (I0),A1/*V*/	// ET8 ==> ET9
+	and A1,A0,A0	// ET9 and ET7 -> ETb
+	nop
+	jzc F10B6	// compare against zero
+	nop
+// jumped away
+//     }
+// {
+//       return 1;
+	j F10B1
+	sub NULL,ONES,A0	// 1 -> 0 -> ET5
+// jumped away
+F10B6:
+	ldc 302,A0	// 302 -> 1 -> ET0
+	ldc _usb,I0	// ET1
+	ldx (I0),A1/*V*/ ; ldy (I4)-3,NULL	// I4 += -3
+//   usb->EPReady[endpoint] = 0;
+	add A1,A0,A0	// 'usb' + ET0 -> ET2
+	ldc 294,A1	// 294 -> 1 -> ETd
+	add A0,B1,A0	// ET2 + 'endpoint' -> AT23
+	mv A0,I2 ; and NULL,NULL,A0	// AT23 -> ET3
+	stx A0,(I2)	// ETc ==> ET3
+//   usb->XmitBuf[endpoint] = buf;
+	ldx (I0),A0/*V*/	// ET1 ==> 'usb'
+	add A0,A1,A0	// 'usb' + ETd -> ETe
+	add A0,B1,A0	// ETe + 'endpoint' -> AT22
+	mv A0,I0	// AT22 -> ETf
+	ldx (I4)-1,A0	// unspill 'buf' from #0
+	stx A0,(I0)	// 'buf' ==> ETf
+//   usb->XmitLength[endpoint] =(((length) < (requestedLength)) ? (length) : (requestedLength));
+	ldx (I4)-1,A1	// unspill 'length' from #-4
+	add A1,NULL,B0 ; ldx (I4)+5,A0	// 'length' -> AT10
+	sub A1,A0,C0	// 'length' < 'requestedLength' -> AT1d
+	ldc 298,C1
+	jcc F10B10	// unsigned compare
+	ldc _usb,I0
+// jumped away
+	mv A0,B0	// 'requestedLength' -> AT10
+F10B10:
+	ldx (I0),C0/*V*/ ; ldy (I6)+1,NULL	// ET1 ==> 'usb'
+	add C0,C1,C0	// 'usb' + ET11 -> ET12
+	add C0,B1,C0	// ET12 + 'endpoint' -> AT25
+	mv C0,I2	// AT25 -> ET13
+	stx B0,(I2)	// AT10 ==> ET13
+//   usb->ExtraZeroLengthPacketNeeded[endpoint] = 0;
+	ldc 290,B0	// 290 -> 1 -> ET14
+	ldx (I0),C0/*V*/	// ET1 ==> 'usb'
+	add C0,B0,C0	// 'usb' + ET14 -> ET15
+	add C0,B1,C0	// ET15 + 'endpoint' -> AT24
+	mv C0,I2 ; and NULL,NULL,C0	// AT24 -> ET16
+	stx C0,(I2) ; sub A1,A0,A0	// ETc ==> ET16
+//   if (requestedLength > length)
+	nop
+	jcs F10B12	// unsigned compare
+	nop
+// jumped away
+	ldx (I0),A0/*V*/
+//   }
+// {
+//     usb->ExtraZeroLengthPacketNeeded[endpoint] = 1;
+	add A0,B0,A0	// 'usb' + ET14 -> ET15
+	add A0,B1,A0	// ET15 + 'endpoint' -> AT26
+	mv A0,I0 ; sub NULL,ONES,A0	// AT26 -> ET16
+	stx A0,(I0)	// ET17 ==> ET16
+F10B12:
+//   USBContinueTransmission2(endpoint);
+	call _USBContinueTransmission2
+	stx B1,(I6)	// 'endpoint'
+// jumped away
+//   return 0;
+	j F10B1
+	ldx (I6)-1,NULL ; and NULL,NULL,A0	// I6 += -1
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,USBSingleStallEndpoint2	// 41 words
+	.export _USBSingleStallEndpoint2
+_USBSingleStallEndpoint2:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 7,A0	// 7 -> 1 -> ET1
+	ldc 64656,A1	// 64656 -> 1 -> ET0
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx I0,(I6) ; and C0,A0,A0
+// addr
+	add A1,A0,A1	// ET0 + ET2 -> 'addr'
+// flags
+// (ep & 0x80)
+	ldc 128,A0	// 128 -> 1 -> ET5
+	and C0,A0,B0	// 'ep' and ET5 -> ET6
+	sub B0,NULL,B0	// ET6 != (0) -> (0)
+	ldc 2056,A0	// 2056 -> 'flags'
+	jzc F11B3	// unsigned compare
+	nop
+// jumped away
+// else if (ep)
+	sub C0,NULL,C0	// 'ep' == (0) -> (0)
+	nop
+	jzs F11B5	// unsigned compare
+	nop
+// jumped away
+//   }
+// {
+//     flags =(1<<11);
+	ldc 2048,A0	// 2048 -> 'flags'
+F11B5:
+// (*(__y volatile u_int16 *)(u_int16)(addr)) &= ~flags;
+	xor A0,ONES,B0 ; mv A1,I0	// 'flags' xor (-1) -> ET9
+	ldy (I0),B1/*V*/	// ETa ==> ETb
+	and B1,B0,B0	// ETb and ET9 -> ETc
+	sty B0,(I0)/*V*/ ; add A0,A0,B0	// ETc ==> ETa
+// (*(__y volatile u_int16 *)(u_int16)(addr)) |= (flags<<1);
+	ldy (I0),B1/*V*/	// 'flags' >> (-1) -> ETe
+	or B1,B0,B0	// ETf or ETe -> ET10
+	sty B0,(I0)/*V*/	// ET10 ==> ETa
+	mv A1,I0	// 'addr' -> ETa
+//   while (!((*(__y volatile u_int16 *)(u_int16)(addr)) & flags))
+F11B11:	// (loop lvl 2)
+	ldy (I0),B0/*V*/	// ETa ==> ET11
+	and B0,A0,B0	// ET11 and 'flags' -> ET13
+	nop
+	jzs F11B11	// compare against zero
+	nop
+// jumped away
+//     ;
+// (*(__y volatile u_int16 *)(u_int16)(addr)) &= ~(flags<<1);
+	add A0,A0,A0 ; mv A1,I0	// 'flags' >> (-1) -> ETe
+	xor A0,ONES,A0 ; ldy (I0),A1/*V*/	// ETe xor (-1) -> ET14
+	and A1,A0,A0	// ET15 and ET14 -> ET16
+	sty A0,(I0)/*V*/ ; ldx (I6)-1,I0	// ET16 ==> ETa
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	jr
+	nop
+// jumped away
+F11B3:
+//   }
+// {
+//     flags =(1<<3);
+	j F11B5
+	ldc 8,A0	// 8 -> 'flags'
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBStallEndpoint	// 21 words
+	.export _MyUSBStallEndpoint
+_MyUSBStallEndpoint:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 7,A0	// 7 -> 0 -> ET1
+	ldc 64656,A1	// 64656 -> 1 -> ET0
+	stx I0,(I6) ; and C0,A0,A0
+
+	add A1,A0,A1	// ET0 + ET2 -> ET4
+// (ep & 0x80)
+	ldc 128,A0	// 128 -> 0 -> ET6
+	and C0,A0,A0 ; mv A1,I0	// 'ep' and ET6 -> ET7
+	sub A0,NULL,A0	// ET7 != (0) -> (0)
+	ldc 16,A0
+	jzc F12B1	// signed compare
+	nop
+// jumped away
+//   }
+// else {
+// (*(__y volatile u_int16 *)(u_int16)(p)) |=(1<<12);
+	ldc 4096,A0	// 4096 -> 1 -> ETc
+F12B1:
+	ldy (I0),A1/*V*/	// ET9 ==> ETd
+	or A1,A0,A0	// ETd or ETc -> ETe
+	sty A0,(I0)/*V*/ ; ldx (I6)-1,I0	// ETe ==> ET9
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	jr
+	nop
+// jumped away
+//   }
+// {
+// (*(__y volatile u_int16 *)(u_int16)(p)) |=(1<<4);
+	j F12B1
+	ldc 16,A0	// 16 -> 1 -> ET8
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,RealDecodeSetupPacket2	// 382 words
+	.export _RealDecodeSetupPacket2
+_RealDecodeSetupPacket2:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+3,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx I0,(I6) ; sty I2,(I6)
+	ldc _usb,I0	// ET1
+// rqLength
+	ldx (I0),I2/*V*/ ; sub NULL,ONES,B0	// ET1 ==> 'usb'
+	ldx (I2)+7,NULL	// ET2 += 17
+	ldx (I2)+7,NULL	// ...
+	ldx (I2)+7,NULL	// ...
+	call _SwapWord
+	ldx (I2),A1	// ET6 ==> ET7
+// jumped away
+// ->EPReady[0] = 1;
+	ldc 302,B1	// 302 -> 1 -> ET9
+	ldx (I0),A1/*V*/	// ET1 ==> 'usb'
+	add A1,B1,A1	// 'usb' + ET9 -> ATad
+	mv A1,I2	// ATad -> ETa
+	stx B0,(I2)/*V*/	// ET3 ==> ETa
+//   if ((s_int16)usb->pkt.payload[0] < 0)
+	ldx (I0),I0/*V*/	// ET1 ==> 'usb'
+	ldx (I0)+7,NULL	// ET4 += 18
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+4,NULL	// ...
+	ldx (I0),A1/*V*/	// ET4 ==> 18 -> ETb
+	sub A1,NULL,A1	// ETb < (0) -> (0)
+	ldc 255,B0	// 255 -> 1 -> ETf
+	jlt F13B4	// signed compare
+	nop	// 255 -> 1 -> ETf
+// jumped away
+//   }
+// else {
+//     switch (usb->pkt.payload[0] & 0xff)
+	ldc 5,A0	// 5 -> 1 -> ET27
+	ldc _usb,I0	// ET1
+	ldx (I0),I0/*V*/	// ET1 ==> 'usb'
+	ldx (I0)+7,NULL	// ET4 += 18
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+4,NULL	// ...
+	ldx (I0),A1/*V*/	// ET4 ==> 18 -> ET46
+	and A1,B0,A1	// ET46 and ETf -> ET47
+	sub A1,A0,B0	// ET47 == ET27 -> AT84
+	ldc -8,B0	// -8 -> 0 -> ET19
+	jzs F13B41	// unsigned compare
+	ldc _usb,I0	// ET1
+// jumped away
+	ldc 9,A0	// 9 -> 1 -> ET4e
+	sub A1,A0,B0	// ET47 == ET4e -> AT97
+	ldc 11,A0	// 11 -> 1 -> ET52
+	jzs F13B44	// unsigned compare
+	sub A1,A0,B0	// ET47 == ET52 -> AT9a
+// jumped away
+	ldc 1,A0
+	jzs F13B48	// unsigned compare
+	sub A1,A0,B0	// ET47 == ET3 -> AT9b
+// jumped away
+	ldc -8,A0	// -8 -> 0 -> ET19
+	jzs F13B54	// unsigned compare
+	nop	// ET1
+// jumped away
+	ldc 3,A0	// 3 -> 1 -> ET25
+	sub A1,A0,B0	// ET47 == ET25 -> ATa1
+	ldc 65280,A0	// 65280 -> 1 -> ET30
+	jzs F13B73	// unsigned compare
+	nop	// ET1
+// jumped away
+	ldc 255,A0	// 255 -> 1 -> ETf
+	sub A1,A0,A1	// ET47 != ETf -> ATa9
+	ldc 8703,A0	// 8703 -> 1 -> ET73
+	jzc F13B22	// unsigned compare
+	nop	// ET1
+// jumped away
+//       if (usb->pkt.payload[0] == 0x21ff &&
+// 	  (usb->pkt.payload[1] | usb->pkt.payload[2])
+// 	  == 0x0000 )
+	ldx (I0),I0/*V*/	// ET1 ==> 'usb'
+	ldx (I0)+7,NULL	// ET4 += 18
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+4,NULL	// ...
+	ldx (I0)+1,A1/*V*/	// ET4 ==> 18 -> ET72
+	sub A1,A0,A1 ; ldx (I0)+1,A0	// ET72 != ET73 -> ATab
+	ldx (I0),A1	// ET13 ==> ET35
+	jzc F13B22	// unsigned compare
+	or A0,A1,A0	// ET14 or ET35 -> ET74
+// jumped away
+	nop
+	callzs _MyScsiReset
+	ldc F13B83,LR0
+// jumped away
+F13B22:
+//       USBSingleStallEndpoint2(0);
+	call _USBSingleStallEndpoint2
+	and NULL,NULL,C0	// 0 -> C0
+// jumped away
+F13B1:
+	ldy (I6),I2 ; ldx (I6)-1,I0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+//       }
+// {
+// 	MyScsiReset();
+	call _MyScsiReset
+	nop
+// jumped away
+F13B83:
+// 	MyUSBResetStall(0x80| 0x02);
+	call _MyUSBResetStall
+	ldc 130,C0	// 130 -> C0
+// jumped away
+// 	MyUSBResetStall(0x00| 0x03);
+	call _MyUSBResetStall
+	ldc 3,C0	// 3 -> C0
+// jumped away
+F13B52:
+//       MyUSBSendZeroLengthPacketToEndpoint0();
+	call _MyUSBSendZeroLengthPacketToEndpoint0
+	ldc F13B1,LR0
+// jumped away
+F13B73:
+//       if ((usb->pkt.payload[0] & 0xff00U) == (0x02 <<8))
+	ldx (I0),I0/*V*/	// ET1 ==> 'usb'
+	ldx (I0)+7,NULL	// ET4 += 18
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+4,NULL	// ...
+	ldx (I0),A1/*V*/	// ET4 ==> 18 -> ET6d
+	and A1,A0,A1 ; mv I0,I2	// ET6d and ET30 -> ET6e
+	ldc 512,A0	// 512 -> 1 -> ET6f
+	sub A1,A0,A1 ; ldx (I2)+1,NULL	// ET6e != ET6f -> ATa8
+	nop	// ET4 -> ET13
+	jzc F13B22	// unsigned compare
+	nop	// ET13 += 1
+// jumped away
+//       }
+// 	{
+// 	if (usb->pkt.payload[1] == 0)
+	ldx (I2),A0 ; ldy (I0)+2,NULL	// ET13 ==> ET14
+	sub A0,NULL,A0	// ET14 == (0) -> (0)
+	nop
+	jzc F13B22	// unsigned compare
+	nop	// ET34 += 2
+// jumped away
+// 	}
+// {
+// 	  MyUSBStallEndpoint(SwapWord(usb->pkt.payload[2]));
+	call _SwapWord
+	ldx (I0),A1	// ET34 ==> ET35
+// jumped away
+	add A0,NULL,C0	// ET70 -> C0
+	call _MyUSBStallEndpoint
+	ldc F13B52,LR0
+// jumped away
+F13B54:
+//       if ((usb->pkt.payload[0]>>8) == 0x02
+// 	  && usb->pkt.payload[1] == 0 )
+	ldx (I0),I0/*V*/ ; and B1,NULL,B1	// ET1 ==> 'usb'
+	ldx (I0)+7,NULL	// ET4 += 18
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+4,NULL	// ...
+	ldx (I0),B0/*V*/	// ET4 ==> 18 -> ET56
+	ashl B,A0,A ; mv I0,I2	// AT9e <- ET19 -> AT9f
+	ldc 2,B0	// 2 -> 1 -> ET1e
+	sub A0,B0,A1 ; ldx (I2)+1,NULL	// ET57 != ET1e -> ATa0
+	nop	// ET4 -> ET13
+	jzc F13B22	// unsigned compare
+	nop	// ET13 += 1
+// jumped away
+	ldx (I2),A0 ; ldy (I0)+2,NULL	// ET13 ==> ET14
+	sub A0,NULL,A0	// ET14 == (0) -> (0)
+	nop
+	jzc F13B22	// unsigned compare
+	nop	// ET34 += 2
+// jumped away
+//       }
+// myep
+	call _SwapWord
+	ldx (I0),A1	// ET34 ==> ET35
+// jumped away
+	mv A0,A1	// A0 -> 'myep'
+// ((myep & 0x80) &&
+// 	    !((*(__y volatile u_int16 *)(u_int16)(0xFC90 + (myep & 7))) &(1<<1)))
+	ldc 128,A0	// 128 -> 1 -> ET59
+	and A1,A0,A0	// 'myep' and ET59 -> ET5a
+	ldc 7,A0	// 7 -> 1 -> ET5c
+	jzs F13B62	// compare against zero
+	nop
+// jumped away
+	ldc 64656,B1	// 64656 -> 1 -> ET5b
+	and A1,A0,A0	// 'myep' and ET5c -> ET5d
+	add B1,A0,B1	// ET5b + ET5d -> ET5e
+	mv B1,I0	// ET5e -> ET5f
+	ldy (I0),B1/*V*/	// ET5f ==> ET60
+	and B1,B0,B0	// ET60 and ET1e -> ET62
+	ldc 64648,B0
+	jzs F13B61	// compare against zero
+	nop
+// jumped away
+F13B62:
+// 	}
+// else {
+// 	  MyUSBResetEndpoint(myep);
+	call _MyUSBResetEndpoint
+	add A1,NULL,C0	// 'myep' -> C0
+// jumped away
+F13B63:
+// 	if (ScsiState2() == SCSI_INVALID_CBW &&
+// 	    (myep == (0x80| 0x02) ||
+// 	     myep == (0x00| 0x03)))
+	call _ScsiState2
+	nop
+// jumped away
+	mv A0,B0	// A0 -> ET6a
+	ldc 5,A0	// 5 -> 0 -> ET6b
+	sub B0,A0,B0	// ET6a != ET6b -> ATa6
+	ldc 130,A0	// 130 -> 1 -> ET6c
+	jzc F13B52	// signed compare
+	nop
+// jumped away
+	sub A1,A0,B0	// 'myep' == ET6c -> ATa5
+	nop
+	jzs F13B67	// unsigned compare
+	nop
+// jumped away
+	ldc 3,A0	// 3 -> 1 -> ET25
+	sub A1,A0,B0	// 'myep' != ET25 -> ATa7
+	nop
+	jzc F13B52	// unsigned compare
+	nop
+// jumped away
+F13B67:
+// 	}
+// {
+// 	  MyUSBStallEndpoint(myep);
+	add A1,NULL,C0	// 'myep' -> C0
+	call _MyUSBStallEndpoint
+	ldc F13B52,LR0
+// jumped away
+// 	}
+// {
+// 	  MyUSBResetEndpoint(myep);
+	ldc 64648,B0	// 64648 -> 1 -> ET65
+F13B61:
+	call _MyUSBResetEndpoint
+	add A1,NULL,C0	// 'myep' -> C0
+// jumped away
+// (*(__y volatile u_int16 *)(u_int16)(0xFC88 + (myep & 7))) |= 0x8000U;
+	add B0,A0,A0	// ET65 + ET5d -> ET66
+	mv A0,I0	// ET66 -> ET67
+	ldc 32768,A0	// 32768 -> 1 -> ET64
+	ldy (I0),B0/*V*/	// ET67 ==> ET68
+	or B0,A0,A0	// ET68 or ET64 -> ET69
+	j F13B63
+	sty A0,(I0)/*V*/	// ET69 ==> ET67
+// jumped away
+F13B48:
+//       MyUSBResetEndpoint(0);
+	ldc 65280,B0	// 65280 -> 1 -> ET30
+	ldc 17,A1	// 17 -> 1 -> ET0
+	call _MyUSBResetEndpoint
+	and NULL,NULL,C0	// 0 -> C0
+// jumped away
+//       usb->interfaces =
+//       	(usb->pkt.payload[1] & 0xff00U) |
+//       	(usb->pkt.payload[2] >> 8);
+	ldx (I0),A0/*V*/ ; and B1,NULL,B1	// ET1 ==> 'usb'
+	add A0,A1,A1	// 'usb' + ET0 -> ET2
+	mv A1,I0	// ET2 -> ET4
+	ldx (I0)+2,NULL	// ET13 += 2
+	ldx (I0)+1,A1	// ET13 ==> ET14
+	and A1,B0,C0 ; ldx (I0),B0	// ET14 and ET30 -> ET53
+	ldc -8,A1	// -8 -> 0 -> ET19
+	ashl B,A1,B	// AT9c <- ET19 -> AT9d
+	ldc 308,A1	// 308 -> 1 -> ET42
+	or C0,B0,B0	// ET53 or ET54 -> ET55
+	add A0,A1,A0	// 'usb' + ET42 -> ATb2
+	mv A0,I0	// ATb2 -> ET43
+//       MyResetBulkEndpoints();
+	stx B0,(I0)/*V*/	// ET55 ==> ET43
+	call _MyResetBulkEndpoints
+	ldc F13B52,LR0
+// jumped away
+F13B44:
+//       usb->configuration = (usb->pkt.payload[1] >> 8);
+	ldc 17,A1	// 17 -> 1 -> ET0
+	ldx (I0),A0/*V*/ ; and B1,NULL,B1	// ET1 ==> 'usb'
+	add A0,A1,A1	// 'usb' + ET0 -> ET2
+	mv A1,I0	// ET2 -> ET4
+	ldc -8,A1	// -8 -> 0 -> ET19
+	ldx (I0)+2,NULL	// ET13 += 2
+	ldx (I0),B0	// ET13 ==> ET14
+	ashl B,A1,B	// AT98 <- ET19 -> AT99
+	ldc 307,A1	// 307 -> 1 -> ET3d
+	add A0,A1,A0	// 'usb' + ET3d -> ATb1
+	mv A0,I0 ; sub NULL,ONES,A1	// ATb1 -> ET3e
+//       MyResetBulkEndpoints();
+	call _MyResetBulkEndpoints
+	stx B0,(I0)/*V*/	// ET26 ==> ET3e
+// jumped away
+//       MyUSBSendZeroLengthPacketToEndpoint0();
+	call _MyUSBSendZeroLengthPacketToEndpoint0
+	ldc 64641,I0	// 64641 -> ET4f
+// jumped away
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +1))) |= 1;
+	ldy (I0),A0/*V*/	// ET4f ==> ET50
+	or A0,A1,A0	// ET50 or ET3 -> ET51
+//       break;
+	j F13B1
+	sty A0,(I0)/*V*/	// ET51 ==> ET4f
+// jumped away
+F13B41:
+//     }
+// addr
+	ldx (I0),I0/*V*/ ; and A1,NULL,A1	// ET1 ==> 'usb'
+	ldx (I0)+7,NULL	// ET2 += 17
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+5,NULL	// ...
+	ldx (I0),A0	// ET13 ==> ET14
+	ldc 64640,I0	// 64640 -> ET4b
+	ashl A,B0,A	// AT95 <- ET19 -> AT96
+// ();
+	call _MyUSBSendZeroLengthPacketToEndpoint0
+	add A0,NULL,A1	// AT96 lsw 'addr'
+// jumped away
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80))) |= addr & 0x7f;
+	ldc 127,A0	// 127 -> 1 -> ET49
+	and A1,A0,A1 ; ldy (I0),A0/*V*/	// 'addr' and ET49 -> ET4a
+	or A0,A1,A0	// ET4c or ET4a -> ET4d
+//       break;
+	j F13B1
+	sty A0,(I0)/*V*/	// ET4d ==> ET4b
+// jumped away
+F13B4:
+//   }
+// {
+//     switch (usb->pkt.payload[0] & 0xff)
+	ldx (I0),A1/*V*/	// ET4 ==> 18 -> ETe
+	and A1,B0,A1	// ETe and ETf -> ET10
+	ldc 6,B0	// 6 -> 1 -> ET11
+	sub A1,B0,B0	// ET10 == ET11 -> AT83
+	ldc _usb,I0	// ET1
+	jzs F13B8	// unsigned compare
+	sub A1,NULL,A1	// ET10 == (0) -> (0)
+// jumped away
+	ldc 254,A0	// 254 -> 1 -> ET3b
+	jzs F13B23	// unsigned compare
+	nop	// ET1
+// jumped away
+	sub A1,A0,B0 ; ldx (I4)+1,NULL	// ET10 == ET3b -> AT91
+	ldc 0,A0
+	jzs F13B32	// unsigned compare
+	nop	// I4 += 1
+// jumped away
+	ldc 8,A0	// 8 -> 1 -> ET3c
+	sub A1,A0,B0 ; ldx (I4)-1,NULL
+	ldc 10,A0	// 10 -> 1 -> ET41
+	jzs F13B35	// unsigned compare
+	sub A1,A0,A1	// ET10 == ET41 -> AT94
+// jumped away
+	ldc 308,A1	// 308 -> 1 -> ET42
+	jzc F13B22	// unsigned compare
+	nop	// ET1
+// jumped away
+	ldx (I0),A0/*V*/ ; ldy (I4)+1,NULL	// I4 += 1
+//       tempbuf[0] = usb->interfaces;
+	add A0,A1,A0	// 'usb' + ET42 -> ATb0
+	mv A0,I0	// ATb0 -> ET43
+	ldx (I0),A0/*V*/	// ET43 ==> 308 -> ET44
+//     sendone:
+F13B32:
+//       tempbuf[0] = 0;
+//       goto sendone;
+	stx A0,(I4) ; ldy (I6)+1,NULL
+	sub NULL,ONES,A0	// 1 -> 1 -> ET3
+//       USBStartTransmission2(0, tempbuf, 1, 1);
+	stx A0,(I6)+1	// ET3
+	stx A0,(I6)+1 ; and NULL,NULL,A0	// ET3
+	stx I4,(I6)+1 ; ldy (I4)-1,NULL	// ET2e
+	call _USBStartTransmission2
+	stx A0,(I6)	// ET1c
+// jumped away
+//       break;
+	j F13B1
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+F13B35:
+	ldc 307,A1	// 307 -> 1 -> ET3d
+	ldx (I0),A0/*V*/ ; ldy (I4)+1,NULL	// I4 += 1
+//       tempbuf[0] = usb->configuration << 8;
+	add A0,A1,A0	// 'usb' + ET3d -> ATaf
+	mv A0,I0	// ATaf -> ET3e
+	ldc 8,A0	// 8 -> 0 -> ET18
+	ldx (I0),A1/*V*/	// ET3e ==> 307 -> ET3f
+//       goto sendone;
+	j F13B32
+	ashl A1,A0,A0	// ET3f << ET18 -> ET40
+// jumped away
+F13B23:
+	ldc 65280,A1	// 65280 -> 1 -> ET30
+	ldx (I4)+1,NULL ; and NULL,NULL,A0	// I4 += 1
+//       tempbuf[0] = 0;
+	stx A0,(I4)-1
+//       if ((usb->pkt.payload[0] & 0xff00U) == ((0x80| 0x02)<<8))
+	ldx (I0),I0/*V*/	// ET1 ==> 'usb'
+	ldx (I0)+7,NULL	// ET4 += 18
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+4,NULL	// ...
+	ldx (I0)+2,A0/*V*/	// ET4 ==> 18 -> ET2f
+	and A0,A1,A1	// ET2f and ET30 -> ET31
+	ldc 33280,A0	// 33280 -> 1 -> ET32
+	sub A1,A0,A1	// ET31 != ET32 -> AT90
+	nop	// ET34 += 2
+	jzc F13B26	// unsigned compare
+	nop
+// jumped away
+//       }
+// 	{
+// 	if (USBIsEndpointStalled2(SwapWord(usb->pkt.payload[2])))
+	call _SwapWord
+	ldx (I0),A1	// ET34 ==> ET35
+// jumped away
+	call _USBIsEndpointStalled2
+	add A0,NULL,C0	// ET36 -> C0
+// jumped away
+	sub A0,NULL,A0	// ET38 == (0) -> (0)
+	ldc 256,A0	// 256 -> 1 -> ET39
+	jzs F13B26	// unsigned compare
+	nop
+// jumped away
+	ldx (I4)+1,NULL	// I4 += 1
+// 	}
+// {
+// 	  tempbuf[0] = 0x0100;
+	stx A0,(I4)-1
+F13B26:
+	ldc 2,A0	// 2 -> 1 -> ET1e
+	ldy (I6)+1,NULL ; ldx (I4)+1,NULL	// I4 += 1
+//       USBStartTransmission2(0, tempbuf, 2, 2);
+	stx A0,(I6)+1	// ET1e
+	stx A0,(I6)+1 ; and NULL,NULL,A0	// ET1e
+	stx I4,(I6)+1 ; ldy (I4)-1,NULL	// ET2e
+	call _USBStartTransmission2
+	stx A0,(I6)	// ET1c
+// jumped away
+//       break;
+	j F13B1
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+F13B8:
+//       switch (usb->pkt.payload[1] & 0xff)
+	ldc 255,A1	// 255 -> 1 -> ETf
+	ldx (I0),I0/*V*/ ; ldy (I6)+1,NULL	// ET1 ==> 'usb'
+	ldx (I0)+7,NULL	// ET2 += 17
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+5,NULL	// ...
+	ldx (I0),B0	// ET13 ==> ET14
+	and B0,A1,A1	// ET14 and ETf -> ET15
+	sub NULL,ONES,B0	// 1 -> 1 -> ET3
+	sub A1,B0,B0	// ET15 == ET3 -> AT85
+	ldc _usb,I0	// ET1
+	jzs F13B11	// unsigned compare
+	and B1,NULL,B1	// I6 += 1
+// jumped away
+	ldc 2,B0	// 2 -> 1 -> ET1e
+	sub A1,B0,B0	// ET15 == ET1e -> AT89
+	ldc 3,B0	// 3 -> 1 -> ET25
+	jzs F13B14	// unsigned compare
+	nop	// ET1
+// jumped away
+	ldx (I6)-1,NULL ; sub A1,B0,A1
+	ldc 17,B0	// 17 -> 1 -> ET0
+	jzc F13B1	// unsigned compare
+	nop	// ET1
+// jumped away
+// 	}
+
+	ldx (I0),A1/*V*/ ; and C1,NULL,C1	// ET1 ==> 'usb'
+	add A1,B0,B0	// 'usb' + ET0 -> ET2
+	mv B0,I0	// ET2 -> ET4
+	ldc -8,B0	// -8 -> 0 -> ET19
+	ldx (I0)+2,NULL	// ET13 += 2
+	ldx (I0),C0	// ET13 ==> ET14
+	ashl C,B0,C	// AT8b <- ET19 -> AT8c
+	mv C0,B1	// AT8c lsw 'r'
+// (r < 5)
+	ldc 5,C0	// 5 -> 1 -> ET27
+	sub B1,C0,C0	// 'r' < ET27 -> AT8d
+	nop
+	jcs F13B22	// unsigned compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+// 	  }
+// {
+// 	    USBStartTransmission2(0, usb->descriptorTable[r+ 2],
+// 				 usb->descriptorTable[r+ 2][0]>>8, rqLength);
+	stx A0,(I6)+1	// 'rqLength'
+	ldc 2,A0	// 2 -> 1 -> ET1e
+	add B1,A0,A0	// 'r' + ET1e -> ET28
+	add A1,A0,A0	// 'usb' + ET28 -> ATae
+	mv A0,I0 ; and A1,NULL,A1	// ATae -> ET29
+	ldx (I0),I0	// ET29 ==> ET2a
+	ldx (I0),A0	// ET2a ==> ET2b
+	ashl A,B0,A	// AT8e <- ET19 -> AT8f
+	stx A0,(I6)+1 ; and NULL,NULL,A0	// ET2c
+	stx I0,(I6)+1	// ET2a
+	call _USBStartTransmission2
+	stx A0,(I6)	// ET1c
+// jumped away
+	j F13B1
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+F13B14:
+//  	USBStartTransmission2(0, usb->descriptorTable[1],
+// 			     usb->configurationDescriptorSize, rqLength);
+	stx A0,(I6)+1	// 'rqLength'
+	ldx (I0),I0/*V*/	// ET1 ==> 'usb'
+	mv I0,I2	// 'usb' -> ET20
+	ldx (I2)+7,NULL ; ldy (I0)+1,NULL	// ET20 += 16
+	ldx (I2)+7,NULL	// ...
+	ldx (I2)+2,NULL	// ...
+	ldx (I2),A0/*V*/	// ET20 ==> 16 -> ET21
+	stx A0,(I6)+1	// ET21
+	ldx (I0),A0	// ET22 ==> 1 -> ET23
+	stx A0,(I6)+1 ; and NULL,NULL,A0	// ET23
+	call _USBStartTransmission2
+	stx A0,(I6)	// ET1c
+// jumped away
+// 	break;
+	j F13B1
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+F13B11:
+//  	USBStartTransmission2(0, usb->descriptorTable[0],
+// 			     usb->descriptorTable[0][0]>>8, rqLength);
+	stx A0,(I6)+1	// 'rqLength'
+	ldc -8,A0	// -8 -> 0 -> ET19
+	ldx (I0),I0/*V*/	// ET1 ==> 'usb'
+	ldx (I0),I2/*V*/	// 'usb' ==> ET16
+	ldx (I2),B0	// ET16 ==> ET17
+	ashl B,A0,A	// AT87 <- ET19 -> AT88
+	stx A0,(I6)+1	// ET1a
+	ldx (I0),A0/*V*/	// 'usb' ==> ET1b
+	stx A0,(I6)+1 ; and NULL,NULL,A0	// ET1b
+	call _USBStartTransmission2
+	stx A0,(I6)	// ET1c
+// jumped away
+// 	break;
+	j F13B1
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBReceivePacket	// 61 words
+	.export _MyUSBReceivePacket
+_MyUSBReceivePacket:
+	ldc 62464,A0	// 62464 -> 1 -> ET3
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C0,(I6)+1
+	ldc 288,C0	// 288 -> 1 -> ET11
+	stx C1,(I6) ; sty D0,(I6)+1
+	stx D1,(I6) ; sty I0,(I6)+1
+	stx I1,(I6) ; sty I2,(I6)
+	ldc 64643,I1	// 64643 -> ET0
+	ldx (I4)-2,NULL ; ldy (I1),A1/*V*/	// I4 += -2
+// =(*(__y volatile u_int16 *)(u_int16)((*(__y volatile u_int16 *)(u_int16)(0xFC83)) + 0xF400));
+	add A1,A0,A1 ; ldx (I4)+2,I2	// ET1 + ET3 -> ET4
+	mv A1,I0 ; and D1,NULL,D1	// ET4 -> ET5
+	ldc 15360,A1	// 15360 -> 1 -> ET7
+	ldy (I0),B0/*V*/	// ET5 ==> 'st'
+//   ep = (s_int16)(st & 0x3C00) >> 10;
+	ldc _usb,I0	// ET12
+	and B0,A1,B1	// 'st' and ET7 -> ET8
+	ldc -10,A1	// -10 -> 0 -> ETb
+	ashl B1,A1,B1	// ET8 << ETb -> 'ep'
+//   st &= 0x03FF;
+	ldc 1023,A1	// 1023 -> 1 -> ETe
+	and B0,A1,B0	// 'st' and ETe -> 'st'
+//   packet->length = st;
+	stx B0,(I2) ; add B0,NULL,D0	// 'st' ==> 'packet'
+//   usb->totbytes += st;
+	ldx (I0),C1/*V*/	// 'st' msw ET10
+	add C1,C0,C0	// 'usb' + ET11 -> AT2b
+	mv C0,I0 ; sub B0,ONES,B0	// AT2b -> ET13
+	ldx (I0)+1,C0/*V*/ ; lsr B0,B0
+	ldx (I0)-1,C1/*V*/
+	add C,D,C	// ET14 + ET10 -> ET15
+	stx C0,(I0)+1/*V*/ ; ldy (I1),C0/*V*/
+	stx C1,(I0)-1/*V*/ ; sub C0,ONES,C0
+//   lenW = (st + 1)>>1;
+	ldc 270,C1	// 270 -> 1 -> ET1f
+//   tmp = ((*(__y volatile u_int16 *)(u_int16)(0xFC83)) + 1) & 0x03FF;
+	and C0,A1,C0	// ET1d and ETe -> 'tmp'
+//   if (lenW <= (540 +1)>>1)
+	sub C1,B0,C1	// ET1f <= 'lenW' -> AT29
+	nop
+	jcs F14B3	// unsigned compare
+	nop
+// jumped away
+F14B4:
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) = (0x2000 | 0x0080);
+	ldc 8320,A0	// 8320 -> 1 -> ET25
+	ldc 64642,I0	// 64642 -> ET26
+	sty A0,(I0)/*V*/	// ET25 ==> ET26
+//   return ep & 0x7f;
+	ldc 127,A0	// 127 -> 1 -> ET27
+	and B1,A0,A0 ; ldy (I6),I2	// 'ep' and ET27 -> ET28
+	ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,D1
+	ldy (I6),D0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F14B3:
+//   }
+// {
+//     RingBufCopyXfromY(packet->payload, (__y void *)(tmp + 0xF400), lenW);
+	add C0,A0,A0 ; ldx (I6)+1,NULL	// 'tmp' + ET3 -> ET20
+	mv A0,I0 ; add B0,NULL,A0	// ET20 -> ET21
+	call _RingBufCopyXfromY
+	ldy (I2)+1,NULL	// 'lenW' -> A0
+// jumped away
+// (*(__y volatile u_int16 *)(u_int16)(0xFC83)) = (lenW + tmp) & 0x03FF;
+	add B0,C0,A0	// 'lenW' + 'tmp' -> ET23
+	and A0,A1,A0	// ET23 and ETe -> ET24
+	j F14B4
+	sty A0,(I1)/*V*/	// ET24 ==> ET0
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyInitUSB	// 108 words
+	.export _MyInitUSB
+_MyInitUSB:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 1288,A1	// 1288 -> 1 -> ET0
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty I0,(I6)+1
+	ldc 65234,I0	// 65234 -> ET1
+	stx I2,(I6) ; sty LC,(I6)+1
+	stx LS,(I6)+1 ; sty LE,(I6)
+	ldy (I0),A0/*V*/ ; ldx (I4)-2,NULL	// I4 += -2
+//   }
+//   {
+// (*(__y volatile u_int16 *)(u_int16)(0xfed2)) |=(1<<3) |(1<<10) |(1<<8);
+	or A0,A1,A0	// ET2 or ET0 -> ET3
+	ldc 49152,A1	// 49152 -> 1 -> ET4
+	sty A0,(I0)+1/*V*/	// ET3 ==> ET1
+// (*(__y volatile u_int16 *)(u_int16)(0xfed3)) |= 0xC000;
+	ldy (I0),A0/*V*/	// ET5 ==> ET6
+	or A0,A1,A0	// ET6 or ET4 -> ET7
+	sty A0,(I0)/*V*/	// ET7 ==> ET5
+// (*(__y volatile u_int16 *)(u_int16)(0xfed3));
+	ldc 34944,A0	// 34944 -> 1 -> ETb
+	ldy (I0),I7/*V*/
+// (*(__y volatile u_int16 *)(u_int16)(0xfed3));
+	ldy (I0),I7/*V*/
+// (*(__y volatile u_int16 *)(u_int16)(0xfed3));
+	ldy (I0),I7/*V*/
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80))) =(1<<15)|(1<<7)|(1<<11);
+	ldc 64640,I0	// 64640 -> ETc
+	sty A0,(I0)/*V*/	// ETb ==> ETc
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80))) =(1<<7)|(1<<11);
+	ldc 2176,A0	// 2176 -> 1 -> ETd
+	sty A0,(I0)/*V*/ ; ldx (I4)+2,A0	// ETd ==> ETc
+//   if (initDescriptors)
+	sub A0,NULL,A0	// 'initDescriptors' == (0) -> (0)
+	nop	// I6 += 1
+	jzs F15B4	// unsigned compare
+	nop
+// jumped away
+//   }
+// {
+//       MyInitUSBDescriptors(initDescriptors);
+	call _MyInitUSBDescriptors
+	stx A0,(I6)	// 'initDescriptors'
+// jumped away
+	ldc 1024,A0	// 1024 -> A0
+	ldc 63488,I0	// 63488 -> I0
+//       memsetY((__y void *)0xF800, 0x0000, 1024);
+	call _memsetY
+	ldx (I6)-1,NULL ; and NULL,NULL,A1	// I6 += -1
+// jumped away
+	ldx (I6)+1,NULL
+F15B4:
+	ldc 3,LC	// loop 4 iterations
+	ldc 288,A0	// 288 -> 1 -> ET13
+	ldc _usb,I0	// ET14
+	ldx (I0),A1/*V*/ ; and B,NULL,B	// ET14 ==> 'usb'
+//   usb->totbytes = 0;
+	add A1,A0,A0 ; ldy (I6)-1,NULL	// 'usb' + ET13 -> AT3d
+	mv A0,I2	// AT3d -> ET15
+	ldc 307,A1	// 307 -> 1 -> ET17
+	stx B0,(I2)+1/*V*/
+	stx B1,(I2)-1/*V*/
+//   usb->configuration = 0;
+	ldx (I0),A0/*V*/	// ET14 ==> 'usb'
+	add A0,A1,A0	// 'usb' + ET17 -> AT3c
+	mv A0,I0 ; and NULL,NULL,A0	// AT3c -> ET18
+	stx A0,(I0)+1/*V*/ ; and NULL,NULL,A1	// ET16 ==> ET18
+//   usb->interfaces = 0;
+	stx A0,(I0)+2/*V*/	// ET16 ==> ET18
+//   usb->lastSofTime = 0;
+	stx B0,(I0)+1/*V*/
+	ldc 290,B0	// 290 -> 1 -> ET25
+	stx B1,(I0)+2/*V*/
+//   usb->setValue = 0;
+	ldc 298,B1	// 298 -> 1 -> ET22
+	stx A0,(I0)+1/*V*/	// ET16 ==> ET18
+//   usb->hidWriteCount = 0;
+	stx A0,(I0)/*V*/	// ET16 ==> ET18
+//   }
+// (i=0; i < 4; i++)
+	loop LC,F15B8-1
+	ldc _usb,I0	// ET14
+//loop resumes
+//     }
+// {
+//       usb->XmitLength[i] = 0;
+	ldx (I0),C0/*V*/	// ET14 ==> 'usb'
+	add C0,B1,C0	// 'usb' + ET22 -> ET23
+	add C0,A0,C0	// ET23 + 'i' -> AT3f
+	mv C0,I2	// AT3f -> ET24
+	stx A1,(I2)	// ET16 ==> ET24
+//       usb->ExtraZeroLengthPacketNeeded[i] = 0;
+	ldx (I0),C0/*V*/	// ET14 ==> 'usb'
+	add C0,B0,C0	// 'usb' + ET25 -> ET26
+	add C0,A0,C0	// ET26 + 'i' -> AT3e
+	mv C0,I2 ; sub A0,ONES,A0	// AT3e -> ET27
+	stx A1,(I2)	// ET16 ==> ET27
+//	(0 nop's needed)
+// loop end
+F15B8:	// loop exit
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +1))) = 0x4000;
+	ldc 302,B0	// 302 -> 1 -> ET31
+	ldc 2,A1	// 2 -> 1 -> ET2d
+	ldc 16384,A0	// 16384 -> 1 -> ET2b
+	ldc 64641,I0	// 64641 -> ET2c
+	sty A0,(I0)/*V*/	// ET2b ==> ET2c
+// (*(__y volatile u_int16 *)(u_int16)(0xFC02)) |=(1<< 1);
+	ldc 64514,I0	// 64514 -> ET2e
+	ldy (I0),A0/*V*/	// ET2e ==> ET2f
+	or A0,A1,A0	// ET2f or ET2d -> ET30
+	sty A0,(I0)/*V*/ ; sub B0,ONES,A1
+//   usb->EPReady[0] = usb->EPReady[1] = 1;
+	ldc _usb,I0	// ET14
+	ldx (I0),I2/*V*/	// ET14 ==> 'usb'
+	mv I2,A0	// ET32 -> AT42
+	add A0,A1,A0	// AT42 + AT39 -> AT41
+	mv A0,I2 ; sub NULL,ONES,A0	// AT41 -> ET34
+	stx A0,(I2)	// ET29 ==> ET34
+	ldx (I0),A1/*V*/	// ET14 ==> 'usb'
+	add A1,B0,A1	// 'usb' + ET31 -> AT40
+	mv A1,I0	// AT40 -> ET32
+	stx A0,(I0)/*V*/	// ET29 ==> ET32
+// (*(__y volatile u_int16 *)(u_int16)(0xFC90)) =
+// (0<<14) |(1<<13) |(1<<8)*3 |
+// (0<<6) |(1<<5);
+	ldc 8992,A0	// 8992 -> 1 -> ET35
+	ldc 64656,I0	// 64656 -> ET36
+//   MyResetBulkEndpoints();
+	call _MyResetBulkEndpoints
+	sty A0,(I0)/*V*/	// ET35 ==> ET36
+// jumped away
+// (*(__y volatile u_int16 *)(u_int16)(0xfed2)) |=(1<<10);
+	ldc 1024,A0	// 1024 -> 1 -> ETe
+	ldc 65234,I0	// 65234 -> ET1
+	ldy (I0),A1/*V*/	// ET1 ==> ET37
+	or A1,A0,A0	// ET37 or ETe -> ET38
+//   MyScsiReset();
+	call _MyScsiReset
+	sty A0,(I0)/*V*/	// ET38 ==> ET1
+// jumped away
+	ldy (I6),LE ; ldx (I6)-1,LS
+	ldy (I6),LC ; ldx (I6)-1,I2
+	ldy (I6),I0 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyUSBHandler	// 165 words
+	.export _MyUSBHandler
+_MyUSBHandler:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 64,A0	// 64 -> 1 -> ET3
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx I0,(I6) ; sty I2,(I6)
+	ldc 64642,I0	// 64642 -> ET0
+// ((*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) &(1<<6))
+	ldy (I0),A1/*V*/	// ET0 ==> ET1
+	and A1,A0,A1	// ET1 and ET3 -> ET4
+	ldc 30,A1	// 30 -> 1 -> ET7
+	jzs F16B4	// compare against zero
+	nop
+// jumped away
+//   }
+// {
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) =(1<<6);
+	ldc -14,B0	// -14 -> 0 -> ETb
+//     for (i=0; i < 30; i++)
+	j F16B8
+	sty A0,(I0)+3/*V*/ ; and NULL,NULL,A0	// ET3 ==> ET0
+// jumped away
+F16B5:	// (loop lvl 2)
+//     }
+// {
+//       if (((*(__y volatile u_int16 *)(u_int16)(0xFC85))>>14) != 0)
+	ldy (I0),C0/*V*/ ; and C1,NULL,C1	// ET8 ==> ET9
+	ashl C,B0,C	// AT3a <- ETb -> AT3b
+	sub C0,NULL,C0	// ETc != (0) -> (0)
+	nop
+	jzc F16B6	// unsigned compare
+	nop
+// jumped away
+	sub A0,ONES,A0	// 'i' - (-1) -> 'i'
+F16B8:	// (loop lvl 2)
+	sub A0,A1,B1	// 'i' < ET7 -> AT3e
+	nop
+	jcc F16B5	// unsigned compare
+	nop
+// jumped away
+F16B6:
+//     if (i == 30)
+	ldc 30,A1	// 30 -> 1 -> ET7
+	sub A0,A1,A0	// 'i' == ET7 -> AT3d
+	ldc _ok2reset,I0	// ETf
+	jzs F16B11	// unsigned compare
+	sub NULL,ONES,A0	// 1 -> 1 -> ETd
+// jumped away
+//     }
+// else {
+//       ok2reset = 0;
+	ldc 0,A0	// 0 -> 1 -> ET5
+	stx A0,(I0)/*V*/	// ET5 ==> ETf
+F16B4:
+//   if ((*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) & 0x8000)
+	ldc 32768,A0	// 32768 -> 1 -> ET12
+	ldc 64642,I0	// 64642 -> ET0
+	ldy (I0),A1/*V*/	// ET0 ==> ET10
+	and A1,A0,A1	// ET10 and ET12 -> ET13
+	nop
+	jzs F16B15	// compare against zero
+	nop
+// jumped away
+//   }
+// {
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) = 0x8000;
+	sty A0,(I0)/*V*/	// ET12 ==> ET0
+//     if (ok2reset)
+	ldc _ok2reset,I0	// ETf
+	ldx (I0),A0/*V*/	// ETf ==> 'ok2reset'
+	sub A0,NULL,A0	// 'ok2reset' == (0) -> (0)
+	nop
+	jzs F16B15	// unsigned compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL ; and NULL,NULL,A0	// I6 += 1
+//     }
+// {
+//       MyInitUSB(0);
+	call _MyInitUSB
+	stx A0,(I6)	// ET5
+// jumped away
+	ldc brst_1,A0	// ET14
+//  vo_printf("BRST\n");
+	call _vo_printf
+	stx A0,(I6)	// I6 += 1
+// jumped away
+	ldx (I6)-1,NULL	// I6 += -1
+F16B15:
+//   if ((*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) &(1<<14))
+	ldc 16384,A0	// 16384 -> 1 -> ET18
+	ldc 64642,I0	// 64642 -> ET0
+	ldy (I0),A1/*V*/	// ET0 ==> ET16
+	and A1,A0,A1	// ET16 and ET18 -> ET19
+	nop
+	jzs F16B22	// compare against zero
+	nop
+// jumped away
+//   }
+// {
+// (*(__y volatile u_int16 *)(u_int16)((0xFC80 +2))) =(1<<14);
+	sty A0,(I0)/*V*/	// ET18 ==> ET0
+F16B22:
+//   if (usb->EPReady[0] == 0)
+	ldc 302,A0	// 302 -> 1 -> ET1a
+	ldc _usb,I0	// ET1b
+	ldx (I0),A1/*V*/	// ET1b ==> 'usb'
+	add A1,A0,A0	// 'usb' + ET1a -> AT49
+	mv A0,I0	// AT49 -> ET1c
+	ldx (I0),A0/*V*/	// ET1c ==> 302 -> ET1d
+	sub A0,NULL,A0	// ET1d != (0) -> (0)
+	ldc 304,A0
+	jzc F16B24	// unsigned compare
+	ldc _usb,I0
+// jumped away
+	ldx (I6)+1,NULL ; and NULL,NULL,A0	// I6 += 1
+//   }
+// {
+//     USBContinueTransmission2(0);
+	call _USBContinueTransmission2
+	stx A0,(I6)	// ET5
+// jumped away
+	ldc 304,A0	// 304 -> AT37
+	ldx (I6)-1,NULL	// I6 += -1
+//   if (usb->EPReady[0x02] == 0)
+F16B24:
+	ldx (I0),I0/*V*/	// ET1b ==> 'usb'
+	mv I0,A1	// ET1c -> AT4b
+	add A1,A0,A0	// AT4b + AT37 -> AT4a
+	mv A0,I0	// AT4a -> ET1f
+	ldx (I0),A0	// ET1f ==> 304 -> ET20
+	sub A0,NULL,A0	// ET20 != (0) -> (0)
+	ldc 64643,I0
+	jzc F16B27	// unsigned compare
+	ldc 2,A0	// 2 -> 1 -> ET21
+// jumped away
+//   }
+// {
+//     USBContinueTransmission2(0x02);
+	ldx (I6)+1,NULL	// 64643 -> ET22
+	call _USBContinueTransmission2
+	stx A0,(I6)	// ET21
+// jumped away
+	ldx (I6)-1,NULL	// I6 += -1
+//   if ((*(__y volatile u_int16 *)(u_int16)(0xFC83)) !=(*(__y volatile u_int16 *)(u_int16)(0xFC84)))
+F16B27:
+	ldy (I0)+1,A1/*V*/	// ET22 ==> ET23
+	ldy (I0),A0/*V*/	// ET25 ==> ET26
+	sub A1,A0,A0	// ET23 == ET26 -> AT43
+	ldc _usb,I0	// ET1b
+	jzs F16B30	// unsigned compare
+	nop
+// jumped away
+	ldx (I0),I2/*V*/ ; ldy (I6)+1,NULL	// I6 += 1
+//   }
+// {
+//     ep = MyUSBReceivePacket(&usb->pkt);
+	ldx (I2)+7,NULL	// ET29 += 17
+	ldx (I2)+7,NULL	// ...
+	ldx (I2)+3,NULL	// ...
+	call _MyUSBReceivePacket
+	stx I2,(I6)	// ET29
+// jumped away
+	ldx (I0),I0/*V*/ ; ldy (I6)-1,NULL	// I6 += -1
+//     if (usb->pkt.length)
+	ldx (I0)+7,NULL	// ET29 += 17
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+3,NULL	// ...
+	ldx (I0),A1/*V*/	// ET29 ==> 17 -> ET2b
+	sub A1,NULL,A1	// ET2b == (0) -> (0)
+	nop
+	jzs F16B30	// unsigned compare
+	nop
+// jumped away
+//     }
+// {
+//       if (ep == 0x01)
+	sub NULL,ONES,A1	// 1 -> 1 -> ETd
+	sub A0,A1,A1	// 'ep' == ETd -> AT45
+	nop
+	jzs F16B34	// unsigned compare
+	sub A0,NULL,A0	// 'ep' == (0) -> (0)
+// jumped away
+// else if (ep==0 || usb->setValue)
+	ldc 313,B0	// 313 -> 1 -> ET33
+	jzs F16B38	// unsigned compare
+	ldc _usb,I0	// ET1b
+// jumped away
+	ldx (I0),A1/*V*/	// ET1b ==> 'usb'
+	add A1,B0,A1	// 'usb' + ET33 -> AT4c
+	mv A1,I0	// AT4c -> ET34
+	ldx (I0),A1/*V*/	// ET34 ==> 313 -> ET35
+	sub A1,NULL,A1	// ET35 != (0) -> (0)
+	ldc 3,A1	// 3 -> 1 -> ET36
+	jzc F16B38	// unsigned compare
+	nop
+// jumped away
+// else if (ep == 0x03)
+	sub A0,A1,A0	// 'ep' != ET36 -> AT47
+	ldc _usb,I0	// ET1b
+	jzc F16B30	// unsigned compare
+	nop
+// jumped away
+	ldx (I0),I0/*V*/ ; ldy (I6)+1,NULL	// I6 += 1
+//       }
+// {
+//  MyMSCPacketFromPC(&usb->pkt);
+	ldx (I0)+7,NULL	// ET29 += 17
+	ldx (I0)+7,NULL	// ...
+	ldx (I0)+3,NULL	// ...
+	call _MyMSCPacketFromPC
+	stx I0,(I6)	// ET29
+// jumped away
+	ldx (I6)-1,NULL	// I6 += -1
+F16B30:
+//   MyScsiTaskHandler();
+	call _MyScsiTaskHandler
+	nop
+// jumped away
+	ldy (I6),I2 ; ldx (I6)-1,I0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F16B38:
+//       }
+// {
+// 	RealDecodeSetupPacket2();
+	call _RealDecodeSetupPacket2
+	ldc F16B30,LR0
+// jumped away
+F16B34:
+	ldx (I0)+1,A0/*V*/ ; ldy (I6)+1,NULL	// I6 += 1
+//       }
+// {
+// 	AudioPacketFromUSB(usb->pkt.payload, (usb->pkt.length+1)/2);
+	sub A0,ONES,A1	// ET2d - (-1) -> ET2e
+	ldc -1,A0	// -1 -> AT2f
+	ashl A1,A0,A0	// ET2e << AT2f -> ET30
+	stx A0,(I6)+1	// ET30
+	call _AudioPacketFromUSB
+	stx I0,(I6)	// ET32
+// jumped away
+	j F16B30
+	ldx (I6)-2,NULL	// I6 += -2
+// jumped away
+F16B11:
+//     }
+// {
+//       ok2reset = 1;
+	j F16B4
+	stx A0,(I0)/*V*/	// ETd ==> ETf
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyScsiTaskHandler	// 129 words
+	.export _MyScsiTaskHandler
+_MyScsiTaskHandler:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx I0,(I6) ; sty I1,(I6)+1
+	ldc _SCSI,I0	// ET0
+	stx I2,(I6)
+// 	switch (SCSI.State)
+	ldx (I0),A0	// ET0 ==> ET1
+	add A0,ONES,A1	// ET1 == (-1) -> AT35
+	ldc _SCSI+3,I0	// ET4
+	jzs F17B4	// signed compare
+	ldc 2,A1	// 2 -> 0 -> ETa
+// jumped away
+	sub A0,A1,A1	// ET1 == ETa -> AT36
+	ldc _usb,I0
+	jzs F17B10	// signed compare
+	ldc 4,A1	// 4 -> 0 -> ET19
+// jumped away
+	sub A0,A1,A0	// ET1 != ET19 -> AT39
+	ldc _SCSI+1,I0	// ET1f
+	jzc F17B1	// signed compare
+	nop
+// jumped away
+	ldy (I6)+1,NULL ; ldx (I0),A0	// I6 += 1
+// 		if (!MscSendCsw(SCSI.Status))
+	call _MscSendCsw
+	stx A0,(I6)	// ET32
+// jumped away
+	ldx (I6)-1,NULL ; sub A0,NULL,A0	// I6 += -1
+	ldc _SCSI,I0	// ET0
+	jzc F17B1	// unsigned compare
+	nop
+// jumped away
+// 		}
+// {
+// 			SCSI.State = SCSI_READY_FOR_COMMAND;
+	and NULL,NULL,A0	// 0 -> 0 -> ET1d
+	stx A0,(I0)	// ET1d ==> ET0
+F17B1:
+	ldx (I6)-1,I2
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+// 		if ((usb->XmitLength[(0x02)]) == 0)
+	ldc _usb,I0	// ET11
+F17B10:
+	ldx (I0),A1/*V*/ ; ldy (I6)+1,NULL	// ET11 ==> 'usb'
+	ldc 300,I0	// 300 -> ET34
+	mv I0,A0	// ET34 -> AT3f
+	add A1,A0,A0	// 'usb' + AT3f -> AT3e
+	mv A0,I0	// AT3e -> ET13
+	ldx (I0),A0	// ET13 ==> 300 -> ET14
+	sub A0,NULL,A0	// ET14 != (0) -> (0)
+	ldc 2,A0	// 2 -> 1 -> ET6
+	jzc F17B13	// unsigned compare
+	ldc _SCSI+38,I0	// ET17
+// jumped away
+	ldx (I0),A0 ; ldy (I6)-1,NULL
+// 		}
+// {
+// 			if (SCSI.BlocksLeftToSend == 0)
+	sub A0,NULL,A0	// ET18 == (0) -> (0)
+	ldc 4,A0	// 4 -> 0 -> ET19
+	jzs F17B15	// unsigned compare
+	ldc 8,A1	// 8 -> 1 -> ET20
+// jumped away
+// 			}
+// else {
+// 				SCSI.BlocksLeftToSend--;
+	ldx (I0),A0	// ET17 ==> 38 -> ET18
+	add A0,ONES,A0	// ET18 + (-1) -> ET1c
+	stx A0,(I0) ; and NULL,NULL,A0	// ET1c ==> ET17
+// 				SCSI.Status = SCSI_OK;
+	ldc _SCSI+1,I0	// ET1f
+	stx A0,(I0)	// ET1d ==> ET1f
+// (*(__y volatile u_int16 *)(u_int16)(0xFCC1)) |= (1<<3);
+	ldc 64705,I0	// 64705 -> ET21
+	ldy (I0),A0/*V*/	// ET21 ==> ET22
+	or A0,A1,A0	// ET22 or ET20 -> ET23
+	sty A0,(I0)/*V*/	// ET23 ==> ET21
+// 				if (map2->Read &&
+// 				map2->Read(map2, SCSI.CurrentDiskSector, 1, minifatBuffer) != 1)
+	ldc _map2,I0	// ET25
+	ldx (I0),I2/*V*/	// ET25 ==> 'map2'
+	mv I2,I0	// 'map2' -> ET26
+	ldx (I0)+7,NULL	// ET26 += 7
+	ldx (I0),A0/*V*/	// ET26 ==> 7 -> ET27
+	sub A0,NULL,A0	// ET27 == (0) -> (0)
+	ldc _SCSI+40,I1	// ET2a
+	jzs F17B19	// signed compare
+	ldc _minifatBuffer,A0	// ET28
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+	stx A0,(I6)+1 ; sub NULL,ONES,A0	// ET28
+	stx A0,(I6)+1	// ET1e
+	ldx (I1)+1,A0
+	ldx (I1)-1,A1
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	stx I2,(I6)	// 'map2'
+	ldx (I0),A0/*V*/	// ET26 ==> 7 -> ET2c
+	mv A0,LR0
+	jr
+	ldc lo(F17B21),LR0	// (return address)
+// jumped away
+F17B21:
+	ldx (I6)-5,NULL	// I6 += -5
+F17B19:
+// 				SCSI.CurrentDiskSector++;
+	ldc _SCSI+40,I0	// ET2a
+	ldx (I0)+1,A0
+	ldx (I0)-1,A1
+	sub A,ONES,A	// ET2b - (-1) -> ET30
+	stx A0,(I0)+1
+	ldc _minifatBuffer,A0	// ET28
+	stx A1,(I0)-1
+// 				SCSI.DataOutBuffer = minifatBuffer;
+	ldc _SCSI+2,I0	// ET7
+	stx A0,(I0)+1	// ET28 ==> ET7
+// 				SCSI.DataOutSize = 512;
+	ldc 512,A0	// 512 -> 1 -> ET31
+	stx A0,(I0)-3 ; sub NULL,ONES,A0	// ET31 ==> ET7
+// 				SCSI.State = SCSI_DATA_TO_HOST;
+	j F17B1
+	stx A0,(I0)	// ET2 ==> ET7
+// jumped away
+F17B15:
+// 			}
+// {
+// 				SCSI.State = SCSI_SEND_STATUS;
+	ldc _SCSI,I0	// ET0
+	j F17B1
+	stx A0,(I0)	// ET19 ==> ET0
+// jumped away
+F17B13:
+// 		}
+// else {
+// 			USBContinueTransmission2(0x02);
+	call _USBContinueTransmission2
+	stx A0,(I6)	// ET6
+// jumped away
+	j F17B1
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+F17B4:
+	ldy (I6)+1,NULL ; ldx (I0)-1,A0	// I6 += 1
+// 		if (!USBStartTransmission2(0x02,SCSI.DataOutBuffer,
+// 		SCSI.DataOutSize, SCSI.DataOutSize))
+	stx A0,(I6)+1	// ET5
+	stx A0,(I6)+1	// ET5
+	ldx (I0),A0	// ET4 ==> 2 -> ET8
+	stx A0,(I6)+1	// ET8
+	ldc 2,A0	// 2 -> 1 -> ET6
+	call _USBStartTransmission2
+	stx A0,(I6)	// ET6
+// jumped away
+	ldx (I0)+1,NULL ; ldy (I6)-4,NULL	// ET4 += 1
+	sub A0,NULL,A0	// ET9 != (0) -> (0)
+	ldc 2,A0	// 2 -> 0 -> ETa
+	jzc F17B1	// signed compare
+	ldc _SCSI,I2	// ET0
+// jumped away
+// 		}
+// {
+// 			SCSI.State = SCSI_TRANSMITTING;
+	stx A0,(I2) ; and B1,NULL,B1	// ETa ==> ET0
+// 			SCSI.Residue -= SCSI.DataOutSize;
+	ldx (I0),B0	// ET4 ==> 3 -> ET5
+	ldc _SCSI+53,I0	// ETd
+	ldx (I0)+1,A0
+	ldx (I0)-1,A1
+	sub A,B,A	// ETe - ETb -> ETf
+	stx A0,(I0)+1
+	j F17B1
+	stx A1,(I0)-1
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,ScsiLbab	// 19 words
+	.export _ScsiLbab
+_ScsiLbab:
+	ldc 24,A0	// 24 -> 0 -> ET2
+	ldx (I6)+1,NULL	// I6 += 1
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty C1,(I6) ; and B1,NULL,B1
+//   return ((u_int32)res__lbab3[0] << 24)
+//       | ((u_int32)res__lbab3[1] << 8)
+//       | ((res__lbab3[2] >> 8) & 0x00ff);
+	ldx (I0)+1,B0	// 'res__lbab3' ==> ET0
+	ashl B,A0,C ; ldx (I0)+1,B0	// ET1 << ET2 -> ET3
+	ldc 8,A0	// 8 -> 0 -> ET8
+	ashl B,A0,A ; ldx (I0),B0	// ET7 << ET8 -> ET9
+	or C,A,C	// ET3 or ET9 -> ETa
+	ldc -8,A0	// -8 -> 0 -> ETe
+	ldc 0,A1
+	ashl B,A0,B	// AT14 <- ETe -> AT15
+	ldc 255,A0	// 255 -> 1 -> ET10
+	and B0,A0,A0	// ETf and ET10 -> ET11
+	or C,A,A ; ldy (I6),C1	// ETa or ET12 -> ET13
+	ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,ScsiInquiry	// 101 words
+	.export _ScsiInquiry
+_ScsiInquiry:
+	ldx (I6)+1,NULL ; ldy (I2)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc _SCSI+4,A0	// ET2
+	stx B0,(I6) ; sty C0,(I6)+1
+	ldc 511,B0	// 511 -> 1 -> ET9
+	stx I0,(I6) ; sty I1,(I6)
+	ldc _SCSI+2,I0	// ET4
+//   SCSI.DataOutBuffer = SCSI.DataBuffer;
+	stx A0,(I0)-2 ; sub NULL,ONES,A0	// ET2 ==> ET4
+//   SCSI.State = SCSI_DATA_TO_HOST;
+	stx A0,(I0) ; sub NULL,ONES,A0	// ET5 ==> ET4
+//   if ( (cmd->flags__pageCode & 0x01ff) == 0x0180)
+	ldx (I2)-1,A1	// 1 -> 1 -> ET6
+	and A1,B0,B0	// ET8 and ET9 -> ETa
+	ldc 384,A1	// 384 -> 1 -> ETb
+	sub B0,A1,A1	// ETa == ETb -> AT3f
+	ldc _SCSI+5,I0	// ETd
+	jzs F19B3	// unsigned compare
+	ldc 128,A1	// 128 -> 1 -> ETc
+// jumped away
+// else if (cmd->flags__pageCode & 0x0100)
+	add A1,A1,A1 ; ldx (I2)+1,NULL
+	ldx (I2)-1,A0	// 'cmd' ==> 1 -> ET8
+	and A0,A1,A0	// ET8 and ET36 -> ET37
+	sub A0,NULL,A0	// ET37 == (0) -> (0)
+	ldc 128,A0
+	jzs F19B7	// unsigned compare
+	ldc _SCSI+4,I1
+// jumped away
+//   }
+// {
+//     SCSI.Status = SCSI_REQUEST_ERROR;
+	ldc _SCSI+1,I0	// ET38
+	sub NULL,ONES,A0	// 1 -> 0 -> ET5
+	ldc 130,C0	// 130 -> C0
+	stx A0,(I0)-1	// ET5 ==> ET38
+//     SCSI.State = SCSI_SEND_STATUS;
+	ldc 4,A0	// 4 -> 0 -> ET12
+//     USBSingleStallEndpoint2(0x80| 0x02);
+	call _USBSingleStallEndpoint2
+	stx A0,(I0)	// ET12 ==> ET38
+// jumped away
+F19B5:
+//   if (cmd->allocationLength < SCSI.DataOutSize)
+	ldc _SCSI+3,I0	// ET35
+	ldy (I2)+2,NULL ; ldx (I0),A1	// 'cmd' += 2
+	ldx (I2),A0	// 'cmd' ==> 2 -> ET3d
+	sub A0,A1,A1	// ET3d >= ET3e -> AT41
+	nop
+	jcs F19B1	// unsigned compare
+	nop
+// jumped away
+//   }
+// {
+//     SCSI.DataOutSize = cmd->allocationLength;
+	stx A0,(I0)	// ET3d ==> ET35
+F19B1:
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldy (I6),C0 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+//   }
+// else {
+//       SCSI.DataBuffer[0] = 0x0080;
+	ldc _SCSI+4,I1	// ET2
+	ldc _SCSI+5,I0	// ETd
+	ldc 128,A0	// 128 -> 1 -> ETc
+F19B7:
+	stx A0,(I1)-1 ; sub NULL,ONES,A0	// ETc ==> ET2
+//       SCSI.DataBuffer[1] = 0x0001;
+	stx A0,(I0)+1	// ET6 ==> ETd
+//       SCSI.DataBuffer[2] = 0x1f00;
+	ldc 7936,A0	// 7936 -> 1 -> ET3a
+	stx A0,(I0)+2	// ET3a ==> ETd
+//       SCSI.DataBuffer[4] =  ('V'<<8)|'L';
+	ldc 22092,A0	// 22092 -> 1 -> ET11
+	stx A0,(I0)+1	// ET11 ==> ETd
+//       SCSI.DataBuffer[5] =  ('S'<<8)|'I';
+	ldc 21321,A0	// 21321 -> 1 -> ET14
+	stx A0,(I0)+3	// ET14 ==> ETd
+//       SCSI.DataBuffer[8] =  ('V'<<8)|'S';
+	ldc 22099,A0	// 22099 -> 1 -> ET17
+	stx A0,(I0)+1	// ET17 ==> ETd
+//       SCSI.DataBuffer[9] =  ('1'<<8)|'0';
+	ldc 12592,A0	// 12592 -> 1 -> ET1a
+	stx A0,(I0)+1	// ET1a ==> ETd
+//       SCSI.DataBuffer[10] = ('0'<<8)|'5';
+	ldc 12341,A0	// 12341 -> 1 -> ET1d
+	stx A0,(I0)+1	// ET1d ==> ETd
+//       SCSI.DataBuffer[11] = ('-'<<8)|'1';
+	ldc 11569,A0	// 11569 -> 1 -> ET20
+	stx A0,(I0)+5	// ET20 ==> ETd
+//       SCSI.DataBuffer[16] = ('1'<<8)|'.';
+	ldc 12590,A0	// 12590 -> 1 -> ET23
+	stx A0,(I0)+1	// ET23 ==> ETd
+//       SCSI.DataBuffer[17] = ('3'<<8)|' ';
+	ldc 13088,A0	// 13088 -> 1 -> ET3b
+	stx A0,(I0)	// ET3b ==> ETd
+//       SCSI.DataOutSize = 36;
+	ldc 36,A0	// 36 -> 1 -> ET33
+	j F19B5
+	stx A0,(I1)	// ET33 ==> ET2
+// jumped away
+F19B3:
+//   }
+// {
+//     SCSI.DataBuffer[0] = 0x0080;
+	ldc _SCSI+4,I1	// ET2
+	stx A1,(I1)-1	// ETc ==> ET2
+//     SCSI.DataBuffer[1] = 0x0001;
+	ldc 12341,A1	// 12341 -> 1 -> ET1d
+	stx A0,(I0)+1	// ET6 ==> ETd
+//     SCSI.DataBuffer[2] = 0x2700;
+	ldc 9984,A0	// 9984 -> 1 -> ETe
+	stx A0,(I0)+2	// ETe ==> ETd
+//     SCSI.DataBuffer[4] =  ('V'<<8)|'L';
+	ldc 22092,A0	// 22092 -> 1 -> ET11
+	stx A0,(I0)+1	// ET11 ==> ETd
+//     SCSI.DataBuffer[5] =  ('S'<<8)|'I';
+	ldc 21321,A0	// 21321 -> 1 -> ET14
+	stx A0,(I0)+3	// ET14 ==> ETd
+//     SCSI.DataBuffer[8] =  ('V'<<8)|'S';
+	ldc 22099,A0	// 22099 -> 1 -> ET17
+	stx A0,(I0)+1	// ET17 ==> ETd
+//     SCSI.DataBuffer[9] =  ('1'<<8)|'0';
+	ldc 12592,A0	// 12592 -> 1 -> ET1a
+	stx A0,(I0)+1	// ET1a ==> ETd
+//     SCSI.DataBuffer[10] = ('0'<<8)|'5';
+	stx A1,(I0)+1	// ET1d ==> ETd
+//     SCSI.DataBuffer[11] = ('-'<<8)|'1';
+	ldc 11569,A1	// 11569 -> 1 -> ET20
+	stx A1,(I0)+5	// ET20 ==> ETd
+//     SCSI.DataBuffer[16] = ('1'<<8)|'.';
+	ldc 12590,A1	// 12590 -> 1 -> ET23
+	stx A1,(I0)+1	// ET23 ==> ETd
+//     SCSI.DataBuffer[17] = ('4'<<8)|' ';
+	ldc 13344,A1	// 13344 -> 1 -> ET26
+	stx A1,(I0)+3	// ET26 ==> ETd
+//     SCSI.DataBuffer[20] = 0x3130;
+	ldc 12336,A1	// 12336 -> 1 -> ET2b
+	stx A0,(I0)+1	// ET1a ==> ETd
+//     SCSI.DataBuffer[21] = 0x3030;
+	stx A1,(I0)+1	// ET2b ==> ETd
+//     SCSI.DataBuffer[22] = 0x3130;
+	stx A0,(I0)+1	// ET1a ==> ETd
+//     SCSI.DataBuffer[23] = 0x3134;
+	ldc 12596,A0	// 12596 -> 1 -> ET30
+	stx A0,(I0)	// ET30 ==> ETd
+//     SCSI.DataOutSize = 36;
+	ldc 36,A0	// 36 -> 1 -> ET33
+	j F19B5
+	stx A0,(I1)	// ET33 ==> ET2
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,DiskDataReceived	// 90 words
+	.export _DiskDataReceived
+_DiskDataReceived:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 3,A1	// 3 -> 0 -> ET2
+	stx B0,(I6) ; sty C0,(I6)+1
+	stx C1,(I6) ; sty D0,(I6)+1
+	stx D1,(I6) ; sty I0,(I6)+1
+	ldc _SCSI,I0	// ET0
+	stx I1,(I6) ; sty I2,(I6)+1
+	stx I3,(I6)
+// 	if (SCSI.State != SCSI_DATA_FROM_HOST)
+	ldx (I0),A0	// ET0 ==> ET1
+	sub A0,A1,A1	// ET1 != ET2 -> AT33
+	ldc _SCSI+37,I2	// ETb
+	jzc F20B1	// signed compare
+	ldc _SCSI+53,I0	// ET6
+// jumped away
+	ldy (I4)-2,NULL ; ldx (I0)+1,D0	// I4 += -2
+// 	SCSI.Residue    -= length;
+	ldx (I4)-1,A1 ; sub NULL,ONES,B0	// 1 -> 0 -> ET3
+	mulss A1,B0 ; ldx (I0)-1,D1	// 'length' sXtd ET3 -> P
+	sub D,P,C	// ET7 - ET4 -> ET8
+	stx C0,(I0)+1
+	stx C1,(I0)-1
+// 	SCSI.DataInSize += length;
+	ldx (I2)-1,A0	// ETb ==> 37 -> ETc
+	add A0,A1,A0 ; ldx (I2)+1,I0	// ETc + 'length' -> ETd
+	stx A0,(I2)-1 ; or NULL,ONES,A0	// ETd ==> ETb
+// 	memcpy(SCSI.DataInBuffer, datablock, length/2);
+	ldx (I4)+3,I1 ; ashl A1,A0,A0	// -1 -> ATf
+	call _memcpy
+	ldc _SCSI+36,I3	// ET13
+// jumped away
+	or NULL,ONES,A0 ; ldy (I2)+1,NULL	// ETb += 1
+// 	SCSI.DataInBuffer += length/2;
+	ashl A1,A0,A1 ; ldx (I3),A0	// 'length' << AT16 -> ET17
+	add A0,A1,A0	// ET14 + ET17 -> ET18
+	stx A0,(I3)	// ET18 ==> ET13
+// 	if (SCSI.DataInSize >= 512)
+	ldc 512,A0	// 512 -> 1 -> ET1a
+	ldx (I2),A1	// ETb ==> 37 -> ET19
+	sub A1,A0,A1	// ET19 < ET1a -> AT35
+	ldc _SCSI+1,I2	// ET1c
+	jcc F20B1	// unsigned compare
+	ldx (I2),A0	// ET1c ==> 1 -> ET1d
+// jumped away
+// 	}
+// {
+// 		if (SCSI.Status == SCSI_OK)
+	sub A0,NULL,A0	// ET1d != (0) -> (0)
+	ldc _SCSI+40,I0	// ET21
+	jzc F20B9	// signed compare
+	ldc _minifatBuffer,A0	// ET1f
+// jumped away
+	ldx (I6)+1,NULL	// I6 += 1
+// 		}
+// {
+// 			if (map2->Write(map2, SCSI.CurrentDiskSector, 1, minifatBuffer) != 1)
+	stx A0,(I6)+1 ; sub NULL,ONES,A0	// ET1f
+	stx A0,(I6)+1	// ET1b
+	ldx (I0)+1,A0
+	ldx (I0)-1,A1
+	ldc _map2,I0	// ET23
+	stx A0,(I6)+1	// A0
+	stx A1,(I6)+1	// A1
+	ldx (I0),I0/*V*/	// ET23 ==> 'map2'
+	stx I0,(I6) ; ldy (I0)+7,NULL	// 'map2'
+	ldx (I0)+1,NULL	// ...
+	ldx (I0),A0/*V*/	// ET25 ==> 8 -> ET26
+	mv A0,LR0
+	jr
+	ldc lo(F20B12),LR0	// (return address)
+// jumped away
+F20B12:
+	ldx (I6)-5,NULL ; add A0,ONES,A1	// I6 += -5
+	nop
+	jzs F20B9	// signed compare
+	nop
+// jumped away
+// 			}
+// {
+// 				SCSI.Status = SCSI_REQUEST_ERROR;
+	stx B0,(I2)	// ET3 ==> ET1c
+F20B9:
+// 		SCSI.CurrentDiskSector++;
+	ldc _SCSI+40,I0	// ET21
+	ldx (I0)+1,A0
+	ldx (I0)-1,A1
+	sub A,ONES,A	// ET22 - (-1) -> ET2a
+	stx A0,(I0)+1
+	ldc _minifatBuffer,A0	// ET1f
+	stx A1,(I0)-5
+// 		SCSI.DataInBuffer = minifatBuffer;
+	stx A0,(I0)+1 ; and NULL,NULL,A0	// ET1f ==> ET21
+// 		SCSI.DataInSize = 0;
+	stx A0,(I0)+2	// ET2b ==> ET21
+// 		SCSI.BlocksLeftToReceive--;
+	ldx (I0),A0	// ET21 ==> 39 -> ET2e
+	add A0,ONES,A0	// ET2e + (-1) -> ET31
+	stx A0,(I0) ; sub A0,NULL,A0	// ET31 ==> ET21
+// 		if (SCSI.BlocksLeftToReceive == 0)
+	ldc 4,A0	// 4 -> 0 -> ET32
+	jzc F20B1	// unsigned compare
+	ldc _SCSI,I0	// ET0
+// jumped away
+// 		}
+// {
+// 			SCSI.State = SCSI_SEND_STATUS;
+	stx A0,(I0)	// ET32 ==> ET0
+F20B1:
+	ldx (I6)-1,I3
+	ldy (I6),I2 ; ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,D1
+	ldy (I6),D0 ; ldx (I6)-1,C1
+	ldy (I6),C0 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,DiskProtocolCommand	// 325 words
+	.export _DiskProtocolCommand
+_DiskProtocolCommand:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	stx B0,(I6) ; and NULL,NULL,A0	// 0 -> 1 -> ET7
+	sty B1,(I6)+1
+	stx C0,(I6) ; sty I0,(I6)+1
+	ldc _SCSI+38,I0	// ETa
+	stx I1,(I6) ; sty I2,(I6)
+// length
+// .BlocksLeftToSend = 0;
+	stx A0,(I0)+1	// ET7 ==> ETa
+//   SCSI.BlocksLeftToReceive = 0;
+	stx A0,(I0)+7	// ET7 ==> ETa
+//   SCSI.Residue = SCSI.DataTransferLength;
+	ldx (I0)+5,NULL	// ...
+	ldx (I0)+1,A0
+	ldx (I0)+1,A1
+	stx A0,(I0)+1 ; and NULL,NULL,A0
+	stx A1,(I0)-1 ; and NULL,NULL,A1
+//   SCSI.Status = SCSI_OK;
+	ldc _SCSI+1,I0	// ET15
+	stx A0,(I0)	// ET13 ==> ET15
+//   memset(SCSI.DataBuffer, 0, 32);
+	ldc 32,A0	// 32 -> A0
+	call _memset
+	ldc _SCSI+4,I0	// I0
+// jumped away
+	ldc 255,A1	// 255 -> 1 -> ET1c
+	ldc _oldcmd954128,I2	// ET1b
+	ldc _ocmd954128,I0	// ET1a
+	ldx (I0),A0/*V*/ ; ldy (I4)-2,NULL	// I4 += -2
+//   oldcmd = ocmd;
+	stx A0,(I2)/*V*/	// 'ocmd' ==> ET1b
+//   ocmd = (cmd[0] & 0x00ff);
+	ldx (I4)+2,I2	// unspill 'cmd' from #-2
+	ldx (I2),A0	// 'cmd' ==> ET0
+	and A0,A1,A0	// ET0 and ET1c -> ET1d
+	ldc 35,A1	// 35 -> 1 -> ET1e
+	stx A0,(I0)/*V*/ ; sub A0,A1,C0	// ET1d ==> ET1a
+//   switch (cmd[0] & 0x00ff)
+	ldc 18,A1	// 18 -> 1 -> ET40
+	jzs F21B5	// unsigned compare
+	sub A0,A1,C0	// ET1d == ET40 -> AT83
+// jumped away
+	nop
+	callzs _ScsiInquiry
+	ldc F21B8,LR0
+// jumped away
+	ldc 37,A1	// 37 -> 1 -> ET41
+	sub A0,A1,C0	// ET1d == ET41 -> AT86
+	ldc 40,A1	// 40 -> 1 -> ET49
+	jzs F21B11	// unsigned compare
+	sub A0,A1,C0	// ET1d == ET49 -> AT8b
+// jumped away
+	ldc 26,A1	// 26 -> 1 -> ET5a
+	jzs F21B14	// unsigned compare
+	sub A0,A1,C0	// ET1d == ET5a -> AT8e
+// jumped away
+	ldc 90,A1	// 90 -> 1 -> ET5b
+	jzs F21B26	// unsigned compare
+	nop
+// jumped away
+	sub A0,A1,C0	// ET1d == ET5b -> AT93
+	ldc 3,A1	// 3 -> 1 -> ET3e
+	jzs F21B26	// unsigned compare
+	nop
+// jumped away
+	sub A0,A1,C0	// ET1d == ET3e -> AT94
+	ldc 30,A1	// 30 -> 1 -> ET60
+	jzs F21B28	// unsigned compare
+	nop
+// jumped away
+	sub A0,A1,C0	// ET1d == ET60 -> AT95
+	ldc 27,A1	// 27 -> 1 -> ET61
+	jzs F21B30	// unsigned compare
+	nop
+// jumped away
+	sub A0,A1,C0	// ET1d == ET61 -> AT97
+	ldc 53,A1	// 53 -> 1 -> ET11
+	jzs F21B36	// unsigned compare
+	nop
+// jumped away
+	sub A0,A1,C0	// ET1d == ET11 -> AT9a
+	nop
+	jzs F21B40	// unsigned compare
+	sub A0,NULL,A0	// ET1d == (0) -> (0)
+// jumped away
+	ldc 47,A1	// 47 -> 1 -> ET6e
+	jzs F21B49	// unsigned compare
+	nop
+// jumped away
+	sub A0,A1,C0	// ET1d == ET6e -> AT9d
+	ldc 21,A1	// 21 -> 1 -> ET6f
+	jzs F21B49	// unsigned compare
+	nop
+// jumped away
+	sub A0,A1,C0	// ET1d == ET6f -> AT9e
+	nop	// 42 -> 1 -> ET6c
+	jzs F21B49	// unsigned compare
+	add A1,A1,A1
+// jumped away
+	sub A0,A1,A0	// ET1d != ET6c -> AT9f
+	ldc _geometry,I1	// ET25
+	jzc F21B20	// unsigned compare
+	ldc _ScsiIdle,I0	// ET4a
+// jumped away
+//     ScsiIdle = 0;
+	and NULL,NULL,A0 ; ldy (I2)+1,NULL	// 0 -> 1 -> ET7
+	stx A0,(I0)/*V*/	// ET7 ==> ET4a
+	mv I2,I0	// 'cmd' -> I0
+//     SCSI.CurrentDiskSector = geometry.sectorsPerBlock * ScsiLbab(&((ScsiWrite10Cdb *)cmd)->flags__lbab3);
+	call _ScsiLbab
+	ldx (I1),C0 ; ldy (I2)-1,NULL	// ET25 ==> ET26
+// jumped away
+	ldc _SCSI+40,I0	// ET4e
+	mv B0,I7 ; muluu C0,A1	// ET26 * ET70 -> ET71
+	add NULL,P,A ; mv A0,B0	// (16x32)
+	muluu C0,B0 ; ldy (I2)+4,NULL
+	add A0,P,A
+	stx A0,(I0)+1
+	stx A1,(I0)-2
+//     SCSI.BlocksLeftToReceive = geometry.sectorsPerBlock * ((ScsiWrite10Cdb *)cmd)->wLength;
+	ldx (I1),A1	// ET25 ==> ET26
+	ldx (I2),A0	// 'cmd' ==> 4 -> ET50
+	muluu A1,A0	// ET26 * ET50 -> P
+	add NULL,P,A	// P -> ATa1
+	stx A0,(I0)-3	// ET51 ==> ET4e
+//     SCSI.DataInBuffer = minifatBuffer;
+	ldc _minifatBuffer,A0	// ET72
+	stx A0,(I0)+1 ; and NULL,NULL,A0	// ET72 ==> ET4e
+//     SCSI.DataInSize = 0;
+	stx A0,(I0)	// ET7 ==> ET4e
+//     SCSI.State = SCSI_DATA_FROM_HOST;
+	ldc 3,A0	// 3 -> 0 -> ET34
+	ldc _SCSI,I0	// ET8
+	stx A0,(I0)	// ET34 ==> ET8
+//     if (SCSI.DataDirection < 0)
+	ldc _SCSI+55,I0	// ET57
+	ldx (I0),A0	// ET57 ==> 55 -> ET58
+	sub A0,NULL,A0	// ET58 < (0) -> (0)
+	ldc _SCSI+39,I0	// ETc
+	jlt F21B54	// signed compare
+	nop
+// jumped away
+//     if (SCSI.BlocksLeftToReceive == 0)
+	ldx (I0),A0	// ETc ==> 39 -> ET76
+	sub A0,NULL,A0	// ET76 == (0) -> (0)
+	nop
+	jzs F21B23	// unsigned compare
+	nop
+// jumped away
+F21B4:
+//   if (SCSI.State == SCSI_DATA_TO_HOST)
+	ldc _SCSI,I0	// ET8
+	ldx (I0),A0	// ET8 ==> ET77
+	add A0,ONES,A0	// ET77 != (-1) -> AT7e
+	ldc _SCSI+51,I0	// ETe
+	jzc F21B1	// signed compare
+	ldc _SCSI+3,I2	// ET3f
+// jumped away
+//   }
+// {
+//     if (SCSI.DataOutSize > SCSI.DataTransferLength)
+	ldx (I2),B0 ; and B1,NULL,B1	// ET3f ==> 3 -> ET78
+	ldx (I0)+1,A0
+	ldx (I0)-1,A1
+	sub A,B,B	// ETf <= ET79 -> ATa4
+	ldc _SCSI+55,I0
+	jcs F21B62	// unsigned compare
+	nop	// ET57
+// jumped away
+// 	SCSI.DataOutSize = SCSI.DataTransferLength;
+	stx A0,(I2)	// ET7a ==> ET3f
+//     if (SCSI.DataDirection >= 0)
+F21B62:
+	ldx (I0),A0	// ET57 ==> 55 -> ET58
+	sub A0,NULL,A0	// ET58 >= (0) -> (0)
+	ldc _SCSI+3,I0	// ET3f
+	jge F21B20	// signed compare
+	ldx (I0),A0	// ET3f ==> 3 -> ET7b
+// jumped away
+//     if (SCSI.DataOutSize == 0)
+	sub A0,NULL,A0	// ET7b == (0) -> (0)
+	ldc 4,A0
+	jzs F21B67	// unsigned compare
+	ldc _SCSI,I0
+// jumped away
+F21B1:
+	ldy (I6),I2 ; ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+F21B20:
+//   MyUSBStallEndpoint(0x80| 0x02);
+	call _MyUSBStallEndpoint
+	ldc 130,C0	// 130 -> C0
+// jumped away
+F21B23:
+//   SCSI.Status = SCSI_REQUEST_ERROR;
+	ldc _SCSI+1,I0	// ET15
+	sub NULL,ONES,A0	// 1 -> 0 -> ET2a
+	stx A0,(I0)	// ET2a ==> ET15
+//  sendStatus:
+//   SCSI.State = SCSI_SEND_STATUS;
+	ldc 4,A0	// 4 -> 0 -> ET37
+	ldc _SCSI,I0	// ET8
+F21B67:
+	j F21B1
+	stx A0,(I0)	// ET37 ==> ET8
+// jumped away
+F21B54:
+//     }
+// {
+//       MyUSBStallEndpoint(0x00| 0x03);
+	ldc 3,C0	// 3 -> C0
+	call _MyUSBStallEndpoint
+	ldc F21B23,LR0
+// jumped away
+F21B40:
+//     ScsiIdle = 0;
+	ldc 0,A0	// 0 -> 1 -> ET7
+	ldc _ScsiIdle,I0	// ET4a
+	stx A0,(I0)/*V*/	// ET7 ==> ET4a
+//     if (map2->Flush)
+	ldc _map2,I0	// ET20
+	ldx (I0),I1/*V*/	// ET20 ==> 'map2'
+	mv I1,I2	// 'map2' -> ET67
+	ldx (I2)+7,NULL	// ET67 += 10
+	ldx (I2)+3,NULL	// ...
+	ldx (I2),A0/*V*/	// ET67 ==> 10 -> ET68
+	sub A0,NULL,A0	// ET68 == (0) -> (0)
+	nop
+	jzs F21B43	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL ; sub NULL,ONES,A0	// I6 += 1
+// 	map2->Flush(map2, 1);
+	stx A0,(I6)+1	// ET14
+	stx I1,(I6)	// 'map2'
+	ldx (I2),A0/*V*/	// ET67 ==> 10 -> ET69
+	mv A0,LR0
+	jr
+	ldc lo(F21B44),LR0	// (return address)
+// jumped away
+F21B44:
+	ldx (I6)-2,NULL	// I6 += -2
+F21B43:
+//     SCSI.mapperNextFlushed = -1;
+	ldc _SCSI+42,I0	// ET6d
+	or A,ONES,A	// 4294967295 -> 3 -> ET6b
+	stx A0,(I0)+1
+	stx A1,(I0)-1
+F21B49:
+//     SCSI.State = SCSI_SEND_STATUS;
+	ldc 4,A0	// 4 -> 0 -> ET37
+	ldc _SCSI,I0	// ET8
+//     break;
+	j F21B4
+	stx A0,(I0)	// ET37 ==> ET8
+// jumped away
+F21B36:
+//     if ((cmd[2]&0x03) == 2)
+	ldc 4,A0	// 4 -> 0 -> ET37
+	ldc _SCSI,I0	// ET8
+//     SCSI.State = SCSI_SEND_STATUS;
+//     break;
+	j F21B4
+	ldy (I2)+2,NULL ; stx A0,(I0)	// 'cmd' += 2
+// jumped away
+F21B30:
+//     if (oldcmd == 0x1b && (cmd[2]&1) == 0)
+	ldc _oldcmd954128,I0	// ET1b
+	ldx (I0),A1/*V*/ ; add A1,NULL,A0
+	sub A1,A0,A0	// 'oldcmd' != ET61 -> AT96
+	nop
+	jzc F21B33	// unsigned compare
+	nop
+// jumped away
+	ldx (I2)+2,NULL ; sub NULL,ONES,A1	// 'cmd' += 2
+	ldx (I2),A0	// 'cmd' ==> 2 -> ET63
+	and A0,A1,A0	// ET63 and ET14 -> ET64
+	ldc 10,A0	// 10 -> 1 -> ET65
+	jzc F21B33	// compare against zero
+	ldc _ScsiIdle,I0	// ET4a
+// jumped away
+//     }
+// {
+//       ScsiIdle = 10;
+F21B34:
+	stx A0,(I0)/*V*/	// ET65 ==> ET4a
+//     SCSI.State = SCSI_SEND_STATUS;
+	ldc 4,A0	// 4 -> 0 -> ET37
+	ldc _SCSI,I0	// ET8
+//     break;
+	j F21B4
+	stx A0,(I0)	// ET37 ==> ET8
+// jumped away
+F21B33:
+//     }
+// else {
+//       ScsiIdle = 0;
+	ldc _ScsiIdle,I0	// ET4a
+	j F21B34
+	and NULL,NULL,A0	// 0 -> 1 -> ET7
+// jumped away
+F21B28:
+//     SCSI.DataOutBuffer[0] = 0x7000;
+	ldc 28672,A0	// 28672 -> 1 -> ET5c
+	ldc _SCSI+2,I0	// ET3c
+	ldx (I0),I2	// ET3c ==> 2 -> ET5d
+	stx A0,(I2)+1 ; and NULL,NULL,A0	// ET5c ==> ET5d
+//     SCSI.DataOutBuffer[1] = 0 << 8;
+	stx A0,(I2)+2	// ET7 ==> ET5d
+//     SCSI.DataOutBuffer[3] = 0;
+	stx A0,(I2)	// ET7 ==> ET5d
+//     SCSI.DataOutBuffer = SCSI.DataBuffer;
+	ldc _SCSI+4,A0	// ET18
+	stx A0,(I0)+1	// ET18 ==> ET3c
+//     SCSI.DataOutSize = 18;
+	ldc 18,A0	// 18 -> 1 -> ET40
+	stx A0,(I0)-3 ; sub NULL,ONES,A0	// ET40 ==> ET3c
+//     SCSI.State = SCSI_DATA_TO_HOST;
+//     break;
+	j F21B4
+	stx A0,(I0)	// ET2a ==> ET3c
+// jumped away
+F21B26:
+//     SCSI.DataOutBuffer = SCSI.DataBuffer;
+	ldc _SCSI+4,A0	// ET18
+	ldc _SCSI+2,I0	// ET3c
+	stx A0,(I0)+1	// ET18 ==> ET3c
+//     SCSI.DataOutSize = 4;
+	ldc 4,A0	// 4 -> 1 -> ET17
+	stx A0,(I0)-3 ; sub NULL,ONES,A0	// ET17 ==> ET3c
+//     SCSI.State = SCSI_DATA_TO_HOST;
+//     break;
+	j F21B4
+	stx A0,(I0)	// ET2a ==> ET3c
+// jumped away
+F21B14:
+//     ScsiIdle = 0;
+	ldc _geometry,I1	// ET25
+	ldc _ScsiIdle,I0	// ET4a
+	and NULL,NULL,A0 ; ldy (I2)+1,NULL	// 0 -> 1 -> ET7
+	stx A0,(I0)/*V*/	// ET7 ==> ET4a
+	mv I2,I0	// 'cmd' -> I0
+//     SCSI.CurrentDiskSector = geometry.sectorsPerBlock * ScsiLbab(&((ScsiRead10Cdb*)cmd)->res__lbab3);
+	call _ScsiLbab
+	ldx (I1),C0 ; ldy (I2)-1,NULL	// ET25 ==> ET26
+// jumped away
+	ldc _SCSI+40,I0	// ET4e
+	mv B0,I7 ; muluu C0,A1	// ET26 * ET4c -> ET4d
+	add NULL,P,A ; mv A0,B0	// (16x32)
+	muluu C0,B0 ; ldy (I2)+4,NULL
+	add A0,P,A
+	stx A0,(I0)+1
+	stx A1,(I0)-3
+//     SCSI.BlocksLeftToSend = geometry.sectorsPerBlock * ((ScsiRead10Cdb*)cmd)->wLength;
+	ldx (I1),A0	// ET25 ==> ET26
+	ldx (I2),A1	// 'cmd' ==> 4 -> ET50
+	ldc _SCSI,I2	// ET8
+	muluu A0,A1	// ET26 * ET50 -> P
+	add NULL,P,A	// P -> AT90
+	ldc 512,A1	// 512 lsw ET54
+	stx A0,(I0) ; mulus A0,A1	// ET51 ==> ET4e
+//     SCSI.Residue = (s_int32) SCSI.BlocksLeftToSend * 512;
+	ldc _SCSI+53,I0	// ET12
+	add NULL,P,A	// 16x16->32bit
+	stx A0,(I0)+1
+	ldc 2,A0	// 2 -> 0 -> ET31
+	stx A1,(I0)+1
+//     SCSI.State = SCSI_TRANSMITTING;
+	stx A0,(I2)	// ET31 ==> ET8
+//     if (SCSI.DataDirection >= 0)
+	ldx (I0),A0	// ET12 ==> 55 -> ET58
+	sub A0,NULL,A0	// ET58 >= (0) -> (0)
+	ldc _SCSI+38,I0	// ETa
+	jge F21B17	// signed compare
+	nop
+// jumped away
+//     if (SCSI.BlocksLeftToSend == 0)
+	ldx (I0),A0	// ETa ==> 38 -> ET59
+	sub A0,NULL,A0	// ET59 == (0) -> (0)
+	nop
+	jzs F21B23	// unsigned compare
+	nop
+// jumped away
+	j F21B4
+	nop
+// jumped away
+F21B17:
+//     }
+// {
+//       MyUSBStallEndpoint(0x00| 0x03);
+	ldc 3,C0	// 3 -> C0
+	call _MyUSBStallEndpoint
+	ldc F21B20,LR0
+// jumped away
+F21B11:
+//     }
+// diskSizeSectors
+	ldc _map2,I0	// ET20
+	ldx (I0),I0/*V*/	// ET20 ==> 'map2'
+	ldx (I0)+2,NULL	// ET21 += 2
+	ldx (I0)+1,A0/*V*/
+	ldx (I0)-1,A1/*V*/
+	ldc _geometry,I0	// ET25
+	ldx (I0),C0 ; add A,ONES,B	// ET42 + (-1) -> ET43
+	call divide32unsigned
+	mv C0,A0 ; and A1,NULL,A1
+// jumped away
+	ldc _SCSI+2,I0	// ET3c
+	add A,NULL,B	// A -> 'diskSizeSectors'
+	ldc _SCSI+5,I2	// ET2b
+// .DataOutBuffer = SCSI.DataBuffer;
+	ldc _SCSI+4,A0	// ET18
+	stx A0,(I0)+2	// ET18 ==> ET3c
+//       SCSI.DataBuffer[0] = diskSizeSectors >> 16;
+	ldc 512,A0	// 512 -> 1 -> ET36
+	stx B1,(I0)-1 ; muluu A0,C0	// ET47 ==> ET3c
+//       SCSI.DataBuffer[1] = diskSizeSectors;
+	stx B0,(I2)+2 ; add NULL,P,A	// ET48 ==> ET2b
+//       SCSI.DataBuffer[3] = 512 * geometry.sectorsPerBlock;
+	stx A0,(I2)	// ET39 ==> ET2b
+//       SCSI.DataOutSize = 8;
+	ldc 8,A0	// 8 -> 1 -> ET29
+	stx A0,(I0)-3 ; sub NULL,ONES,A0	// ET29 ==> ET3c
+//       SCSI.State = SCSI_DATA_TO_HOST;
+//     break;
+	j F21B4
+	stx A0,(I0)	// ET2a ==> ET3c
+// jumped away
+F21B8:
+//     ScsiInquiry((ScsiInquiryCdb *)cmd);
+	j F21B4
+	nop
+// jumped away
+F21B5:
+//     }
+// diskSizeBlocks
+	ldc _map2,I0	// ET20
+	ldx (I0),I0/*V*/	// ET20 ==> 'map2'
+	ldx (I0)+2,NULL	// ET21 += 2
+	ldx (I0)+1,A0/*V*/
+	ldx (I0)-1,A1/*V*/
+	ldc _geometry,I0	// ET25
+	ldx (I0),C0 ; add A,ONES,B	// ET22 + (-1) -> ET24
+	call divide32unsigned
+	mv C0,A0 ; and A1,NULL,A1
+// jumped away
+	ldc _SCSI+5,I0	// ET2b
+	add A,NULL,B	// A -> 'diskSizeBlocks'
+// .DataBuffer[1] = 8;
+	ldc 8,A0	// 8 -> 1 -> ET29
+	stx A0,(I0)+1	// ET29 ==> ET2b
+//       SCSI.DataBuffer[2] = diskSizeBlocks >> 16;
+	ldc 512,A0	// 512 -> 1 -> ET36
+	stx B1,(I0)+1 ; muluu A0,C0	// ET30 ==> ET2b
+//       SCSI.DataBuffer[3] = diskSizeBlocks;
+	stx B0,(I0)+1	// ET33 ==> ET2b
+//       SCSI.DataBuffer[4] = 0x0200;
+	stx A0,(I0)+1 ; add NULL,P,A	// ET36 ==> ET2b
+//       SCSI.DataBuffer[5] = 512 * geometry.sectorsPerBlock;
+	stx A0,(I0)	// ET39 ==> ET2b
+//       SCSI.DataOutBuffer = SCSI.DataBuffer;
+	ldc _SCSI+4,A0	// ET18
+	ldc _SCSI+2,I0	// ET3c
+	stx A0,(I0)+1	// ET18 ==> ET3c
+//       SCSI.DataOutSize = 12;
+	ldc 12,A0	// 12 -> 1 -> ET3d
+	stx A0,(I0)-3 ; sub NULL,ONES,A0	// ET3d ==> ET3c
+//       SCSI.State = SCSI_DATA_TO_HOST;
+//     break;
+	j F21B4
+	stx A0,(I0)	// ET2a ==> ET3c
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyScsiReset	// 39 words
+	.export _MyScsiReset
+_MyScsiReset:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 56,A0	// 56 -> A0
+	stx I0,(I6) ; and NULL,NULL,A1	// 0 -> A1
+	sty I2,(I6)
+//   memset(&SCSI, 0, sizeof(SCSI));
+	call _memset
+	ldc _SCSI,I0	// I0
+// jumped away
+//   if (map2->Flush)
+	ldc _map2,I0	// ET5
+	ldx (I0),I2/*V*/	// ET5 ==> 'map2'
+	mv I2,I0	// 'map2' -> ET6
+	ldx (I0)+7,NULL	// ET6 += 10
+	ldx (I0)+3,NULL	// ...
+	ldx (I0),A0/*V*/	// ET6 ==> 10 -> ET7
+	sub A0,NULL,A0	// ET7 == (0) -> (0)
+	nop
+	jzs F22B5	// signed compare
+	nop
+// jumped away
+	ldx (I6)+1,NULL ; sub NULL,ONES,A0	// I6 += 1
+//       map2->Flush(map2, 1);
+	stx A0,(I6)+1	// ET8
+	stx I2,(I6)	// 'map2'
+	ldx (I0),A0/*V*/	// ET6 ==> 10 -> ET9
+	mv A0,LR0
+	jr
+	ldc lo(F22B6),LR0	// (return address)
+// jumped away
+F22B6:
+	ldx (I6)-2,NULL	// I6 += -2
+F22B5:
+//   SCSI.mapperNextFlushed = -1;
+	ldc _SCSI+42,I0	// ETd
+	ldy (I6),I2 ; or A,ONES,A	// 4294967295 -> 3 -> ETb
+	stx A0,(I0)+1
+	stx A1,(I0)-1
+	ldx (I6)-1,I0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MyMSCPacketFromPC	// 72 words
+	.export _MyMSCPacketFromPC
+_MyMSCPacketFromPC:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)+1
+	ldc 31,A1	// 31 -> 1 -> ET1
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty I0,(I6)+1
+	stx I1,(I6)+1 ; sty I2,(I6)
+	ldx (I4)-2,NULL	// I4 += -2
+	ldx (I4)+2,I2	// unspill 'inPacket' from #-2
+//   if (inPacket->length == 31)
+	ldx (I2),A0	// 'inPacket' ==> ET0
+	sub A0,A1,A0 ; mv I2,I0	// ET0 != ET1 -> AT2b
+	ldy (I0)+1,NULL	// I6 += 1
+	jzc F23B4	// unsigned compare
+	ldc 21843,A0	// 21843 -> 3 -> A0
+// jumped away
+	ldc 16963,A1	// 16963 -> A1
+	ldc 0,A2	// update guard bits (cmp)
+	ldx (I0)+1,B0 ; ldy (I6)-1,NULL
+//   }
+// {
+//     if (*(u_int32 *)inPacket->payload == 0x42435553UL)
+	ldx (I0)-1,B1
+	ldc 0,B2	// update guard bits (cmp)
+	sub B,A,B ; mv I0,I1	// ET5 != ET6 -> AT2c
+	ldx (I1)+2,NULL	// ET8 += 2
+	jzc F23B7	// unsigned compare
+	ldx (I1)+1,A0
+// jumped away
+//     }
+// {
+//       *(u_int32 *)&SCSI.cswPacket[2] = *(u_int32*)&inPacket->payload[2];
+	ldx (I1)-1,A1
+	ldc _SCSI+46,I1	// ETe
+	stx A0,(I1)+1
+	stx A1,(I1)-1
+	mv I0,I1	// ET3 -> ET11
+//       SCSI.DataTransferLength =
+// 	((u_int32)SwapWord(inPacket->payload[5]) << 16) |
+// 	SwapWord(inPacket->payload[4]);
+	ldx (I1)+5,NULL	// ET11 += 5
+	call _SwapWord
+	ldx (I1),A1	// ET11 ==> 6 -> ET12
+// jumped away
+	add A0,NULL,B1 ; mv I0,I1	// ET14 <<< ET16
+	and B0,NULL,B0 ; ldx (I1)+4,NULL
+	call _SwapWord
+	ldx (I1),A1	// ET18 ==> 5 -> ET19
+// jumped away
+	ldc _SCSI+51,I1	// ET1e
+	ldx (I0)+6,NULL ; and A1,NULL,A1
+	or B,A,A ; ldy (I2)+7,NULL	// ET16 or ET1b -> ET1c
+	stx A0,(I1)+1 ; ldy (I6)+1,NULL
+	stx A1,(I1)+3 ; ldy (I2)+1,NULL
+//       SCSI.DataDirection = inPacket->payload[6];
+	ldx (I0),A0	// ET20 ==> 7 -> ET21
+	stx A0,(I1)	// ET21 ==> ET1e
+// 	DiskProtocolCommand(&(inPacket->payload[7]));
+	call _DiskProtocolCommand
+	stx I2,(I6)	// ET28
+// jumped away
+//     MyScsiTaskHandler();
+	call _MyScsiTaskHandler
+	ldx (I6)-1,NULL	// I6 += -1
+// jumped away
+F23B1:
+	ldy (I6),I2 ; ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	ldx (I1)+1,NULL
+F23B7:
+//     }
+// else {
+//       SCSI.State = SCSI_INVALID_CBW;
+	ldc 130,C0	// 130 -> C0
+	ldc 5,A0	// 5 -> 0 -> ET10
+	ldc _SCSI,I0	// ETb
+//       MyUSBStallEndpoint(0x80| 0x02);
+	call _MyUSBStallEndpoint
+	stx A0,(I0) ; ldy (I1)-1,NULL	// ET10 ==> ETb
+// jumped away
+//       MyUSBStallEndpoint(0x00| 0x03);
+	ldc 3,C0	// 3 -> C0
+	call _MyUSBStallEndpoint
+	ldc F23B1,LR0
+// jumped away
+F23B4:
+//   }
+// else {
+//     DiskDataReceived(inPacket->length, &(inPacket->payload[0]));
+	stx I0,(I6)+1	// ET3
+	ldx (I2),A0	// 'inPacket' ==> ET29
+	call _DiskDataReceived
+	stx A0,(I6)	// ET29
+// jumped away
+	j F23B1
+	ldx (I6)-2,NULL	// I6 += -2
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,MscSendCsw	// 57 words
+	.export _MscSendCsw
+_MscSendCsw:
+	ldc 21843,A0	// 21843 -> 1 -> ET0
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I0,(I6)+1
+	ldc _SCSI+44,I0	// ET3
+	stx I2,(I6)
+//   SCSI.cswPacket[0] = 0x5553;
+	ldc _SCSI+45,I2	// ET6
+	stx A0,(I0)+7	// ET0 ==> ET3
+//   SCSI.cswPacket[1] = 0x4253;
+	ldc 16979,A0	// 16979 -> 1 -> ET4
+	stx A0,(I2) ; ldy (I0)+2,NULL	// ET4 ==> ET6
+//   SCSI.cswPacket[4] = SwapWord(__builtin_labs(SCSI.Residue));
+	ldx (I0)+1,A0
+	ldx (I0)-1,A1
+	ldc _SCSI+53,I0	// ET8
+	abs A,A	// ET9 abs ET9
+	call _SwapWord
+	add A0,NULL,A1	// ETb -> A1
+// jumped away
+	ldc _SCSI+48,I2	// ETe
+	stx A0,(I2)	// ETc ==> ETe
+//   SCSI.cswPacket[5] = SwapWord(__builtin_labs(SCSI.Residue)>>16);
+	ldx (I0)+1,A0
+	ldx (I0)-1,A1
+	abs A,A	// ETa abs ETa
+	// update guard bits
+	mv A1,A0 ; add A1,NULL,A1	// ETa >>> ET11
+	call _SwapWord
+	add A1,NULL,A1	// ET12 -> A1
+// jumped away
+	ldc 8,A1	// 8 -> 0 -> ET16
+	ldc _SCSI+49,I0	// ET15
+	ldy (I4)-2,NULL ; stx A0,(I0)+1	// I4 += -2
+//   SCSI.cswPacket[6] = status << 8;
+	ldx (I4)+2,A0 ; ldy (I6)+1,NULL	// unspill 'status' from #0
+	ashl A0,A1,A0	// 'status' << ET16 -> ET17
+	stx A0,(I0)	// ET17 ==> ET15
+//   if (ScsiIdle == 10)
+	ldc 10,A0	// 10 -> 1 -> ET1a
+	ldc _ScsiIdle,I0	// ET1b
+	ldx (I0),A1/*V*/	// ET1b ==> 'ScsiIdle'
+	sub A1,A0,A0	// 'ScsiIdle' != ET1a -> AT21
+	ldc 13,A0
+	jzc F24B6	// unsigned compare
+	nop
+// jumped away
+//   }
+// {
+//     ScsiIdle = 20;
+	ldc 20,A0	// 20 -> 1 -> ET1c
+	stx A0,(I0)/*V*/	// ET1c ==> ET1b
+	ldc 13,A0	// 13 -> 1 -> ET1d
+F24B6:
+//   return USBStartTransmission2(0x02, SCSI.cswPacket, 13, 13);
+	stx A0,(I6)+1	// ET1d
+	stx A0,(I6)+1	// ET1d
+	ldc _SCSI+44,A0	// ET3
+	stx A0,(I6)+1	// ET3
+	ldc 2,A0	// 2 -> 1 -> ET1e
+	call _USBStartTransmission2
+	stx A0,(I6)	// ET1e
+// jumped away
+	ldx (I6)-4,NULL	// I6 += -4
+	ldx (I6)-1,I2
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_x,scsibss_x	// 59 words
+	.export _ok2reset
+_ok2reset:
+	.bss 1
+	.export _SCSI
+_SCSI:
+	.bss 56
+_oldcmd954128:
+	.bss 1
+_ocmd954128:
+	.bss 1
+
+//_____________________________________________________________
+//
+	.sect data_x,scsiinit_x	// 4 words
+	.export _map2
+_map2:
+	.word _usbMapper
+_map288d350:
+	.word 0
+_toggle88d350:
+	.word 0
+_opcount954128:
+	.word 0
+
+//_____________________________________________________________
+//
+	.sect data_y,scsiinit_y	// 4 words
+	.export _send_map2
+_send_map2:
+	.word 63488, 63552, 63616, 63680
+
+//_____________________________________________________________
+//
+	.sect data_x,scsiconst_x	// 7 words
+brst_1:
+	.word "BRST\n"
+
+	.zero 1
+
+	.end

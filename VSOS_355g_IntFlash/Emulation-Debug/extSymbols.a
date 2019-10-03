@@ -1,0 +1,1373 @@
+
+//_____________________________________________________________
+//
+	.sect code,SymbolCalcCrc32String	// 32 words
+	.export _SymbolCalcCrc32String
+_SymbolCalcCrc32String:
+	ldx (I6)+1,NULL ; and A,NULL,A	// I6 += 1
+	stx B0,(I6) ; sty B1,(I6)+1
+	ldc -24,B0	// -24 -> 0 -> ET4
+	ldc 8,B1	// 8 -> 0 -> ET13
+	stx C0,(I6) ; sty C1,(I6)+1
+	ldc 255,C0	// 255 -> 1 -> ETd
+	ldc _encVOggCrc,C1	// ET2
+	stx D0,(I6) ; sty D1,(I6)+1
+// polyRes
+// (*s)
+	j F0B6
+	stx I0,(I6)
+// jumped away
+F0B3:	// (loop lvl 2)
+//   }
+// {
+//     polyRes = encVOggCrc[((u_int16)(polyRes>>24) ^ *s++) & 0xFF] ^ (polyRes << 8);
+	ldc 0,A2	// clear guard bits
+	ashl A,B0,D	// 'polyRes' <- ET4 -> ET5
+	add D0,NULL,D1 ; ldx (I2)+1,D0	// ET5 lsw ET6
+	xor D1,D0,D0	// ET6 xor ETa -> ETc
+	and D0,C0,D0	// ETc and ETd -> ETe
+	add D0,D0,D0	// ETe + ETe -> ET10
+	add C1,D0,D0	// ET2 + ET10 -> AT18
+	mv D0,I0 ; ashl A,B1,A	// AT18 -> ET11
+	ldy (I0)+1,D0
+	ldy (I0)-1,D1
+	xor D,A,A	// ET12 xor ET14 -> 'polyRes'
+F0B6:	// (loop lvl 2)
+	ldx (I2),D0	// 's' ==> ET1
+	sub D0,NULL,D0	// ET1 != (0) -> (0)
+	nop
+	jzc F0B3	// signed compare
+	nop
+// jumped away
+	ldx (I6)-1,I0
+	ldy (I6),D1 ; ldx (I6)-1,D0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,SymbolCrunchStringCalcCrc32	// 61 words
+	.export _SymbolCrunchStringCalcCrc32
+_SymbolCrunchStringCalcCrc32:
+	ldc 17,I7
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)*,I4
+	stx B0,(I6) ; sty B1,(I6)+1
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx D0,(I6) ; sty D1,(I6)+1
+	stx I0,(I6) ; sty I1,(I6)+1
+	stx I2,(I6) ; ldy (I4)-2,NULL
+	ldx (I4)+2,I2	// unspill 'name' from #-2
+// len
+	call _strlen
+	mv I2,I0	// 'name' -> I0
+// jumped away
+	mv I2,I1 ; add A0,NULL,A1	// 'name' -> I1
+	ldc 16,A0	// 16 -> A0
+	ldx (I4)+1,NULL	// I4 += 1
+	mv I4,I0	// A0 -> 'len'
+// (s, name,15 +1);
+	call _strncpy
+	ldx (I4)-1,NULL	// I4 += -1
+// jumped away
+//     if (len > 15)
+	ldc 15,A0	// 15 -> 0 -> ET5
+	sub A1,A0,A1 ; ldx (I4)+1,NULL	// 'len' <= ET5 -> AT26
+	ldc 63,B0	// 63 -> 3 -> B0
+	jle F1B6	// signed compare
+	nop
+// jumped away
+// 	}
+// {
+// 		crc32 = SymbolCalcCrc32String(name);
+	call _SymbolCalcCrc32String
+	ldx (I4)-1,NULL
+// jumped away
+	ldc -16,I5
+	ldx (I4)+7,NULL ; add A,NULL,D	// I4 += 13
+	ldc 0,D2	// clear guard bits
+	ldc -12,A0	// -12 -> 0 -> ET9
+	ashl D,A0,A ; ldx (I4)+6,NULL	// ...
+// 		s[15 -3] = crc6ToChar[(crc32 >> 12) & 63];
+	// clear guard bits
+	and A0,B0,C0	// ETa and ETb -> ETc
+	ldc _crc6ToChar,A0	// ET7
+	add A0,C0,A1	// ET7 + ETd -> AT2a
+	mv A1,I0	// AT2a -> ETe
+	ldy (I0),A1	// ETe ==> ETf
+	stx A1,(I4)+1
+// 		s[15 -2] = crc6ToChar[(crc32 >>  6) & 63];
+	ldc -6,A1	// -6 -> 0 -> ET13
+	ashl D,A1,C	// 'crc32' <- ET13 -> ET14
+	and C0,B0,C0	// ET14 and ETb -> ET15
+	add A0,C0,A1	// ET7 + ET16 -> AT29
+	mv A1,I0 ; and D0,B0,B0	// AT29 -> ET17
+	ldy (I0),A1 ; add A0,B0,A0	// ET17 ==> ET18
+	mv A0,I0	// AT28 -> ET1e
+	stx A1,(I4)+1 ; ldy (I0),A0
+// 		s[15 -1] = crc6ToChar[(crc32      ) & 63];
+	stx A0,(I4)+1 ; and NULL,NULL,A0
+// 		s[15 -0] = '\0';
+	stx A0,(I4)*
+	ldx (I4)+1,NULL	// I4 += 1
+F1B6:
+	mv I4,I2	// I4 -> [] -> I2
+// 	return SymbolCalcCrc32String(s);
+	call _SymbolCalcCrc32String
+	ldx (I4)-1,NULL	// I4 += -1
+// jumped away
+	ldx (I6)-1,I2
+	ldy (I6),I1 ; ldx (I6)-1,I0
+	ldy (I6),D1 ; ldx (I6)-1,D0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B1 ; ldx (I6)-1,B0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,SymbolAdd	// 68 words
+	.export _SymbolAdd
+_SymbolAdd:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty C1,(I6)+1
+	stx D0,(I6) ; sty D1,(I6)+1
+	stx I0,(I6)+1
+// crc32
+	call _SymbolCrunchStringCalcCrc32
+	stx I2,(I6)	// 'name'
+// jumped away
+	ldc 0,A2	// update guard bits (cmp)
+	ldx (I6)-1,NULL ; sub A,NULL,A	// I6 += -1
+// (!crc32 || extSymbolElements >=(1<< 8)-1)
+	ldc 255,B0	// 255 -> 1 -> ET3
+	jzs F2B4	// unsigned compare
+	ldc _extSymbolElements,I0	// ET1
+// jumped away
+	ldy (I0),B1/*V*/	// ET1 ==> ET2
+	sub B1,B0,B0	// ET2 < ET3 -> AT17
+	ldc 255,B1
+	jcc F2B5	// unsigned compare
+	ldc _extSymbol,C1
+// jumped away
+F2B4:
+//   }
+// {
+//     return 0;
+	and NULL,NULL,A0	// 0 -> ET4
+F2B1:
+	ldx (I6)-1,I0
+	ldy (I6),D1 ; ldx (I6)-1,D0
+	ldy (I6),C1 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+//   idx = (u_int16)crc32 & ((1<< 8)-1);
+	ldc 255,B1	// 255 -> 1 -> ET3
+	ldc _extSymbol,C1	// ET7
+F2B5:
+//   while (h=extSymbol+idx,h->crc32)
+	j F2B10
+	and A0,B1,B0	// ET5 and ET3 -> 'idx'
+// jumped away
+F2B7:	// (loop lvl 2)
+//   }
+// {
+//     if (h->crc32 == crc32)
+	ldc 0,A2	// update guard bits (cmp)
+	ldy (I0)+1,D0
+	ldy (I0)-1,D1
+	ldc 0,D2	// update guard bits (cmp)
+	sub D,A,D	// ETc == 'crc32' -> AT18
+	nop
+	jzs F2B11	// unsigned compare
+	sub B0,ONES,B0	// 'idx' - (-1) -> ETe
+// jumped away
+//     idx = (idx+1) & ((1<< 8)-1);
+	and B0,B1,B0	// ETe and ET3 -> 'idx'
+F2B10:	// (loop lvl 2)
+	add B0,B0,D0	// 'idx' + 'idx' -> AT9
+	add D0,D0,D0	// AT9 + AT9 -> ETa
+	add C1,D0,D0	// ET7 + ETa -> ETb
+	mv D0,I0	// ETb -> 'h'
+	ldy (I0)+1,D0
+	ldy (I0)-1,D1
+	ldc 0,D2	// update guard bits (cmp)
+	sub D,NULL,D	// ETc != (0) -> (0)
+	nop
+	jzc F2B7	// unsigned compare
+	nop
+// jumped away
+//   h->crc32= crc32;
+	sty A0,(I0)+1
+	sty A1,(I0)-1
+	mv I0,I2	// 'h' -> ET11
+//   h->lib = lib;
+	ldx (I2)+2,NULL	// ET11 += 2
+	sty I1,(I2)+1	// 'lib' ==> ET11
+//   h->addr = addr;
+	sty C0,(I2)	// 'addr' ==> ET11
+//   extSymbolElements++;
+	ldc _extSymbolElements,I2	// ET1
+	ldy (I2),A0/*V*/	// ET1 ==> 'extSymbolElements'
+	sub A0,ONES,A0	// 'extSymbolElements' - (-1) -> ET14
+	sty A0,(I2)/*V*/	// ET14 ==> ET1
+//   return h;
+	j F2B1
+	mv I0,A0	// 'h' returns via A0
+// jumped away
+F2B11:
+//     }
+// {
+//       return 0;
+	j F2B1
+	and NULL,NULL,A0	// 0 -> ET4
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,SymbolFindByCrc	// 36 words
+	.export _SymbolFindByCrc
+_SymbolFindByCrc:
+	ldc 255,A0	// 255 -> 1 -> ET1
+	ldx (I6)+1,NULL ; and C0,A0,A0	// I6 += 1
+	stx A1,(I6) ; sty B0,(I6)+1
+	ldc 255,A1	// 255 -> 1 -> ET1
+	stx B1,(I6) ; sty D0,(I6)+1
+	stx D1,(I6) ; add C,NULL,B	// C -> 'crc32'
+	sty I0,(I6)
+// idx
+// (h=extSymbol+idx,h->crc32)
+	j F3B6
+	ldc _extSymbol,C0	// ET3
+// jumped away
+F3B3:	// (loop lvl 2)
+//   }
+// {
+//     if (h->crc32 == crc32)
+	ldy (I0)-1,D1
+	ldc 0,D2	// update guard bits (cmp)
+	sub D,B,D	// ET8 == 'crc32' -> ATd
+	nop
+	jzs F3B7	// unsigned compare
+	nop
+// jumped away
+//     idx = (idx+1) & ((1<< 8)-1);
+	sub A0,ONES,A0	// 'idx' - (-1) -> ETa
+	and A0,A1,A0	// ETa and ET1 -> 'idx'
+F3B6:	// (loop lvl 2)
+	add A0,A0,C1	// 'idx' + 'idx' -> AT5
+	add C1,C1,C1	// AT5 + AT5 -> ET6
+	add C0,C1,C1	// ET3 + ET6 -> ET7
+	mv C1,I0	// ET7 -> 'h'
+	ldy (I0)+1,D0
+	ldy (I0)-1,D1
+	ldc 0,D2	// update guard bits (cmp)
+	sub D,NULL,D	// ET8 != (0) -> (0)
+	ldc 0,B2	// update guard bits (cmp)
+	jzc F3B3	// unsigned compare
+	ldy (I0)+1,D0
+// jumped away
+//   return 0;
+	j F3B1
+	and NULL,NULL,A0	// 0 -> ETc
+// jumped away
+F3B7:
+	mv I0,A0	// 'h' returns via A0
+//     }
+// {
+//       return h;
+F3B1:
+	ldy (I6),I0 ; ldx (I6)-1,D1
+	ldy (I6),D0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,SymbolDelete	// 98 words
+	.export _SymbolDelete
+_SymbolDelete:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+4,I4
+	stx A1,(I6) ; sty B0,(I6)+1
+	stx B1,(I6) ; sty D0,(I6)+1
+	stx D1,(I6) ; sty I0,(I6)+1
+
+	call _SymbolFindByCrc
+	stx I1,(I6) ; sty I2,(I6)
+// jumped away
+// (!h)
+	sub A0,NULL,B0	// 'h' != (0) -> (0)
+	ldc _extSymbolElements,I0
+	jzc F4B5	// signed compare
+	and NULL,NULL,A0	// 0 -> 1 -> ET1
+// jumped away
+//   }
+// {
+//     return 0;
+F4B1:
+	ldy (I6),I2 ; ldx (I6)-1,I1
+	ldy (I6),I0 ; ldx (I6)-1,D1
+	ldy (I6),D0 ; ldx (I6)-1,B1
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+//   extSymbolElements--;
+	ldc _extSymbolElements,I0	// ET2
+F4B5:
+	ldy (I0),A0/*V*/	// ET2 ==> 'extSymbolElements'
+	add A0,ONES,A0	// 'extSymbolElements' + (-1) -> ET5
+	sty A0,(I0)/*V*/ ; and NULL,NULL,A1	// ET5 ==> ET2
+	mv B0,I0	// 'h' -> I0
+//   memsetY(h, 0, sizeof(*h));
+	call _memsetY
+	ldc 4,A0	// 4 -> A0
+// jumped away
+//   moveTo = h-extSymbol;
+	ldc 255,C1	// 255 -> 0 -> ET10
+	ldc _extSymbol,C0	// ET9
+	ldc _extSymbol,A0	// ET9
+	sub B0,A0,A1	// 'h' - ET9 -> ETa
+	ldc -2,A0	// -2 -> ATb
+	ashl A1,A0,A0	// ETa << ATb -> 'moveTo'
+//   candidate = (moveTo+1) & ((1<< 8)-1);
+	sub A0,ONES,B0	// 'moveTo' - (-1) -> ETf
+//   while (c=extSymbol+candidate,c->crc32)
+	j F4B10
+	and B0,C1,B0	// ETf and ET10 -> 'candidate'
+// jumped away
+F4B12:	// (loop lvl 2)
+//     candidate = (candidate+1) & ((1<< 8)-1);
+	sub B0,ONES,A1	// 'candidate' - (-1) -> ET24
+	and A1,C1,B0	// ET24 and ET10 -> 'candidate'
+F4B10:	// (loop lvl 2)
+	add B0,B0,A1 ; mv B0,B1	// 'candidate' + 'candidate' -> AT13
+	add A1,A1,A1	// AT13 + AT13 -> ET14
+	add C0,A1,A1	// ET9 + ET14 -> ET15
+	mv A1,I2	// ET15 -> 'c'
+	ldy (I2)+1,D0
+	ldy (I2)-1,D1
+	ldc 0,D2	// update guard bits (cmp)
+	sub D,NULL,D	// ET16 == (0) -> (0)
+	nop	// 'candidate' -> 'test'
+	jzs F4B8	// unsigned compare
+	nop
+// jumped away
+//   }
+// quit
+// test
+// (!quit)
+	j F4B14
+	and NULL,NULL,A1	// 0 -> 'quit'
+// jumped away
+F4B11:	// (loop lvl 3)
+//     }
+
+	add A0,A0,D0	// 'moveTo' + 'moveTo' -> AT17
+	add D0,D0,D0	// AT17 + AT17 -> ET18
+	add C0,D0,D0	// ET9 + ET18 -> ET19
+	mv D0,I0 ; sub B1,A0,D0	// ET19 -> 'm'
+
+// (test == moveTo)
+	nop
+	jzs F4B15	// signed compare
+	nop
+// jumped away
+	ldx (I4)+2,NULL	// I4 += 2
+	stx B0,(I4) ; sty B1,(I4)-1	// B0 spills to #0
+	ldc 255,B0	// 255 -> B0
+	stx A0,(I4) ; sty A1,(I4)+1	// A0 spills to #0
+// else if ((c->crc32 & ((1<< 8)-1)) == test)
+	ldy (I2)+1,D0 ; and NULL,NULL,B1
+	ldy (I2)-1,D1
+	and D,B,A ; ldx (I4),B0	// ET16 and ET1f -> ET20
+	ldc 0,A2	// update guard bits (cmp)
+	ldy (I4)-1,B1 ; sub NULL,ONES,D0	// 1 -> ETe
+	mulss B1,D0	// 'test' sXtd ETe -> P
+	add NULL,P,D	// P -> ET21
+	ldc 0,D2	// update guard bits (cmp)
+	sub A,D,D	// ET20 != ET21 -> AT2e
+	ldc 1,A1
+	jzc F4B32	// unsigned compare
+	nop	// I4 += 1
+// jumped away
+	ldx (I4)-1,A0	// unspill A0 from #0
+//       }
+// {
+// 	quit = 1;
+F4B17:	// (loop lvl 3)
+//       test = (test-1) & ((1<< 8)-1);
+	add B1,ONES,B1	// 'test' + (-1) -> ET22
+	and B1,C1,B1	// ET22 and ET10 -> 'test'
+F4B14:	// (loop lvl 3)
+	sub A1,NULL,A1	// 'quit' != (0) -> (0)
+	nop
+	jzc F4B12	// signed compare
+	nop
+// jumped away
+	j F4B11
+	nop
+// jumped away
+F4B32:	// (loop lvl 3)
+	j F4B17
+	ldx (I4),A0 ; ldy (I4)-1,A1	// unspill A0 from #0
+// jumped away
+F4B15:	// (loop lvl 3)
+	mv I2,I1	// 'c' -> I1
+//       }
+// {
+// 	memcpyYY(m, c, sizeof(extSymbol[0]));
+	call _memcpyYY
+	ldc 4,A0	// 4 -> A0
+// jumped away
+	mv I2,I0 ; and NULL,NULL,A1	// 'c' -> I0
+// 	memsetY(c, 0, sizeof(extSymbol[0]));
+	call _memsetY
+	ldc 4,A0	// 4 -> A0
+// jumped away
+// 	moveTo = candidate;
+// 	quit = 1;
+	sub NULL,ONES,A1	// 1 -> 'quit'
+	j F4B17
+	add B0,NULL,A0	// 'candidate' -> 'moveTo'
+// jumped away
+F4B8:
+//   return 1;
+	j F4B1
+	sub NULL,ONES,A0	// 1 -> 1 -> ET26
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,SymbolDeleteLib	// 30 words
+	.export _SymbolDeleteLib
+_SymbolDeleteLib:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx A1,(I6) ; sty B0,(I6)+1
+	mv I2,B0 ; and NULL,NULL,A1	// I2 -> 'lib'
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx I0,(I6) ; sty LC,(I6)+1
+	ldc 255,LC	// loop 256 iterations
+	stx LS,(I6) ; sty LE,(I6)
+// res
+// = extSymbol;
+//   i = 0;
+//   for (i=0; i<(1<< 8); i++)
+	loop LC,F5B4-1
+	ldc _extSymbol,I0	// 'h'
+//loop resumes
+	j F5B10
+	nop
+// jumped away
+F5B7:	// (loop lvl 3)
+//     }
+// {
+//       res++;
+	sub A1,ONES,A1 ; ldy (I0)+1,C0	// 'res' - (-1) -> 'res'
+//       SymbolDelete(h->crc32);
+	call _SymbolDelete
+	ldy (I0)-1,C1
+// jumped away
+F5B10:	// (loop lvl 3)
+	ldx (I0)+2,NULL	// 'h' += 2
+	ldy (I0)-2,A0	// 'h' ==> 2 -> ET5
+	sub A0,B0,A0	// ET5 == 'lib' -> AT11
+	nop
+	jzs F5B7	// signed compare
+	nop
+// jumped away
+//     h++;
+	ldx (I0)+4,NULL	// 'h' += 4
+//	(0 nop's needed)
+// loop end
+F5B4:	// loop exit
+//   return res;
+	add A1,NULL,A0 ; ldy (I6),LE	// 'res' returns via A0
+	ldx (I6)-1,LS
+	ldy (I6),LC ; ldx (I6)-1,I0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B0 ; ldx (I6)-1,A1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_y,extSymbolsinit_y	// 1025 words
+	.export _extSymbol
+_extSymbol:
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.zero 2
+	.zero 1
+	.zero 1
+	.export _extSymbolElements
+_extSymbolElements:
+	.word 0
+
+//_____________________________________________________________
+//
+	.sect data_y,extSymbolsconst_y	// 576 words
+	.export _encVOggCrc
+_encVOggCrc:
+	.word lo(0), hi(0), lo(79764919), hi(79764919), lo(159529838), hi(159529838), lo(222504665), hi(222504665)
+	.word lo(319059676), hi(319059676), lo(398814059), hi(398814059), lo(445009330), hi(445009330), lo(507990021), hi(507990021)
+	.word lo(638119352), hi(638119352), lo(583659535), hi(583659535), lo(797628118), hi(797628118), lo(726387553), hi(726387553)
+	.word lo(890018660), hi(890018660), lo(835552979), hi(835552979), lo(1015980042), hi(1015980042), lo(944750013), hi(944750013)
+	.word lo(1276238704), hi(1276238704), lo(1221641927), hi(1221641927), lo(1167319070), hi(1167319070), lo(1095957929), hi(1095957929)
+	.word lo(1595256236), hi(1595256236), lo(1540665371), hi(1540665371), lo(1452775106), hi(1452775106), lo(1381403509), hi(1381403509)
+	.word lo(1780037320), hi(1780037320), lo(1859660671), hi(1859660671), lo(1671105958), hi(1671105958), lo(1733955601), hi(1733955601)
+	.word lo(2031960084), hi(2031960084), lo(2111593891), hi(2111593891), lo(1889500026), hi(1889500026), lo(1952343757), hi(1952343757)
+	.word lo(-1742489888), hi(-1742489888), lo(-1662866601), hi(-1662866601), lo(-1851683442), hi(-1851683442), lo(-1788833735), hi(-1788833735)
+	.word lo(-1960329156), hi(-1960329156), lo(-1880695413), hi(-1880695413), lo(-2103051438), hi(-2103051438), lo(-2040207643), hi(-2040207643)
+	.word lo(-1104454824), hi(-1104454824), lo(-1159051537), hi(-1159051537), lo(-1213636554), hi(-1213636554), lo(-1284997759), hi(-1284997759)
+	.word lo(-1389417084), hi(-1389417084), lo(-1444007885), hi(-1444007885), lo(-1532160278), hi(-1532160278), lo(-1603531939), hi(-1603531939)
+	.word lo(-734892656), hi(-734892656), lo(-789352409), hi(-789352409), lo(-575645954), hi(-575645954), lo(-646886583), hi(-646886583)
+	.word lo(-952755380), hi(-952755380), lo(-1007220997), hi(-1007220997), lo(-827056094), hi(-827056094), lo(-898286187), hi(-898286187)
+	.word lo(-231047128), hi(-231047128), lo(-151282273), hi(-151282273), lo(-71779514), hi(-71779514), lo(-8804623), hi(-8804623)
+	.word lo(-515967244), hi(-515967244), lo(-436212925), hi(-436212925), lo(-390279782), hi(-390279782), lo(-327299027), hi(-327299027)
+	.word lo(881225847), hi(881225847), lo(809987520), hi(809987520), lo(1023691545), hi(1023691545), lo(969234094), hi(969234094)
+	.word lo(662832811), hi(662832811), lo(591600412), hi(591600412), lo(771767749), hi(771767749), lo(717299826), hi(717299826)
+	.word lo(311336399), hi(311336399), lo(374308984), hi(374308984), lo(453813921), hi(453813921), lo(533576470), hi(533576470)
+	.word lo(25881363), hi(25881363), lo(88864420), hi(88864420), lo(134795389), hi(134795389), lo(214552010), hi(214552010)
+	.word lo(2023205639), hi(2023205639), lo(2086057648), hi(2086057648), lo(1897238633), hi(1897238633), lo(1976864222), hi(1976864222)
+	.word lo(1804852699), hi(1804852699), lo(1867694188), hi(1867694188), lo(1645340341), hi(1645340341), lo(1724971778), hi(1724971778)
+	.word lo(1587496639), hi(1587496639), lo(1516133128), hi(1516133128), lo(1461550545), hi(1461550545), lo(1406951526), hi(1406951526)
+	.word lo(1302016099), hi(1302016099), lo(1230646740), hi(1230646740), lo(1142491917), hi(1142491917), lo(1087903418), hi(1087903418)
+	.word lo(-1398421865), hi(-1398421865), lo(-1469785312), hi(-1469785312), lo(-1524105735), hi(-1524105735), lo(-1578704818), hi(-1578704818)
+	.word lo(-1079922613), hi(-1079922613), lo(-1151291908), hi(-1151291908), lo(-1239184603), hi(-1239184603), lo(-1293773166), hi(-1293773166)
+	.word lo(-1968362705), hi(-1968362705), lo(-1905510760), hi(-1905510760), lo(-2094067647), hi(-2094067647), lo(-2014441994), hi(-2014441994)
+	.word lo(-1716953613), hi(-1716953613), lo(-1654112188), hi(-1654112188), lo(-1876203875), hi(-1876203875), lo(-1796572374), hi(-1796572374)
+	.word lo(-525066777), hi(-525066777), lo(-462094256), hi(-462094256), lo(-382327159), hi(-382327159), lo(-302564546), hi(-302564546)
+	.word lo(-206542021), hi(-206542021), lo(-143559028), hi(-143559028), lo(-97365931), hi(-97365931), lo(-17609246), hi(-17609246)
+	.word lo(-960696225), hi(-960696225), lo(-1031934488), hi(-1031934488), lo(-817968335), hi(-817968335), lo(-872425850), hi(-872425850)
+	.word lo(-709327229), hi(-709327229), lo(-780559564), hi(-780559564), lo(-600130067), hi(-600130067), lo(-654598054), hi(-654598054)
+	.word lo(1762451694), hi(1762451694), lo(1842216281), hi(1842216281), lo(1619975040), hi(1619975040), lo(1682949687), hi(1682949687)
+	.word lo(2047383090), hi(2047383090), lo(2127137669), hi(2127137669), lo(1938468188), hi(1938468188), lo(2001449195), hi(2001449195)
+	.word lo(1325665622), hi(1325665622), lo(1271206113), hi(1271206113), lo(1183200824), hi(1183200824), lo(1111960463), hi(1111960463)
+	.word lo(1543535498), hi(1543535498), lo(1489069629), hi(1489069629), lo(1434599652), hi(1434599652), lo(1363369299), hi(1363369299)
+	.word lo(622672798), hi(622672798), lo(568075817), hi(568075817), lo(748617968), hi(748617968), lo(677256519), hi(677256519)
+	.word lo(907627842), hi(907627842), lo(853037301), hi(853037301), lo(1067152940), hi(1067152940), lo(995781531), hi(995781531)
+	.word lo(51762726), hi(51762726), lo(131386257), hi(131386257), lo(177728840), hi(177728840), lo(240578815), hi(240578815)
+	.word lo(269590778), hi(269590778), lo(349224269), hi(349224269), lo(429104020), hi(429104020), lo(491947555), hi(491947555)
+	.word lo(-248556018), hi(-248556018), lo(-168932423), hi(-168932423), lo(-122852000), hi(-122852000), lo(-60002089), hi(-60002089)
+	.word lo(-500490030), hi(-500490030), lo(-420856475), hi(-420856475), lo(-341238852), hi(-341238852), lo(-278395381), hi(-278395381)
+	.word lo(-685261898), hi(-685261898), lo(-739858943), hi(-739858943), lo(-559578920), hi(-559578920), lo(-630940305), hi(-630940305)
+	.word lo(-1004286614), hi(-1004286614), lo(-1058877219), hi(-1058877219), lo(-845023740), hi(-845023740), lo(-916395085), hi(-916395085)
+	.word lo(-1119974018), hi(-1119974018), lo(-1174433591), hi(-1174433591), lo(-1262701040), hi(-1262701040), lo(-1333941337), hi(-1333941337)
+	.word lo(-1371866206), hi(-1371866206), lo(-1426332139), hi(-1426332139), lo(-1481064244), hi(-1481064244), lo(-1552294533), hi(-1552294533)
+	.word lo(-1690935098), hi(-1690935098), lo(-1611170447), hi(-1611170447), lo(-1833673816), hi(-1833673816), lo(-1770699233), hi(-1770699233)
+	.word lo(-2009983462), hi(-2009983462), lo(-1930228819), hi(-1930228819), lo(-2119160460), hi(-2119160460), lo(-2056179517), hi(-2056179517)
+	.word lo(1569362073), hi(1569362073), lo(1498123566), hi(1498123566), lo(1409854455), hi(1409854455), lo(1355396672), hi(1355396672)
+	.word lo(1317987909), hi(1317987909), lo(1246755826), hi(1246755826), lo(1192025387), hi(1192025387), lo(1137557660), hi(1137557660)
+	.word lo(2072149281), hi(2072149281), lo(2135122070), hi(2135122070), lo(1912620623), hi(1912620623), lo(1992383480), hi(1992383480)
+	.word lo(1753615357), hi(1753615357), lo(1816598090), hi(1816598090), lo(1627664531), hi(1627664531), lo(1707420964), hi(1707420964)
+	.word lo(295390185), hi(295390185), lo(358241886), hi(358241886), lo(404320391), hi(404320391), lo(483945776), hi(483945776)
+	.word lo(43990325), hi(43990325), lo(106832002), hi(106832002), lo(186451547), hi(186451547), lo(266083308), hi(266083308)
+	.word lo(932423249), hi(932423249), lo(861060070), hi(861060070), lo(1041341759), hi(1041341759), lo(986742920), hi(986742920)
+	.word lo(613929101), hi(613929101), lo(542559546), hi(542559546), lo(756411363), hi(756411363), lo(701822548), hi(701822548)
+	.word lo(-978770311), hi(-978770311), lo(-1050133554), hi(-1050133554), lo(-869589737), hi(-869589737), lo(-924188512), hi(-924188512)
+	.word lo(-693284699), hi(-693284699), lo(-764654318), hi(-764654318), lo(-550540341), hi(-550540341), lo(-605129092), hi(-605129092)
+	.word lo(-475935807), hi(-475935807), lo(-413084042), hi(-413084042), lo(-366743377), hi(-366743377), lo(-287118056), hi(-287118056)
+	.word lo(-257573603), hi(-257573603), lo(-194731862), hi(-194731862), lo(-114850189), hi(-114850189), lo(-35218492), hi(-35218492)
+	.word lo(-1984365303), hi(-1984365303), lo(-1921392450), hi(-1921392450), lo(-2143631769), hi(-2143631769), lo(-2063868976), hi(-2063868976)
+	.word lo(-1698919467), hi(-1698919467), lo(-1635936670), hi(-1635936670), lo(-1824608069), hi(-1824608069), lo(-1744851700), hi(-1744851700)
+	.word lo(-1347415887), hi(-1347415887), lo(-1418654458), hi(-1418654458), lo(-1506661409), hi(-1506661409), lo(-1561119128), hi(-1561119128)
+	.word lo(-1129027987), hi(-1129027987), lo(-1200260134), hi(-1200260134), lo(-1254728445), hi(-1254728445), lo(-1309196108), hi(-1309196108)
+	.export _crc6ToChar
+_crc6ToChar:
+	.word "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789__"
+
+
+	.end

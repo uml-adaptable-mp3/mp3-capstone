@@ -1,0 +1,178 @@
+
+//_____________________________________________________________
+//
+	.sect code,StdButtonDefaultRender	// 49 words
+	.export _StdButtonDefaultRender
+_StdButtonDefaultRender:
+	ldx (I6)+1,NULL ; sub C0,NULL,C0	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A0,(I6) ; sty A1,(I6)
+// 	if (op == 0)
+	jzc F0B1	// unsigned compare
+	ldc 64,A1	// 64 -> 1 -> ET4
+// jumped away
+// 	}
+// {
+// 		if (button->flags &(1<<3))
+// 		if (!(button->flags &(1<<6)))
+	ldx (I2),A0	// 'button' ==> ET1
+	and A0,A1,A0	// ET1 and ET4 -> ET5
+	nop
+	jzc F0B1	// compare against zero
+	nop
+// jumped away
+	ldy (I2)+1,NULL ; ldx (I6)+1,NULL	// I6 += 1
+// 		}
+// {
+//  vo_printf("% 5d ",button->result);
+	ldx (I2)-1,A0	// 'button' ==> 1 -> ET8
+	stx A0,(I6)+1	// ET8
+	ldc d_1,A0	// ET9
+	call _vo_printf
+	stx A0,(I6)	// ET9
+// jumped away
+	ldc 512,A1	// 512 -> 1 -> ETb
+	ldx (I2)+6,A0 ; ldy (I6)-1,NULL	// I6 += -2
+// 			if (button->flags &(1<<9))
+	and A0,A1,A1	// ET1 and ETb -> ETc
+	nop
+	jzs F0B11	// compare against zero
+	nop
+// jumped away
+	ldc 1024,A1	// 1024 -> 1 -> ETf
+	and A0,A1,A1 ; ldy (I2)-6,NULL
+// 			}
+// {
+//  vo_printf("[%c] ",(button->flags &(1<<10)) ? 'X' : ' ');
+	sub A1,NULL,A1	// ET10 != (0) -> (0)
+	ldc 88,A0	// 88 -> ATe
+	jzc F0B13	// unsigned compare
+	nop
+// jumped away
+	ldc 32,A0	// 32 -> ATe
+F0B13:
+	stx A0,(I6)+1	// ATe
+	ldc c_2,A0	// ET12
+	call _vo_printf
+	stx A0,(I6)	// ET12
+// jumped away
+	ldx (I6)-1,NULL ; ldy (I2)+6,NULL	// I6 += -2
+F0B11:
+//  vo_printf(button->caption);
+	ldx (I2),A0	// 'button' ==> 6 -> ET16
+	call _vo_printf
+	stx A0,(I6)	// ET16
+// jumped away
+	ldc String_3,A0	// ET18
+//  vo_printf("\n");
+	call _vo_printf
+	stx A0,(I6)	// I6 += 1
+// jumped away
+	ldx (I6)-1,NULL	// I6 += -1
+F0B1:
+	ldy (I6),A1 ; ldx (I6)-1,A0
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,RenderStdButton	// 18 words
+	.export _RenderStdButton
+_RenderStdButton:
+	stx LR0,(I6)+1
+	stx A0,(I6) ; sty B0,(I6)+1
+	stx C0,(I6) ; sty C1,(I6)+1
+	stx I0,(I6) ; and NULL,NULL,C0
+	mv I2,I0 ; and NULL,NULL,C1	// I2 -> 'button'
+	mv I0,I2 ; and NULL,NULL,B0	// 'button' -> I2
+// 	button->render(button,0,0,0);
+	ldx (I0)+7,NULL	// 0 -> C0
+	ldx (I0)+1,NULL	// 0 -> C1
+	ldx (I0),A0	// 0 -> B0
+	mv A0,LR0
+	jr
+	ldc lo(F1B3),LR0	// (return address)
+// jumped away
+F1B3:
+	ldx (I6)-1,I0
+	ldy (I6),C1 ; ldx (I6)-1,C0
+	ldy (I6),B0 ; ldx (I6)-1,A0
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,CreateStdButton	// 7 words
+	.export _CreateStdButton
+_CreateStdButton:
+// 	button->flags = flags;
+	ldc _StdButtonDefaultRender,A0	// ET5
+	stx C1,(I2)+1 ; ldy (I6)-1,NULL	// 'flags' ==> 'button'
+// 	button->result = result;
+	stx C0,(I2)+5	// 'result' ==> 'button'
+// 	button->caption = caption;
+	stx I1,(I2)+2	// 'caption' ==> 'button'
+// 	button->render = StdButtonDefaultRender;
+	stx A0,(I2)	// ET5 ==> 'button'
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,GetStdButtonPress	// 3 words
+	.export _GetStdButtonPress
+_GetStdButtonPress:
+// 	return 0;
+	and NULL,NULL,A0 ; ldx (I6)-1,NULL	// 0 -> 0 -> ET0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,SetClippingRectangleToButton	// 2 words
+	.export _SetClippingRectangleToButton
+_SetClippingRectangleToButton:
+	jr
+	ldx (I6)-1,NULL
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect data_x,stdbuttonsDumbinit_x	// 3 words
+	.export _lastButtonPressed
+_lastButtonPressed:
+	.word 0
+	.export _virtualWidth
+_virtualWidth:
+	.word 240
+	.export _virtualHeight
+_virtualHeight:
+	.word 320
+
+//_____________________________________________________________
+//
+	.sect data_x,stdbuttonsDumbconst_x	// 14 words
+d_1:
+	.word "% 5d "
+
+	.zero 1
+c_2:
+	.word "[%c] "
+
+	.zero 1
+String_3:
+	.word "\n"
+
+	.zero 1
+
+	.end

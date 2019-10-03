@@ -1,0 +1,1097 @@
+
+----- Read COFF Files...
+Read COFF file C:\Program Files (x86)\VSIDE/libvs1005h_vsos3/vsos03.o
+Read COFF file Emulation-Debug\main.o
+ + section: 1_CurDirFOpen, 67 word(s)
+ + section: 2_shell_main, 51 word(s)
+ + section: 3_bss_x, 386 word(s)
+ + section: 4_const_x, 27 word(s)
+Read COFF file Emulation-Debug\shellAsm.o
+ + section: 5_main, 7 word(s)
+
+----- Remove Debug Symbols
+Linkinfo: _appFlags is absolute 2255
+Linkinfo: _currentDirectory is absolute 2254
+Linkinfo: _SetHookFunction will be imported in runtime
+Linkinfo: ___ReAllocMemXY will be imported in runtime
+Linkinfo: ___AllocMemXY will be imported in runtime
+Linkinfo: MonitorIntBreak will be imported in runtime
+Linkinfo: MonitorBreak will be imported in runtime
+Linkinfo: ___FreeMemX will be imported in runtime
+Linkinfo: ___FreeMemY will be imported in runtime
+Linkinfo: MonitorPutch15 will be imported in runtime
+Linkinfo: _RealDelayMicroSec will be imported in runtime
+Linkinfo: _intOS will be imported in runtime
+Linkinfo: _Restart will be imported in runtime
+Linkinfo: _memPoolX will be imported in runtime
+Linkinfo: _memPoolY will be imported in runtime
+Linkinfo: _SinTest will be imported in runtime
+Linkinfo: _PinLoop will be imported in runtime
+Linkinfo: _RealSetClockDividers will be imported in runtime
+Linkinfo: rx_int will be imported in runtime
+Linkinfo: _memPoolI will be imported in runtime
+Linkinfo: MonitorJumpWithStack will be imported in runtime
+Linkinfo: _RealSleep will be imported in runtime
+Linkinfo: ___mallocy will be imported in runtime
+Linkinfo: ___AllocMemAbsXY will be imported in runtime
+Linkinfo: ___FreeMemXY will be imported in runtime
+Linkinfo: _NullHook will be imported in runtime
+Linkinfo: _MemTest5x will be imported in runtime
+Linkinfo: yrommux0 will be imported in runtime
+Linkinfo: irommux0 will be imported in runtime
+Linkinfo: MonitorJumpLr1Lr0 will be imported in runtime
+Linkinfo: MonitorPutch will be imported in runtime
+Linkinfo: _TestGetByte will be imported in runtime
+Linkinfo: _RealGetClockMultiplier will be imported in runtime
+Linkinfo: _RealForceClockMultiplier will be imported in runtime
+Linkinfo: ___calloc will be imported in runtime
+Linkinfo: _MemTests will be imported in runtime
+Linkinfo: _rommain will be imported in runtime
+Linkinfo: _SinTest6dB will be imported in runtime
+Linkinfo: MonitorPutWord will be imported in runtime
+Linkinfo: _BusyWait1 will be imported in runtime
+Linkinfo: _resx will be imported in runtime
+Linkinfo: __stackY will be imported in runtime
+Linkinfo: _resy will be imported in runtime
+Linkinfo: _OldStereoCopy will be imported in runtime
+Linkinfo: Monitor will be imported in runtime
+Linkinfo: _RealPowerOff will be imported in runtime
+Linkinfo: ___freey will be imported in runtime
+Linkinfo: OSInit will be imported in runtime
+Linkinfo: ___free will be imported in runtime
+Linkinfo: ___AllocMemAbsX will be imported in runtime
+Linkinfo: ___AllocMemAbsY will be imported in runtime
+Linkinfo: __stack will be imported in runtime
+Linkinfo: ___malloc will be imported in runtime
+Linkinfo: MonitorGetWord will be imported in runtime
+Linkinfo: MonitorGetch will be imported in runtime
+Linkinfo: _RealSetClockSpeed will be imported in runtime
+Linkinfo: _RealInitClockSpeed will be imported in runtime
+Linkinfo: ___ReAllocMemX will be imported in runtime
+Linkinfo: ___AllocMemX will be imported in runtime
+Linkinfo: ___ReAllocMemY will be imported in runtime
+Linkinfo: ___AllocMemY will be imported in runtime
+Linkinfo: _RealAudioOutputSamples will be imported in runtime
+Linkinfo: _RealSetRate will be imported in runtime
+Linkinfo: _RealSetVolume will be imported in runtime
+Linkinfo: ___reallocy will be imported in runtime
+Linkinfo: ___callocy will be imported in runtime
+Linkinfo: xrommux0 will be imported in runtime
+Linkinfo: MonitorGetch15 will be imported in runtime
+Linkinfo: _USBMem will be imported in runtime
+Linkinfo: _RealSetClockSpeedLimit will be imported in runtime
+Linkinfo: ___realloc will be imported in runtime
+Linkinfo: dac_int will be imported in runtime
+Linkinfo: MonitorRestoreContext will be imported in runtime
+Linkinfo: _BusyWait10 will be imported in runtime
+Linkinfo: MonitorBpTable will be imported in runtime
+Linkinfo: MonitorGetInput will be imported in runtime
+Linkinfo: _GetVS1005Permissions will be imported in runtime
+Linkinfo: _InitMem will be imported in runtime
+Linkinfo: _BootSetKey will be imported in runtime
+Linkinfo: _BootSetKeyX will be imported in runtime
+Linkinfo: _PlayerVolume will be imported in runtime
+Linkinfo: _RawUartPutC will be imported in runtime
+Linkinfo: _RawUartPrintF will be imported in runtime
+Linkinfo: _rand_seed will be imported in runtime
+Linkinfo: _random_state will be imported in runtime
+Linkinfo: _player will be imported in runtime
+Linkinfo: _ph will be imported in runtime
+Linkinfo: _map will be imported in runtime
+Linkinfo: _cod will be imported in runtime
+Linkinfo: _bootrc4ks will be imported in runtime
+Linkinfo: _bootrc4Enabled will be imported in runtime
+Linkinfo: _xmem_startzeros will be imported in runtime
+Linkinfo: _ff will be imported in runtime
+Linkinfo: _fontPtrs will be imported in runtime
+Linkinfo: _fontData will be imported in runtime
+Linkinfo: _u16RomFont will be imported in runtime
+Linkinfo: ___InitMemAllocI will be imported in runtime
+Linkinfo: _ReadFuseMulti will be imported in runtime
+Linkinfo: _SpiSendReceive will be imported in runtime
+Linkinfo: _RC4_KeySetup will be imported in runtime
+Linkinfo: _RC4_KeySetupPacked will be imported in runtime
+Linkinfo: _volumeReg will be imported in runtime
+Linkinfo: _libInclude will be imported in runtime
+Linkinfo: _uartByteSpeed will be imported in runtime
+Linkinfo: _memcpyii will be imported in runtime
+Linkinfo: _kernelVectorsStart will be imported in runtime
+Linkinfo: _os_if_vars_start will be imported in runtime
+Linkinfo: _memcpy will be imported in runtime
+Linkinfo: _oldExtClock4KHz will be imported in runtime
+Linkinfo: _coreVoltageOffset will be imported in runtime
+Linkinfo: _extSymbolSearchRom will be imported in runtime
+Linkinfo: _extSymbolElements will be imported in runtime
+Linkinfo: _extSymbol will be imported in runtime
+Linkinfo: _memsetY will be imported in runtime
+Linkinfo: _memset will be imported in runtime
+Linkinfo: _memcpyYX will be imported in runtime
+Linkinfo: _voltages will be imported in runtime
+Linkinfo: _PowerSetVoltages will be imported in runtime
+Linkinfo: _applAddr will be imported in runtime
+Linkinfo: _bassReg will be imported in runtime
+Linkinfo: _CalcFuseCRC will be imported in runtime
+Linkinfo: _ReadFusePriv will be imported in runtime
+Linkinfo: _PowerSetFlash will be imported in runtime
+Linkinfo: _SpiLoadLong will be imported in runtime
+Linkinfo: _TEST_WriteIFlashOpenRecord will be imported in runtime
+Linkinfo: _TEST_ClearRamAndAllowDebug will be imported in runtime
+Linkinfo: _PowerShutDownFlash will be imported in runtime
+Linkinfo: _TestMode will be imported in runtime
+Linkinfo: _FsPhNandCreate will be imported in runtime
+Linkinfo: _BootFromX will be imported in runtime
+Linkinfo: _ReadIMem will be imported in runtime
+Linkinfo: _InitAudio will be imported in runtime
+Linkinfo: _TimeCountAndScheduleHandler will be imported in runtime
+Linkinfo: _AddIntServer will be imported in runtime
+Linkinfo: _Enable will be imported in runtime
+Linkinfo: _neededConfiguration will be imported in runtime
+Linkinfo: _loadLibraryMutex will be imported in runtime
+Linkinfo: _InitMutexN will be imported in runtime
+Linkinfo: _highestISoFar will be imported in runtime
+Linkinfo: _InitStdButtons will be imported in runtime
+Linkinfo: _SysUiMsgInit will be imported in runtime
+Linkinfo: _kernel_main will be imported in runtime
+Linkinfo: _UsbBootLoopNoReturn will be imported in runtime
+Linkinfo: _TEST_ClearIFlash will be imported in runtime
+Linkinfo: _TEST_ProductionTest will be imported in runtime
+Linkinfo: _extSymbolRom will be imported in runtime
+Linkinfo: _extSymbolRomSize will be imported in runtime
+Linkinfo: _i_twiddle_iv will be imported in runtime
+Linkinfo: _dctfirmodtab8 will be imported in runtime
+Linkinfo: _dctiv will be imported in runtime
+Linkinfo: _dctii will be imported in runtime
+Linkinfo: _costable_iv8 will be imported in runtime
+Linkinfo: _dct will be imported in runtime
+Linkinfo: _dcttype will be imported in runtime
+Linkinfo: _costable_ii8 will be imported in runtime
+Linkinfo: _dctfir8 will be imported in runtime
+Linkinfo: _dctivpost will be imported in runtime
+Linkinfo: _isupper will be imported in runtime
+Linkinfo: short_to_df will be imported in runtime
+Linkinfo: _PrintFmtAdd will be imported in runtime
+Linkinfo: df_mul will be imported in runtime
+Linkinfo: df_div will be imported in runtime
+Linkinfo: df_add will be imported in runtime
+Linkinfo: df_sub will be imported in runtime
+Linkinfo: _strlen will be imported in runtime
+Linkinfo: __modf will be imported in runtime
+Linkinfo: df_to_short will be imported in runtime
+Linkinfo: df_lt will be imported in runtime
+Linkinfo: df_ge will be imported in runtime
+Linkinfo: _tolower will be imported in runtime
+Linkinfo: divide32unsigned will be imported in runtime
+Linkinfo: _memcpyXX will be imported in runtime
+Linkinfo: _ispunct will be imported in runtime
+Linkinfo: _toupper will be imported in runtime
+Linkinfo: _isgraph will be imported in runtime
+Linkinfo: _isdigit will be imported in runtime
+Linkinfo: _isalpha will be imported in runtime
+Linkinfo: _isalnum will be imported in runtime
+Linkinfo: _isxdigit will be imported in runtime
+Linkinfo: _isspace will be imported in runtime
+Linkinfo: _iscntrl will be imported in runtime
+Linkinfo: _isprint will be imported in runtime
+Linkinfo: _islower will be imported in runtime
+Linkinfo: int_to_df will be imported in runtime
+Linkinfo: df_norm will be imported in runtime
+Linkinfo: _intStub will be imported in runtime
+Linkinfo: _readyQueue will be imported in runtime
+Linkinfo: _NewList will be imported in runtime
+Linkinfo: _useQuantum will be imported in runtime
+Linkinfo: _quantum will be imported in runtime
+Linkinfo: _Halt will be imported in runtime
+Linkinfo: _intVectors will be imported in runtime
+Linkinfo: _SetSignal will be imported in runtime
+Linkinfo: _timerQueue will be imported in runtime
+Linkinfo: _waitQueue will be imported in runtime
+Linkinfo: _Enqueue will be imported in runtime
+Linkinfo: _ScheduleHandler will be imported in runtime
+Linkinfo: _mainTask will be imported in runtime
+Linkinfo: _AddTask will be imported in runtime
+Linkinfo: _Disable will be imported in runtime
+Linkinfo: _forbidCount will be imported in runtime
+Linkinfo: _scheduleFlag will be imported in runtime
+Linkinfo: ___endStack will be imported in runtime
+Linkinfo: ___intStack will be imported in runtime
+Linkinfo: ___curStack will be imported in runtime
+Linkinfo: _thisTask will be imported in runtime
+Linkinfo: _Expunge will be imported in runtime
+Linkinfo: _HandleTimers will be imported in runtime
+Linkinfo: _SetupInterruptStackSize will be imported in runtime
+Linkinfo: _SetupMainStackSize will be imported in runtime
+Linkinfo: CheckWait will be imported in runtime
+Linkinfo: _Signal will be imported in runtime
+Linkinfo: IntQuickLeave will be imported in runtime
+Linkinfo: WaitAgain will be imported in runtime
+Linkinfo: _DoSchedule will be imported in runtime
+Linkinfo: _freetaskmem will be imported in runtime
+Linkinfo: SearchForTask will be imported in runtime
+Linkinfo: _Wait will be imported in runtime
+Linkinfo: _AddHead will be imported in runtime
+Linkinfo: _xFlist will be imported in runtime
+Linkinfo: _HeadNode will be imported in runtime
+Linkinfo: _NextNode will be imported in runtime
+Linkinfo: _RemNode will be imported in runtime
+Linkinfo: _AddAfter will be imported in runtime
+Linkinfo: _AddBefore will be imported in runtime
+Linkinfo: _AddTail will be imported in runtime
+Linkinfo: _HeadNodeY will be imported in runtime
+Linkinfo: _yFlist will be imported in runtime
+Linkinfo: _NextNodeY will be imported in runtime
+Linkinfo: _RemNodeY will be imported in runtime
+Linkinfo: _AddAfterY will be imported in runtime
+Linkinfo: _memcpyYY will be imported in runtime
+Linkinfo: _AddBeforeY will be imported in runtime
+Linkinfo: _AddTailY will be imported in runtime
+Linkinfo: _sysMemory_xs will be imported in runtime
+Linkinfo: _sysMemory_ys will be imported in runtime
+Linkinfo: _NewListY will be imported in runtime
+Linkinfo: _AddHeadY will be imported in runtime
+Linkinfo: ___AllocMemI will be imported in runtime
+Linkinfo: ___AllocMemAbsI will be imported in runtime
+Linkinfo: ___FreeMemI will be imported in runtime
+Linkinfo: _sysMemory_is will be imported in runtime
+Linkinfo: _NewListI will be imported in runtime
+Linkinfo: _SetSizeNodeI will be imported in runtime
+Linkinfo: _AddHeadI will be imported in runtime
+Linkinfo: _HeadNodeI will be imported in runtime
+Linkinfo: _GetSizeNodeI will be imported in runtime
+Linkinfo: _RemNodeI will be imported in runtime
+Linkinfo: _NextNodeI will be imported in runtime
+Linkinfo: _AddAfterI will be imported in runtime
+Linkinfo: _AddBeforeI will be imported in runtime
+Linkinfo: _AddTailI will be imported in runtime
+Linkinfo: _AddTimer will be imported in runtime
+Linkinfo: _RemoveTimer will be imported in runtime
+Linkinfo: _InitTimer will be imported in runtime
+Linkinfo: _StartTimer will be imported in runtime
+Linkinfo: _StopTimer will be imported in runtime
+Linkinfo: _TailNode will be imported in runtime
+Linkinfo: _RemHead will be imported in runtime
+Linkinfo: _Remove will be imported in runtime
+Linkinfo: _PrevNode will be imported in runtime
+Linkinfo: _RemTail will be imported in runtime
+Linkinfo: _SetTaskPri will be imported in runtime
+Linkinfo: _FindTask will be imported in runtime
+Linkinfo: _RemoveY will be imported in runtime
+Linkinfo: _RemTailY will be imported in runtime
+Linkinfo: _PrevNodeY will be imported in runtime
+Linkinfo: _TailNodeY will be imported in runtime
+Linkinfo: _RemHeadY will be imported in runtime
+Linkinfo: _EnqueueY will be imported in runtime
+Linkinfo: _PrevNodeI will be imported in runtime
+Linkinfo: _TailNodeI will be imported in runtime
+Linkinfo: _RemHeadI will be imported in runtime
+Linkinfo: _RemoveI will be imported in runtime
+Linkinfo: _RemTailI will be imported in runtime
+Linkinfo: _WriteIMem16 will be imported in runtime
+Linkinfo: _WriteIMem will be imported in runtime
+Linkinfo: _WriteIMem16Swapped will be imported in runtime
+Linkinfo: _WriteIMemSwapped will be imported in runtime
+Linkinfo: _getword will be imported in runtime
+Linkinfo: _putch will be imported in runtime
+Linkinfo: _getch will be imported in runtime
+Linkinfo: _putword will be imported in runtime
+Linkinfo: _Monitor will be imported in runtime
+Linkinfo: _audioBuffer will be imported in runtime
+Linkinfo: _DB12 will be imported in runtime
+Linkinfo: _timeCount will be imported in runtime
+Linkinfo: _AudioBufFree will be imported in runtime
+Linkinfo: divide16signed will be imported in runtime
+Linkinfo: _AudioBufFill will be imported in runtime
+Linkinfo: _audioPtr will be imported in runtime
+Linkinfo: _dB will be imported in runtime
+Linkinfo: _ISine will be imported in runtime
+Linkinfo: _SinTestCore will be imported in runtime
+Linkinfo: _OldSinTest will be imported in runtime
+Linkinfo: _UpdateMp3Crc will be imported in runtime
+Linkinfo: _mp3CrcTable will be imported in runtime
+Linkinfo: _shortSin1k will be imported in runtime
+Linkinfo: _tmpBuf will be imported in runtime
+Linkinfo: _oldClockX will be imported in runtime
+Linkinfo: _OldSetRate will be imported in runtime
+Linkinfo: _timeToRemovePDown2 will be imported in runtime
+Linkinfo: _MuxTest will be imported in runtime
+Linkinfo: _YRomTest will be imported in runtime
+Linkinfo: _XRomTest will be imported in runtime
+Linkinfo: _IRomTest will be imported in runtime
+Linkinfo: _YRamTest will be imported in runtime
+Linkinfo: _XRamTest will be imported in runtime
+Linkinfo: _IRamTest will be imported in runtime
+Linkinfo: _UartDivider will be imported in runtime
+Linkinfo: _oldOldClock4KHz will be imported in runtime
+Linkinfo: _curFctl will be imported in runtime
+Linkinfo: _hwSampleRate will be imported in runtime
+Linkinfo: _uiTime will be imported in runtime
+Linkinfo: _uiTrigger will be imported in runtime
+Linkinfo: _haltTime will be imported in runtime
+Linkinfo: _bassOn will be imported in runtime
+Linkinfo: _trebleOn will be imported in runtime
+Linkinfo: _uiCount will be imported in runtime
+Linkinfo: _bassTrebleSampleRate will be imported in runtime
+Linkinfo: _bassTrebleReg will be imported in runtime
+Linkinfo: _uartDivs will be imported in runtime
+Linkinfo: _z will be imported in runtime
+Linkinfo: _clockSpeed will be imported in runtime
+Linkinfo: fr_div32 will be imported in runtime
+Linkinfo: shiftMultipliers will be imported in runtime
+Linkinfo: _SetBass will be imported in runtime
+Linkinfo: _SetTreble will be imported in runtime
+Linkinfo: _Bass will be imported in runtime
+Linkinfo: _Treble will be imported in runtime
+Linkinfo: _PowerMillivoltsToReg will be imported in runtime
+Linkinfo: _PowerRegToMillivolts will be imported in runtime
+Linkinfo: _powerConvTab will be imported in runtime
+Linkinfo: _CheckRFLock will be imported in runtime
+Linkinfo: _FindVCOLock will be imported in runtime
+Linkinfo: _CalcClockSpeed will be imported in runtime
+Linkinfo: _BusyDelay4x will be imported in runtime
+Linkinfo: _PrivSpiSendReceive will be imported in runtime
+Linkinfo: up_GetValue will be imported in runtime
+Linkinfo: literal will be imported in runtime
+Linkinfo: spiexec will be imported in runtime
+Linkinfo: newesc will be imported in runtime
+Linkinfo: long will be imported in runtime
+Linkinfo: GetPutChIH will be imported in runtime
+Linkinfo: _RC4_Output will be imported in runtime
+Linkinfo: up_GetBits will be imported in runtime
+Linkinfo: Lwhile will be imported in runtime
+Linkinfo: _SpiLoad will be imported in runtime
+Linkinfo: _SpiDelay will be imported in runtime
+Linkinfo: lz77 will be imported in runtime
+Linkinfo: _SpiReceiveWord will be imported in runtime
+Linkinfo: up_GetByte will be imported in runtime
+Linkinfo: GetPutChI will be imported in runtime
+Linkinfo: UnPack will be imported in runtime
+Linkinfo: spiy will be imported in runtime
+Linkinfo: GetPutChX will be imported in runtime
+Linkinfo: GetPutChY will be imported in runtime
+Linkinfo: _vo_files will be imported in runtime
+Linkinfo: _consoleFile will be imported in runtime
+Linkinfo: _vo_get_time_from_rtc_hook will be imported in runtime
+Linkinfo: _FatFileSystem will be imported in runtime
+Linkinfo: _AutoVoidNull will be imported in runtime
+Linkinfo: _encVFloorInv will be imported in runtime
+Linkinfo: _EncMInitDct will be imported in runtime
+Linkinfo: _winPtr will be imported in runtime
+Linkinfo: _hcb_sf will be imported in runtime
+Linkinfo: _EncMHuff4 will be imported in runtime
+Linkinfo: _lpcsin will be imported in runtime
+Linkinfo: _evAudioMode will be imported in runtime
+Linkinfo: _strncmp will be imported in runtime
+Linkinfo: _ISqrt will be imported in runtime
+Linkinfo: _srandom will be imported in runtime
+Linkinfo: _random will be imported in runtime
+Linkinfo: _LongLog2 will be imported in runtime
+Linkinfo: _font16aptrs will be imported in runtime
+Linkinfo: _rand will be imported in runtime
+Linkinfo: _FileParamSeek will be imported in runtime
+Linkinfo: _memcpyXY will be imported in runtime
+Linkinfo: divide32signed will be imported in runtime
+Linkinfo: divide16unsigned will be imported in runtime
+Linkinfo: _HuffmanMask will be imported in runtime
+Linkinfo: _srand will be imported in runtime
+Linkinfo: _memcmp will be imported in runtime
+Linkinfo: _SymbolCalcCrc32String will be imported in runtime
+Linkinfo: _SymbolCrunchStringCalcCrc32 will be imported in runtime
+Linkinfo: _SymbolFindByCrc will be imported in runtime
+Linkinfo: _SymbolFindRomByCrc will be imported in runtime
+Linkinfo: _SymbolDelete will be imported in runtime
+Linkinfo: _SymbolDeleteLib will be imported in runtime
+Linkinfo: _encVOggCrc will be imported in runtime
+Linkinfo: _crc6ToChar will be imported in runtime
+Linkinfo: _strncpy will be imported in runtime
+Linkinfo: _Sine32I will be imported in runtime
+Linkinfo: _SpiWaitStatus will be imported in runtime
+Linkinfo: _TEST_TestMemories will be imported in runtime
+Linkinfo: _memseti will be imported in runtime
+Linkinfo: _XpFifoRead will be imported in runtime
+Linkinfo: _XpFifoWrite will be imported in runtime
+Linkinfo: _NandGetOctets will be imported in runtime
+Linkinfo: _NandPutOctets will be imported in runtime
+Linkinfo: _NandPutBlockAddress will be imported in runtime
+Linkinfo: _NandPutDataAddress will be imported in runtime
+Linkinfo: _NandPutLargePageSpareAddress will be imported in runtime
+Linkinfo: _NandGetStatus will be imported in runtime
+Linkinfo: _LargePageWrite will be imported in runtime
+Linkinfo: _LargePageRead will be imported in runtime
+Linkinfo: _NandPutPage will be imported in runtime
+Linkinfo: _FsPhNandRead will be imported in runtime
+Linkinfo: _FsPhNandWrite will be imported in runtime
+Linkinfo: _FsPhNandErase will be imported in runtime
+Linkinfo: _fsNandPhys will be imported in runtime
+Linkinfo: _NandWaitIdle will be imported in runtime
+Linkinfo: _NandPutAddressOctet will be imported in runtime
+Linkinfo: _NandPutCommand will be imported in runtime
+Linkinfo: _NandSetWaits will be imported in runtime
+Linkinfo: _Swap16 will be imported in runtime
+Linkinfo: _CountBitsLong will be imported in runtime
+Linkinfo: _NandMingle will be imported in runtime
+Linkinfo: _FsPhNullOk will be imported in runtime
+Linkinfo: _DevNullWrite will be imported in runtime
+Linkinfo: _MyDelayHook will be imported in runtime
+Linkinfo: _SetNextApp will be imported in runtime
+Linkinfo: _Init0 will be imported in runtime
+Linkinfo: _PrintTasks will be imported in runtime
+Linkinfo: _PrintInt will be imported in runtime
+Linkinfo: _LoadDrivers will be imported in runtime
+Linkinfo: _audioDevice will be imported in runtime
+Linkinfo: _sysTasks will be imported in runtime
+Linkinfo: _romSysTasks will be imported in runtime
+Linkinfo: _vo_fprintf will be imported in runtime
+Linkinfo: _strcpy will be imported in runtime
+Linkinfo: _GetI6 will be imported in runtime
+Linkinfo: _InitHwLocks will be imported in runtime
+Linkinfo: _CreateTask will be imported in runtime
+Linkinfo: _ReadFromProgramRam will be imported in runtime
+Linkinfo: _strchr will be imported in runtime
+Linkinfo: _LoadLibraryP will be imported in runtime
+Linkinfo: _CreateCyclic will be imported in runtime
+Linkinfo: _InitBoard will be imported in runtime
+Linkinfo: _StartOS3 will be imported in runtime
+Linkinfo: _audioout will be imported in runtime
+Linkinfo: _sysUiMsg will be imported in runtime
+Linkinfo: _AddCyclic will be imported in runtime
+Linkinfo: _RunAppFile3 will be imported in runtime
+Linkinfo: _vo_printf will be imported in runtime
+Linkinfo: _DelayL will be imported in runtime
+Linkinfo: _NextResource will be imported in runtime
+Linkinfo: _ResGet16 will be imported in runtime
+Linkinfo: _ResGet32 will be imported in runtime
+Linkinfo: _RemoveLibFromList will be imported in runtime
+Linkinfo: _LoadLibraryFile will be imported in runtime
+Linkinfo: _sprintf will be imported in runtime
+Linkinfo: _ObtainMutex will be imported in runtime
+Linkinfo: _ReleaseMutex will be imported in runtime
+Linkinfo: _WriteToProgramRam will be imported in runtime
+Linkinfo: _GetMemory will be imported in runtime
+Linkinfo: _WriteToProgramRam16Swapped will be imported in runtime
+Linkinfo: _AttemptMutex will be imported in runtime
+Linkinfo: _StdButtonDefaultRender will be imported in runtime
+Linkinfo: _lastButtonPressed will be imported in runtime
+Linkinfo: _virtualWidth will be imported in runtime
+Linkinfo: _virtualHeight will be imported in runtime
+Linkinfo: _SetStdAudioOutVolume will be imported in runtime
+Linkinfo: _SystemUiMessageCyclic will be imported in runtime
+Linkinfo: _SystemUiMessageReceiver will be imported in runtime
+Linkinfo: _romSysUiMsg will be imported in runtime
+Linkinfo: _sysUiMsgFilterValues will be imported in runtime
+Linkinfo: _SetAddress will be imported in runtime
+Linkinfo: _ResetDataToggles will be imported in runtime
+Linkinfo: _ResetUsbHardware will be imported in runtime
+Linkinfo: _GetUsbPacket will be imported in runtime
+Linkinfo: _HandlePacket will be imported in runtime
+Linkinfo: _UsbSender will be imported in runtime
+Linkinfo: _usp will be imported in runtime
+Linkinfo: _usbsender will be imported in runtime
+Linkinfo: _usb_xmit_bufptr will be imported in runtime
+Linkinfo: _tenzeros will be imported in runtime
+Linkinfo: _setAddress will be imported in runtime
+Linkinfo: _resetDataToggles will be imported in runtime
+Linkinfo: _deviceDescriptor will be imported in runtime
+Linkinfo: _configurationDescriptor will be imported in runtime
+Linkinfo: _languageDescriptor will be imported in runtime
+Linkinfo: _vendorStringDescriptor will be imported in runtime
+Linkinfo: _productStringDescriptor will be imported in runtime
+Linkinfo: _serialNumberDescriptor will be imported in runtime
+Linkinfo: _chapter9 will be imported in runtime
+Linkinfo: _inquiry1 will be imported in runtime
+Linkinfo: _sense will be imported in runtime
+Linkinfo: _capacity will be imported in runtime
+Linkinfo: _atapiCapacities will be imported in runtime
+Linkinfo: _diskData will be imported in runtime
+Linkinfo: _csw1 will be imported in runtime
+Linkinfo: _scsi will be imported in runtime
+Linkinfo: _diskData0Y will be imported in runtime
+Linkinfo: _diskData1Y will be imported in runtime
+Linkinfo: _diskData2Y will be imported in runtime
+Linkinfo: _diskData3Y will be imported in runtime
+Linkinfo: _diskInitTab will be imported in runtime
+Linkinfo: _usbHwInitTab will be imported in runtime
+Linkinfo: _csw will be imported in runtime
+Linkinfo: _RingBufCopyXfromY will be imported in runtime
+Linkinfo: _ConsoleWrite will be imported in runtime
+Linkinfo: _ConsoleFileOperations will be imported in runtime
+Linkinfo: _ConsoleIoctl will be imported in runtime
+Linkinfo: _NullFileIdentify will be imported in runtime
+Linkinfo: _Identify will be imported in runtime
+Linkinfo: _FreeBuffer will be imported in runtime
+Linkinfo: _GetBuffer will be imported in runtime
+Linkinfo: _MakeFileDescriptor will be imported in runtime
+Linkinfo: _BusyWait will be imported in runtime
+Linkinfo: _RemovedInterface will be imported in runtime
+Linkinfo: _vs3emubreak will be imported in runtime
+Linkinfo: _fopen_retries will be imported in runtime
+Linkinfo: _fopenclose_mutex will be imported in runtime
+Linkinfo: _fclose_gettime_mutex will be imported in runtime
+Linkinfo: _vo_simple_files will be imported in runtime
+Linkinfo: _sbsP will be imported in runtime
+Linkinfo: _nSectorBuffers will be imported in runtime
+Linkinfo: _nullFileOperations will be imported in runtime
+Linkinfo: _nullFile will be imported in runtime
+Linkinfo: _FatImageWriteBytes will be imported in runtime
+Linkinfo: _FatFlush will be imported in runtime
+Linkinfo: _FatImageSectorRead will be imported in runtime
+Linkinfo: _MegaFatGetByte will be imported in runtime
+Linkinfo: _MegaFatGetWord will be imported in runtime
+Linkinfo: _MegaFatGetLong will be imported in runtime
+Linkinfo: _FatCreate will be imported in runtime
+Linkinfo: _FatGetFragmentFromFAT will be imported in runtime
+Linkinfo: _VoFatClusterPos will be imported in runtime
+Linkinfo: _VoFatReadClusterRecord will be imported in runtime
+Linkinfo: _VoFatWriteClusterRecord will be imported in runtime
+Linkinfo: _VoFatGetFreeFragment will be imported in runtime
+Linkinfo: _WriteClusterChain will be imported in runtime
+Linkinfo: _VoFatFindSector will be imported in runtime
+Linkinfo: _VoFatWriteFile will be imported in runtime
+Linkinfo: _VoFatCloseFile will be imported in runtime
+Linkinfo: _VoFatReadFile will be imported in runtime
+Linkinfo: _FatNameFromDirEntry will be imported in runtime
+Linkinfo: _FatOpenEntry will be imported in runtime
+Linkinfo: _FatExtendDirectory will be imported in runtime
+Linkinfo: _FatMakeEntry will be imported in runtime
+Linkinfo: _FileNameCompare will be imported in runtime
+Linkinfo: _FatFindFile will be imported in runtime
+Linkinfo: _VoFatOpenFile will be imported in runtime
+Linkinfo: _IdentifyFat will be imported in runtime
+Linkinfo: _FatFileOps will be imported in runtime
+Linkinfo: _longFileName will be imported in runtime
+Linkinfo: _lfnStartCluster will be imported in runtime
+Linkinfo: _MemCopyPackedBigEndian will be imported in runtime
+Linkinfo: _strncasecmp will be imported in runtime
+Linkinfo: _atoi will be imported in runtime
+Linkinfo: _filtPairs will be imported in runtime
+Linkinfo: _bassCompand will be imported in runtime
+Linkinfo: _bTrebleGain will be imported in runtime
+Linkinfo: _bassG will be imported in runtime
+Linkinfo: _btmp will be imported in runtime
+Linkinfo: _bassCompandMaxGain will be imported in runtime
+Linkinfo: _trebleCoeff will be imported in runtime
+Linkinfo: _trebleFreqs will be imported in runtime
+Linkinfo: _trebleEmph will be imported in runtime
+Linkinfo: _lowEmph will be imported in runtime
+Linkinfo: _trebleIdx will be imported in runtime
+Linkinfo: _trebleFiltP will be imported in runtime
+Linkinfo: _trShift will be imported in runtime
+Linkinfo: fr_div will be imported in runtime
+Linkinfo: _trebleFilt will be imported in runtime
+Linkinfo: _trebleCoeffRam will be imported in runtime
+Linkinfo: _QueueHwLock will be imported in runtime
+Linkinfo: _ReleaseHwLock will be imported in runtime
+Linkinfo: _hwLocks will be imported in runtime
+Linkinfo: _hwLockOffset will be imported in runtime
+Linkinfo: _hwLockN will be imported in runtime
+Linkinfo: _MSBSetU32 will be imported in runtime
+Linkinfo: _GpioReadInputPin will be imported in runtime
+Linkinfo: _vo_gpio_perips will be imported in runtime
+Linkinfo: _WritePCL will be imported in runtime
+Linkinfo: _ResetSdCard will be imported in runtime
+Linkinfo: _SetPWMLevel will be imported in runtime
+Linkinfo: _powerControlLatchState will be imported in runtime
+Linkinfo: _HuffmanRLC44ODiff will be imported in runtime
+Linkinfo: _HuffmanRLC16Mono will be imported in runtime
+Linkinfo: _kbd_win_128 will be imported in runtime
+Linkinfo: _hcb_1 will be imported in runtime
+Linkinfo: _hcb_2 will be imported in runtime
+Linkinfo: _hcb_3 will be imported in runtime
+Linkinfo: _hcb_4 will be imported in runtime
+Linkinfo: _hcb_5 will be imported in runtime
+Linkinfo: _hcb_6 will be imported in runtime
+Linkinfo: _hcb_7 will be imported in runtime
+Linkinfo: _hcb_8 will be imported in runtime
+Linkinfo: _hcb_9 will be imported in runtime
+Linkinfo: _hcb_10 will be imported in runtime
+Linkinfo: _hcb_11 will be imported in runtime
+Linkinfo: _phiFractQmf_cs will be imported in runtime
+Linkinfo: _phiFractSubQmf20_cs will be imported in runtime
+Linkinfo: _phiFractSubQmf34_cs will be imported in runtime
+Linkinfo: _num_swb_960_window will be imported in runtime
+Linkinfo: _num_swb_1024_window will be imported in runtime
+Linkinfo: _num_swb_128_window will be imported in runtime
+Linkinfo: _swb_offset_1024_96 will be imported in runtime
+Linkinfo: _swb_offset_128_96 will be imported in runtime
+Linkinfo: _swb_offset_1024_64 will be imported in runtime
+Linkinfo: _swb_offset_1024_48 will be imported in runtime
+Linkinfo: _swb_offset_128_48 will be imported in runtime
+Linkinfo: _swb_offset_1024_32 will be imported in runtime
+Linkinfo: _swb_offset_1024_24 will be imported in runtime
+Linkinfo: _swb_offset_128_24 will be imported in runtime
+Linkinfo: _swb_offset_1024_16 will be imported in runtime
+Linkinfo: _swb_offset_128_16 will be imported in runtime
+Linkinfo: _swb_offset_1024_8 will be imported in runtime
+Linkinfo: _swb_offset_128_8 will be imported in runtime
+Linkinfo: _swb_offset_1024_window will be imported in runtime
+Linkinfo: _swb_offset_128_window will be imported in runtime
+Linkinfo: _swb_offset_120_96 will be imported in runtime
+Linkinfo: _swb_offset_960_48 will be imported in runtime
+Linkinfo: _swb_offset_120_48 will be imported in runtime
+Linkinfo: _swb_offset_120_24 will be imported in runtime
+Linkinfo: _swb_offset_120_16 will be imported in runtime
+Linkinfo: _swb_offset_960_8 will be imported in runtime
+Linkinfo: _swb_offset_120_8 will be imported in runtime
+Linkinfo: _swb_offset_960_window will be imported in runtime
+Linkinfo: _swb_offset_120_window will be imported in runtime
+Linkinfo: _iq_tablei_x will be imported in runtime
+Linkinfo: _NoiseRe will be imported in runtime
+Linkinfo: _NoiseIm will be imported in runtime
+Linkinfo: _hxx_mix_ab32 will be imported in runtime
+Linkinfo: _qFractAllpassQmf_cs will be imported in runtime
+Linkinfo: _qFractAllpassSubQmf20_cs will be imported in runtime
+Linkinfo: _qFractAllpassSubQmf34_cs will be imported in runtime
+Linkinfo: _bitReverse will be imported in runtime
+Linkinfo: _latin1 will be imported in runtime
+Linkinfo: _font16a will be imported in runtime
+Linkinfo: _FileParamInt will be imported in runtime
+Linkinfo: _FileParamStr will be imported in runtime
+Linkinfo: _strtol will be imported in runtime
+Linkinfo: _strrchr will be imported in runtime
+Linkinfo: _TEST_GetSineAdder will be imported in runtime
+Linkinfo: _CompareXY will be imported in runtime
+Linkinfo: _CopyXY will be imported in runtime
+Linkinfo: _FsPhNullFail will be imported in runtime
+Linkinfo: _WriteToProgramRam16 will be imported in runtime
+Linkinfo: _WriteToProgramRamSwapped will be imported in runtime
+Linkinfo: _CyclicMainLoop will be imported in runtime
+Linkinfo: _SetInCyclicQueue will be imported in runtime
+Linkinfo: _DropCyclic will be imported in runtime
+Linkinfo: _cyclic will be imported in runtime
+Linkinfo: _CreateTaskAndStack will be imported in runtime
+Linkinfo: _ListDevices will be imported in runtime
+Linkinfo: _devSdSd will be imported in runtime
+Linkinfo: ushort_to_df will be imported in runtime
+Linkinfo: _DevSdSdCreate will be imported in runtime
+Linkinfo: _AudioIoctl will be imported in runtime
+Linkinfo: _AudioWrite will be imported in runtime
+Linkinfo: _AudioFileOperations will be imported in runtime
+Linkinfo: _voAudioChannels will be imported in runtime
+Linkinfo: _xp_fiford will be imported in runtime
+Linkinfo: _xp_fifowr will be imported in runtime
+Linkinfo: _SDClock32 will be imported in runtime
+Linkinfo: _SDDataRXTX will be imported in runtime
+Linkinfo: _SDDataRX1 will be imported in runtime
+Linkinfo: _DevSdSdDelete will be imported in runtime
+Linkinfo: _DevSdSdIdentify will be imported in runtime
+Linkinfo: _DataStop will be imported in runtime
+Linkinfo: _DevSdSdBlockRead will be imported in runtime
+Linkinfo: _DevSdSdBlockWrite will be imported in runtime
+Linkinfo: _DevSdSdIoctl will be imported in runtime
+Linkinfo: _devSdSdDefaults will be imported in runtime
+Linkinfo: _devSdSdDefaults1Bit will be imported in runtime
+Linkinfo: _XP_FifoRd8 will be imported in runtime
+Linkinfo: _XP_FifoWr8 will be imported in runtime
+Linkinfo: _WaitSdReady will be imported in runtime
+Linkinfo: _SDCmd will be imported in runtime
+Linkinfo: _IoctlRestart will be imported in runtime
+Linkinfo: _DetectSDCard will be imported in runtime
+Linkinfo: _IDSDCard will be imported in runtime
+Linkinfo: _SetupSDData will be imported in runtime
+Linkinfo: _SdIdentify will be imported in runtime
+Linkinfo: _EncMCountHuff2 will be imported in runtime
+Linkinfo: _EncMCountHuff4 will be imported in runtime
+Linkinfo: _EncMHuff2N will be imported in runtime
+Linkinfo: _EncMCountHuff2Asm will be imported in runtime
+Linkinfo: _EncMOutBits32 will be imported in runtime
+Linkinfo: _EncMOutBits16 will be imported in runtime
+Linkinfo: _EncMOutBit will be imported in runtime
+Linkinfo: _EncMDct18 will be imported in runtime
+Linkinfo: _EncMDct18Asm will be imported in runtime
+Linkinfo: _EncMInitBits will be imported in runtime
+Linkinfo: _EncMAlignBitsToByte will be imported in runtime
+Linkinfo: _EncMGetBitPtr will be imported in runtime
+Linkinfo: _EncMInsertBit will be imported in runtime
+Linkinfo: _EncMInsertBits will be imported in runtime
+Linkinfo: _EncMSetBitBytePtr will be imported in runtime
+Linkinfo: _EncMMoveBitBytes will be imported in runtime
+Linkinfo: _EncMWriteBitBytes will be imported in runtime
+Linkinfo: _encMBitMasks will be imported in runtime
+Linkinfo: _memmove will be imported in runtime
+Linkinfo: _encMCos32 will be imported in runtime
+Linkinfo: _encMDct18 will be imported in runtime
+Linkinfo: _EncMDct32 will be imported in runtime
+Linkinfo: _huffEnc2 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode00 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode01 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode02 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode03 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode04 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode05 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode06 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode07 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode08 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode09 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode10 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode11 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode12 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode13 will be imported in runtime
+Linkinfo: _encMHuff2BitsAndCode14 will be imported in runtime
+Linkinfo: _encMWinCoeffI will be imported in runtime
+Linkinfo: _encMHybridWinFuncI will be imported in runtime
+Linkinfo: _encMPow34 will be imported in runtime
+Linkinfo: _encMButrCSCAI will be imported in runtime
+Linkinfo: _encDiv256 will be imported in runtime
+Linkinfo: _encVOnePer will be imported in runtime
+Linkinfo: _encVDbRatio will be imported in runtime
+Linkinfo: _evBands08k_64 will be imported in runtime
+Linkinfo: _evMean08k_64 will be imported in runtime
+Linkinfo: _evBands08k_256 will be imported in runtime
+Linkinfo: _evMean08k_256 will be imported in runtime
+Linkinfo: _evBands16k_128 will be imported in runtime
+Linkinfo: _evMean16k_128 will be imported in runtime
+Linkinfo: _evBands16k_512 will be imported in runtime
+Linkinfo: _evMean16k_512 will be imported in runtime
+Linkinfo: _evBands32k_128 will be imported in runtime
+Linkinfo: _evMean32k_128 will be imported in runtime
+Linkinfo: _evBands32k_1024 will be imported in runtime
+Linkinfo: _evMean32k_1024 will be imported in runtime
+Linkinfo: _evBands44k_128 will be imported in runtime
+Linkinfo: _evMean44k_128 will be imported in runtime
+Linkinfo: _evBands44k_1024 will be imported in runtime
+Linkinfo: _evMean44k_1024 will be imported in runtime
+Linkinfo: _evBands48k_256 will be imported in runtime
+Linkinfo: _evMean48k_256 will be imported in runtime
+Linkinfo: _evBands48k_1024 will be imported in runtime
+Linkinfo: _evMean48k_1024 will be imported in runtime
+Linkinfo: _EncVSampleClear will be imported in runtime
+Linkinfo: _EncVShiftUpAndCopyToSamp will be imported in runtime
+Linkinfo: _MemCpySampleT will be imported in runtime
+Linkinfo: _CodMpgDelete will be imported in runtime
+Linkinfo: _CodMpgDecode will be imported in runtime
+Linkinfo: _InitCommon will be imported in runtime
+Linkinfo: _CodMpgInitReadFrame will be imported in runtime
+Linkinfo: _CodMpgReadFrame will be imported in runtime
+Linkinfo: _CodMpgPlayFrame will be imported in runtime
+Linkinfo: _CalcCrc will be imported in runtime
+Linkinfo: _rewindbitsy will be imported in runtime
+Linkinfo: _mpeg_crc_table will be imported in runtime
+Linkinfo: _InitLayer3 will be imported in runtime
+Linkinfo: _DecodeHeader will be imported in runtime
+Linkinfo: _mymem16cpy will be imported in runtime
+Linkinfo: _CodMpgSetPointer will be imported in runtime
+Linkinfo: _codMpgFreqs will be imported in runtime
+Linkinfo: _codMpgTabsel_123 will be imported in runtime
+Linkinfo: _MemCopyPackedBigEndianYY will be imported in runtime
+Linkinfo: _getbitsy will be imported in runtime
+Linkinfo: _MpgLayer3 will be imported in runtime
+Linkinfo: _Pow43Gt100 will be imported in runtime
+Linkinfo: _III_get_side_info_1y will be imported in runtime
+Linkinfo: _III_get_side_info_2y will be imported in runtime
+Linkinfo: _III_get_scale_factors_1y will be imported in runtime
+Linkinfo: _III_get_scale_factors_2y will be imported in runtime
+Linkinfo: _III_huffman_decode_32y will be imported in runtime
+Linkinfo: _III_check_bands_32 will be imported in runtime
+Linkinfo: _III_dequantize_32 will be imported in runtime
+Linkinfo: _III_reorder_32 will be imported in runtime
+Linkinfo: _III_i_stereo_32 will be imported in runtime
+Linkinfo: _III_hybrid_32 will be imported in runtime
+Linkinfo: _MpgSendSpectrum will be imported in runtime
+Linkinfo: _codMpgBandInfo will be imported in runtime
+Linkinfo: _pow43tab will be imported in runtime
+Linkinfo: _codMpgSlen will be imported in runtime
+Linkinfo: _codMpgPretab1 will be imported in runtime
+Linkinfo: _codMpgPretab2 will be imported in runtime
+Linkinfo: _codMpgNPow2 will be imported in runtime
+Linkinfo: _codMpgNPow1 will be imported in runtime
+Linkinfo: _pow43_2_mant will be imported in runtime
+Linkinfo: _pow43_2_exp will be imported in runtime
+Linkinfo: _pow43_4_mant will be imported in runtime
+Linkinfo: _pow43_4_exp will be imported in runtime
+Linkinfo: _Pow43 will be imported in runtime
+Linkinfo: _get1bity will be imported in runtime
+Linkinfo: _codMpgNSlen2 will be imported in runtime
+Linkinfo: _codMpgISlen2 will be imported in runtime
+Linkinfo: _codMpgHt will be imported in runtime
+Linkinfo: _III_HuffDecodePairsy will be imported in runtime
+Linkinfo: _codMpgHtc will be imported in runtime
+Linkinfo: _GetYy will be imported in runtime
+Linkinfo: _III_DequantBand will be imported in runtime
+Linkinfo: _codMpgTan1_1 will be imported in runtime
+Linkinfo: _codMpgTan2_1 will be imported in runtime
+Linkinfo: _codMpgTan1_2 will be imported in runtime
+Linkinfo: _codMpgTan2_2 will be imported in runtime
+Linkinfo: _dct36_32_linear will be imported in runtime
+Linkinfo: _III_DctSkipped will be imported in runtime
+Linkinfo: _codMpgWin will be imported in runtime
+Linkinfo: _codMpgWin1 will be imported in runtime
+Linkinfo: _dct12_32_linear will be imported in runtime
+Linkinfo: _logdb32 will be imported in runtime
+Linkinfo: _III_matrix_32 will be imported in runtime
+Linkinfo: _III_antialias_32 will be imported in runtime
+Linkinfo: _III_get_synth_32 will be imported in runtime
+Linkinfo: _SynthesisMono32_2 will be imported in runtime
+Linkinfo: _Synthesis32_2 will be imported in runtime
+Linkinfo: _codMpgAaCsca will be imported in runtime
+Linkinfo: _codMpgPowQuarter will be imported in runtime
+Linkinfo: _pow43_1_mant will be imported in runtime
+Linkinfo: _Pow43_32u will be imported in runtime
+Linkinfo: _pow43_1_exp will be imported in runtime
+Linkinfo: _codMpgDecwin16scaled will be imported in runtime
+Linkinfo: _cos12Tab will be imported in runtime
+Linkinfo: _cos36Tab will be imported in runtime
+Linkinfo: _cos64NewTab will be imported in runtime
+Linkinfo: _codMpgTab0 will be imported in runtime
+Linkinfo: _codMpgTab1 will be imported in runtime
+Linkinfo: _codMpgTab2 will be imported in runtime
+Linkinfo: _codMpgTab3 will be imported in runtime
+Linkinfo: _codMpgTab5 will be imported in runtime
+Linkinfo: _codMpgTab6 will be imported in runtime
+Linkinfo: _codMpgTab7 will be imported in runtime
+Linkinfo: _codMpgTab8 will be imported in runtime
+Linkinfo: _codMpgTab9 will be imported in runtime
+Linkinfo: _codMpgTab10 will be imported in runtime
+Linkinfo: _codMpgTab11 will be imported in runtime
+Linkinfo: _codMpgTab12 will be imported in runtime
+Linkinfo: _codMpgTab13 will be imported in runtime
+Linkinfo: _codMpgTab15 will be imported in runtime
+Linkinfo: _codMpgTab16 will be imported in runtime
+Linkinfo: _codMpgTab24 will be imported in runtime
+Linkinfo: _codMpgTab_c0 will be imported in runtime
+Linkinfo: _codMpgTab_c1 will be imported in runtime
+Linkinfo: _codMpgDct64skips2 will be imported in runtime
+Linkinfo: _dct64_32 will be imported in runtime
+Linkinfo: __divide16signed will be imported in runtime
+Linkinfo: _strstr will be imported in runtime
+Linkinfo: _strncat will be imported in runtime
+Linkinfo: _strxfrm will be imported in runtime
+Linkinfo: _strspn will be imported in runtime
+Linkinfo: _strcspn will be imported in runtime
+Linkinfo: _strcat will be imported in runtime
+Linkinfo: _strerror will be imported in runtime
+Linkinfo: _strpbrk will be imported in runtime
+Linkinfo: _memchr will be imported in runtime
+Linkinfo: _strncpyXX will be imported in runtime
+Linkinfo: _strncpyXY will be imported in runtime
+Linkinfo: _strncpyYX will be imported in runtime
+Linkinfo: _strncpyYY will be imported in runtime
+Linkinfo: _div16approx will be imported in runtime
+Linkinfo: __divide16unsigned will be imported in runtime
+Linkinfo: df_to_int will be imported in runtime
+Linkinfo: uint_to_df will be imported in runtime
+Linkinfo: df_to_uint will be imported in runtime
+Linkinfo: df_to_ushort will be imported in runtime
+Linkinfo: _memmoveXX will be imported in runtime
+Linkinfo: _logdb will be imported in runtime
+Linkinfo: _win64 will be imported in runtime
+Linkinfo: _win128 will be imported in runtime
+Linkinfo: _win256 will be imported in runtime
+Linkinfo: _win512 will be imported in runtime
+Linkinfo: _win1024 will be imported in runtime
+Linkinfo: _win2048 will be imported in runtime
+Linkinfo: _FLOOR1_fromdB_LOOKUP_i will be imported in runtime
+Linkinfo: _Swap32Words will be imported in runtime
+Linkinfo: _Swap32 will be imported in runtime
+Linkinfo: _Swap32Mix will be imported in runtime
+Linkinfo: vsstdio will be imported in runtime
+Linkinfo: _iFlist will be imported in runtime
+Linkinfo: _vo_kernel_init will be imported in runtime
+Linkinfo: _vo_ungetc will be imported in runtime
+Linkinfo: _diskSurfaceY will be imported in runtime
+Linkinfo: _VoFatNameFromDir will be imported in runtime
+Linkinfo: _ZPC will be imported in runtime
+Linkinfo: _CoarseSine will be imported in runtime
+Linkinfo: _GetDivider will be imported in runtime
+Linkinfo: _timeCountAdd will be imported in runtime
+Linkinfo: _crc_table will be imported in runtime
+Linkinfo: _crc32Tab will be imported in runtime
+Linkinfo: _appIXYStart will be imported in runtime
+
+----- MarkEntrySymbols
+Marked symbol _shell_main as needed.
+Marked symbol _main as needed.
+Marked symbol _kernel_main as needed.
+Marked symbol _mainTask as needed.
+Marked symbol _vo_kernel_init as needed.
+
+----- FindSectionSymbols..
+Section 1_CurDirFOpen can be referenced using symbol... _CurDirFOpen
+Section 2_shell_main can be referenced using symbol... _shell_main
+Section 3_bss_x can be referenced using symbol... _shellEnv
+Section 4_const_x can be referenced using symbol... s_1
+Section 5_main can be referenced using symbol... _main
+
+----- MarkEntrySections..
+Auto-referenced section 2_shell_main.
+Auto-referenced section 5_main.
+
+----- Set Relocation symbols
+
+----- Propagate references
+
+Propagating references for section 2_shell_main... 
+ - needs _vo_fopen, Found actual, it's absolute 32736 (0x7fe0); _ReadIMem, Found actual, it's imported external; _shellEnv, 
+  -> marked section 3_bss_x as needed; _CurDirFOpen, 
+  -> marked section 1_CurDirFOpen as needed; _SetHandler, Found actual, it's absolute 32715 (0x7fcb); _vo_fopen, Found actual, it's absolute 32736 (0x7fe0); _currentDirectory, Found actual, it's absolute 2254 (0x8ce); _shellEnv, s_1, 
+  -> marked section 4_const_x as needed; _shellEnv, _appFlags, Found actual, it's absolute 2255 (0x8cf); _strcpy, Found actual, it's imported external; vsosshel_2, _vo_printf, Found actual, it's imported external; yz_3, playfiles_4, _RunLibraryFunction, Found actual, it's absolute 32766 (0x7ffe); 
+Propagating references for section 3_bss_x... 
+ - needs 
+Propagating references for section 4_const_x... 
+ - needs 
+Propagating references for section 5_main... 
+ - needs _thisTask, Found actual, it's imported external; _shell_main, 
+Propagating references for section 1_CurDirFOpen... 
+ - needs _ObtainMutex, Found actual, it's imported external; _shellEnv, _currentDirectory, Found actual, it's absolute 2254 (0x8ce); _strlen, Found actual, it's imported external; _CurDirFOpen, _CurDirFOpen, _CurDirFOpen, _shellEnv, _CurDirFOpen, _shellEnv, _ReleaseMutex, Found actual, it's imported external; _strcpy, Found actual, it's imported external; _CurDirFOpen, _strncpy, Found actual, it's imported external; _currentDirectory, Found actual, it's absolute 2254 (0x8ce); _CurDirFOpen, 
+----- Remove unneeded symbols
+Removing unneeded symbol(s) _ResourceLoadHook, _ObtainHwLocksBIP, _AttemptHwLocksBIP, _ReleaseHwLocksBIP, _ioctl, _GpioSetAsPeripheral, _GpioSetAsInput, _GpioReadPinDelay, _GpioSetPin, _Forbid, _Permit, _Yield, _StartTask, _Delay, _CodMpgCreate, XXX_REMOVED_OpenStdAudioOut, XXX_REMOVED_CloseStdAudioOut, _LoadLibrary, _DropLibrary, _RenderStdButton, _CreateStdButton, _SetVirtualResolution, _GetStdButtonPress, _SetClippingRectangleToButton, _SystemUiMessage, _GetSymbolAddress, _AddSymbol, _vo_fread, _vo_fseek, _vo_fwrite, _vo_ftell, _vo_fflush, _vo_fclose, _SysError, _SysReport, _vo_StartOS, _vo_feof, _vo_ferror, _CommonOkResultFunction, _CommonErrorResultFunction, _StartFileSystem, _vo_fgetc, _vo_fgets, _vo_fputc, _vo_fputs, _vo_unget, _PrintFmt, _FatFindFirst, _FatFindNext, _GetTouchLocation, ___InitMemAlloc, _ReadTimeCount, _SetUartSpeed, _SetPower, _SetClockSpeed, _CallKernelModule, _REMOVED_SysCall, _KernelService, _InitDisplay, _LcdFilledRectangle, _LcdTextOutXY, _BiosService, _vo_max_num_files, _vo_stdin, _vo_osMemoryStart, _get_time_from_rtc_hook_ptr, _sys_report_hook_ptr, _sys_error_hook_ptr, _vo_pdevices, _vo_osMemorySize, _vo_stderr, _console, _vo_pfiles, _lastErrorMessagePtr, _vo_stdout, _lcd0, _appFile, _currentTime, _vo_filesystems, _pSysTasks, _vo_fat_allocationSizeClusters, ___nextDeviceInstance, _stdaudioin, _stdaudioout, _pColors, _pTouchInfo, _osVersion, _loadedLibs, _loadedLib, _kernelDebugLevel, _pIFlist, _appParameters, _lastResult, _modelCallbacks, _ErrorHook, _StereoCopy, _IdleHook, _SetRate, _PowerOff, _AudioPacketFromUSB, _USBHandler, _Sleep, _AudioOutputSamples, _LoadCheck, _PlayCurrentFile, _MSCPacketFromPC, _ScsiTaskHandler, _DecodeSetupPacket, _MassStorage, _USBSuspend, _InitUSBDescriptors, _SetVolume, _malloc, _mallocy, _calloc, _callocy, _realloc, _reallocy, _free, _freey, _AllocMemX, _AllocMemY, _AllocMemXY, _FreeMemX, _FreeMemY, _FreeMemXY, _ReAllocMemX, _ReAllocMemY, _ReAllocMemXY, _AllocMemAbsX, _AllocMemAbsY, _AllocMemAbsXY, _InitMemAlloc, _ScsiReset, _ScsiState, _InitClockSpeed, _SetClockSpeedLimit, _SetClockDividers, _DelayMicroSec, _ForceClockMultiplier, _GetClockMultiplier, _ResetDevice, INT_GLOB_ENA, F0B7, F0B13, F0B8, F0B6, __LINKINFO_ABS_appFlags_2255, __LINKINFO_ABS_currentDirectory_2254, __LINKINFO_IMPORT_SetHookFunction, __LINKINFO_IMPORT___ReAllocMemXY, __LINKINFO_IMPORT___AllocMemXY, __LINKINFO_IMPORTASM_MonitorIntBreak, __LINKINFO_IMPORTASM_MonitorBreak, __LINKINFO_IMPORT___FreeMemX, __LINKINFO_IMPORT___FreeMemY, __LINKINFO_IMPORTASM_MonitorPutch15, __LINKINFO_IMPORT_RealDelayMicroSec, __LINKINFO_IMPORT_intOS, __LINKINFO_IMPORT_Restart, __LINKINFO_IMPORT_memPoolX, __LINKINFO_IMPORT_memPoolY, __LINKINFO_IMPORT_SinTest, __LINKINFO_IMPORT_PinLoop, __LINKINFO_IMPORT_RealSetClockDividers, __LINKINFO_IMPORTASM_rx_int, __LINKINFO_IMPORT_memPoolI, __LINKINFO_IMPORTASM_MonitorJumpWithStack, __LINKINFO_IMPORT_RealSleep, __LINKINFO_IMPORT___mallocy, __LINKINFO_IMPORT___AllocMemAbsXY, __LINKINFO_IMPORT___FreeMemXY, __LINKINFO_IMPORT_NullHook, __LINKINFO_IMPORT_MemTest5x, __LINKINFO_IMPORTASM_yrommux0, __LINKINFO_IMPORTASM_irommux0, __LINKINFO_IMPORTASM_MonitorJumpLr1Lr0, __LINKINFO_IMPORTASM_MonitorPutch, __LINKINFO_IMPORT_TestGetByte, __LINKINFO_IMPORT_RealGetClockMultiplier, __LINKINFO_IMPORT_RealForceClockMultiplier, __LINKINFO_IMPORT___calloc, __LINKINFO_IMPORT_MemTests, __LINKINFO_IMPORT_rommain, __LINKINFO_IMPORT_SinTest6dB, __LINKINFO_IMPORTASM_MonitorPutWord, __LINKINFO_IMPORT_BusyWait1, __LINKINFO_IMPORT_resx, __LINKINFO_IMPORT__stackY, __LINKINFO_IMPORT_resy, __LINKINFO_IMPORT_OldStereoCopy, __LINKINFO_IMPORTASM_Monitor, __LINKINFO_IMPORT_RealPowerOff, __LINKINFO_IMPORT___freey, __LINKINFO_IMPORTASM_OSInit, __LINKINFO_IMPORT___free, __LINKINFO_IMPORT___AllocMemAbsX, __LINKINFO_IMPORT___AllocMemAbsY, __LINKINFO_IMPORT__stack, __LINKINFO_IMPORT___malloc, __LINKINFO_IMPORTASM_MonitorGetWord, __LINKINFO_IMPORTASM_MonitorGetch, __LINKINFO_IMPORT_RealSetClockSpeed, __LINKINFO_IMPORT_RealInitClockSpeed, __LINKINFO_IMPORT___ReAllocMemX, __LINKINFO_IMPORT___AllocMemX, __LINKINFO_IMPORT___ReAllocMemY, __LINKINFO_IMPORT___AllocMemY, __LINKINFO_IMPORT_RealAudioOutputSamples, __LINKINFO_IMPORT_RealSetRate, __LINKINFO_IMPORT_RealSetVolume, __LINKINFO_IMPORT___reallocy, __LINKINFO_IMPORT___callocy, __LINKINFO_IMPORTASM_xrommux0, __LINKINFO_IMPORTASM_MonitorGetch15, __LINKINFO_IMPORT_USBMem, __LINKINFO_IMPORT_RealSetClockSpeedLimit, __LINKINFO_IMPORT___realloc, __LINKINFO_IMPORTASM_dac_int, __LINKINFO_IMPORTASM_MonitorRestoreContext, __LINKINFO_IMPORT_BusyWait10, __LINKINFO_IMPORTASM_MonitorBpTable, __LINKINFO_IMPORTASM_MonitorGetInput, __LINKINFO_IMPORT_GetVS1005Permissions, __LINKINFO_IMPORT_InitMem, __LINKINFO_IMPORT_BootSetKey, __LINKINFO_IMPORT_BootSetKeyX, __LINKINFO_IMPORT_PlayerVolume, __LINKINFO_IMPORT_RawUartPutC, __LINKINFO_IMPORT_RawUartPrintF, __LINKINFO_IMPORT_rand_seed, __LINKINFO_IMPORT_random_state, __LINKINFO_IMPORT_player, __LINKINFO_IMPORT_ph, __LINKINFO_IMPORT_map, __LINKINFO_IMPORT_cod, __LINKINFO_IMPORT_bootrc4ks, __LINKINFO_IMPORT_bootrc4Enabled, __LINKINFO_IMPORT_xmem_startzeros, __LINKINFO_IMPORT_ff, __LINKINFO_IMPORT_fontPtrs, __LINKINFO_IMPORT_fontData, __LINKINFO_IMPORT_u16RomFont, __LINKINFO_IMPORT___InitMemAllocI, __LINKINFO_IMPORT_ReadFuseMulti, __LINKINFO_IMPORT_SpiSendReceive, __LINKINFO_IMPORT_RC4_KeySetup, __LINKINFO_IMPORT_RC4_KeySetupPacked, __LINKINFO_IMPORT_volumeReg, __LINKINFO_IMPORT_libInclude, __LINKINFO_IMPORT_uartByteSpeed, __LINKINFO_IMPORT_memcpyii, __LINKINFO_IMPORT_kernelVectorsStart, __LINKINFO_IMPORT_os_if_vars_start, __LINKINFO_IMPORT_memcpy, __LINKINFO_IMPORT_oldExtClock4KHz, __LINKINFO_IMPORT_coreVoltageOffset, __LINKINFO_IMPORT_extSymbolSearchRom, __LINKINFO_IMPORT_extSymbolElements, __LINKINFO_IMPORT_extSymbol, __LINKINFO_IMPORT_memsetY, __LINKINFO_IMPORT_memset, __LINKINFO_IMPORT_memcpyYX, __LINKINFO_IMPORT_voltages, __LINKINFO_IMPORT_PowerSetVoltages, __LINKINFO_IMPORT_applAddr, __LINKINFO_IMPORT_bassReg, __LINKINFO_IMPORT_CalcFuseCRC, __LINKINFO_IMPORT_ReadFusePriv, __LINKINFO_IMPORT_PowerSetFlash, __LINKINFO_IMPORT_SpiLoadLong, __LINKINFO_IMPORT_TEST_WriteIFlashOpenRecord, __LINKINFO_IMPORT_TEST_ClearRamAndAllowDebug, __LINKINFO_IMPORT_PowerShutDownFlash, __LINKINFO_IMPORT_TestMode, __LINKINFO_IMPORT_FsPhNandCreate, __LINKINFO_IMPORT_BootFromX, __LINKINFO_IMPORT_ReadIMem, __LINKINFO_IMPORT_InitAudio, __LINKINFO_IMPORT_TimeCountAndScheduleHandler, __LINKINFO_IMPORT_AddIntServer, __LINKINFO_IMPORT_Enable, __LINKINFO_IMPORT_neededConfiguration, __LINKINFO_IMPORT_loadLibraryMutex, __LINKINFO_IMPORT_InitMutexN, __LINKINFO_IMPORT_highestISoFar, __LINKINFO_IMPORT_InitStdButtons, __LINKINFO_IMPORT_SysUiMsgInit, __LINKINFO_IMPORT_kernel_main, __LINKINFO_IMPORT_UsbBootLoopNoReturn, __LINKINFO_IMPORT_TEST_ClearIFlash, __LINKINFO_IMPORT_TEST_ProductionTest, __LINKINFO_IMPORT_extSymbolRom, __LINKINFO_IMPORT_extSymbolRomSize, __LINKINFO_IMPORT_i_twiddle_iv, __LINKINFO_IMPORT_dctfirmodtab8, __LINKINFO_IMPORT_dctiv, __LINKINFO_IMPORT_dctii, __LINKINFO_IMPORT_costable_iv8, __LINKINFO_IMPORT_dct, __LINKINFO_IMPORT_dcttype, __LINKINFO_IMPORT_costable_ii8, __LINKINFO_IMPORT_dctfir8, __LINKINFO_IMPORT_dctivpost, __LINKINFO_IMPORT_isupper, __LINKINFO_IMPORTASM_short_to_df, __LINKINFO_IMPORT_PrintFmtAdd, __LINKINFO_IMPORTASM_df_mul, __LINKINFO_IMPORTASM_df_div, __LINKINFO_IMPORTASM_df_add, __LINKINFO_IMPORTASM_df_sub, __LINKINFO_IMPORT_strlen, __LINKINFO_IMPORT__modf, __LINKINFO_IMPORTASM_df_to_short, __LINKINFO_IMPORTASM_df_lt, __LINKINFO_IMPORTASM_df_ge, __LINKINFO_IMPORT_tolower, __LINKINFO_IMPORTASM_divide32unsigned, __LINKINFO_IMPORT_memcpyXX, __LINKINFO_IMPORT_ispunct, __LINKINFO_IMPORT_toupper, __LINKINFO_IMPORT_isgraph, __LINKINFO_IMPORT_isdigit, __LINKINFO_IMPORT_isalpha, __LINKINFO_IMPORT_isalnum, __LINKINFO_IMPORT_isxdigit, __LINKINFO_IMPORT_isspace, __LINKINFO_IMPORT_iscntrl, __LINKINFO_IMPORT_isprint, __LINKINFO_IMPORT_islower, __LINKINFO_IMPORTASM_int_to_df, __LINKINFO_IMPORTASM_df_norm, __LINKINFO_IMPORT_intStub, __LINKINFO_IMPORT_readyQueue, __LINKINFO_IMPORT_NewList, __LINKINFO_IMPORT_useQuantum, __LINKINFO_IMPORT_quantum, __LINKINFO_IMPORT_Halt, __LINKINFO_IMPORT_intVectors, __LINKINFO_IMPORT_SetSignal, __LINKINFO_IMPORT_timerQueue, __LINKINFO_IMPORT_waitQueue, __LINKINFO_IMPORT_Enqueue, __LINKINFO_IMPORT_ScheduleHandler, __LINKINFO_IMPORT_mainTask, __LINKINFO_IMPORT_AddTask, __LINKINFO_IMPORT_Disable, __LINKINFO_IMPORT_forbidCount, __LINKINFO_IMPORT_scheduleFlag, __LINKINFO_IMPORT___endStack, __LINKINFO_IMPORT___intStack, __LINKINFO_IMPORT___curStack, __LINKINFO_IMPORT_thisTask, __LINKINFO_IMPORT_Expunge, __LINKINFO_IMPORT_HandleTimers, __LINKINFO_IMPORT_SetupInterruptStackSize, __LINKINFO_IMPORT_SetupMainStackSize, __LINKINFO_IMPORTASM_CheckWait, __LINKINFO_IMPORT_Signal, __LINKINFO_IMPORTASM_IntQuickLeave, __LINKINFO_IMPORTASM_WaitAgain, __LINKINFO_IMPORT_DoSchedule, __LINKINFO_IMPORT_freetaskmem, __LINKINFO_IMPORTASM_SearchForTask, __LINKINFO_IMPORT_Wait, __LINKINFO_IMPORT_AddHead, __LINKINFO_IMPORT_xFlist, __LINKINFO_IMPORT_HeadNode, __LINKINFO_IMPORT_NextNode, __LINKINFO_IMPORT_RemNode, __LINKINFO_IMPORT_AddAfter, __LINKINFO_IMPORT_AddBefore, __LINKINFO_IMPORT_AddTail, __LINKINFO_IMPORT_HeadNodeY, __LINKINFO_IMPORT_yFlist, __LINKINFO_IMPORT_NextNodeY, __LINKINFO_IMPORT_RemNodeY, __LINKINFO_IMPORT_AddAfterY, __LINKINFO_IMPORT_memcpyYY, __LINKINFO_IMPORT_AddBeforeY, __LINKINFO_IMPORT_AddTailY, __LINKINFO_IMPORT_sysMemory_xs, __LINKINFO_IMPORT_sysMemory_ys, __LINKINFO_IMPORT_NewListY, __LINKINFO_IMPORT_AddHeadY, __LINKINFO_IMPORT___AllocMemI, __LINKINFO_IMPORT___AllocMemAbsI, __LINKINFO_IMPORT___FreeMemI, __LINKINFO_IMPORT_sysMemory_is, __LINKINFO_IMPORT_NewListI, __LINKINFO_IMPORT_SetSizeNodeI, __LINKINFO_IMPORT_AddHeadI, __LINKINFO_IMPORT_HeadNodeI, __LINKINFO_IMPORT_GetSizeNodeI, __LINKINFO_IMPORT_RemNodeI, __LINKINFO_IMPORT_NextNodeI, __LINKINFO_IMPORT_AddAfterI, __LINKINFO_IMPORT_AddBeforeI, __LINKINFO_IMPORT_AddTailI, __LINKINFO_IMPORT_AddTimer, __LINKINFO_IMPORT_RemoveTimer, __LINKINFO_IMPORT_InitTimer, __LINKINFO_IMPORT_StartTimer, __LINKINFO_IMPORT_StopTimer, __LINKINFO_IMPORT_TailNode, __LINKINFO_IMPORT_RemHead, __LINKINFO_IMPORT_Remove, __LINKINFO_IMPORT_PrevNode, __LINKINFO_IMPORT_RemTail, __LINKINFO_IMPORT_SetTaskPri, __LINKINFO_IMPORT_FindTask, __LINKINFO_IMPORT_RemoveY, __LINKINFO_IMPORT_RemTailY, __LINKINFO_IMPORT_PrevNodeY, __LINKINFO_IMPORT_TailNodeY, __LINKINFO_IMPORT_RemHeadY, __LINKINFO_IMPORT_EnqueueY, __LINKINFO_IMPORT_PrevNodeI, __LINKINFO_IMPORT_TailNodeI, __LINKINFO_IMPORT_RemHeadI, __LINKINFO_IMPORT_RemoveI, __LINKINFO_IMPORT_RemTailI, __LINKINFO_IMPORT_WriteIMem16, __LINKINFO_IMPORT_WriteIMem, __LINKINFO_IMPORT_WriteIMem16Swapped, __LINKINFO_IMPORT_WriteIMemSwapped, __LINKINFO_IMPORT_getword, __LINKINFO_IMPORT_putch, __LINKINFO_IMPORT_getch, __LINKINFO_IMPORT_putword, __LINKINFO_IMPORT_Monitor, __LINKINFO_IMPORT_audioBuffer, __LINKINFO_IMPORT_DB12, __LINKINFO_IMPORT_timeCount, __LINKINFO_IMPORT_AudioBufFree, __LINKINFO_IMPORTASM_divide16signed, __LINKINFO_IMPORT_AudioBufFill, __LINKINFO_IMPORT_audioPtr, __LINKINFO_IMPORT_dB, __LINKINFO_IMPORT_ISine, __LINKINFO_IMPORT_SinTestCore, __LINKINFO_IMPORT_OldSinTest, __LINKINFO_IMPORT_UpdateMp3Crc, __LINKINFO_IMPORT_mp3CrcTable, __LINKINFO_IMPORT_shortSin1k, __LINKINFO_IMPORT_tmpBuf, __LINKINFO_IMPORT_oldClockX, __LINKINFO_IMPORT_OldSetRate, __LINKINFO_IMPORT_timeToRemovePDown2, __LINKINFO_IMPORT_MuxTest, __LINKINFO_IMPORT_YRomTest, __LINKINFO_IMPORT_XRomTest, __LINKINFO_IMPORT_IRomTest, __LINKINFO_IMPORT_YRamTest, __LINKINFO_IMPORT_XRamTest, __LINKINFO_IMPORT_IRamTest, __LINKINFO_IMPORT_UartDivider, __LINKINFO_IMPORT_oldOldClock4KHz, __LINKINFO_IMPORT_curFctl, __LINKINFO_IMPORT_hwSampleRate, __LINKINFO_IMPORT_uiTime, __LINKINFO_IMPORT_uiTrigger, __LINKINFO_IMPORT_haltTime, __LINKINFO_IMPORT_bassOn, __LINKINFO_IMPORT_trebleOn, __LINKINFO_IMPORT_uiCount, __LINKINFO_IMPORT_bassTrebleSampleRate, __LINKINFO_IMPORT_bassTrebleReg, __LINKINFO_IMPORT_uartDivs, __LINKINFO_IMPORT_z, __LINKINFO_IMPORT_clockSpeed, __LINKINFO_IMPORTASM_fr_div32, __LINKINFO_IMPORTASM_shiftMultipliers, __LINKINFO_IMPORT_SetBass, __LINKINFO_IMPORT_SetTreble, __LINKINFO_IMPORT_Bass, __LINKINFO_IMPORT_Treble, __LINKINFO_IMPORT_PowerMillivoltsToReg, __LINKINFO_IMPORT_PowerRegToMillivolts, __LINKINFO_IMPORT_powerConvTab, __LINKINFO_IMPORT_CheckRFLock, __LINKINFO_IMPORT_FindVCOLock, __LINKINFO_IMPORT_CalcClockSpeed, __LINKINFO_IMPORT_BusyDelay4x, __LINKINFO_IMPORT_PrivSpiSendReceive, __LINKINFO_IMPORTASM_up_GetValue, __LINKINFO_IMPORTASM_literal, __LINKINFO_IMPORTASM_spiexec, __LINKINFO_IMPORTASM_newesc, __LINKINFO_IMPORTASM_long, __LINKINFO_IMPORTASM_GetPutChIH, __LINKINFO_IMPORT_RC4_Output, __LINKINFO_IMPORTASM_up_GetBits, __LINKINFO_IMPORTASM_Lwhile, __LINKINFO_IMPORT_SpiLoad, __LINKINFO_IMPORT_SpiDelay, __LINKINFO_IMPORTASM_lz77, __LINKINFO_IMPORT_SpiReceiveWord, __LINKINFO_IMPORTASM_up_GetByte, __LINKINFO_IMPORTASM_GetPutChI, __LINKINFO_IMPORTASM_UnPack, __LINKINFO_IMPORTASM_spiy, __LINKINFO_IMPORTASM_GetPutChX, __LINKINFO_IMPORTASM_GetPutChY, __LINKINFO_IMPORT_vo_files, __LINKINFO_IMPORT_consoleFile, __LINKINFO_IMPORT_vo_get_time_from_rtc_hook, __LINKINFO_IMPORT_FatFileSystem, __LINKINFO_IMPORT_AutoVoidNull, __LINKINFO_IMPORT_encVFloorInv, __LINKINFO_IMPORT_EncMInitDct, __LINKINFO_IMPORT_winPtr, __LINKINFO_IMPORT_hcb_sf, __LINKINFO_IMPORT_EncMHuff4, __LINKINFO_IMPORT_lpcsin, __LINKINFO_IMPORT_evAudioMode, __LINKINFO_IMPORT_strncmp, __LINKINFO_IMPORT_ISqrt, __LINKINFO_IMPORT_srandom, __LINKINFO_IMPORT_random, __LINKINFO_IMPORT_LongLog2, __LINKINFO_IMPORT_font16aptrs, __LINKINFO_IMPORT_rand, __LINKINFO_IMPORT_FileParamSeek, __LINKINFO_IMPORT_memcpyXY, __LINKINFO_IMPORTASM_divide32signed, __LINKINFO_IMPORTASM_divide16unsigned, __LINKINFO_IMPORT_HuffmanMask, __LINKINFO_IMPORT_srand, __LINKINFO_IMPORT_memcmp, __LINKINFO_IMPORT_SymbolCalcCrc32String, __LINKINFO_IMPORT_SymbolCrunchStringCalcCrc32, __LINKINFO_IMPORT_SymbolFindByCrc, __LINKINFO_IMPORT_SymbolFindRomByCrc, __LINKINFO_IMPORT_SymbolDelete, __LINKINFO_IMPORT_SymbolDeleteLib, __LINKINFO_IMPORT_encVOggCrc, __LINKINFO_IMPORT_crc6ToChar, __LINKINFO_IMPORT_strncpy, __LINKINFO_IMPORT_Sine32I, __LINKINFO_IMPORT_SpiWaitStatus, __LINKINFO_IMPORT_TEST_TestMemories, __LINKINFO_IMPORT_memseti, __LINKINFO_IMPORT_XpFifoRead, __LINKINFO_IMPORT_XpFifoWrite, __LINKINFO_IMPORT_NandGetOctets, __LINKINFO_IMPORT_NandPutOctets, __LINKINFO_IMPORT_NandPutBlockAddress, __LINKINFO_IMPORT_NandPutDataAddress, __LINKINFO_IMPORT_NandPutLargePageSpareAddress, __LINKINFO_IMPORT_NandGetStatus, __LINKINFO_IMPORT_LargePageWrite, __LINKINFO_IMPORT_LargePageRead, __LINKINFO_IMPORT_NandPutPage, __LINKINFO_IMPORT_FsPhNandRead, __LINKINFO_IMPORT_FsPhNandWrite, __LINKINFO_IMPORT_FsPhNandErase, __LINKINFO_IMPORT_fsNandPhys, __LINKINFO_IMPORT_NandWaitIdle, __LINKINFO_IMPORT_NandPutAddressOctet, __LINKINFO_IMPORT_NandPutCommand, __LINKINFO_IMPORT_NandSetWaits, __LINKINFO_IMPORT_Swap16, __LINKINFO_IMPORT_CountBitsLong, __LINKINFO_IMPORT_NandMingle, __LINKINFO_IMPORT_FsPhNullOk, __LINKINFO_IMPORT_DevNullWrite, __LINKINFO_IMPORT_MyDelayHook, __LINKINFO_IMPORT_SetNextApp, __LINKINFO_IMPORT_Init0, __LINKINFO_IMPORT_PrintTasks, __LINKINFO_IMPORT_PrintInt, __LINKINFO_IMPORT_LoadDrivers, __LINKINFO_IMPORT_audioDevice, __LINKINFO_IMPORT_sysTasks, __LINKINFO_IMPORT_romSysTasks, __LINKINFO_IMPORT_vo_fprintf, __LINKINFO_IMPORT_strcpy, __LINKINFO_IMPORT_GetI6, __LINKINFO_IMPORT_InitHwLocks, __LINKINFO_IMPORT_CreateTask, __LINKINFO_IMPORT_ReadFromProgramRam, __LINKINFO_IMPORT_strchr, __LINKINFO_IMPORT_LoadLibraryP, __LINKINFO_IMPORT_CreateCyclic, __LINKINFO_IMPORT_InitBoard, __LINKINFO_IMPORT_StartOS3, __LINKINFO_IMPORT_audioout, __LINKINFO_IMPORT_sysUiMsg, __LINKINFO_IMPORT_AddCyclic, __LINKINFO_IMPORT_RunAppFile3, __LINKINFO_IMPORT_vo_printf, __LINKINFO_IMPORT_DelayL, __LINKINFO_IMPORT_NextResource, __LINKINFO_IMPORT_ResGet16, __LINKINFO_IMPORT_ResGet32, __LINKINFO_IMPORT_RemoveLibFromList, __LINKINFO_IMPORT_LoadLibraryFile, __LINKINFO_IMPORT_sprintf, __LINKINFO_IMPORT_ObtainMutex, __LINKINFO_IMPORT_ReleaseMutex, __LINKINFO_IMPORT_WriteToProgramRam, __LINKINFO_IMPORT_GetMemory, __LINKINFO_IMPORT_WriteToProgramRam16Swapped, __LINKINFO_IMPORT_AttemptMutex, __LINKINFO_IMPORT_StdButtonDefaultRender, __LINKINFO_IMPORT_lastButtonPressed, __LINKINFO_IMPORT_virtualWidth, __LINKINFO_IMPORT_virtualHeight, __LINKINFO_IMPORT_SetStdAudioOutVolume, __LINKINFO_IMPORT_SystemUiMessageCyclic, __LINKINFO_IMPORT_SystemUiMessageReceiver, __LINKINFO_IMPORT_romSysUiMsg, __LINKINFO_IMPORT_sysUiMsgFilterValues, __LINKINFO_IMPORT_SetAddress, __LINKINFO_IMPORT_ResetDataToggles, __LINKINFO_IMPORT_ResetUsbHardware, __LINKINFO_IMPORT_GetUsbPacket, __LINKINFO_IMPORT_HandlePacket, __LINKINFO_IMPORT_UsbSender, __LINKINFO_IMPORT_usp, __LINKINFO_IMPORT_usbsender, __LINKINFO_IMPORT_usb_xmit_bufptr, __LINKINFO_IMPORT_tenzeros, __LINKINFO_IMPORT_setAddress, __LINKINFO_IMPORT_resetDataToggles, __LINKINFO_IMPORT_deviceDescriptor, __LINKINFO_IMPORT_configurationDescriptor, __LINKINFO_IMPORT_languageDescriptor, __LINKINFO_IMPORT_vendorStringDescriptor, __LINKINFO_IMPORT_productStringDescriptor, __LINKINFO_IMPORT_serialNumberDescriptor, __LINKINFO_IMPORT_chapter9, __LINKINFO_IMPORT_inquiry1, __LINKINFO_IMPORT_sense, __LINKINFO_IMPORT_capacity, __LINKINFO_IMPORT_atapiCapacities, __LINKINFO_IMPORT_diskData, __LINKINFO_IMPORT_csw1, __LINKINFO_IMPORT_scsi, __LINKINFO_IMPORT_diskData0Y, __LINKINFO_IMPORT_diskData1Y, __LINKINFO_IMPORT_diskData2Y, __LINKINFO_IMPORT_diskData3Y, __LINKINFO_IMPORT_diskInitTab, __LINKINFO_IMPORT_usbHwInitTab, __LINKINFO_IMPORT_csw, __LINKINFO_IMPORT_RingBufCopyXfromY, __LINKINFO_IMPORT_ConsoleWrite, __LINKINFO_IMPORT_ConsoleFileOperations, __LINKINFO_IMPORT_ConsoleIoctl, __LINKINFO_IMPORT_NullFileIdentify, __LINKINFO_IMPORT_Identify, __LINKINFO_IMPORT_FreeBuffer, __LINKINFO_IMPORT_GetBuffer, __LINKINFO_IMPORT_MakeFileDescriptor, __LINKINFO_IMPORT_BusyWait, __LINKINFO_IMPORT_RemovedInterface, __LINKINFO_IMPORT_vs3emubreak, __LINKINFO_IMPORT_fopen_retries, __LINKINFO_IMPORT_fopenclose_mutex, __LINKINFO_IMPORT_fclose_gettime_mutex, __LINKINFO_IMPORT_vo_simple_files, __LINKINFO_IMPORT_sbsP, __LINKINFO_IMPORT_nSectorBuffers, __LINKINFO_IMPORT_nullFileOperations, __LINKINFO_IMPORT_nullFile, __LINKINFO_IMPORT_FatImageWriteBytes, __LINKINFO_IMPORT_FatFlush, __LINKINFO_IMPORT_FatImageSectorRead, __LINKINFO_IMPORT_MegaFatGetByte, __LINKINFO_IMPORT_MegaFatGetWord, __LINKINFO_IMPORT_MegaFatGetLong, __LINKINFO_IMPORT_FatCreate, __LINKINFO_IMPORT_FatGetFragmentFromFAT, __LINKINFO_IMPORT_VoFatClusterPos, __LINKINFO_IMPORT_VoFatReadClusterRecord, __LINKINFO_IMPORT_VoFatWriteClusterRecord, __LINKINFO_IMPORT_VoFatGetFreeFragment, __LINKINFO_IMPORT_WriteClusterChain, __LINKINFO_IMPORT_VoFatFindSector, __LINKINFO_IMPORT_VoFatWriteFile, __LINKINFO_IMPORT_VoFatCloseFile, __LINKINFO_IMPORT_VoFatReadFile, __LINKINFO_IMPORT_FatNameFromDirEntry, __LINKINFO_IMPORT_FatOpenEntry, __LINKINFO_IMPORT_FatExtendDirectory, __LINKINFO_IMPORT_FatMakeEntry, __LINKINFO_IMPORT_FileNameCompare, __LINKINFO_IMPORT_FatFindFile, __LINKINFO_IMPORT_VoFatOpenFile, __LINKINFO_IMPORT_IdentifyFat, __LINKINFO_IMPORT_FatFileOps, __LINKINFO_IMPORT_longFileName, __LINKINFO_IMPORT_lfnStartCluster, __LINKINFO_IMPORT_MemCopyPackedBigEndian, __LINKINFO_IMPORT_strncasecmp, __LINKINFO_IMPORT_atoi, __LINKINFO_IMPORT_filtPairs, __LINKINFO_IMPORT_bassCompand, __LINKINFO_IMPORT_bTrebleGain, __LINKINFO_IMPORT_bassG, __LINKINFO_IMPORT_btmp, __LINKINFO_IMPORT_bassCompandMaxGain, __LINKINFO_IMPORT_trebleCoeff, __LINKINFO_IMPORT_trebleFreqs, __LINKINFO_IMPORT_trebleEmph, __LINKINFO_IMPORT_lowEmph, __LINKINFO_IMPORT_trebleIdx, __LINKINFO_IMPORT_trebleFiltP, __LINKINFO_IMPORT_trShift, __LINKINFO_IMPORTASM_fr_div, __LINKINFO_IMPORT_trebleFilt, __LINKINFO_IMPORT_trebleCoeffRam, __LINKINFO_IMPORT_QueueHwLock, __LINKINFO_IMPORT_ReleaseHwLock, __LINKINFO_IMPORT_hwLocks, __LINKINFO_IMPORT_hwLockOffset, __LINKINFO_IMPORT_hwLockN, __LINKINFO_IMPORT_MSBSetU32, __LINKINFO_IMPORT_GpioReadInputPin, __LINKINFO_IMPORT_vo_gpio_perips, __LINKINFO_IMPORT_WritePCL, __LINKINFO_IMPORT_ResetSdCard, __LINKINFO_IMPORT_SetPWMLevel, __LINKINFO_IMPORT_powerControlLatchState, __LINKINFO_IMPORT_HuffmanRLC44ODiff, __LINKINFO_IMPORT_HuffmanRLC16Mono, __LINKINFO_IMPORT_kbd_win_128, __LINKINFO_IMPORT_hcb_1, __LINKINFO_IMPORT_hcb_2, __LINKINFO_IMPORT_hcb_3, __LINKINFO_IMPORT_hcb_4, __LINKINFO_IMPORT_hcb_5, __LINKINFO_IMPORT_hcb_6, __LINKINFO_IMPORT_hcb_7, __LINKINFO_IMPORT_hcb_8, __LINKINFO_IMPORT_hcb_9, __LINKINFO_IMPORT_hcb_10, __LINKINFO_IMPORT_hcb_11, __LINKINFO_IMPORT_phiFractQmf_cs, __LINKINFO_IMPORT_phiFractSubQmf20_cs, __LINKINFO_IMPORT_phiFractSubQmf34_cs, __LINKINFO_IMPORT_num_swb_960_window, __LINKINFO_IMPORT_num_swb_1024_window, __LINKINFO_IMPORT_num_swb_128_window, __LINKINFO_IMPORT_swb_offset_1024_96, __LINKINFO_IMPORT_swb_offset_128_96, __LINKINFO_IMPORT_swb_offset_1024_64, __LINKINFO_IMPORT_swb_offset_1024_48, __LINKINFO_IMPORT_swb_offset_128_48, __LINKINFO_IMPORT_swb_offset_1024_32, __LINKINFO_IMPORT_swb_offset_1024_24, __LINKINFO_IMPORT_swb_offset_128_24, __LINKINFO_IMPORT_swb_offset_1024_16, __LINKINFO_IMPORT_swb_offset_128_16, __LINKINFO_IMPORT_swb_offset_1024_8, __LINKINFO_IMPORT_swb_offset_128_8, __LINKINFO_IMPORT_swb_offset_1024_window, __LINKINFO_IMPORT_swb_offset_128_window, __LINKINFO_IMPORT_swb_offset_120_96, __LINKINFO_IMPORT_swb_offset_960_48, __LINKINFO_IMPORT_swb_offset_120_48, __LINKINFO_IMPORT_swb_offset_120_24, __LINKINFO_IMPORT_swb_offset_120_16, __LINKINFO_IMPORT_swb_offset_960_8, __LINKINFO_IMPORT_swb_offset_120_8, __LINKINFO_IMPORT_swb_offset_960_window, __LINKINFO_IMPORT_swb_offset_120_window, __LINKINFO_IMPORT_iq_tablei_x, __LINKINFO_IMPORT_NoiseRe, __LINKINFO_IMPORT_NoiseIm, __LINKINFO_IMPORT_hxx_mix_ab32, __LINKINFO_IMPORT_qFractAllpassQmf_cs, __LINKINFO_IMPORT_qFractAllpassSubQmf20_cs, __LINKINFO_IMPORT_qFractAllpassSubQmf34_cs, __LINKINFO_IMPORT_bitReverse, __LINKINFO_IMPORT_latin1, __LINKINFO_IMPORT_font16a, __LINKINFO_IMPORT_FileParamInt, __LINKINFO_IMPORT_FileParamStr, __LINKINFO_IMPORT_strtol, __LINKINFO_IMPORT_strrchr, __LINKINFO_IMPORT_TEST_GetSineAdder, __LINKINFO_IMPORT_CompareXY, __LINKINFO_IMPORT_CopyXY, __LINKINFO_IMPORT_FsPhNullFail, __LINKINFO_IMPORT_WriteToProgramRam16, __LINKINFO_IMPORT_WriteToProgramRamSwapped, __LINKINFO_IMPORT_CyclicMainLoop, __LINKINFO_IMPORT_SetInCyclicQueue, __LINKINFO_IMPORT_DropCyclic, __LINKINFO_IMPORT_cyclic, __LINKINFO_IMPORT_CreateTaskAndStack, __LINKINFO_IMPORT_ListDevices, __LINKINFO_IMPORT_devSdSd, __LINKINFO_IMPORTASM_ushort_to_df, __LINKINFO_IMPORT_DevSdSdCreate, __LINKINFO_IMPORT_AudioIoctl, __LINKINFO_IMPORT_AudioWrite, __LINKINFO_IMPORT_AudioFileOperations, __LINKINFO_IMPORT_voAudioChannels, __LINKINFO_IMPORT_xp_fiford, __LINKINFO_IMPORT_xp_fifowr, __LINKINFO_IMPORT_SDClock32, __LINKINFO_IMPORT_SDDataRXTX, __LINKINFO_IMPORT_SDDataRX1, __LINKINFO_IMPORT_DevSdSdDelete, __LINKINFO_IMPORT_DevSdSdIdentify, __LINKINFO_IMPORT_DataStop, __LINKINFO_IMPORT_DevSdSdBlockRead, __LINKINFO_IMPORT_DevSdSdBlockWrite, __LINKINFO_IMPORT_DevSdSdIoctl, __LINKINFO_IMPORT_devSdSdDefaults, __LINKINFO_IMPORT_devSdSdDefaults1Bit, __LINKINFO_IMPORT_XP_FifoRd8, __LINKINFO_IMPORT_XP_FifoWr8, __LINKINFO_IMPORT_WaitSdReady, __LINKINFO_IMPORT_SDCmd, __LINKINFO_IMPORT_IoctlRestart, __LINKINFO_IMPORT_DetectSDCard, __LINKINFO_IMPORT_IDSDCard, __LINKINFO_IMPORT_SetupSDData, __LINKINFO_IMPORT_SdIdentify, __LINKINFO_IMPORT_EncMCountHuff2, __LINKINFO_IMPORT_EncMCountHuff4, __LINKINFO_IMPORT_EncMHuff2N, __LINKINFO_IMPORT_EncMCountHuff2Asm, __LINKINFO_IMPORT_EncMOutBits32, __LINKINFO_IMPORT_EncMOutBits16, __LINKINFO_IMPORT_EncMOutBit, __LINKINFO_IMPORT_EncMDct18, __LINKINFO_IMPORT_EncMDct18Asm, __LINKINFO_IMPORT_EncMInitBits, __LINKINFO_IMPORT_EncMAlignBitsToByte, __LINKINFO_IMPORT_EncMGetBitPtr, __LINKINFO_IMPORT_EncMInsertBit, __LINKINFO_IMPORT_EncMInsertBits, __LINKINFO_IMPORT_EncMSetBitBytePtr, __LINKINFO_IMPORT_EncMMoveBitBytes, __LINKINFO_IMPORT_EncMWriteBitBytes, __LINKINFO_IMPORT_encMBitMasks, __LINKINFO_IMPORT_memmove, __LINKINFO_IMPORT_encMCos32, __LINKINFO_IMPORT_encMDct18, __LINKINFO_IMPORT_EncMDct32, __LINKINFO_IMPORT_huffEnc2, __LINKINFO_IMPORT_encMHuff2BitsAndCode00, __LINKINFO_IMPORT_encMHuff2BitsAndCode01, __LINKINFO_IMPORT_encMHuff2BitsAndCode02, __LINKINFO_IMPORT_encMHuff2BitsAndCode03, __LINKINFO_IMPORT_encMHuff2BitsAndCode04, __LINKINFO_IMPORT_encMHuff2BitsAndCode05, __LINKINFO_IMPORT_encMHuff2BitsAndCode06, __LINKINFO_IMPORT_encMHuff2BitsAndCode07, __LINKINFO_IMPORT_encMHuff2BitsAndCode08, __LINKINFO_IMPORT_encMHuff2BitsAndCode09, __LINKINFO_IMPORT_encMHuff2BitsAndCode10, __LINKINFO_IMPORT_encMHuff2BitsAndCode11, __LINKINFO_IMPORT_encMHuff2BitsAndCode12, __LINKINFO_IMPORT_encMHuff2BitsAndCode13, __LINKINFO_IMPORT_encMHuff2BitsAndCode14, __LINKINFO_IMPORT_encMWinCoeffI, __LINKINFO_IMPORT_encMHybridWinFuncI, __LINKINFO_IMPORT_encMPow34, __LINKINFO_IMPORT_encMButrCSCAI, __LINKINFO_IMPORT_encDiv256, __LINKINFO_IMPORT_encVOnePer, __LINKINFO_IMPORT_encVDbRatio, __LINKINFO_IMPORT_evBands08k_64, __LINKINFO_IMPORT_evMean08k_64, __LINKINFO_IMPORT_evBands08k_256, __LINKINFO_IMPORT_evMean08k_256, __LINKINFO_IMPORT_evBands16k_128, __LINKINFO_IMPORT_evMean16k_128, __LINKINFO_IMPORT_evBands16k_512, __LINKINFO_IMPORT_evMean16k_512, __LINKINFO_IMPORT_evBands32k_128, __LINKINFO_IMPORT_evMean32k_128, __LINKINFO_IMPORT_evBands32k_1024, __LINKINFO_IMPORT_evMean32k_1024, __LINKINFO_IMPORT_evBands44k_128, __LINKINFO_IMPORT_evMean44k_128, __LINKINFO_IMPORT_evBands44k_1024, __LINKINFO_IMPORT_evMean44k_1024, __LINKINFO_IMPORT_evBands48k_256, __LINKINFO_IMPORT_evMean48k_256, __LINKINFO_IMPORT_evBands48k_1024, __LINKINFO_IMPORT_evMean48k_1024, __LINKINFO_IMPORT_EncVSampleClear, __LINKINFO_IMPORT_EncVShiftUpAndCopyToSamp, __LINKINFO_IMPORT_MemCpySampleT, __LINKINFO_IMPORT_CodMpgDelete, __LINKINFO_IMPORT_CodMpgDecode, __LINKINFO_IMPORT_InitCommon, __LINKINFO_IMPORT_CodMpgInitReadFrame, __LINKINFO_IMPORT_CodMpgReadFrame, __LINKINFO_IMPORT_CodMpgPlayFrame, __LINKINFO_IMPORT_CalcCrc, __LINKINFO_IMPORT_rewindbitsy, __LINKINFO_IMPORT_mpeg_crc_table, __LINKINFO_IMPORT_InitLayer3, __LINKINFO_IMPORT_DecodeHeader, __LINKINFO_IMPORT_mymem16cpy, __LINKINFO_IMPORT_CodMpgSetPointer, __LINKINFO_IMPORT_codMpgFreqs, __LINKINFO_IMPORT_codMpgTabsel_123, __LINKINFO_IMPORT_MemCopyPackedBigEndianYY, __LINKINFO_IMPORT_getbitsy, __LINKINFO_IMPORT_MpgLayer3, __LINKINFO_IMPORT_Pow43Gt100, __LINKINFO_IMPORT_III_get_side_info_1y, __LINKINFO_IMPORT_III_get_side_info_2y, __LINKINFO_IMPORT_III_get_scale_factors_1y, __LINKINFO_IMPORT_III_get_scale_factors_2y, __LINKINFO_IMPORT_III_huffman_decode_32y, __LINKINFO_IMPORT_III_check_bands_32, __LINKINFO_IMPORT_III_dequantize_32, __LINKINFO_IMPORT_III_reorder_32, __LINKINFO_IMPORT_III_i_stereo_32, __LINKINFO_IMPORT_III_hybrid_32, __LINKINFO_IMPORT_MpgSendSpectrum, __LINKINFO_IMPORT_codMpgBandInfo, __LINKINFO_IMPORT_pow43tab, __LINKINFO_IMPORT_codMpgSlen, __LINKINFO_IMPORT_codMpgPretab1, __LINKINFO_IMPORT_codMpgPretab2, __LINKINFO_IMPORT_codMpgNPow2, __LINKINFO_IMPORT_codMpgNPow1, __LINKINFO_IMPORT_pow43_2_mant, __LINKINFO_IMPORT_pow43_2_exp, __LINKINFO_IMPORT_pow43_4_mant, __LINKINFO_IMPORT_pow43_4_exp, __LINKINFO_IMPORT_Pow43, __LINKINFO_IMPORT_get1bity, __LINKINFO_IMPORT_codMpgNSlen2, __LINKINFO_IMPORT_codMpgISlen2, __LINKINFO_IMPORT_codMpgHt, __LINKINFO_IMPORT_III_HuffDecodePairsy, __LINKINFO_IMPORT_codMpgHtc, __LINKINFO_IMPORT_GetYy, __LINKINFO_IMPORT_III_DequantBand, __LINKINFO_IMPORT_codMpgTan1_1, __LINKINFO_IMPORT_codMpgTan2_1, __LINKINFO_IMPORT_codMpgTan1_2, __LINKINFO_IMPORT_codMpgTan2_2, __LINKINFO_IMPORT_dct36_32_linear, __LINKINFO_IMPORT_III_DctSkipped, __LINKINFO_IMPORT_codMpgWin, __LINKINFO_IMPORT_codMpgWin1, __LINKINFO_IMPORT_dct12_32_linear, __LINKINFO_IMPORT_logdb32, __LINKINFO_IMPORT_III_matrix_32, __LINKINFO_IMPORT_III_antialias_32, __LINKINFO_IMPORT_III_get_synth_32, __LINKINFO_IMPORT_SynthesisMono32_2, __LINKINFO_IMPORT_Synthesis32_2, __LINKINFO_IMPORT_codMpgAaCsca, __LINKINFO_IMPORT_codMpgPowQuarter, __LINKINFO_IMPORT_pow43_1_mant, __LINKINFO_IMPORT_Pow43_32u, __LINKINFO_IMPORT_pow43_1_exp, __LINKINFO_IMPORT_codMpgDecwin16scaled, __LINKINFO_IMPORT_cos12Tab, __LINKINFO_IMPORT_cos36Tab, __LINKINFO_IMPORT_cos64NewTab, __LINKINFO_IMPORT_codMpgTab0, __LINKINFO_IMPORT_codMpgTab1, __LINKINFO_IMPORT_codMpgTab2, __LINKINFO_IMPORT_codMpgTab3, __LINKINFO_IMPORT_codMpgTab5, __LINKINFO_IMPORT_codMpgTab6, __LINKINFO_IMPORT_codMpgTab7, __LINKINFO_IMPORT_codMpgTab8, __LINKINFO_IMPORT_codMpgTab9, __LINKINFO_IMPORT_codMpgTab10, __LINKINFO_IMPORT_codMpgTab11, __LINKINFO_IMPORT_codMpgTab12, __LINKINFO_IMPORT_codMpgTab13, __LINKINFO_IMPORT_codMpgTab15, __LINKINFO_IMPORT_codMpgTab16, __LINKINFO_IMPORT_codMpgTab24, __LINKINFO_IMPORT_codMpgTab_c0, __LINKINFO_IMPORT_codMpgTab_c1, __LINKINFO_IMPORT_codMpgDct64skips2, __LINKINFO_IMPORT_dct64_32, __LINKINFO_IMPORT__divide16signed, __LINKINFO_IMPORT_strstr, __LINKINFO_IMPORT_strncat, __LINKINFO_IMPORT_strxfrm, __LINKINFO_IMPORT_strspn, __LINKINFO_IMPORT_strcspn, __LINKINFO_IMPORT_strcat, __LINKINFO_IMPORT_strerror, __LINKINFO_IMPORT_strpbrk, __LINKINFO_IMPORT_memchr, __LINKINFO_IMPORT_strncpyXX, __LINKINFO_IMPORT_strncpyXY, __LINKINFO_IMPORT_strncpyYX, __LINKINFO_IMPORT_strncpyYY, __LINKINFO_IMPORT_div16approx, __LINKINFO_IMPORT__divide16unsigned, __LINKINFO_IMPORTASM_df_to_int, __LINKINFO_IMPORTASM_uint_to_df, __LINKINFO_IMPORTASM_df_to_uint, __LINKINFO_IMPORTASM_df_to_ushort, __LINKINFO_IMPORT_memmoveXX, __LINKINFO_IMPORT_logdb, __LINKINFO_IMPORT_win64, __LINKINFO_IMPORT_win128, __LINKINFO_IMPORT_win256, __LINKINFO_IMPORT_win512, __LINKINFO_IMPORT_win1024, __LINKINFO_IMPORT_win2048, __LINKINFO_IMPORT_FLOOR1_fromdB_LOOKUP_i, __LINKINFO_IMPORT_Swap32Words, __LINKINFO_IMPORT_Swap32, __LINKINFO_IMPORT_Swap32Mix, __LINKINFO_IMPORTASM_vsstdio, __LINKINFO_IMPORT_iFlist, __LINKINFO_IMPORT_vo_kernel_init, __LINKINFO_IMPORT_vo_ungetc, __LINKINFO_IMPORT_diskSurfaceY, __LINKINFO_IMPORT_VoFatNameFromDir, __LINKINFO_IMPORT_ZPC, __LINKINFO_IMPORT_CoarseSine, __LINKINFO_IMPORT_GetDivider, __LINKINFO_IMPORT_timeCountAdd, __LINKINFO_IMPORT_crc_table, __LINKINFO_IMPORT_crc32Tab, __LINKINFO_IMPORT_appIXYStart, _SetHookFunction, ___ReAllocMemXY, ___AllocMemXY, MonitorIntBreak, MonitorBreak, ___FreeMemX, ___FreeMemY, MonitorPutch15, _RealDelayMicroSec, _intOS, _Restart, _memPoolX, _memPoolY, _SinTest, _PinLoop, _RealSetClockDividers, rx_int, _memPoolI, MonitorJumpWithStack, _RealSleep, ___mallocy, ___AllocMemAbsXY, ___FreeMemXY, _NullHook, _MemTest5x, yrommux0, irommux0, MonitorJumpLr1Lr0, MonitorPutch, _TestGetByte, _RealGetClockMultiplier, _RealForceClockMultiplier, ___calloc, _MemTests, _rommain, _SinTest6dB, MonitorPutWord, _BusyWait1, _resx, __stackY, _resy, _OldStereoCopy, Monitor, _RealPowerOff, ___freey, OSInit, ___free, ___AllocMemAbsX, ___AllocMemAbsY, __stack, ___malloc, MonitorGetWord, MonitorGetch, _RealSetClockSpeed, _RealInitClockSpeed, ___ReAllocMemX, ___AllocMemX, ___ReAllocMemY, ___AllocMemY, _RealAudioOutputSamples, _RealSetRate, _RealSetVolume, ___reallocy, ___callocy, xrommux0, MonitorGetch15, _USBMem, _RealSetClockSpeedLimit, ___realloc, dac_int, MonitorRestoreContext, _BusyWait10, MonitorBpTable, MonitorGetInput, _GetVS1005Permissions, _InitMem, _BootSetKey, _BootSetKeyX, _PlayerVolume, _RawUartPutC, _RawUartPrintF, _rand_seed, _random_state, _player, _ph, _map, _cod, _bootrc4ks, _bootrc4Enabled, _xmem_startzeros, _ff, _fontPtrs, _fontData, _u16RomFont, ___InitMemAllocI, _ReadFuseMulti, _SpiSendReceive, _RC4_KeySetup, _RC4_KeySetupPacked, _volumeReg, _libInclude, _uartByteSpeed, _memcpyii, _kernelVectorsStart, _os_if_vars_start, _memcpy, _oldExtClock4KHz, _coreVoltageOffset, _extSymbolSearchRom, _extSymbolElements, _extSymbol, _memsetY, _memset, _memcpyYX, _voltages, _PowerSetVoltages, _applAddr, _bassReg, _CalcFuseCRC, _ReadFusePriv, _PowerSetFlash, _SpiLoadLong, _TEST_WriteIFlashOpenRecord, _TEST_ClearRamAndAllowDebug, _PowerShutDownFlash, _TestMode, _FsPhNandCreate, _BootFromX, _InitAudio, _TimeCountAndScheduleHandler, _AddIntServer, _Enable, _neededConfiguration, _loadLibraryMutex, _InitMutexN, _highestISoFar, _InitStdButtons, _SysUiMsgInit, _UsbBootLoopNoReturn, _TEST_ClearIFlash, _TEST_ProductionTest, _extSymbolRom, _extSymbolRomSize, _i_twiddle_iv, _dctfirmodtab8, _dctiv, _dctii, _costable_iv8, _dct, _dcttype, _costable_ii8, _dctfir8, _dctivpost, _isupper, short_to_df, _PrintFmtAdd, df_mul, df_div, df_add, df_sub, __modf, df_to_short, df_lt, df_ge, _tolower, divide32unsigned, _memcpyXX, _ispunct, _toupper, _isgraph, _isdigit, _isalpha, _isalnum, _isxdigit, _isspace, _iscntrl, _isprint, _islower, int_to_df, df_norm, _intStub, _readyQueue, _NewList, _useQuantum, _quantum, _Halt, _intVectors, _SetSignal, _timerQueue, _waitQueue, _Enqueue, _ScheduleHandler, _AddTask, _Disable, _forbidCount, _scheduleFlag, ___endStack, ___intStack, ___curStack, _Expunge, _HandleTimers, _SetupInterruptStackSize, _SetupMainStackSize, CheckWait, _Signal, IntQuickLeave, WaitAgain, _DoSchedule, _freetaskmem, SearchForTask, _Wait, _AddHead, _xFlist, _HeadNode, _NextNode, _RemNode, _AddAfter, _AddBefore, _AddTail, _HeadNodeY, _yFlist, _NextNodeY, _RemNodeY, _AddAfterY, _memcpyYY, _AddBeforeY, _AddTailY, _sysMemory_xs, _sysMemory_ys, _NewListY, _AddHeadY, ___AllocMemI, ___AllocMemAbsI, ___FreeMemI, _sysMemory_is, _NewListI, _SetSizeNodeI, _AddHeadI, _HeadNodeI, _GetSizeNodeI, _RemNodeI, _NextNodeI, _AddAfterI, _AddBeforeI, _AddTailI, _AddTimer, _RemoveTimer, _InitTimer, _StartTimer, _StopTimer, _TailNode, _RemHead, _Remove, _PrevNode, _RemTail, _SetTaskPri, _FindTask, _RemoveY, _RemTailY, _PrevNodeY, _TailNodeY, _RemHeadY, _EnqueueY, _PrevNodeI, _TailNodeI, _RemHeadI, _RemoveI, _RemTailI, _WriteIMem16, _WriteIMem, _WriteIMem16Swapped, _WriteIMemSwapped, _getword, _putch, _getch, _putword, _Monitor, _audioBuffer, _DB12, _timeCount, _AudioBufFree, divide16signed, _AudioBufFill, _audioPtr, _dB, _ISine, _SinTestCore, _OldSinTest, _UpdateMp3Crc, _mp3CrcTable, _shortSin1k, _tmpBuf, _oldClockX, _OldSetRate, _timeToRemovePDown2, _MuxTest, _YRomTest, _XRomTest, _IRomTest, _YRamTest, _XRamTest, _IRamTest, _UartDivider, _oldOldClock4KHz, _curFctl, _hwSampleRate, _uiTime, _uiTrigger, _haltTime, _bassOn, _trebleOn, _uiCount, _bassTrebleSampleRate, _bassTrebleReg, _uartDivs, _z, _clockSpeed, fr_div32, shiftMultipliers, _SetBass, _SetTreble, _Bass, _Treble, _PowerMillivoltsToReg, _PowerRegToMillivolts, _powerConvTab, _CheckRFLock, _FindVCOLock, _CalcClockSpeed, _BusyDelay4x, _PrivSpiSendReceive, up_GetValue, literal, spiexec, newesc, long, GetPutChIH, _RC4_Output, up_GetBits, Lwhile, _SpiLoad, _SpiDelay, lz77, _SpiReceiveWord, up_GetByte, GetPutChI, UnPack, spiy, GetPutChX, GetPutChY, _vo_files, _consoleFile, _vo_get_time_from_rtc_hook, _FatFileSystem, _AutoVoidNull, _encVFloorInv, _EncMInitDct, _winPtr, _hcb_sf, _EncMHuff4, _lpcsin, _evAudioMode, _strncmp, _ISqrt, _srandom, _random, _LongLog2, _font16aptrs, _rand, _FileParamSeek, _memcpyXY, divide32signed, divide16unsigned, _HuffmanMask, _srand, _memcmp, _SymbolCalcCrc32String, _SymbolCrunchStringCalcCrc32, _SymbolFindByCrc, _SymbolFindRomByCrc, _SymbolDelete, _SymbolDeleteLib, _encVOggCrc, _crc6ToChar, _Sine32I, _SpiWaitStatus, _TEST_TestMemories, _memseti, _XpFifoRead, _XpFifoWrite, _NandGetOctets, _NandPutOctets, _NandPutBlockAddress, _NandPutDataAddress, _NandPutLargePageSpareAddress, _NandGetStatus, _LargePageWrite, _LargePageRead, _NandPutPage, _FsPhNandRead, _FsPhNandWrite, _FsPhNandErase, _fsNandPhys, _NandWaitIdle, _NandPutAddressOctet, _NandPutCommand, _NandSetWaits, _Swap16, _CountBitsLong, _NandMingle, _FsPhNullOk, _DevNullWrite, _MyDelayHook, _SetNextApp, _Init0, _PrintTasks, _PrintInt, _LoadDrivers, _audioDevice, _sysTasks, _romSysTasks, _vo_fprintf, _GetI6, _InitHwLocks, _CreateTask, _ReadFromProgramRam, _strchr, _LoadLibraryP, _CreateCyclic, _InitBoard, _StartOS3, _audioout, _sysUiMsg, _AddCyclic, _RunAppFile3, _DelayL, _NextResource, _ResGet16, _ResGet32, _RemoveLibFromList, _LoadLibraryFile, _sprintf, _WriteToProgramRam, _GetMemory, _WriteToProgramRam16Swapped, _AttemptMutex, _StdButtonDefaultRender, _lastButtonPressed, _virtualWidth, _virtualHeight, _SetStdAudioOutVolume, _SystemUiMessageCyclic, _SystemUiMessageReceiver, _romSysUiMsg, _sysUiMsgFilterValues, _SetAddress, _ResetDataToggles, _ResetUsbHardware, _GetUsbPacket, _HandlePacket, _UsbSender, _usp, _usbsender, _usb_xmit_bufptr, _tenzeros, _setAddress, _resetDataToggles, _deviceDescriptor, _configurationDescriptor, _languageDescriptor, _vendorStringDescriptor, _productStringDescriptor, _serialNumberDescriptor, _chapter9, _inquiry1, _sense, _capacity, _atapiCapacities, _diskData, _csw1, _scsi, _diskData0Y, _diskData1Y, _diskData2Y, _diskData3Y, _diskInitTab, _usbHwInitTab, _csw, _RingBufCopyXfromY, _ConsoleWrite, _ConsoleFileOperations, _ConsoleIoctl, _NullFileIdentify, _Identify, _FreeBuffer, _GetBuffer, _MakeFileDescriptor, _BusyWait, _RemovedInterface, _vs3emubreak, _fopen_retries, _fopenclose_mutex, _fclose_gettime_mutex, _vo_simple_files, _sbsP, _nSectorBuffers, _nullFileOperations, _nullFile, _FatImageWriteBytes, _FatFlush, _FatImageSectorRead, _MegaFatGetByte, _MegaFatGetWord, _MegaFatGetLong, _FatCreate, _FatGetFragmentFromFAT, _VoFatClusterPos, _VoFatReadClusterRecord, _VoFatWriteClusterRecord, _VoFatGetFreeFragment, _WriteClusterChain, _VoFatFindSector, _VoFatWriteFile, _VoFatCloseFile, _VoFatReadFile, _FatNameFromDirEntry, _FatOpenEntry, _FatExtendDirectory, _FatMakeEntry, _FileNameCompare, _FatFindFile, _VoFatOpenFile, _IdentifyFat, _FatFileOps, _longFileName, _lfnStartCluster, _MemCopyPackedBigEndian, _strncasecmp, _atoi, _filtPairs, _bassCompand, _bTrebleGain, _bassG, _btmp, _bassCompandMaxGain, _trebleCoeff, _trebleFreqs, _trebleEmph, _lowEmph, _trebleIdx, _trebleFiltP, _trShift, fr_div, _trebleFilt, _trebleCoeffRam, _QueueHwLock, _ReleaseHwLock, _hwLocks, _hwLockOffset, _hwLockN, _MSBSetU32, _GpioReadInputPin, _vo_gpio_perips, _WritePCL, _ResetSdCard, _SetPWMLevel, _powerControlLatchState, _HuffmanRLC44ODiff, _HuffmanRLC16Mono, _kbd_win_128, _hcb_1, _hcb_2, _hcb_3, _hcb_4, _hcb_5, _hcb_6, _hcb_7, _hcb_8, _hcb_9, _hcb_10, _hcb_11, _phiFractQmf_cs, _phiFractSubQmf20_cs, _phiFractSubQmf34_cs, _num_swb_960_window, _num_swb_1024_window, _num_swb_128_window, _swb_offset_1024_96, _swb_offset_128_96, _swb_offset_1024_64, _swb_offset_1024_48, _swb_offset_128_48, _swb_offset_1024_32, _swb_offset_1024_24, _swb_offset_128_24, _swb_offset_1024_16, _swb_offset_128_16, _swb_offset_1024_8, _swb_offset_128_8, _swb_offset_1024_window, _swb_offset_128_window, _swb_offset_120_96, _swb_offset_960_48, _swb_offset_120_48, _swb_offset_120_24, _swb_offset_120_16, _swb_offset_960_8, _swb_offset_120_8, _swb_offset_960_window, _swb_offset_120_window, _iq_tablei_x, _NoiseRe, _NoiseIm, _hxx_mix_ab32, _qFractAllpassQmf_cs, _qFractAllpassSubQmf20_cs, _qFractAllpassSubQmf34_cs, _bitReverse, _latin1, _font16a, _FileParamInt, _FileParamStr, _strtol, _strrchr, _TEST_GetSineAdder, _CompareXY, _CopyXY, _FsPhNullFail, _WriteToProgramRam16, _WriteToProgramRamSwapped, _CyclicMainLoop, _SetInCyclicQueue, _DropCyclic, _cyclic, _CreateTaskAndStack, _ListDevices, _devSdSd, ushort_to_df, _DevSdSdCreate, _AudioIoctl, _AudioWrite, _AudioFileOperations, _voAudioChannels, _xp_fiford, _xp_fifowr, _SDClock32, _SDDataRXTX, _SDDataRX1, _DevSdSdDelete, _DevSdSdIdentify, _DataStop, _DevSdSdBlockRead, _DevSdSdBlockWrite, _DevSdSdIoctl, _devSdSdDefaults, _devSdSdDefaults1Bit, _XP_FifoRd8, _XP_FifoWr8, _WaitSdReady, _SDCmd, _IoctlRestart, _DetectSDCard, _IDSDCard, _SetupSDData, _SdIdentify, _EncMCountHuff2, _EncMCountHuff4, _EncMHuff2N, _EncMCountHuff2Asm, _EncMOutBits32, _EncMOutBits16, _EncMOutBit, _EncMDct18, _EncMDct18Asm, _EncMInitBits, _EncMAlignBitsToByte, _EncMGetBitPtr, _EncMInsertBit, _EncMInsertBits, _EncMSetBitBytePtr, _EncMMoveBitBytes, _EncMWriteBitBytes, _encMBitMasks, _memmove, _encMCos32, _encMDct18, _EncMDct32, _huffEnc2, _encMHuff2BitsAndCode00, _encMHuff2BitsAndCode01, _encMHuff2BitsAndCode02, _encMHuff2BitsAndCode03, _encMHuff2BitsAndCode04, _encMHuff2BitsAndCode05, _encMHuff2BitsAndCode06, _encMHuff2BitsAndCode07, _encMHuff2BitsAndCode08, _encMHuff2BitsAndCode09, _encMHuff2BitsAndCode10, _encMHuff2BitsAndCode11, _encMHuff2BitsAndCode12, _encMHuff2BitsAndCode13, _encMHuff2BitsAndCode14, _encMWinCoeffI, _encMHybridWinFuncI, _encMPow34, _encMButrCSCAI, _encDiv256, _encVOnePer, _encVDbRatio, _evBands08k_64, _evMean08k_64, _evBands08k_256, _evMean08k_256, _evBands16k_128, _evMean16k_128, _evBands16k_512, _evMean16k_512, _evBands32k_128, _evMean32k_128, _evBands32k_1024, _evMean32k_1024, _evBands44k_128, _evMean44k_128, _evBands44k_1024, _evMean44k_1024, _evBands48k_256, _evMean48k_256, _evBands48k_1024, _evMean48k_1024, _EncVSampleClear, _EncVShiftUpAndCopyToSamp, _MemCpySampleT, _CodMpgDelete, _CodMpgDecode, _InitCommon, _CodMpgInitReadFrame, _CodMpgReadFrame, _CodMpgPlayFrame, _CalcCrc, _rewindbitsy, _mpeg_crc_table, _InitLayer3, _DecodeHeader, _mymem16cpy, _CodMpgSetPointer, _codMpgFreqs, _codMpgTabsel_123, _MemCopyPackedBigEndianYY, _getbitsy, _MpgLayer3, _Pow43Gt100, _III_get_side_info_1y, _III_get_side_info_2y, _III_get_scale_factors_1y, _III_get_scale_factors_2y, _III_huffman_decode_32y, _III_check_bands_32, _III_dequantize_32, _III_reorder_32, _III_i_stereo_32, _III_hybrid_32, _MpgSendSpectrum, _codMpgBandInfo, _pow43tab, _codMpgSlen, _codMpgPretab1, _codMpgPretab2, _codMpgNPow2, _codMpgNPow1, _pow43_2_mant, _pow43_2_exp, _pow43_4_mant, _pow43_4_exp, _Pow43, _get1bity, _codMpgNSlen2, _codMpgISlen2, _codMpgHt, _III_HuffDecodePairsy, _codMpgHtc, _GetYy, _III_DequantBand, _codMpgTan1_1, _codMpgTan2_1, _codMpgTan1_2, _codMpgTan2_2, _dct36_32_linear, _III_DctSkipped, _codMpgWin, _codMpgWin1, _dct12_32_linear, _logdb32, _III_matrix_32, _III_antialias_32, _III_get_synth_32, _SynthesisMono32_2, _Synthesis32_2, _codMpgAaCsca, _codMpgPowQuarter, _pow43_1_mant, _Pow43_32u, _pow43_1_exp, _codMpgDecwin16scaled, _cos12Tab, _cos36Tab, _cos64NewTab, _codMpgTab0, _codMpgTab1, _codMpgTab2, _codMpgTab3, _codMpgTab5, _codMpgTab6, _codMpgTab7, _codMpgTab8, _codMpgTab9, _codMpgTab10, _codMpgTab11, _codMpgTab12, _codMpgTab13, _codMpgTab15, _codMpgTab16, _codMpgTab24, _codMpgTab_c0, _codMpgTab_c1, _codMpgDct64skips2, _dct64_32, __divide16signed, _strstr, _strncat, _strxfrm, _strspn, _strcspn, _strcat, _strerror, _strpbrk, _memchr, _strncpyXX, _strncpyXY, _strncpyYX, _strncpyYY, _div16approx, __divide16unsigned, df_to_int, uint_to_df, df_to_uint, df_to_ushort, _memmoveXX, _logdb, _win64, _win128, _win256, _win512, _win1024, _win2048, _FLOOR1_fromdB_LOOKUP_i, _Swap32Words, _Swap32, _Swap32Mix, vsstdio, _iFlist, _vo_ungetc, _diskSurfaceY, _VoFatNameFromDir, _ZPC, _CoarseSine, _GetDivider, _timeCountAdd, _crc_table, _crc32Tab, _appIXYStart, 
+
+
+*1+ SYMBOL LISTING - 34 symbol(s) in project:
+
+*1*  _SetHandler                    absolute  32715 (0x7fcb)
+*1*  _vo_fopen                      absolute  32736 (0x7fe0)
+*1*  _RunLibraryFunction            absolute  32766 (0x7ffe)
+*1*  _CurDirFOpen                   1_CurDirFOpen+0   	(declared in Emulation-Debug\main.o)
+*1*  _shell_main                    2_shell_main+0   	(declared in Emulation-Debug\main.o)
+*1*  _shellEnv                      3_bss_x+0   	(declared in Emulation-Debug\main.o)
+*1*  s_1                            4_const_x+0   	(declared in Emulation-Debug\main.o)
+*1*  vsosshel_2                     4_const_x+3   	(declared in Emulation-Debug\main.o)
+*1*  yz_3                           4_const_x+16   	(declared in Emulation-Debug\main.o)
+*1*  playfiles_4                    4_const_x+17   	(declared in Emulation-Debug\main.o)
+*1*  _ObtainMutex                   imported external 
+*1*  _currentDirectory              absolute   2254 (0x08ce)
+*1*  _strlen                        imported external 
+*1*  _ReleaseMutex                  imported external 
+*1*  _strcpy                        imported external 
+*1*  _strncpy                       imported external 
+*1*  _ReadIMem                      imported external 
+*1*  _appFlags                      absolute   2255 (0x08cf)
+*1*  _vo_printf                     imported external 
+*1*  _main                          5_main+0   	(declared in Emulation-Debug\shellAsm.o)
+*1*  _thisTask                      imported external 
+*1*  _appFlags                      absolute   2255 (0x08cf)
+*1*  _currentDirectory              absolute   2254 (0x08ce)
+*1*  _ReadIMem                      imported external 
+*1*  _kernel_main                   imported external 
+*1*  _strlen                        imported external 
+*1*  _mainTask                      imported external 
+*1*  _thisTask                      imported external 
+*1*  _strncpy                       imported external 
+*1*  _strcpy                        imported external 
+*1*  _vo_printf                     imported external 
+*1*  _ObtainMutex                   imported external 
+*1*  _ReleaseMutex                  imported external 
+*1*  _vo_kernel_init                imported external 
+
+
+==1-  ====== PROJECT NOW HAS 5 SECTIONS: ======
+==1=    Page:0  Words:   67   1_CurDirFOpen
+==1=    Page:0  Words:   51   2_shell_main
+==1=    Page:0  Words:    7   5_main
+==1=    Page:1  Words:  386   3_bss_x
+==1=    Page:1  Words:   27   4_const_x
+==1-  ==== Total words: I 125, X 413, Y 0. ====
+
+----- Remove unreferenced sections
+
+
+==2-  ====== PROJECT NOW HAS 5 SECTIONS: ======
+==2=    Page:0  Words:   67   1_CurDirFOpen
+==2=    Page:0  Words:   51   2_shell_main
+==2=    Page:0  Words:    7   5_main
+==2=    Page:1  Words:  386   3_bss_x
+==2=    Page:1  Words:   27   4_const_x
+==2-  ==== Total words: I 125, X 413, Y 0. ====
+
+----- Merge
+
+Merging all text sections.
+Section 1_CurDirFOpen is to be merged.
+Section 2_shell_main is to be merged.
+Section 5_main is to be merged.
+Merging earlierly marked sections...
+Merge section 0 name 1_CurDirFOpen to votext
+mark section 1_CurDirFOpen for deletion.
+Merge section 0 name 2_shell_main to votext
+mark section 2_shell_main for deletion.
+Merge section 2 name 5_main to votext
+mark section 5_main for deletion.
+add new section votext to allsections.
+
+Merging all sections that are free to move.
+Section 4_const_x is to be merged.
+Merging earlierly marked sections...
+Merge section 1 name 4_const_x to voxdata_1
+mark section 4_const_x for deletion.
+add new section voxdata_1 to allsections.
+
+Merging bss sections.
+Section 3_bss_x is to be merged.
+Merging earlierly marked sections...
+Merge section 0 name 3_bss_x to voxdata_bss_2
+mark section 3_bss_x for deletion.
+add new section voxdata_bss_2 to allsections.
+
+
+==3-  ====== PROJECT NOW HAS 3 SECTIONS: ======
+==3=    Page:0  Words:  125   votext
+==3=    Page:1  Words:  386   voxdata_bss_2
+==3=    Page:1  Words:   27   voxdata_1
+==3-  ==== Total words: I 125, X 413, Y 0. ====
+
+
+SYMBOL LISTING AFTER MERGE:
+
+*2+ SYMBOL LISTING - 34 symbol(s) in project:
+
+*2*  _SetHandler                    absolute  32715 (0x7fcb)
+*2*  _vo_fopen                      absolute  32736 (0x7fe0)
+*2*  _RunLibraryFunction            absolute  32766 (0x7ffe)
+*2*  _CurDirFOpen                   votext+0 
+*2*  _shell_main                    votext+67 
+*2*  _shellEnv                      voxdata_bss_2+0 
+*2*  s_1                            voxdata_1+0 
+*2*  vsosshel_2                     voxdata_1+3 
+*2*  yz_3                           voxdata_1+16 
+*2*  playfiles_4                    voxdata_1+17 
+*2*  _ObtainMutex                   imported external 
+*2*  _currentDirectory              absolute   2254 (0x08ce)
+*2*  _strlen                        imported external 
+*2*  _ReleaseMutex                  imported external 
+*2*  _strcpy                        imported external 
+*2*  _strncpy                       imported external 
+*2*  _ReadIMem                      imported external 
+*2*  _appFlags                      absolute   2255 (0x08cf)
+*2*  _vo_printf                     imported external 
+*2*  _main                          votext+118 
+*2*  _thisTask                      imported external 
+*2*  _appFlags                      absolute   2255 (0x08cf)
+*2*  _currentDirectory              absolute   2254 (0x08ce)
+*2*  _ReadIMem                      imported external 
+*2*  _kernel_main                   imported external 
+*2*  _strlen                        imported external 
+*2*  _mainTask                      imported external 
+*2*  _thisTask                      imported external 
+*2*  _strncpy                       imported external 
+*2*  _strcpy                        imported external 
+*2*  _vo_printf                     imported external 
+*2*  _ObtainMutex                   imported external 
+*2*  _ReleaseMutex                  imported external 
+*2*  _vo_kernel_init                imported external 
+----- Eliminate absolute relocations
+Eliminate relocation to absolute symbol _currentDirectory in votext (abs+offset=2254)
+Eliminate relocation to absolute symbol _currentDirectory in votext (abs+offset=2254)
+Eliminate relocation to absolute symbol _vo_fopen in votext (abs+offset=32736)
+Eliminate relocation to absolute symbol _SetHandler in votext (abs+offset=32715)
+Eliminate relocation to absolute symbol _vo_fopen in votext (abs+offset=32736)
+Eliminate relocation to absolute symbol _currentDirectory in votext (abs+offset=2254)
+Eliminate relocation to absolute symbol _appFlags in votext (abs+offset=2255)
+Eliminate relocation to absolute symbol _RunLibraryFunction in votext (abs+offset=32766)
+
+----- Create a Loadable...
+Export Dynamic App loadable.ap3 with title Dynamic App
+*3* SYMBOL TABLE ***
+*3*   _CurDirFOpen                   	 0.0
+*3*   _shell_main                    	 0.67
+*3*   _main                          	 0.118
+*3*   _shellEnv                      	 1.0
+*3*   s_1                            	 2.0
+*3*   vsosshel_2                     	 2.3
+*3*   yz_3                           	 2.16
+*3*   playfiles_4                    	 2.17
+
+
+----- DLLENTRY: _main = 0.118
+
+Link result (errorlevel) is 0
+Total words: I 125, X 413, Y 0.
+
+----- Done.

@@ -1,0 +1,80 @@
+
+//_____________________________________________________________
+//
+	.sect code,vo_fprintf	// 18 words
+	.export _vo_fprintf
+_vo_fprintf:
+	ldc _vo_fputc,A0	// ET2
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	ldy (I4)-2,NULL ; stx A0,(I6)+1	// I4 += -2
+// ap = ((va_list)&(fmt)));
+// #pragma msg 30 off
+//     return PrintFmt(fmt, ap, (__near void *)fp, vo_fputc);
+	ldx (I4)-1,A0	// unspill 'fp' from #0
+	stx A0,(I6)+1	// 'fp'
+	mv I4,A0	// ET0 -> 'ap'
+	stx A0,(I6)+1	// 'ap'
+	ldx (I4)+3,A0	// I4 ==> 'fmt'
+	call _PrintFmt
+	stx A0,(I6)	// 'fmt'
+// jumped away
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+
+//_____________________________________________________________
+//
+	.sect code,vo_printf	// 30 words
+	.export _vo_printf
+_vo_printf:
+	ldx (I6)+1,NULL	// I6 += 1
+	stx LR0,(I6)+1
+	stx I6,(I6) ; sty I4,(I6)
+	ldx (I6)+1,I4
+	stx A1,(I6) ; sty I0,(I6)
+	ldc _vo_stdout,I0	// ET2
+	ldy (I4)-2,NULL ; ldx (I0),A1/*V*/	// I4 += -2
+	mv I4,A0 ; sub A1,NULL,A1	// ET0 -> 'ap'
+// ap = ((va_list)&(fmt)));
+// 	if (!vo_stdout)
+	ldx (I4)+2,NULL	// I4 += 2
+	jzc F1B4	// signed compare
+	ldc _vo_fputc,A1
+// jumped away
+// 	}
+// {
+// 		return 0;
+	and NULL,NULL,A0	// 0 -> 0 -> ET3
+F1B1:
+	ldy (I6),I0 ; ldx (I6)-1,A1
+	ldx (I4),I6 ; ldy (I4),I4
+	ldx (I6)-1,NULL	// I6 += -1
+	ldx (I6)-1,LR0
+	jr
+	nop
+// jumped away
+	ldc _vo_stdout,I0	// ET2
+	ldc _vo_fputc,A1	// ET4
+F1B4:
+	ldy (I6)+1,NULL ; ldx (I4)-2,NULL	// I4 += -2
+// #pragma msg 30 off
+// 	return PrintFmt(fmt, ap, vo_stdout, vo_fputc);
+	stx A1,(I6)+1	// ET4
+	ldx (I0),A1/*V*/	// ET2 ==> 'vo_stdout'
+	stx A1,(I6)+1	// 'vo_stdout'
+	stx A0,(I6)+1	// 'ap'
+	ldx (I4)+2,A0	// I4 ==> 'fmt'
+	call _PrintFmt
+	stx A0,(I6)	// 'fmt'
+// jumped away
+	j F1B1
+	ldx (I6)-4,NULL	// I6 += -4
+// jumped away
+
+	.end
