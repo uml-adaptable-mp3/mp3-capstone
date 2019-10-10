@@ -1,0 +1,126 @@
+# VSOS3 Boot Configuration File optimized for maximum quality audio
+# Hi-Res format playback.
+#
+# Please connect UART:115200,N81 to see the boot information.
+# At the boot time, STDOUT and STDERR will print to the UART.
+#
+# At boot, you can press [S1], [S2], [S1+S2] or [S4] to select configuration
+# 1, 2, 5, or 4, respectively.
+
+
+[0]
+# Default configuration, no buttons pressed during boot.
+# Sets up audio drivers and clock, then drops to the VSOS Shell.
+#
+# LCD177: With 'v' option start in vertical mode.
+# Display size is 160x128 pixels.
+# Horizontal: 22x16 = 352 characters.
+# Vertical:   18x20 = 360 characters.
+LCD177
+# Set clock to a higher value so that even the more difficult codecs can play.
+RUN SETCLOCK -l100 80
+# Start SD card as device D
+#SDSDRAM D
+#SDSD23 D
+SDSD D
+#LCD12864
+# Start UART in/out driver
+UARTIN
+# I2S driver, slave mode
+AUXI2SS s
+# New 2015 audio DAC out driver
+AUODAC s
+# Make large audio buffer so that all codecs will play without trashing memory
+# and with minimum amount of MHz
+#RUN AUOUTPUT -s8192
+# Enough buffer for HiRes Recorder to work
+RUN AUOUTPUT -s4096 -b32
+#ftopitch
+# The following is an alternative, extreme clock setting.
+# May not work and outside of VS1005g voltage specs (decreased lifetime)
+# Use with extreme caution and only if absolutely needed!!!
+# Absolutely no warranty!!!
+#RUN SETCLOCK -l100 98
+# New 2015 audio ADC in driver
+AUIADC s 48000 line1_1 line1_3
+# Enough buffer for HiRes Recorder to work
+RUN AUINPUT -s4096 -b32
+# DC Blocker
+#FTIDCBL
+# I2S automatic out
+#AUOI2SMA
+# S/PDIF automatic out, parameter can be either 48000 or 96000 (default)
+#AUOSPDA 96000 s
+# Turn top board off
+#RUN PROGBOTTOM -p
+# Replicate bottom board External SPI FLASH contents to top board
+#RUN PROGUPDATE
+# Print ones
+#RUN PRINTCHR 1
+#RUN testsdsd -w563
+#delay 2000
+#RUN testsdsd -w1125
+#delay 2000
+#RUN testsdsd -w1688
+#delay 2000
+#RUN testsdsd -w2250
+#delay 2000
+# Start the shell
+#run TurboRec
+#RUN I2SMP3ENC
+S:SHELL.AP3
+
+
+
+[1]
+# Button[S1] pressed.
+# Configuration S1 is fixed to be the USB Upload Configuration 
+# in the Kernel. [S1] for SPI Flash (System disk)
+# For usability reasons, the chip will remain in the USB mode until
+# it is reset, so no further drivers can be loaded in this configuration.
+
+
+
+[2]
+# Button [S2] pressed during boot.
+# Wait "forever" for a potential VS3EMU connection attempt
+## Start SD card as device D
+#SDSD D
+#SHELLENV
+#DEL -v d:cd6
+RUN DELAY 0x7fffffff
+
+
+
+[3]
+# Configuration S3 cannot be used due to a power issue with the developer
+# board PCB. But it can be used e.g. on the Internal SPI Flash programmer.
+# Make SD power cycle compatible with Amp Board
+AMPBCONF
+# Start SD card as device D
+#SDSDMONO D
+# Set clock to a higher value and increase voltages.
+#RUN SETCLOCK -l100 80
+# Start UART in/out driver
+UARTIN
+# Start the shell
+S:SHELL.AP3
+# Wait "forever" for a potential VS3EMU connection attempt
+RUN DELAY 0x7fffffff
+
+
+
+[4]
+# Button [S4] pressed during boot.
+# Print twos
+RUN PRINTCHR 2
+# Wait "forever" for a potential VS3EMU connection attempt
+RUN DELAY 0x7fffffff
+
+
+
+[5]
+# Buttons [S1] and [S2] pressed simultaneously during boot.
+# In this configuration, the OS loads drivers and *then* shows S: on USB.
+# For this example we load the SD driver to be shown on the USB.
+SDSDMONO S

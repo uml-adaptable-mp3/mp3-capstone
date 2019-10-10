@@ -1,0 +1,60 @@
+# VSOS3 Boot Configuration File
+# Please connect UART:115200,N81 to see the boot information.
+# At the boot time, STDOUT and STDERR will print to the UART.
+# Later, when a CONSOLE driver is loaded, STDOUT will go to that console.
+
+# At boot, you can press [S1], [S2], [S1+S2] or [S4] to select a configuration.
+
+[0]
+# Default configuration, no buttons pressed during boot.
+# This configuration runs the VSOS Shell automatically
+# NOTE! If not using audio, you can comment out audio drivers.
+# Start USB Host (memory stick) as device D
+USBHOST D
+# New 2015 audio DAC out driver
+AUODAC s
+# New 2015 audio ADC in driver
+AUIADC s 48000 line1_1 line1_2
+# Start UART in/out driver
+UARTIN
+# Start audio loopback driver (copy audio in to audio out). To disable
+# the driver, either comment the following line, or run "driver -auxplay"
+# from the Command Shell.
+AUXPLAY
+# Start the shell
+S:SHELL.AP3
+
+
+[1]
+# Button[S1] pressed.
+# Configuration S1 is fixed to be the USB Upload Configuration 
+# in the Kernel. [S1] for SPI Flash (System disk)
+# For usability reasons, the chip will remain in the USB mode until
+# it is reset, so no further drivers can be loaded in this configuration.
+
+[2]
+# Button [S2] pressed during boot.
+# This configuration runs the VSOS Shell automatically
+# NOTE! If not using audio, you can comment out audio drivers.
+# Start SD card as device D
+SDSDMONO D
+# New 2015 audio DAC out driver
+AUODAC s
+# New 2015 audio ADC in driver
+AUIADC s 48000 line1_1 line1_3
+# I2S automatic out
+#AUOI2SMA
+# S/PDIF automatic out, parameter can be either 48000 or 96000 (default)
+#AUOSPDA 96000 s
+# Start UART in/out driver
+UARTIN
+# Start the shell
+S:SHELL.AP3
+
+
+[5] 
+# Configuration for simultaneously pressing [S1] and [S2] while booting.
+# In this configuration, the OS loads drivers and *then* shows S: on USB.
+# For this example we load the SD driver to be shown on the USB.
+SDSDMONO S
+
