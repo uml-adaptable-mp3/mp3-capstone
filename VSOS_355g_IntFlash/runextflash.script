@@ -1,7 +1,0 @@
-y:0xfc02 = 0x2000
-y:0xfc03 = 0
-y:0xfc04 = 0
-y:0xfc05 = 0
-load /home/leopold/vside/bin/extflash1005g.bin
-g 0x80
-e

@@ -3,11 +3,11 @@
 TARGET          = MyProject.coff
 TARGETPATH      = bin
 BUILDPATH       = bin
-VCC             = ../.ci/bin/lcc
-VSA             = ../.ci/bin/vsa
-VSLINK          = ../.ci/bin/voplinkg
-VSAR            = ../.ci/bin/vsar
-HOMEPATH        = ../.ci
+VCC             = ../tools/build_tools/lcc
+VSA             = ../tools/build_tools/vsa
+VSLINK          = ../tools/build_tools/voplinkg
+VSAR            = ../tools/build_tools/vsar
+HOMEPATH        = ../VSOS
 HOMEPATH_WIN    = E:/Program Files (x86)/VSIDE
 PROJPATH        = ${CURDIR}
 PROJNAME        = MP3_Capstone
@@ -33,7 +33,7 @@ clean:
 
 .PHONY: buildDirs
 buildDirs: $(BUILDPATH)
-	
+
 $(BUILDPATH):
 	if not exist $(BUILDPATH) mkdir $(BUILDPATH)
 
