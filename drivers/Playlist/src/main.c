@@ -1,19 +1,43 @@
 #include <vo_stdio.h>
-#include <volink.h>
+#include <volink.h> // Linker directives like DLLENTRY
 #include <vstypes.h>
 #include <stdlib.h>
-#include <sysmemory.h>
 #include <string.h>
+#include <apploader.h>  // RunLibraryFunction etc
+#include <timers.h>
+#include <libaudiodec.h>
+#include <vsostasks.h>
+#include <consolestate.h>
+#include <kernel.h>
+#include <unistd.h>
+
 
 #include "playlist.h"
 
-void run_test();
+// void run_test();
 
-int main(void) {
-    run_test();
+int main(char *parameters) {
+    char* playlist_filename = parameters;
+
+    Playlist* h_playlist = create_playlist_from_file(playlist_filename);
+
+    if (h_playlist == NULL) {
+        printf("Error generating playlist from file '%s'", playlist_filename);
+        return S_ERROR;
+    }
+
+    // print out what's in the playlist
+    while (h_playlist->current != NULL) {
+        printf("Song in list: %s\n", h_playlist->current->filename);
+        h_playlist->current = h_playlist->current->next;
+    }
+    h_playlist->current = h_playlist->head;
+
+    destroy_playlist(&h_playlist);
     return S_OK;
 }
 
+/* Test Code for Playlist
 void run_test() {
     Playlist* h_my_playlist;
     Playlist_Entry* temp;
@@ -59,3 +83,4 @@ void run_test() {
 
     destroy_playlist(&h_my_playlist);
 }
+*/

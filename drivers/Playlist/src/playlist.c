@@ -7,6 +7,8 @@
 
 #include "playlist.h"
 
+#define BUFFER_SIZE 127
+
 Playlist* create_new_playlist() {
     Playlist* p_list = (Playlist*) malloc(sizeof(Playlist));
     p_list->head = NULL;
@@ -14,6 +16,59 @@ Playlist* create_new_playlist() {
     p_list->last = NULL;
     p_list->length = 0;
     return p_list;
+}
+
+Playlist* create_playlist_from_file(const char* filename) {
+    Playlist* h_playlist = NULL;
+    FILE *p_file = NULL;
+    FILE *p_temp = NULL;
+    char name_buffer[BUFFER_SIZE];
+    int last_index = 0;
+
+    // Open the playlist file
+    p_file = fopen(filename, "r");
+    if (p_file == NULL) {
+        printf("Couldn't open file '%s'\n", filename);
+        return NULL;
+    }
+
+    h_playlist = create_new_playlist();
+
+    // parse the file line by line
+    while (fgets(name_buffer, BUFFER_SIZE, p_file) != NULL) {
+        if (name_buffer[0] == '#') {
+            // m3u comment, ignore (for now)
+            continue;
+        }
+
+        // drop trailing newline from filename, if it is present
+        last_index = strlen(name_buffer) - 1;
+        // printf("The last character in the buffer is: %d\n", name_buffer[last_index]);
+        // printf("The second last character in the buffer is: %d\n", name_buffer[last_index - 1]);
+        if (name_buffer[last_index] == '\n' || name_buffer[last_index] == '\r') {
+            name_buffer[last_index] = '\0';
+        }
+        if (name_buffer[last_index - 1] == '\n' || name_buffer[last_index - 1] == '\r') {
+            name_buffer[last_index - 1] = '\0';
+        }
+
+        printf("Name Buffer: <%s>\n", name_buffer);
+
+        // check if file exists
+        p_temp = fopen(name_buffer, "r");
+        if (p_temp != NULL) {
+            // file exists, add it to playlist
+            printf("Adding '%s' to playlist...\n", name_buffer);
+            add_song(h_playlist, name_buffer);
+            // free the pointer to the file
+            fclose(p_temp);
+        }
+        else {
+            printf("File '%s' not found, skipping...\n", name_buffer);
+        }
+    }
+
+    return h_playlist;
 }
 
 void destroy_playlist(Playlist** ph_playlist) {
