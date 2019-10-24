@@ -14,6 +14,9 @@
 
 #include "playlist.h"
 
+#define TRUE 1
+#define FALSE 0
+
 // void run_test();
 
 void *decoderLibrary = NULL;
@@ -31,6 +34,8 @@ int main(char *parameters) {
     char* playlist_filename = parameters;
     Playlist* h_playlist;
     FILE* current_song;
+    char user_input;
+    u_int16 quit_selected = FALSE;
 
     printf("Loading Decoder library\n");
 	decoderLibrary = LoadLibrary("audiodec");
@@ -38,7 +43,6 @@ int main(char *parameters) {
 		printf("Couldn't open library\n");
 		return S_ERROR;
 	}
-
 
     // init a new playlist from the given file
     h_playlist = create_playlist_from_file(playlist_filename);
@@ -48,7 +52,7 @@ int main(char *parameters) {
     }
 
     // play all songs in playlist
-    while (h_playlist->current != NULL) {
+    while (h_playlist->current != NULL && quit_selected == FALSE) {
         current_song = fopen(h_playlist->current->filename, "rb");
 	    if (!current_song) {
 		    printf("Couldn't open file '%s'\n", current_song);
@@ -73,15 +77,26 @@ int main(char *parameters) {
             Delay(250);
             if (ioctl(stdin,IOCTL_TEST,NULL)) {
                 //character(s) available in the stdin buffer
-                char c = fgetc(stdin);
-                if (c=='q') {
-                    printf("\rQuit... \n");
-                    audioDecoder->cs.cancel = 1;
+                user_input = fgetc(stdin);
+                switch (user_input) {
+                    case 'S':
+                    case 's':
+                        printf("\rSkipping... \n");
+                        audioDecoder->cs.cancel = 1;
+                        break;
+                    case 'Q':
+                    case 'q':
+                        printf("Quitting...\n");
+                        audioDecoder->cs.cancel = 1;
+                        quit_selected = TRUE;
+                        break;
                 }
             }
 
             if (appFlags & APP_FLAG_QUIT) {
+                printf("Quitting...\n");
                 audioDecoder->cs.cancel = 1;
+                quit_selected = TRUE;
             }
 
             Delay(250);
