@@ -1,0 +1,181 @@
+[vs1063_universal_prommer]
+Name                           = "VS1063 Universal Prommer (SST25xxB compatible)"
+TargetPlatform                 = "VS1063"
+Description                    = "This VS1063 prommer can program 16/24-bit SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable."
+ImageCommandLine			   = "coff2boot -x 0x50 %1 eeprom.img"
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "vs1063-uniprom2.coff"
+PrommerMemDesc                 = "vs1063-uniprom.mem"
+
+[vs1063_universal_prommer_E]
+Name                           = "VS1063 Universal Prommer (Writes pre-generated EEPROM.IMG)"
+TargetPlatform                 = "VS1063"
+Description                    = "This VS1063 prommer can program 16/24-bit SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable. It doesn't rewrite EEPROM.IMG. EEPROM.IMG must be already created with another tool and placed in a dummy VS1063 solution folder."
+ImageCommandLine			   = "coff2boot -x 0x50 %1 eeprom.img"
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "vs1063-uniprom2.coff"
+PrommerMemDesc                 = "vs1063-uniprom.mem"
+
+[vs1053_universal_prommer_2]
+Name                           = "VS1053 Universal Prommer (SST25xxB compatible)"
+TargetPlatform                 = "VS1053"
+Description                    = "This VS1053 prommer can program many SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable."
+ImageCommandLine			   = "coff2boot -x 0x50 %1 eeprom.img"
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "vs1053-uniprom2.coff"
+PrommerMemDesc                 = "vs1053-uniprom.mem"
+
+[vs1053_universal_prommer_2E]
+Name                           = "VS1053 Universal Prommer (Writes pre-generated EEPROM.IMG)"
+TargetPlatform                 = "VS1053"
+Description                    = "This VS1053 prommer can program many SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable. It doesn't rewrite EEPROM.IMG. EEPROM.IMG must be already created with another tool and placed in a dummy VS1053 solution folder."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "vs1053-uniprom2.coff"
+PrommerMemDesc                 = "vs1053-uniprom.mem"
+
+[vs1053_universal_prommer]
+Name                           = "VS1053 Universal Prommer (legacy)"
+TargetPlatform                 = "VS1053"
+Description                    = "This VS1053 prommer can program many SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable."
+ImageCommandLine			   = "coff2boot -x 0x50 %1 eeprom.img"
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "vs1053-uniprom.coff"
+PrommerMemDesc                 = "vs1053-uniprom.mem"
+
+[vs1000_spi_flash_24bit]
+Name                           = "VS1000 SPI Flasher (24-bit)"
+TargetPlatform                 = "VS1000"
+Description                    = "This VS1000 prommer can program SPI Flash memory chips with 24-bit address space. Communication is handled via UART cable."
+ImageCommandLine			   = "coff2spiboot -x 0x50 %1 eeprom.img"
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "uniprom1k24.bin"
+PrommerMemDesc                 = "prommer24.mem"
+
+[vs1000_spi_flash_24bitE]
+Name                           = "VS1000 SPI Flasher (24-bit) (Writes pre-generated EEPROM.IMG)"
+TargetPlatform                 = "VS1000"
+Description                    = "This VS1000 prommer can program SPI Flash memory chips with 24-bit address space. It doesn't rewrite EEPROM.IMG. EEPROM.IMG must be already created with another tool such as overlay linker or image generator."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "uniprom1k24.bin"
+PrommerMemDesc                 = "prommer24.mem"
+
+[vs1000_spi_flash_16bit]
+Name                           = "VS1000 EEprommer (16-bit)"
+TargetPlatform                 = "VS1000"
+Description                    = "This VS1000 prommer can program EEPROMs such as 95256. Communication is handled via UART cable."
+ImageCommandLine			   = "coff2spiboot -x 0x50 %1 eeprom.img"
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "vs1000-prommer16-223.bin"
+PrommerMemDesc                 = "prommer24.mem"
+
+[vs1005g_external_flash]
+Name                           = "VS1005G External SPI Flash Prommer"
+TargetPlatform                 = "VS1005"
+Description                    = "This VS1005 prommer can program 24-bit SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "extflash1005g.bin"
+PrommerMemDesc                 = "mem_desc.extflash"
+
+[vs1005g_internal_flash]
+Name                           = "VS1005G Internal Flash Prommer"
+TargetPlatform                 = "VS1005"
+Description                    = "This VS1005 prommer can program the internal SPI flash in VS1005G. Communication is handled via UART cable."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "intflash1005g.bin"
+PrommerMemDesc                 = "mem_desc.extflash"
+
+[vs1005g_nand_flash]
+Name                           = "VS1005G Nand Flash Prommer"
+TargetPlatform                 = "VS1005"
+Description                    = "This experimental prommer can manipulate the nand flash in VS1005G in various ways."
+ImageCommandLine			   = ""
+ImageName                      = "nand.nan"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "nandprog-vs1005g.bin"
+PrommerMemDesc                 = "mem_desc.extflash"
+
+[vs1005h_external_flash]
+Name                           = "VS1005H External SPI Flash Prommer"
+TargetPlatform                 = "VS1005"
+Description                    = "This VS1005 prommer can program 24-bit SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "extflash1005h.bin"
+PrommerMemDesc                 = "mem_desc.extflash"
+
+[vs1005h_internal_flash]
+Name                           = "VS1005H Internal Flash Prommer"
+TargetPlatform                 = "VS1005"
+Description                    = "This VS1005 prommer can program the internal SPI flash in VS1005H. Communication is handled via UART cable."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "intflash1005h.bin"
+PrommerMemDesc                 = "mem_desc.extflash"
+
+[vs1005f_external_flash]
+Name                           = "VS1005F External SPI Flash Prommer (obsolete)"
+TargetPlatform                 = "VS1005"
+Description                    = "This VS1005F prommer can program 24-bit SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "extflash.coff"
+PrommerMemDesc                 = "mem_desc.extflash"
+
+[vs1005h0_external_flash]
+Name                           = "VS1005H0 External SPI Flash Prommer (obsolete)"
+TargetPlatform                 = "VS1005"
+Description                    = "This VS1005H0 test IC prommer can program 24-bit SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "extflash1005h0.bin"
+PrommerMemDesc                 = "mem_desc.extflash"
+
+[VS1103_EEprommer]
+Name                           = "VS1103 EEprommer"
+TargetPlatform                 = "VS1103"
+Description                    = "16-bit prommer for VS1103. Programs eeproms such as 25LC640. Needs boot.img already generated by the solution post-build step. Communication is handled via UART cable. Important: At the end of programming, any 'x' means programming error!"
+ImageCommandLine			   = ""
+ImageName                      = "boot.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "eeprom1103.bin"
+PrommerMemDesc                 = "eeprom1103.mem"
+
+[VS1010_I2C_Prommer]
+Name                           = "VS1010 I2C Prommer"
+TargetPlatform                 = "VS1010"
+Description                    = "VS1010 prommer for 24LC256 and variants with 2 byte address"
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "Prom10i2c.coff"
+PrommerMemDesc                 = "debug_use_all.mem"
+
+[vs1010C_external_flash]
+Name                           = "VS1010 External SPI Flash Prommer"
+TargetPlatform                 = "VS1010"
+Description                    = "This VS1010 prommer can program 24-bit SPI EEPROM and SPI Flash memory chips. Communication is handled via UART cable."
+ImageCommandLine			   = ""
+ImageName                      = "eeprom.img"
+UseVs3Emu                      = "1"
+PrommerBinary                  = "VS1010ExtFlash.coff"
+PrommerMemDesc                 = "debug_use_all.mem"
+
+

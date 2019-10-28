@@ -1,0 +1,8 @@
+language: c
+os: windows
+script:
+    - cd build
+    - ./build.bat | tee build_output.txt
+    - num_warnings=$(grep -o "Warning" build_output.txt | wc -l)
+    - echo $num_warnings
+    - return $num_warnings

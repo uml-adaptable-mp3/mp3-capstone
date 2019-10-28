@@ -1,0 +1,61 @@
+force RealDecodeSetupPacket2 transient_i
+force DiskProtocolCommand transient_i
+
+force VoMassStorage transient_i
+force DiskDataReceived transient_i
+
+force	MyScsiReset	transient_i
+force	MyScsiTaskHandler	transient_i
+force	MyUSBHandler	transient_i
+force	MyUSBIsDetached	transient_i
+force	MyUSBReadLines	transient_i
+force	MyUSBReceivePacket	transient_i
+force	MyUSBResetEndpoint	transient_i
+force	MyUSBResetStall	transient_i
+force	MyUSBSendZeroLengthPacketToEndpoint0	transient_i
+force	MyUSBStallEndpoint	transient_i
+force	MyUSBWantsSuspend	transient_i
+
+force	MscSendCsw	transient_i
+force	MyInitUSB	transient_i
+force	MyInitUSBDescriptors	transient_i
+force	MyMSCPacketFromPC	transient_i
+force	MyResetBulkEndpoints	transient_i
+
+force	ScsiInquiry	transient_i
+force	ScsiLbab	transient_i
+force	ScsiState2	transient_i
+
+force	USBContinueTransmission2	transient_i
+force	USBIsEndpointStalled2	transient_i
+force	UsbMapCreate	transient_i
+force	UsbMapFlush	transient_i
+force	UsbMapRead	transient_i
+force	UsbMapWrite	transient_i
+force	USBSingleStallEndpoint2	transient_i
+force	USBStartTransmission2	transient_i
+
+force PrintInt transient_i
+force PrintTasks transient_i
+
+force TransientAddKernelSymbols transient_i
+force transientconst_x transient_x
+force transientconst_y transient_y
+force transientbss_x transient_x
+force transientbss_y transient_y
+force transientinit_x transient_x
+force transientinit_y transient_y
+force TransientAddKernelSymbolsAsm transient_i
+force transientasmconst_x transient_x
+force transientasmconst_y transient_y
+force transientasmbss_x transient_x
+force transientasmbss_y transient_y
+force transientasminit_x transient_x
+force transientasminit_y transient_y
+
+force mscbss_x transient_x
+
+force CreateCyclic transient_i
+
+force DevHwSpiCreate transient_i
+force DevSpiFlashCreate transient_i

@@ -1,0 +1,35 @@
+/// \file volink.h VOLink Linker Directives for special linking
+
+#ifndef VOLINK_H
+#define VOLINK_H
+
+#define LINKINFO1(a) void _LINKINFO_ ## a ;
+#define LINKINFO2(a,b) void _LINKINFO_ ## a ## _ ## b ;
+#define LINKINFO3(a,b,c) void _LINKINFO_ ## a ## _ ## b ## _ ## c ;
+
+#define LINK_ABS(a,b) LINKINFO3(ABS,a,b)
+#define CHIPSPECIFIC(a) LINKINFO2(CHIPSPECIFIC,a)
+
+#define VSOS2_DEVICE_DRIVER(a) LINKINFO2(VO2DRV,a)
+#define VSOS2_FILE_OBJECT(a) LINKINFO2(VO2FILE,a)
+
+#define SETHANDLER(a,f) LINKINFO3(JMPI,a,f)
+
+#define BIOS_INITDISPLAY(f) SETHANDLER(124,f)
+#define BIOS_FILLEDRECTANGLE(f) SETHANDLER(125,f)
+#define BIOS_TEXTOUTXY(f) SETHANDLER(126,f)
+#define BIOS_SERVICES(f) SETHANDLER(127,f)
+
+#define UI_RENDERBUTTON(f) SETHANDLER(32728,f)
+#define UI_CREATEBUTTON(f) SETHANDLER(32729,f)
+#define UI_SETVIRTUALRESOLUTION(f) SETHANDLER(32730,f)
+#define UI_GETBUTTONPRESS(f) SETHANDLER(32731,f)
+#define UI_SETCLIPRECT(f) SETHANDLER(32732,f)
+#define UI_GETLOCATION(f) SETHANDLER( 32759,f)
+
+#define DLLENTRY(f) LINKINFO2(DLLENTRY,f)
+#define DLLIMPORT(a) LINKINFO2(IMPORT,a)
+#define DLLIMPORTASM(a) LINKINFO2(IMPORTASM,a)
+
+
+#endif
