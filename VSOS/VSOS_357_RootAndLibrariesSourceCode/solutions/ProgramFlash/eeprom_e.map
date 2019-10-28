@@ -1,0 +1,27 @@
+# VS1005g External FLASH example configuration file for eeprom_i.bin 2014-01-14
+#
+# Put all options first, before the image files.
+# Each option must be on its own line.
+# Options:
+#   +v = Verbose; shows more detailed data when writing goes wrong.
+#   -v = Not verbose (default).
+#   +b = Use byte addressing; use for memories with broken auto-increment
+#        like SST25VF016B. This mode may be very slow, so it is not
+#        recommended for use with other memory ICs.
+#   -b = Use page addressing (default).
+#   +f = VeriFy data after write (default).
+#   -f = Don't veriFy data after write. Use with extreme caution!
+#   !d = Dump first 2 MB of contents, don't write anything to eeprom.
+#   !e = Erase 4 KiB at address 0, otherwise don't write anything to eeprom.
+
+
+# Then the files. The format is:
+# address file.img
+# where address is a decimal, octal, or hexadecimal byte address where
+# to write the image file to.
+#
+# The following three examples all write the file eeprom.img to address 4096:
+# 4096 eeprom.img
+# 0x1000 eeprom.img
+# 010000 eeprom.img
+0 eeprom.img
