@@ -39,7 +39,7 @@ $(TARGETPATH)/$(TARGET): $(OBJS)
 	@mv _link_log.txt $(BUILDPATH)
 	@mv _link_output_description.txt $(BUILDPATH)
 	@mv _link_s_list.txt $(BUILDPATH)
-	@mv loadable.ap3 $(BUILDPATH)/$(PROJNAME).ap3
+	@mv loadable.ap3 $(BUILDPATH)/$(PROJNAME).dl3
 
 .PHONY: clean
 clean:
