@@ -24,20 +24,20 @@ VSAR            = ${PROJPATH}/tools/build_tools/vsar
 
 # Source Code
 DRIVER_SRC_DIRS = $(sort $(dir $(wildcard $(DRIVERS)/**/Makefile/)))
-EXE = $(DRIVER_SRC_DIRS:$(DRIVERS)/%/=%.ap3)
+DRVERS = $(DRIVER_SRC_DIRS:$(DRIVERS)/%/=%.dl3)
 
 
 .PHONY: all clean
 
-all: $(EXE) ${SYS_FILES} ${VSOS_SHELL} CONFIG
+all: ${TARGET_SYS} $(DRVERS) ${SYS_FILES} ${VSOS_SHELL} CONFIG
 	@printf "Done.\n"
 
-%.ap3: $(DRIVERS)/%/
+%.dl3: $(DRIVERS)/%/
 	@printf "\n==> BUILD STARTED FOR %s ...\n\n" $@
 	$(MAKE) -C $^
 
 	@printf "Copying $@ to loadable...\n"
-	cp $^/bin/$@ loadable/
+	cp $^/bin/$@ loadable/SYS
 
 	@printf "\n==> BUILD FINISHED FOR %s\n\n" $@
 
@@ -54,7 +54,6 @@ CONFIG:
 
 ${VSOS_SHELL}:
 	@cp ${VSOS_SHELL_DIR}/shell.ap3 ${VSOS_SHELL}
-
 
 clean:
 	@for dir in $(DRIVER_SRC_DIRS); do $(MAKE) clean -C $$dir; done
