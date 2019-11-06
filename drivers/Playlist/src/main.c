@@ -131,6 +131,7 @@ int main(char *parameters) {
         DeleteAudioDecoder(decoderLibrary, audioDecoder);
         if (restart_song) {
             // Pointer remains at current song
+            restart_song = FALSE;
         }
         else if (move_prev) {
             // go to previous song
@@ -141,6 +142,7 @@ int main(char *parameters) {
                 // at top, to move to tail
                 h_playlist->current = h_playlist->last;
             }
+            move_prev = FALSE;
         }
         else if (h_playlist->current->next != NULL) {
             // go to next song
