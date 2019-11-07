@@ -36,7 +36,7 @@ int main(char *parameters) {
     u_int16 quit_selected = FALSE;
     u_int16 restart_song = FALSE;
     u_int16 move_prev = FALSE;
-    int time_elapsed;
+    s_int32 time_elapsed;
 
     printf("Loading Decoder library\n");
     decoderLibrary = LoadLibrary("audiodec");
