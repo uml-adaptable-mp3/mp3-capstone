@@ -17,10 +17,7 @@ AUODAC s
 AUIADC s 48000 line1_1 line1_2
 # Start UART in/out driver
 UARTIN
-# Start audio loopback driver (copy audio in to audio out). To disable
-# the driver, either comment the following line, or run "driver -auxplay"
-# from the Command Shell.
-AUXPLAY
+
 # Start the shell
 S:SHELL.AP3
 
