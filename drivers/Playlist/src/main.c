@@ -24,10 +24,22 @@ FILE *fp = NULL;
 char *errorString = "nothing to see here";
 int eCode = 0;
 
+/**
+ * @brief Function to play music via the system's decoder library. Runs in a
+ *        separate task.
+ *
+ */
 void PlayerThread(void) {
     eCode = DecodeAudio(decoderLibrary, audioDecoder, &errorString);
 }
 
+/**
+ * @brief Driver for playing playlists
+ *
+ * @param parameters Command Line Arguments as a string. Should be the filepath
+ *                   of a .m3u playlist file.
+ * @return int S_ERROR (-1) if an error occurred, or S_OK if not.
+ */
 int main(char *parameters) {
     char *playlist_filename = parameters;
     Playlist *h_playlist;
@@ -37,6 +49,7 @@ int main(char *parameters) {
     u_int16 restart_song = FALSE;
     u_int16 move_prev = FALSE;
     s_int32 time_elapsed;
+    u_int16 shuffle_selected = FALSE;
 
     printf("Loading Decoder library\n");
     decoderLibrary = LoadLibrary("audiodec");
@@ -89,7 +102,6 @@ int main(char *parameters) {
                 case 'b':
                     time_elapsed = audioDecoder->cs.playTimeSeconds;
                     audioDecoder->cs.cancel = 1;
-
                     if (time_elapsed < 3) {
                         printf("Moving to previous...\n");
                         move_prev = TRUE;
@@ -98,7 +110,6 @@ int main(char *parameters) {
                         printf("Restarting song...\n");
                         restart_song = TRUE;
                     }
-
                     break;
                 case 'Q':
                 case 'q':
@@ -115,6 +126,15 @@ int main(char *parameters) {
                     else {
                         printf("Playing\n");
                     }
+                    break;
+                case 'M':
+                case 'm':
+                    printf("Shuffling...\n");
+                    // cancel playing the current song
+                    audioDecoder->cs.cancel = 1;
+                    // show shuffle selected
+                    shuffle_selected = TRUE;
+                    break;
                 }
             }
 
@@ -144,6 +164,14 @@ int main(char *parameters) {
             }
             move_prev = FALSE;
         }
+        else if (shuffle_selected) {
+            // shuffle playlist, which resets current to the new beginning
+            printf("Shuffling now...\n");
+            shuffle_playlist(h_playlist);
+            printf("Resetting current to head\n");
+            h_playlist->current = h_playlist->head;
+            shuffle_selected = FALSE;
+        }
         else if (h_playlist->current->next != NULL) {
             // go to next song
             h_playlist->current = h_playlist->current->next;
@@ -159,51 +187,3 @@ int main(char *parameters) {
     destroy_playlist(&h_playlist);
     return S_OK;
 }
-
-/* Test Code for Playlist
-void run_test()  {
-    Playlist* h_my_playlist;
-    Playlist_Entry* temp;
-    printf("\n\nTesting Playlist functions...\n");
-
-    printf("Making new playlist\n");
-    h_my_playlist = create_new_playlist();
-    printf("Adding song1.mp3\n");
-    add_song(h_my_playlist, "song1.mp3");
-    printf("Adding song2.mp3\n");
-    add_song(h_my_playlist, "song2.mp3");
-    printf("Adding song3.mp3\n");
-    add_song(h_my_playlist, "song3.mp3");
-
-    while (h_my_playlist->current != NULL)  {
-        printf("Song in list: %s\n", h_my_playlist->current->filename);
-        h_my_playlist->current = h_my_playlist->current->next;
-    }
-    h_my_playlist->current = h_my_playlist->head;
-
-    printf("Length of list: %d\n", h_my_playlist->length);
-
-    while (h_my_playlist->current != NULL)  {
-        printf("Removing %s from list...\n", h_my_playlist->current->filename);
-        temp = h_my_playlist->current->next;
-        delete_song(h_my_playlist, h_my_playlist->current);
-        h_my_playlist->current = temp;
-    }
-    h_my_playlist->current = h_my_playlist->head;
-
-    printf("Length of list: %d\n", h_my_playlist->length);
-
-    printf("Adding song1.mp3\n");
-    add_song(h_my_playlist, "song1.mp3");
-    printf("Adding song2.mp3\n");
-    add_song(h_my_playlist, "song2.mp3");
-    printf("Adding song3.mp3\n");
-    add_song(h_my_playlist, "song3.mp3");
-
-    printf("Length of list: %d\n", h_my_playlist->length);
-
-    printf("Deleting playlist...\n");
-
-    destroy_playlist(&h_my_playlist);
-}
-*/
