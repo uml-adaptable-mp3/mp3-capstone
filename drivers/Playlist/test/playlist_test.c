@@ -9,9 +9,11 @@
 #include "playlist.h"
 
 void test_playlist();
+void test_shuffle();
 
 void main() {
     test_playlist();
+    test_shuffle();
 }
 
 
@@ -59,4 +61,47 @@ void test_playlist() {
     printf("Deleting playlist...\n");
 
     destroy_playlist(&h_my_playlist);
+}
+
+void test_shuffle() {
+    Playlist* h_playlist;
+    int i;
+    printf("\n\nTesting Playlist Shuffle...\n");
+
+    printf("Making new playlist\n");
+    h_playlist = create_new_playlist();
+    // add a bunch of song names
+    add_song(h_playlist, "song1.mp3");
+    add_song(h_playlist, "song2.mp3");
+    add_song(h_playlist, "song3.mp3");
+    add_song(h_playlist, "song4.mp3");
+    add_song(h_playlist, "song5.mp3");
+    add_song(h_playlist, "song6.mp3");
+    add_song(h_playlist, "song7.mp3");
+    add_song(h_playlist, "song8.mp3");
+    add_song(h_playlist, "song9.mp3");
+    add_song(h_playlist, "song10.mp3");
+
+    printf("Size before: %d\n", h_playlist->length);
+    printf("Contents of Playlist Before:\n");
+    h_playlist->current = h_playlist->head;
+    i = 0;
+    while (h_playlist->current != NULL) {
+        printf("%d: %s\n", i, h_playlist->current->filename);
+        h_playlist->current = h_playlist->current->next;
+        ++i;
+    }
+    printf("\nBeginning Shuffle...\n");
+    shuffle_playlist(h_playlist);
+    printf("\nSize after: %d\n", h_playlist->length);
+    printf("Contents of Playlist After:\n");
+    h_playlist->current = h_playlist->head;
+    i = 0;
+    while (h_playlist->current != NULL) {
+        printf("%d: %s\n", i, h_playlist->current->filename);
+        h_playlist->current = h_playlist->current->next;
+        ++i;
+    }
+    printf("Test complete.");
+    destroy_playlist(&h_playlist);
 }

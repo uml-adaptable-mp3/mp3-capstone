@@ -25,17 +25,30 @@ FILE *fp = NULL;
 char *errorString = "nothing to see here";
 int eCode = 0;
 
+/**
+ * @brief Function to play music via the system's decoder library. Runs in a
+ *        separate task.
+ *
+ */
 void PlayerThread(void) {
 	eCode = DecodeAudio(decoderLibrary, audioDecoder, &errorString);
 }
 
-
+/**
+ * @brief Driver for playing playlists
+ *
+ * @param parameters Command Line Arguments as a string. Should be the filepath
+ *                   of a .m3u playlist file.
+ * @return int S_ERROR (-1) if an error occurred, or S_OK if not.
+ */
 int main(char *parameters) {
     char* playlist_filename = parameters;
     Playlist* h_playlist;
     FILE* current_song;
     char user_input;
     u_int16 quit_selected = FALSE;
+    u_int16 shuffle_selected = FALSE;
+    int i;
 
     printf("Loading Decoder library\n");
 	decoderLibrary = LoadLibrary("audiodec");
@@ -79,6 +92,14 @@ int main(char *parameters) {
                 //character(s) available in the stdin buffer
                 user_input = fgetc(stdin);
                 switch (user_input) {
+                    case 'M':
+                    case 'm':
+                        printf("Shuffling...\n");
+                        // cancel playing the current song
+                        audioDecoder->cs.cancel = 1;
+                        // show shuffle selected
+                        shuffle_selected = TRUE;
+                        break;
                     case 'S':
                     case 's':
                         printf("\rSkipping... \n");
@@ -105,7 +126,18 @@ int main(char *parameters) {
         // go to next song
         fclose(current_song);
         DeleteAudioDecoder(decoderLibrary, audioDecoder);
-        h_playlist->current = h_playlist->current->next;
+        if (!shuffle_selected) {
+            h_playlist->current = h_playlist->current->next;
+        }
+        else {
+            // shuffle playlist, which resets current to the new beginning
+            printf("Shuffling now...\n");
+            shuffle_playlist(h_playlist);
+            printf("Resetting current to head\n");
+            h_playlist->current = h_playlist->head;
+            shuffle_selected = FALSE;
+        }
+
     }
     // reset playlist to beginning
     h_playlist->current = h_playlist->head;

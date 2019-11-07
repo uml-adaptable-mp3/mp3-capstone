@@ -4,10 +4,22 @@
 #include <stdlib.h>
 #include <sysmemory.h>
 #include <string.h>
+#include <time.h>
+#include <audio.h>
 
 #include "playlist.h"
 
 #define BUFFER_SIZE 127
+
+static u_int16 sg_SEEDED = 0;
+
+static void seed_random(void) {
+    if (!sg_SEEDED) {
+        srandom((u_int32) ReadTimeCount());
+        sg_SEEDED = 1;
+    }
+}
+
 
 Playlist* create_new_playlist() {
     Playlist* p_list = (Playlist*) malloc(sizeof(Playlist));
@@ -18,7 +30,7 @@ Playlist* create_new_playlist() {
     return p_list;
 }
 
-Playlist* create_playlist_from_file(const char* filename) {
+Playlist* create_playlist_from_file(register const char* filename) {
     Playlist* h_playlist = NULL;
     FILE *p_file = NULL;
     FILE *p_temp = NULL;
@@ -51,8 +63,6 @@ Playlist* create_playlist_from_file(const char* filename) {
         if (name_buffer[last_index - 1] == '\n' || name_buffer[last_index - 1] == '\r') {
             name_buffer[last_index - 1] = '\0';
         }
-
-        printf("Name Buffer: <%s>\n", name_buffer);
 
         // check if file exists
         p_temp = fopen(name_buffer, "r");
@@ -170,4 +180,53 @@ void delete_song(Playlist* h_playlist, Playlist_Entry* p_entry) {
 
     // update length
     h_playlist->length--;
+}
+
+void shuffle_playlist(Playlist* h_playlist) {
+    int i, j;
+    Playlist_Entry** p_node_array;
+    Playlist_Entry* temp;
+
+    seed_random();  // make sure random is seeded
+
+    // make array of pointers to nodes
+    p_node_array = malloc((size_t) h_playlist->length * sizeof(Playlist_Entry*));
+    if (p_node_array == NULL) {
+        printf("ERROR: Could not shuffle playlist: Out of memory\n");
+        return;
+    }
+    temp = h_playlist->head;
+    for (i = 0; i < h_playlist->length; ++i) {
+        p_node_array[i] = temp;
+        temp = temp->next;
+    }
+
+    // perform the Fisher-Yates shuffle algorithm
+    for (i = 0; i < h_playlist->length - 1; ++i) {
+        // random j such that i <= j < length
+        j = ((int) random() % (h_playlist->length - i)) + i;
+        // swap i and j
+        temp = p_node_array[i];
+        p_node_array[i] = p_node_array[j];
+        p_node_array[j] = temp;
+    }
+
+    // Fix all of the pointers in the list
+    // first element in array is head, its previous is NULL
+    p_node_array[0]->prev = NULL;
+    p_node_array[0]->next = p_node_array[1];
+    for (i = 1; i < h_playlist->length - 1; ++i) {
+        p_node_array[i]->prev = p_node_array[i-1];
+        p_node_array[i]->next = p_node_array[i+1];
+    }
+    p_node_array[i]->prev = p_node_array[i-1];
+    p_node_array[i]->next = NULL;
+
+    // assign the new head and last, reset current to new head
+    h_playlist->head = p_node_array[0];
+    h_playlist->current = p_node_array[0];
+    h_playlist->last = p_node_array[i];
+
+    // free the allocated memory for the array, but NOT the nodes in it
+    free(p_node_array);
 }
