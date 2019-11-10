@@ -7,6 +7,7 @@
 #include <timers.h>
 #include <libaudiodec.h>
 #include <vsostasks.h>
+#include <taskandstack.h>
 #include <consolestate.h>
 #include <kernel.h>
 #include <unistd.h>
@@ -18,19 +19,18 @@
 #define TRUE 1
 #define FALSE 0
 
-/* void init(char* parameters){
-    StartTask(TASK_IO, PlayerThread);
-    
-} */
+struct TaskAndStack *taskAndStack = NULL;
+u_int16 quitVolumeTask = 0;
 
-int main(char *parameters) {
+
+int VolumeTask(char *parameters) {
     s_int16 volume = 90; // 30 - (90/6) = volume 15 to start
     char user_input;
     
     // Sets the volume to 15 - a reasonable volume to start at
     ioctl(stdaudioout, IOCTL_AUDIO_SET_VOLUME, (void *)(volume+256));
 
-    while(TRUE) {
+    while(!quitVolumeTask) {
         if (ioctl(stdin, IOCTL_TEST, NULL)) {
             //character(s) available in the stdin buffer
             user_input = fgetc(stdin);
@@ -47,5 +47,30 @@ int main(char *parameters) {
 
             Delay(250);
         }
+    }
+}
+
+DLLENTRY(init)
+ioresult init(char* parameters) {
+    taskAndStack = CreateTaskAndStack(VolumeTask, "VOLUME", 256, 6);
+    if(!taskAndStack){
+        return S_ERROR;
+    }
+    
+    // StartTask(TASK_IO, VolumeTask);
+    return S_OK;
+}
+
+DLLENTRY(fini)
+void fini(void) {
+    /* Remove task running VolumeTask() */
+    if (taskAndStack) {
+        quitVolumeTask = 1;
+
+        while (taskAndStack->task.tc_State &&
+               taskAndStack->task.tc_State != TS_REMOVED) {
+            Delay(TICKS_PER_SEC/100);
+        }
+        FreeTaskAndStack(taskAndStack);
     }
 }
