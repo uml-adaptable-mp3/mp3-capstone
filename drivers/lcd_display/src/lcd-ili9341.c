@@ -21,12 +21,14 @@
 #include <rgb565.h>
 #include <lcd.h>
 #include <vsNand.h>
-#include <sethandler.h>
 #include <hwLocks.h>
 #include "lcd-ili9341.h"
 
 //#include "forbid_stdout.h"
 #include <stdio.h>
+
+// externs
+extern void *SetHandler(register __i0 void *hook, register __a0 void *newFunc);
 
 #if 1
 #define PORTRAIT_MODE
