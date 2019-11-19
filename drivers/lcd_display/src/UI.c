@@ -13,20 +13,21 @@
 
 #define FILE_NAME_CHARS 256
 
-extern volatile int fileNum;
-extern u_int16 currentMenu;
-extern s_int16 arrowSelection;
-extern FILE *fp;
-extern FILE *sampleFile;
-extern u_int16 running;
-extern u_int16 newSongSelected;
-extern AUDIO_DECODER *audioDecoder;
-extern char *filespec;
-extern char *path;
-extern u_int16 index;
-extern SongInfo *metadata;
-extern u_int16 idleMode;
-extern u_int16 anyButtonPressed;
+// extern volatile int fileNum;
+u_int16 currentMenu;
+// extern s_int16 arrowSelection;
+// extern FILE *fp;
+// extern FILE *sampleFile;
+// extern u_int16 running;
+// extern u_int16 newSongSelected;
+// extern AUDIO_DECODER *audioDecoder;
+// extern char *filespec;
+// extern char *path;
+// extern u_int16 index;
+// extern SongInfo *metadata;
+// extern u_int16 idleMode;
+// extern u_int16 anyButtonPressed;
+
 
 FILE *filehandle = NULL;
 s_int16 endOfFile = -1;
@@ -49,6 +50,18 @@ void loadMainMenu()
 	LcdTextOutXY(200,300, "INFO");
 	lcd0.textColor = WHITE;
 	currentMenu = MAIN_MENU;
+}
+
+void loadCriticalErrorMenu()
+{
+	LcdInit(1);
+	// Change font to red so it stands out
+	lcd0.textColor = RED;
+	LcdTextOutXY(10, 20, "A critical error has occured!");
+	LcdTextOutXY(10, 40, "Please try restarting the system");
+	LcdTextOutXY(10, 60, "If the error persists, contact UML");
+	lcd0.textColor = WHITE;
+	currentMenu = ERR_MENU;
 }
 
 // Used across multiple menus by specifying the title being drawn
@@ -236,18 +249,6 @@ void loadMainMenu()
 // 	currentMenu = LOAD_MENU;
 // }
 
-void loadCriticalErrorMenu()
-{
-	LcdInit(1);
-	// Change font to red so it stands out
-	lcd0.textColor = RED;
-	LcdTextOutXY(10, 20, "A critical error has occured!");
-	LcdTextOutXY(10, 40, "Please try restarting the system");
-	LcdTextOutXY(10, 60, "If the error persists, contact UML");
-	lcd0.textColor = WHITE;
-	currentMenu = ERR_MENU;
-}
-
 // void loadInfoMenu()
 // {
 // 	drawCommonMenuItems("INFO MENU", INFO_MENU);
@@ -259,72 +260,72 @@ void loadCriticalErrorMenu()
 // 	strcpy(currentTitle, (char *) metadata->title);
 // }
 
-void moveBoxSelection(u_int16 direction)
-{
-	u_int16 i;
+// void moveBoxSelection(u_int16 direction)
+// {
+// 	u_int16 i;
 
-	// Clear the current box from the screen by just drawing over it with blank spaces
-	LcdTextOutXY(10, 30 + (arrowSelection * 30),  "                                ");
-	LcdTextOutXY(7, 40 + (arrowSelection * 30),  " ");
-	LcdTextOutXY(230, 40 + (arrowSelection * 30),  " ");
-	LcdTextOutXY(10, 50 + (arrowSelection * 30),  "                                ");
+// 	// Clear the current box from the screen by just drawing over it with blank spaces
+// 	LcdTextOutXY(10, 30 + (arrowSelection * 30),  "                                ");
+// 	LcdTextOutXY(7, 40 + (arrowSelection * 30),  " ");
+// 	LcdTextOutXY(230, 40 + (arrowSelection * 30),  " ");
+// 	LcdTextOutXY(10, 50 + (arrowSelection * 30),  "                                ");
 
-	// User wants to move the selection up
-	if (direction == UP)
-	{
-		// If the user is already at the top of the list, determine if there is a previous
-		// list to navigate to or not
-		if (arrowSelection == 0)
-		{
-			// list page number is not 0, so there is a previous list to navigate to
-			if (!pageNum == 0)
-			{
-				// decrement list since we're navigating back
-				pageNum--;
-				// move the box to the last option on the previous list
-				arrowSelection = 8;
-				// redraw the options to the screen
-				drawMenuListOptions();
-			}
-		}
-		// We're not on the first option, so we can just decrement the counter by one and be done
-		else
-		{
-			arrowSelection--;
-		}
-	}
-	// User wants to move the selection down
-	else
-	{
-		// If end of file was set, then we don't want to allow the user to move beyond the last
-		// populated option
-		if (arrowSelection != endOfFile)
-		{
-			// Moving down on last option requires a redraw of the screen options
-			if (arrowSelection == 8)
-			{
-				// increment page number since we're moving to a new page
-				pageNum++;
-				// reset the box to the top of the list
-				arrowSelection = 0;
+// 	// User wants to move the selection up
+// 	if (direction == UP)
+// 	{
+// 		// If the user is already at the top of the list, determine if there is a previous
+// 		// list to navigate to or not
+// 		if (arrowSelection == 0)
+// 		{
+// 			// list page number is not 0, so there is a previous list to navigate to
+// 			if (!pageNum == 0)
+// 			{
+// 				// decrement list since we're navigating back
+// 				pageNum--;
+// 				// move the box to the last option on the previous list
+// 				arrowSelection = 8;
+// 				// redraw the options to the screen
+// 				drawMenuListOptions();
+// 			}
+// 		}
+// 		// We're not on the first option, so we can just decrement the counter by one and be done
+// 		else
+// 		{
+// 			arrowSelection--;
+// 		}
+// 	}
+// 	// User wants to move the selection down
+// 	else
+// 	{
+// 		// If end of file was set, then we don't want to allow the user to move beyond the last
+// 		// populated option
+// 		if (arrowSelection != endOfFile)
+// 		{
+// 			// Moving down on last option requires a redraw of the screen options
+// 			if (arrowSelection == 8)
+// 			{
+// 				// increment page number since we're moving to a new page
+// 				pageNum++;
+// 				// reset the box to the top of the list
+// 				arrowSelection = 0;
 
-				drawMenuListOptions();
-			}
-			else
-			{
-				arrowSelection++;
-			}
-		}
-	}
+// 				drawMenuListOptions();
+// 			}
+// 			else
+// 			{
+// 				arrowSelection++;
+// 			}
+// 		}
+// 	}
 
-	// Draw the box at the new determined position
-	lcd0.textColor = YELLOW;
-	LcdTextOutXY(10, 30 + (arrowSelection * 30),  "--------------------------------");
-	LcdTextOutXY(7, 40 + (arrowSelection * 30),  "|");
-	LcdTextOutXY(230, 40 + (arrowSelection * 30),  "|");
-	LcdTextOutXY(10, 50 + (arrowSelection * 30),  "--------------------------------");
-	lcd0.textColor = WHITE;
-}
+// 	// Draw the box at the new determined position
+// 	lcd0.textColor = YELLOW;
+// 	LcdTextOutXY(10, 30 + (arrowSelection * 30),  "--------------------------------");
+// 	LcdTextOutXY(7, 40 + (arrowSelection * 30),  "|");
+// 	LcdTextOutXY(230, 40 + (arrowSelection * 30),  "|");
+// 	LcdTextOutXY(10, 50 + (arrowSelection * 30),  "--------------------------------");
+// 	lcd0.textColor = WHITE;
+// }
 
 // char *retrieveSongLocation(u_int16 *index, u_int16 offset)
 // {
