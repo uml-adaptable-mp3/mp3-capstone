@@ -17,11 +17,11 @@
 #include <vs1005h.h>
 #include <romfont1005e.h>
 #include <vo_gpio.h>
-#include <devByteBus.h>
 #include <rgb565.h>
 #include <lcd.h>
 #include <vsNand.h>
 #include <hwLocks.h>
+#include "devByteBus.h"
 #include "lcd-ili9341.h"
 
 //#include "forbid_stdout.h"
