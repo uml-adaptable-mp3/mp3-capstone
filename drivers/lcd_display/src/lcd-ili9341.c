@@ -13,17 +13,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <vstypes.h>
-#include "vsos.h"
-#include "vs1005h.h"
-#include "romfont1005e.h"
-#include "vo_gpio.h"
-#include "devByteBus.h"
-#include "ili9341.h"
-#include "rgb565.h"
-#include "lcd.h"
-#include "vsnand.h"
-#include "sethandler.h"
+#include <vsos.h>
+#include <vs1005h.h>
+#include <romfont1005e.h>
+#include <vo_gpio.h>
+#include <devByteBus.h>
+#include <rgb565.h>
+#include <lcd.h>
+#include <vsNand.h>
+#include <sethandler.h>
 #include <hwLocks.h>
+#include "lcd-ili9341.h"
 
 //#include "forbid_stdout.h"
 #include <stdio.h>
