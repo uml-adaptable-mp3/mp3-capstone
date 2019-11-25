@@ -23,14 +23,12 @@
 #include <hwLocks.h>
 #include "devByteBus.h"
 #include "lcd-ili9341.h"
+#include "sethandler.h"
 
 //#include "forbid_stdout.h"
 #include <stdio.h>
 
-// externs
-extern void *SetHandler(register __i0 void *hook, register __a0 void *newFunc);
-
-#if 1
+#if 0
 #define PORTRAIT_MODE
 #endif
 
@@ -254,15 +252,13 @@ u_int16 MyLcdFilledRectangle (u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_
 	}
 	ObtainHwLocksBIP(HLB_NONE, HLIO_0_14|HLIO_0_15, HLP_NONE);
 	TFTWriteVector(cmd);
-
 	//NandWaitIdle();
 	GpioSetPin(__LCD_PIN_A0, 0); //LCD set command mode
 	devLcdHw.Ioctl(&devLcdHw, IOCTL_START_FRAME, 0);
 	devLcdHw.Output(&devLcdHw, WRITE_MEMORY, 0, 1);
 	//NandWaitIdle();
 	GpioSetPin(__LCD_PIN_A0, 1); //LCD set data mode
-
-	if (texture) {
+	if (texture != NULL) {
 		devLcdHw.Output(&devLcdHw,0,texture,(u_int16)n);
 	} else {
 		while(n) {
@@ -328,7 +324,7 @@ u_int16 LcdInit (u_int16 display_mode) {
 
 
 	lcd0.defaultTextColor = lcd0.textColor = __RGB565RGB(180,180,180);
-	lcd0.defaultBackgroundColor = lcd0.backgroundColor = __RGB565RGB(0,0,128);
+	lcd0.defaultBackgroundColor = lcd0.backgroundColor = __RGB565RGB(128,193,255);
 	lcd0.highlightColor = __RGB565RGB(255,255,255);
 	lcd0.shadowColor = __RGB565RGB(80,80,80);
 	lcd0.buttonTextColor = __RGB565RGB(0,0,0);

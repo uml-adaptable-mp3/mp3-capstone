@@ -14,7 +14,7 @@
 #define FILE_NAME_CHARS 256
 
 // extern volatile int fileNum;
-u_int16 currentMenu;
+static u_int16 currentMenu;
 // extern s_int16 arrowSelection;
 // extern FILE *fp;
 // extern FILE *sampleFile;
@@ -42,8 +42,8 @@ void loadMainMenu()
 {
 	LcdInit(1);
 	// monitorVoltage();
+	lcd0.textColor = __RGB565RGB(0, 0, 0);
 	LcdTextOutXY(1,1, "MAIN MENU");
-	lcd0.textColor = RED;
 	LcdTextOutXY(1,50, "ARTISTS");
 	LcdTextOutXY(1,300, "PLAYLISTS");
 	LcdTextOutXY(200,50, "SONGS");

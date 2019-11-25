@@ -11,6 +11,7 @@
 #include <unistd.h>
 
 #include "UI.h"
+#include <lcd.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -18,11 +19,10 @@
 int main(char *parameters) {
     char *playlist_filename = parameters;
 
-    // printf("Display Driver Not Implemented.\n");
-    // return S_OK;
     // load the main menu
+    LcdInit(0);
     loadMainMenu();
-
+    while (1) {};
 
     return S_OK;
 }
