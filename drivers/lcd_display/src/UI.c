@@ -82,6 +82,12 @@ void LcdClearScreen() {
 	LcdFilledRectangle(0,0,lcd0.width-1,lcd0.height-1,0,lcd0.backgroundColor);
 }
 
+void LcdClearMainWindow() {
+    // clear the main window
+    LcdFilledRectangle(MAIN_WINDOW_START_X, MAIN_WINDOW_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
+                       NULL, lcd0.backgroundColor);
+}
+
 
 ioresult UI_init(void) {
     sg_UI_STATE.menu_state = INIT_SCREEN;
@@ -140,17 +146,25 @@ void loadMainMenu()
 
 void loadNowPlaying()
 {
+    u_int16 info_start_x = MAIN_WINDOW_START_X+ALBUM_ART_MAX_WIDTH+2+PAD4;
+    u_int16 info_start_y = MAIN_WINDOW_START_Y+12+PAD4;
+
     sg_UI_STATE.menu_state = NOW_PLAYING;
     lcd0.textColor = COLOR_BLACK;
 
     // clear the now playing section
-    LcdFilledRectangle(MAIN_WINDOW_START_X, MAIN_WINDOW_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
-                       NULL, lcd0.backgroundColor);
+    LcdClearMainWindow();
 
     // draw box for album art
     LcdDrawBox(MAIN_WINDOW_START_X+10, MAIN_WINDOW_START_Y+10,
                MAIN_WINDOW_START_X+ALBUM_ART_MAX_WIDTH+2, MAIN_WINDOW_START_Y+ALBUM_ART_MAX_HEIGHT+2,
-               2, COLOR_BLACK, COLOR_RED);
+               2, COLOR_BLACK, COLOR_LIME);
+
+
+
+    LcdTextOutXY(info_start_x, info_start_y, "Song Title");
+    LcdTextOutXY(info_start_x, info_start_y+15, "Album Name");
+    LcdTextOutXY(info_start_x, info_start_y+30, "Artist Name");
 
 }
 
