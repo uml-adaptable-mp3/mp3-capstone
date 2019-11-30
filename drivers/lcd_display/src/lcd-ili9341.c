@@ -25,6 +25,10 @@
 #include "lcd-ili9341.h"
 #include "sethandler.h"
 
+// Access font data in VS1005G ROM
+extern const u_int32 font16a[];
+extern const u_int16 font16aptrs[];
+
 //#include "forbid_stdout.h"
 #include <stdio.h>
 
@@ -277,9 +281,9 @@ u_int16 MyLcdFilledRectangle (u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_
 
 u_int16 MyLcdTextOutXY (u_int16 x1, u_int16 y1, char *s) {
 	static u_int16 buff[7*8];
+	u_int16 x,y;
 	while (*s) { //Foreach character *s do:
 		__mem_y u_int16 *p = &latin1[(*s)*3]; //Get a pointer to ROM font table
-		u_int16 x,y;
 		memset(buff,lcd0.backgroundColor,sizeof(buff)); //fill the texture with bk color
 		for (x=0; x<3; x++) { //light some texture pixels with text color based on font
 			for (y=0; y<8; y++) {
@@ -292,7 +296,6 @@ u_int16 MyLcdTextOutXY (u_int16 x1, u_int16 y1, char *s) {
 		s++;
 	}
 }
-
 
 
 u_int16 LcdInit (u_int16 display_mode) {

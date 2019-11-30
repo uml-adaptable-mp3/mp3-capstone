@@ -35,10 +35,10 @@
 #define ENABLE_3G                  0xF2
 #define INTERFACE_CONTROL          0xF6
 
-#define YELLOW __RGB565RGB(255, 255, 0)
-#define RED    __RGB565RGB(255, 0, 0)
-#define WHITE  lcd0.defaultTextColor
-#define GREEN  __RGB565RGB(0, 128, 0)
+// #define YELLOW __RGB565RGB(255, 255, 0)
+// #define RED    __RGB565RGB(255, 0, 0)
+// #define WHITE  lcd0.defaultTextColor
+// #define GREEN  __RGB565RGB(0, 128, 0)
 
 
 void TFTWriteRegister(u_int16 reg, u_int16 data);
@@ -46,6 +46,5 @@ void TFTWriteVector(s_int16 *vec);
 u_int16 MyLcdFilledRectangle (u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_int16 *texture, u_int16 color);
 u_int16 MyLcdTextOutXY (u_int16 x1, u_int16 y1, char *s);
 u_int16 LcdInit (u_int16 display_mode);
-
 
 #endif  // _LCD_ILI9341_H_

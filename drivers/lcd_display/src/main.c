@@ -16,13 +16,36 @@
 #define TRUE 1
 #define FALSE 0
 
-int main(char *parameters) {
-    char *playlist_filename = parameters;
 
-    // load the main menu
-    LcdInit(0);
-    loadMainMenu();
-    while (1) {};
+void init(char* parameters) {
+
+    UI_init();
+
+}
+
+
+
+ioresult main(char *parameters) {
+    if (parameters != NULL && parameters[0] == 'i') {
+        // init mode, don't do anything
+    }
+    else if (parameters != NULL && parameters[0] == 'h') {
+        // load the header
+        loadHeader();
+    }
+    else if (parameters != NULL && parameters[0] == 'm') {
+        // load the main menu
+        loadHeader();
+        loadMainMenu();
+    }
+    else if (parameters != NULL && parameters[0] == 'p') {
+        // load the main menu
+        loadHeader();
+        loadNowPlaying();
+    }
+    else {
+        LcdInit(0);
+    }
 
     return S_OK;
 }

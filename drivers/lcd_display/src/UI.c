@@ -3,66 +3,171 @@
 #include <vo_gpio.h>
 #include <string.h>
 #include <vo_fat.h>
+#include <rgb565.h>
+#include <romfont1005e.h>
 #include <sysmemory.h>
 #include <vo_fat.h>
 #include <vo_fatdirops.h>
 #include <libaudiodec.h>
 
 #include "UI.h"
-#include "lcd-ili9341.h"
+
+#ifndef TRUE
+#define TRUE 1
+#endif
+
+#ifndef FALSE
+#define FALSE 0
+#endif
+
+// #include "lcd-ili9341.h"
 
 #define FILE_NAME_CHARS 256
 
-// extern volatile int fileNum;
-static u_int16 currentMenu;
-// extern s_int16 arrowSelection;
-// extern FILE *fp;
-// extern FILE *sampleFile;
-// extern u_int16 running;
-// extern u_int16 newSongSelected;
-// extern AUDIO_DECODER *audioDecoder;
-// extern char *filespec;
-// extern char *path;
-// extern u_int16 index;
-// extern SongInfo *metadata;
-// extern u_int16 idleMode;
-// extern u_int16 anyButtonPressed;
+// typedef enum Menu_State {
+//     INIT_SCREEN = 0,
+//     MAIN_MENU,
+//     SONG_MENU1,
+//     PLAYLIST_MENU,
+//     NOW_PLAYING,
+// } Menu_State_t;
 
 
-FILE *filehandle = NULL;
-s_int16 endOfFile = -1;
-u_int16 pageNum = 0;
-static u_int16 lastTimeSeconds = 0;
-char buffer[128];
-u_int32 topOfList = 0;
-static char currentTitle[31];
+#define INIT_SCREEN   0
+#define MAIN_MENU     1
+#define SONG_MENU1    2
+#define PLAYLIST_MENU 3
+#define NOW_PLAYING   4
+
+#define NORMAL_MODE 0
+#define SHUFFLE_MODE 1
+#define REPEAT_MODE 2
+
+
+#define PAD4 4
+#define HEADER_START_X 0
+#define HEADER_START_Y 0
+#define HEADER_END_X lcd0.width-1
+#define HEADER_END_Y 16
+
+#define MAIN_WINDOW_START_X 0
+#define MAIN_WINDOW_START_Y 20
+#define MAIN_WINDOW_END_X lcd0.width-1
+#define MAIN_WINDOW_END_Y lcd0.height-1
+
+#define PLAYBACK_START_X 0
+#define PLAYBACK_START_Y lcd0.height-30
+
+#define ALBUM_ART_MAX_WIDTH  150
+#define ALBUM_ART_MAX_HEIGHT 150
+
+typedef struct {
+    u_int16      menu_state : 4;
+    u_int16      paused     : 1;
+    u_int16      menu_item  : 8;
+    u_int16      mode       : 3;
+} UI_State_t;
+
+static UI_State_t sg_UI_STATE;
+
+
+u_int16 LcdDrawBox(u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_int16 border_width,
+                   u_int16 border_color, u_int16 fill_color) {
+    LcdFilledRectangle(x1, y1, x2, y2, NULL, border_color);
+    LcdFilledRectangle(x1 + border_width, y1 + border_width, x2 - border_width, y2 - border_width, NULL, fill_color);
+}
+
+void LcdClearScreen() {
+    // Clear the screen
+	LcdFilledRectangle(0,0,lcd0.width-1,lcd0.height-1,0,lcd0.backgroundColor);
+}
+
+
+ioresult UI_init(void) {
+    sg_UI_STATE.menu_state = INIT_SCREEN;
+    sg_UI_STATE.mode = NORMAL_MODE;
+    sg_UI_STATE.paused = TRUE;
+    LcdInit(0);
+
+    LcdDrawBox((lcd0.width/2)-65, (lcd0.height/2)-25, (lcd0.width/2)+65,
+               (lcd0.height/2)+25, 2, COLOR_BLACK, lcd0.backgroundColor);
+    lcd0.textColor = COLOR_BLACK;
+    LcdTextOutXY((lcd0.width/2)-60, (lcd0.height/2), "AMP3 Booting...");
+}
+
+void loadHeader()
+{
+    // clear the header area
+    LcdFilledRectangle(HEADER_START_X, HEADER_START_Y, HEADER_END_X, HEADER_END_Y, NULL, lcd0.backgroundColor);
+    // add data to header
+    lcd0.textColor = COLOR_BLACK;
+
+    // display current mode
+    if (sg_UI_STATE.mode = NORMAL_MODE) {
+        LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "NORMAL ");
+    }
+    else if (sg_UI_STATE.mode = SHUFFLE_MODE) {
+        LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "SHUFFLE");
+    }
+    else if (sg_UI_STATE.mode = REPEAT_MODE) {
+        LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "REPEAT ");
+    }
+    else {
+        LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "UNKNOWN");
+    }
+
+    // display title
+    LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, HEADER_START_Y + PAD4, "AMP3 Player");
+
+    // display battery percentage
+    LcdTextOutXY((HEADER_END_X)-80, HEADER_START_Y + PAD4, "BATT: 00%");
+
+    // draw border at bottom
+    LcdFilledRectangle(HEADER_START_X, HEADER_END_Y, HEADER_END_X, HEADER_END_Y+1, NULL, COLOR_BLACK);
+}
 
 
 void loadMainMenu()
 {
-	LcdInit(1);
-	// monitorVoltage();
-	lcd0.textColor = __RGB565RGB(0, 0, 0);
-	LcdTextOutXY(1,1, "MAIN MENU");
-	LcdTextOutXY(1,50, "ARTISTS");
-	LcdTextOutXY(1,300, "PLAYLISTS");
-	LcdTextOutXY(200,50, "SONGS");
-	LcdTextOutXY(200,300, "INFO");
-	lcd0.textColor = WHITE;
-	currentMenu = MAIN_MENU;
+    // monitorVoltage();
+    lcd0.textColor = __RGB565RGB(0, 0, 0);
+    LcdTextOutXY(1,1, "MAIN MENU");
+    LcdTextOutXY(1,300, "PLAYLISTS");
+    LcdTextOutXY(200,50, "SONGS");
+    LcdTextOutXY(200,300, "INFO");
+    lcd0.textColor = COLOR_WHITE;
 }
+
+void loadNowPlaying()
+{
+    sg_UI_STATE.menu_state = NOW_PLAYING;
+    lcd0.textColor = COLOR_BLACK;
+
+    // clear the now playing section
+    LcdFilledRectangle(MAIN_WINDOW_START_X, MAIN_WINDOW_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
+                       NULL, lcd0.backgroundColor);
+
+    // draw box for album art
+    LcdDrawBox(MAIN_WINDOW_START_X+10, MAIN_WINDOW_START_Y+10,
+               MAIN_WINDOW_START_X+ALBUM_ART_MAX_WIDTH+2, MAIN_WINDOW_START_Y+ALBUM_ART_MAX_HEIGHT+2,
+               2, COLOR_BLACK, COLOR_RED);
+
+}
+
 
 void loadCriticalErrorMenu()
 {
-	LcdInit(1);
-	// Change font to red so it stands out
-	lcd0.textColor = RED;
-	LcdTextOutXY(10, 20, "A critical error has occured!");
-	LcdTextOutXY(10, 40, "Please try restarting the system");
-	LcdTextOutXY(10, 60, "If the error persists, contact UML");
-	lcd0.textColor = WHITE;
-	currentMenu = ERR_MENU;
+    LcdClearScreen();
+    // Change font to red so it stands out
+    lcd0.textColor = COLOR_RED;
+    LcdTextOutXY(10, 20, "A critical error has occured!");
+    LcdTextOutXY(10, 40, "Please try restarting the system");
+    LcdTextOutXY(10, 60, "If the error persists, contact UML");
+    lcd0.textColor = COLOR_WHITE;
 }
+
+
+
 
 // Used across multiple menus by specifying the title being drawn
 // void drawCommonMenuItems(char *title, u_int16 menu)
