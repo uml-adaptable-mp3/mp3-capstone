@@ -59,12 +59,12 @@ int ButtonTask(char *parameters) {
             RunLibraryFunction("Playlist", ENTRY_1, 0);
         }
         // Skip
-        // pin 45 (not same as schematic - 26)
+        // pin 26
         if(GpioReadPin(BUTTON2) & ACTIVEHIGH) {
             RunLibraryFunction("Playlist", ENTRY_2, 0);
         }
         // Prev
-        // pin 47 (not same as schematic - 56)
+        // pin 56
         if(GpioReadPin(BUTTON3) & ACTIVEHIGH) {
             RunLibraryFunction("Playlist", ENTRY_3, 0);
         }
