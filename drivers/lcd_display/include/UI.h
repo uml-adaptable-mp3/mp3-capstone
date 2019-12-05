@@ -33,6 +33,9 @@ ioresult UI_init();
 void loadHeader();
 void loadMainMenu();
 void loadNowPlaying();
+void displayBatteryPercentage(u_int16 battery_level);
+void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length);
+
 
 void loadCriticalErrorMenu();
 

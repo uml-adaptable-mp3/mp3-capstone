@@ -9,6 +9,7 @@
 #include <vo_fat.h>
 #include <vo_fatdirops.h>
 #include <libaudiodec.h>
+#include <vstypes.h>
 
 #include "UI.h"
 
@@ -70,6 +71,11 @@ typedef struct {
 
 static UI_State_t sg_UI_STATE;
 
+static char sg_SONG_NAME[50];
+static char sg_ALBUM_NAME[50];
+static char sg_ARTIST_NAME[50];
+static u_int16 sg_BATTERY_PERCENTAGE;
+
 
 u_int16 LcdDrawBox(u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_int16 border_width,
                    u_int16 border_color, u_int16 fill_color) {
@@ -93,6 +99,12 @@ ioresult UI_init(void) {
     sg_UI_STATE.menu_state = INIT_SCREEN;
     sg_UI_STATE.mode = NORMAL_MODE;
     sg_UI_STATE.paused = TRUE;
+
+    strcpy(sg_SONG_NAME, "Song Title");
+    strcpy(sg_ALBUM_NAME, "Album Name");
+    strcpy(sg_ARTIST_NAME, "Artist Name");
+    sg_BATTERY_PERCENTAGE = 100;
+
     LcdInit(0);
 
     LcdDrawBox((lcd0.width/2)-65, (lcd0.height/2)-25, (lcd0.width/2)+65,
@@ -126,12 +138,23 @@ void loadHeader()
     LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, HEADER_START_Y + PAD4, "AMP3 Player");
 
     // display battery percentage
-    LcdTextOutXY((HEADER_END_X)-80, HEADER_START_Y + PAD4, "BATT: 00%");
+    displayBatteryPercentage(sg_BATTERY_PERCENTAGE);
 
     // draw border at bottom
     LcdFilledRectangle(HEADER_START_X, HEADER_END_Y, HEADER_END_X, HEADER_END_Y+1, NULL, COLOR_BLACK);
 }
 
+void displayBatteryPercentage(u_int16 battery_level) {
+    char battery_display_str[12];
+    sprintf(battery_display_str, "BATT: %3u%%", battery_level);
+
+    // clear current section on screen
+    LcdFilledRectangle((HEADER_END_X)-80, HEADER_START_Y + PAD4, HEADER_END_X, HEADER_END_Y-1,
+                       NULL, lcd0.backgroundColor);
+
+    // display battery percentage
+    LcdTextOutXY((HEADER_END_X)-80, HEADER_START_Y + PAD4, battery_display_str);
+}
 
 void loadMainMenu()
 {
@@ -146,6 +169,7 @@ void loadMainMenu()
 
 void loadNowPlaying()
 {
+    int i;
     u_int16 info_start_x = MAIN_WINDOW_START_X+ALBUM_ART_MAX_WIDTH+2+PAD4;
     u_int16 info_start_y = MAIN_WINDOW_START_Y+12+PAD4;
 
@@ -158,15 +182,78 @@ void loadNowPlaying()
     // draw box for album art
     LcdDrawBox(MAIN_WINDOW_START_X+10, MAIN_WINDOW_START_Y+10,
                MAIN_WINDOW_START_X+ALBUM_ART_MAX_WIDTH+2, MAIN_WINDOW_START_Y+ALBUM_ART_MAX_HEIGHT+2,
-               2, COLOR_BLACK, COLOR_LIME);
+               2, COLOR_BLACK, COLOR_WHITE); // COLOR_LIME
 
 
 
-    LcdTextOutXY(info_start_x, info_start_y, "Song Title");
-    LcdTextOutXY(info_start_x, info_start_y+15, "Album Name");
-    LcdTextOutXY(info_start_x, info_start_y+30, "Artist Name");
+    LcdTextOutXY(info_start_x, info_start_y, sg_SONG_NAME);
+    LcdTextOutXY(info_start_x, info_start_y+15, sg_ALBUM_NAME);
+    LcdTextOutXY(info_start_x, info_start_y+30, sg_ARTIST_NAME);
+
+    // temporary test of playback bar
+    for (i = 0; i <= 150; ++i) {
+        displaySongPlaybackBar(i, 150);
+        Delay(1000);
+    }
+    // displaySongPlaybackBar(45, 150);
+    // displaySongPlaybackBar(0, 150);
+    // displaySongPlaybackBar(150, 150);
 
 }
+
+void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
+    char buffer[8];
+    u_int16 progress_bar_end = ((elapsed_time * 200) / song_length) + PLAYBACK_START_X+60;
+    // song length in seconds
+    // clear current section of screen
+    LcdFilledRectangle(PLAYBACK_START_X, PLAYBACK_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
+                       NULL, lcd0.backgroundColor);
+
+    // draw the empty box
+    LcdDrawBox(PLAYBACK_START_X+58, PLAYBACK_START_Y+PAD4, MAIN_WINDOW_END_X-57, MAIN_WINDOW_END_Y-10,
+               2, COLOR_BLACK, lcd0.backgroundColor);
+
+    // draw the elapsed / remaining times
+    sprintf(buffer, "%3u:%02u", elapsed_time / 60, elapsed_time % 60);
+    LcdTextOutXY(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, buffer);
+
+    song_length -= elapsed_time;
+    sprintf(buffer, "%3u:%02u", song_length / 60, song_length % 60);
+    LcdTextOutXY(MAIN_WINDOW_END_X-57+PAD4, PLAYBACK_START_Y+8, buffer);
+
+    // fill the empty box to the elapsed point
+    LcdFilledRectangle(PLAYBACK_START_X+60, PLAYBACK_START_Y+PAD4+2,
+                       progress_bar_end, MAIN_WINDOW_END_Y-12, 0, COLOR_NAVY);  // MAIN_WINDOW_END_X-59
+
+    printf("X1: %d, Y1: %d\nX2: %d, Y2: %d\n", PLAYBACK_START_X+60, PLAYBACK_START_Y+PAD4+2,
+                                               progress_bar_end, MAIN_WINDOW_END_Y-12);  // MAIN_WINDOW_END_X-59
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void loadCriticalErrorMenu()
@@ -179,6 +266,81 @@ void loadCriticalErrorMenu()
     LcdTextOutXY(10, 60, "If the error persists, contact UML");
     lcd0.textColor = COLOR_WHITE;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
