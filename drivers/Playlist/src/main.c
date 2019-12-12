@@ -42,6 +42,7 @@ void PlayerThread(void) {
 DLLENTRY(PlayPause)     // ENTRY_1
 void PlayPause(void) {
     audioDecoder->pause ^= 1;
+	RunLibraryFunction("lcd_display", ENTRY_5, audioDecoder->pause);
     if (audioDecoder->pause) {
         printf("Paused\n");
     }
@@ -129,7 +130,7 @@ int main(char *parameters) {
         // update display
         RunLibraryFunction("lcd_display", ENTRY_2, (int)current_song); // set song
         RunLibraryFunction("lcd_display", ENTRY_1, 1); // change view to now playing
-
+		RunLibraryFunction("lcd_display", ENTRY_5, audioDecoder->pause);
 
         audioDecoder = CreateAudioDecoder(decoderLibrary, current_song, stdaudioout, NULL, auDecFGuess);
         if (!audioDecoder) {

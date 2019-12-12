@@ -17,38 +17,12 @@
 #define TRUE 1
 #define FALSE 0
 
-// int RunLibraryFunction2(const char *filename, u_int16 entry, int i, int j) {
-//     int r = S_ERROR;
-// #if 0
-//     u_int16 *lib = FindLib(filename);
-// #else
-//     u_int16 *lib = NULL;
-// #endif
-//     if (!lib) {
-//         printf("Load\n");
-//         lib = LoadLibrary(filename);
-//     } else {
-//         lib[1]++; //ref count inc
-//     }
-//     if (lib) {
-//         printf("if\n");
-//         if ((entry < lib[0]+2) && lib[entry+2]) {
-//             printf("g\n");
-//             r = ((int(*)(int, int))(lib[entry+2]))(i, j);
-//             printf("=%d\n", r);
-//         }
-//         DropLibrary(lib);
-//     }
-//     return r;
-// }
 
 void init(char* parameters) {
 
     UI_init();
 
 }
-
-// DLLENTRY(MyCreateAudioDecoder)
 
 // 0 for main menu, 1 for now playing
 DLLENTRY(switchView)  // ENTRY 1
@@ -77,22 +51,18 @@ void setPercentageComplete(u_int16 percentage) {
     updatePercentComplete(percentage);
 }
 
-DLLENTRY(currentPlaybackTime)  // ENTRY 3
+DLLENTRY(currentPlaybackTime)  // ENTRY 4
 void currentPlaybackTime(u_int16 time) {
     updatePlaybackTime(time);
 }
 
-void setVolumeLevel(u_int16 volume) {
-
+DLLENTRY(showPlayPause)  // ENTRY 5
+void showPlayPause(u_int16 isPaused) {
+    UIShowPlayPause(isPaused);
 }
 
-void showPlayPause(u_int16 isPaused) {
-    if (isPaused) {
-        // do pause
-    }
-    else {
-        // do play
-    }
+void setVolumeLevel(u_int16 volume) {
+
 }
 
 // 0: normal, 1: shuffle, 2: repeat

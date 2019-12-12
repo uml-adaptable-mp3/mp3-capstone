@@ -286,6 +286,23 @@ void updatePlaybackTime(u_int16 new_time) {
     LcdTextOutXY(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, buffer);
 }
 
+void UIShowPlayPause(u_int16 isPaused) {
+	if (isPaused) {
+		// show paused
+		LcdFilledRectangle(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y-16, 
+						   ((HEADER_END_X-HEADER_START_X)/2) + 40, PLAYBACK_START_Y, NULL, lcd0.backgroundColor);
+						   
+		LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y - 16, "PAUSED");
+	}
+	else {
+		LcdFilledRectangle(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y-16, 
+						   ((HEADER_END_X-HEADER_START_X)/2) + 40, PLAYBACK_START_Y, NULL, lcd0.backgroundColor);
+		
+		LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y - 16, "PLAYING");
+	}
+}
+
+
 // void hideSongPlaybackBar() {
 //     LcdFilledRectangle(PLAYBACK_START_X, PLAYBACK_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
 //                        NULL, lcd0.backgroundColor);

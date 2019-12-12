@@ -18,6 +18,9 @@ AUIADC s 48000 line1_1 line1_2
 # Start UART in/out driver
 UARTIN
 
+# Start the lcd display
+lcd_display i
+
 # Start the shell
 S:SHELL.AP3
 
