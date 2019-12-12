@@ -75,6 +75,9 @@ int main(char *parameters) {
 
         printf("Now Playing: %s\n", current_song->Identify(current_song, NULL, 0));
         RunLibraryFunction("METADATA", ENTRY_2, (int)current_song);
+        RunLibraryFunction("lcd_display", ENTRY_2, (int)current_song);
+        RunLibraryFunction("lcd_display", ENTRY_1, 1);
+
 
         audioDecoder = CreateAudioDecoder(decoderLibrary, current_song, stdaudioout, NULL, auDecFGuess);
         if (!audioDecoder) {

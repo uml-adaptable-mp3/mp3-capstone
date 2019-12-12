@@ -10,6 +10,7 @@
 #include <vo_fatdirops.h>
 #include <libaudiodec.h>
 #include <vstypes.h>
+#include <uimessages.h>
 
 #include "UI.h"
 
@@ -94,15 +95,34 @@ void LcdClearMainWindow() {
                        NULL, lcd0.backgroundColor);
 }
 
+void resetSong() {
+    strcpy(sg_SONG_NAME, "Unknown Song");
+    strcpy(sg_ALBUM_NAME, "Unknown Album");
+    strcpy(sg_ARTIST_NAME, "Unknown Artist");
+}
+
+void UIMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value) {
+    switch(message) {
+    case UIMSG_TEXT_SONG_NAME:
+        strcpy(sg_SONG_NAME, (char*) value);
+        break;
+    case UIMSG_TEXT_ARTIST_NAME:
+        strcpy(sg_ARTIST_NAME, (char*) value);
+        break;
+    case UIMSG_TEXT_ALBUM_NAME:
+        strcpy(sg_ALBUM_NAME, (char*) value);
+    // default:
+        // printf("Error: Invalid UI message for metadata decode\n");
+    }
+}
+
 
 ioresult UI_init(void) {
     sg_UI_STATE.menu_state = INIT_SCREEN;
     sg_UI_STATE.mode = NORMAL_MODE;
     sg_UI_STATE.paused = TRUE;
 
-    strcpy(sg_SONG_NAME, "Song Title");
-    strcpy(sg_ALBUM_NAME, "Album Name");
-    strcpy(sg_ARTIST_NAME, "Artist Name");
+    resetSong();
     sg_BATTERY_PERCENTAGE = 100;
 
     LcdInit(0);
@@ -121,13 +141,13 @@ void loadHeader()
     lcd0.textColor = COLOR_BLACK;
 
     // display current mode
-    if (sg_UI_STATE.mode = NORMAL_MODE) {
+    if (sg_UI_STATE.mode == NORMAL_MODE) {
         LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "NORMAL ");
     }
-    else if (sg_UI_STATE.mode = SHUFFLE_MODE) {
+    else if (sg_UI_STATE.mode == SHUFFLE_MODE) {
         LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "SHUFFLE");
     }
-    else if (sg_UI_STATE.mode = REPEAT_MODE) {
+    else if (sg_UI_STATE.mode == REPEAT_MODE) {
         LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "REPEAT ");
     }
     else {
@@ -187,18 +207,17 @@ void loadNowPlaying()
 
 
     LcdTextOutXY(info_start_x, info_start_y, sg_SONG_NAME);
-    LcdTextOutXY(info_start_x, info_start_y+15, sg_ALBUM_NAME);
-    LcdTextOutXY(info_start_x, info_start_y+30, sg_ARTIST_NAME);
+    LcdTextOutXY(info_start_x, info_start_y+15, sg_ARTIST_NAME);
+    LcdTextOutXY(info_start_x, info_start_y+30, sg_ALBUM_NAME);
 
     // temporary test of playback bar
-    for (i = 0; i <= 150; ++i) {
-        displaySongPlaybackBar(i, 150);
-        Delay(1000);
-    }
+    // for (i = 0; i <= 150; ++i) {
+    //     displaySongPlaybackBar(i, 150);
+    //     Delay(1000);
+    // }
     // displaySongPlaybackBar(45, 150);
     // displaySongPlaybackBar(0, 150);
     // displaySongPlaybackBar(150, 150);
-
 }
 
 void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
