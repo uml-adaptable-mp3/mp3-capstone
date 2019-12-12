@@ -24,6 +24,12 @@ FILE *fp = NULL;
 char *errorString = "nothing to see here";
 int eCode = 0;
 
+u_int16 quit_selected = FALSE;
+u_int16 restart_song = FALSE;
+u_int16 move_prev = FALSE;
+s_int32 time_elapsed;
+u_int16 shuffle_selected = FALSE;
+
 /**
  * @brief Function to play music via the system's decoder library. Runs in a
  *        separate task.
@@ -33,6 +39,54 @@ void PlayerThread(void) {
     eCode = DecodeAudio(decoderLibrary, audioDecoder, &errorString);
 }
 
+DLLENTRY(PlayPause)     // ENTRY_1
+void PlayPause(void) {
+    audioDecoder->pause ^= 1;
+    if (audioDecoder->pause) {
+        printf("Paused\n");
+    }
+    else {
+        printf("Playing\n");
+    }
+}
+
+DLLENTRY(Skip)      // ENTRY_2
+void Skip(void) {
+    printf("\rSkipping... \n");
+    audioDecoder->cs.cancel = 1;
+}
+
+DLLENTRY(Prev)      // ENTRY_3
+void Prev(void) {
+    time_elapsed = audioDecoder->cs.playTimeSeconds;
+    audioDecoder->cs.cancel = 1;
+    if (time_elapsed < 3) {
+        printf("Moving to previous...\n");
+        move_prev = TRUE;
+    }
+    else {
+        printf("Restarting song...\n");
+        restart_song = TRUE;
+    }
+}
+
+DLLENTRY(Shuffle)   // ENTRY_4
+void Shuffle(void) {
+    printf("Shuffling...\n");
+    // cancel playing the current song
+    audioDecoder->cs.cancel = 1;
+    // show shuffle selected
+    shuffle_selected = TRUE;
+}
+
+DLLENTRY(Quit)      // ENTRY_5
+void Quit(void) {
+    printf("Quitting...\n");
+    audioDecoder->cs.cancel = 1;
+    quit_selected = TRUE;
+}
+
+
 /**
  * @brief Driver for playing playlists
  *
@@ -40,16 +94,12 @@ void PlayerThread(void) {
  *                   of a .m3u playlist file.
  * @return int S_ERROR (-1) if an error occurred, or S_OK if not.
  */
+DLLENTRY(main)      // ENTRY_6
 int main(char *parameters) {
     char *playlist_filename = parameters;
     Playlist *h_playlist;
     FILE *current_song;
     char user_input;
-    u_int16 quit_selected = FALSE;
-    u_int16 restart_song = FALSE;
-    u_int16 move_prev = FALSE;
-    s_int32 time_elapsed;
-    u_int16 shuffle_selected = FALSE;
 
     printf("Loading Decoder library\n");
     decoderLibrary = LoadLibrary("audiodec");
@@ -112,45 +162,23 @@ int main(char *parameters) {
                 switch (user_input) {
                 case 'S':
                 case 's':
-                    printf("\rSkipping... \n");
-                    audioDecoder->cs.cancel = 1;
+                    Skip();
                     break;
                 case 'B':
                 case 'b':
-                    time_elapsed = audioDecoder->cs.playTimeSeconds;
-                    audioDecoder->cs.cancel = 1;
-                    if (time_elapsed < 3) {
-                        printf("Moving to previous...\n");
-                        move_prev = TRUE;
-                    }
-                    else {
-                        printf("Restarting song...\n");
-                        restart_song = TRUE;
-                    }
+                    Prev();
                     break;
                 case 'Q':
                 case 'q':
-                    printf("Quitting...\n");
-                    audioDecoder->cs.cancel = 1;
-                    quit_selected = TRUE;
+                    Quit();
                     break;
                 case 'P':
                 case 'p':
-                    audioDecoder->pause ^= 1;
-                    if (audioDecoder->pause) {
-                        printf("Paused\n");
-                    }
-                    else {
-                        printf("Playing\n");
-                    }
+                    PlayPause();
                     break;
                 case 'M':
                 case 'm':
-                    printf("Shuffling...\n");
-                    // cancel playing the current song
-                    audioDecoder->cs.cancel = 1;
-                    // show shuffle selected
-                    shuffle_selected = TRUE;
+                    Shuffle();
                     break;
                 }
             }
