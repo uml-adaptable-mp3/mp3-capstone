@@ -110,8 +110,8 @@ typedef void (*StringDecoder)(register u_int16 *, register char);
 static void TrimAndSend(register char *string, register UICallback callback, register u_int16 uiMsg)
 {
     // remove trailing blanks from ID3V1 tag
-    char *c = currTmpStr + 29;
-    strncpy(currTmpStr, string, 30);
+    char *c = (char*) (currTmpStr + 29);
+    strncpy((char*) currTmpStr, string, 30);
     currTmpStr[30] = '\0';
     while (*c == ' ' && c > string)
     {
@@ -238,6 +238,6 @@ void DecodeID3(register FILE *fp, register UICallback callback)
 
 ioresult PrintID3f(FILE *fp)
 {
-    DecodeID3(fp, ID3RenderCallBack);
+    DecodeID3(fp, (UICallback) ID3RenderCallBack);
     return S_OK;
 }

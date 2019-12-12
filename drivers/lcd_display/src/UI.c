@@ -221,16 +221,6 @@ void loadNowPlaying()
     // draw the playback bar
      LcdDrawBox(PLAYBACK_START_X+58, PLAYBACK_START_Y+PAD4, MAIN_WINDOW_END_X-57, MAIN_WINDOW_END_Y-10,
                2, COLOR_BLACK, lcd0.backgroundColor);
-
-
-    // temporary test of playback bar
-    // for (i = 0; i <= 150; ++i) {
-    //     displaySongPlaybackBar(i, 150);
-    //     Delay(1000);
-    // }
-    // displaySongPlaybackBar(45, 150);
-    // displaySongPlaybackBar(0, 150);
-    // displaySongPlaybackBar(150, 150);
 }
 
 void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
@@ -270,17 +260,6 @@ void updatePercentComplete(u_int16 percent_complete) {
                 percent_complete = 100;
             }
             // song already in progress, update the display
-
-            // update times
-            // draw the elapsed / remaining times
-
-
-            // sprintf(buffer, "%3u:%02u", (sg_SONG_LENGTH-new_time) / 60, (sg_SONG_LENGTH-new_time) % 60);
-            // LcdTextOutXY(MAIN_WINDOW_END_X-57+PAD4, PLAYBACK_START_Y+8, buffer);
-
-            // update bar
-            // current_position = ((sg_PLAYBACK_TIME * 200) / sg_SONG_LENGTH) + PLAYBACK_START_X+60;
-            // new_position = ((new_time * 200) / sg_SONG_LENGTH) + PLAYBACK_START_X+60;
             current_position = ((sg_PLAYBACK_PERCENT_COMPLETE * 2) + PLAYBACK_START_X+60);
             new_position = ((percent_complete * 2) + PLAYBACK_START_X+60);
             if (new_position > current_position) {
