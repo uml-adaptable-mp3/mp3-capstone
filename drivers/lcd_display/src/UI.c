@@ -77,6 +77,10 @@ static char sg_ALBUM_NAME[50];
 static char sg_ARTIST_NAME[50];
 static u_int16 sg_BATTERY_PERCENTAGE;
 
+// static u_int16 sg_SONG_LENGTH;
+static u_int16 sg_PLAYBACK_TIME;
+static u_int16  sg_PLAYBACK_PERCENT_COMPLETE;
+
 
 u_int16 LcdDrawBox(u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_int16 border_width,
                    u_int16 border_color, u_int16 fill_color) {
@@ -118,6 +122,13 @@ void UIMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value) {
 
 
 ioresult UI_init(void) {
+    LcdInit(0);
+
+    LcdDrawBox((lcd0.width/2)-65, (lcd0.height/2)-25, (lcd0.width/2)+65,
+               (lcd0.height/2)+25, 2, COLOR_BLACK, lcd0.backgroundColor);
+    lcd0.textColor = COLOR_BLACK;
+    LcdTextOutXY((lcd0.width/2)-60, (lcd0.height/2), "AMP3 Booting...");
+
     sg_UI_STATE.menu_state = INIT_SCREEN;
     sg_UI_STATE.mode = NORMAL_MODE;
     sg_UI_STATE.paused = TRUE;
@@ -125,12 +136,9 @@ ioresult UI_init(void) {
     resetSong();
     sg_BATTERY_PERCENTAGE = 100;
 
-    LcdInit(0);
 
-    LcdDrawBox((lcd0.width/2)-65, (lcd0.height/2)-25, (lcd0.width/2)+65,
-               (lcd0.height/2)+25, 2, COLOR_BLACK, lcd0.backgroundColor);
-    lcd0.textColor = COLOR_BLACK;
-    LcdTextOutXY((lcd0.width/2)-60, (lcd0.height/2), "AMP3 Booting...");
+    sg_PLAYBACK_PERCENT_COMPLETE = 0;
+    sg_PLAYBACK_TIME = 0;
 }
 
 void loadHeader()
@@ -210,6 +218,11 @@ void loadNowPlaying()
     LcdTextOutXY(info_start_x, info_start_y+15, sg_ARTIST_NAME);
     LcdTextOutXY(info_start_x, info_start_y+30, sg_ALBUM_NAME);
 
+    // draw the playback bar
+     LcdDrawBox(PLAYBACK_START_X+58, PLAYBACK_START_Y+PAD4, MAIN_WINDOW_END_X-57, MAIN_WINDOW_END_Y-10,
+               2, COLOR_BLACK, lcd0.backgroundColor);
+
+
     // temporary test of playback bar
     // for (i = 0; i <= 150; ++i) {
     //     displaySongPlaybackBar(i, 150);
@@ -247,11 +260,57 @@ void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
     printf("X1: %d, Y1: %d\nX2: %d, Y2: %d\n", PLAYBACK_START_X+60, PLAYBACK_START_Y+PAD4+2,
                                                progress_bar_end, MAIN_WINDOW_END_Y-12);  // MAIN_WINDOW_END_X-59
 
-
 }
 
+void updatePercentComplete(u_int16 percent_complete) {
+    u_int16 current_position, new_position;
+    if (sg_UI_STATE.menu_state == NOW_PLAYING) {
+        if (percent_complete > 0 || sg_PLAYBACK_PERCENT_COMPLETE > 0) {
+            if (percent_complete > 100) {
+                percent_complete = 100;
+            }
+            // song already in progress, update the display
+
+            // update times
+            // draw the elapsed / remaining times
 
 
+            // sprintf(buffer, "%3u:%02u", (sg_SONG_LENGTH-new_time) / 60, (sg_SONG_LENGTH-new_time) % 60);
+            // LcdTextOutXY(MAIN_WINDOW_END_X-57+PAD4, PLAYBACK_START_Y+8, buffer);
+
+            // update bar
+            // current_position = ((sg_PLAYBACK_TIME * 200) / sg_SONG_LENGTH) + PLAYBACK_START_X+60;
+            // new_position = ((new_time * 200) / sg_SONG_LENGTH) + PLAYBACK_START_X+60;
+            current_position = ((sg_PLAYBACK_PERCENT_COMPLETE * 2) + PLAYBACK_START_X+60);
+            new_position = ((percent_complete * 2) + PLAYBACK_START_X+60);
+            if (new_position > current_position) {
+                // song advancing forwards, draw the bar
+                LcdFilledRectangle(current_position, PLAYBACK_START_Y+PAD4+2,
+                                   new_position, MAIN_WINDOW_END_Y-12, 0, COLOR_NAVY);
+            }
+            else if (new_position < current_position) {
+                // song went backwards, clear some of the bar
+                LcdFilledRectangle(new_position, PLAYBACK_START_Y+PAD4+2,
+                                   current_position, MAIN_WINDOW_END_Y-12, 0, lcd0.backgroundColor);
+            }
+        }
+    }
+    sg_PLAYBACK_PERCENT_COMPLETE = percent_complete;
+}
+
+void updatePlaybackTime(u_int16 new_time) {
+    char buffer[8];
+    sg_PLAYBACK_TIME = new_time;
+    LcdFilledRectangle(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, PLAYBACK_START_X+55,
+                       MAIN_WINDOW_END_Y, NULL, lcd0.backgroundColor);
+    sprintf(buffer, "%3u:%02u", new_time / 60, new_time % 60);
+    LcdTextOutXY(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, buffer);
+}
+
+// void hideSongPlaybackBar() {
+//     LcdFilledRectangle(PLAYBACK_START_X, PLAYBACK_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
+//                        NULL, lcd0.backgroundColor);
+// }
 
 
 

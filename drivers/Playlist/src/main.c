@@ -75,8 +75,10 @@ int main(char *parameters) {
 
         printf("Now Playing: %s\n", current_song->Identify(current_song, NULL, 0));
         RunLibraryFunction("METADATA", ENTRY_2, (int)current_song);
-        RunLibraryFunction("lcd_display", ENTRY_2, (int)current_song);
-        RunLibraryFunction("lcd_display", ENTRY_1, 1);
+
+        // update display
+        RunLibraryFunction("lcd_display", ENTRY_2, (int)current_song); // set song
+        RunLibraryFunction("lcd_display", ENTRY_1, 1); // change view to now playing
 
 
         audioDecoder = CreateAudioDecoder(decoderLibrary, current_song, stdaudioout, NULL, auDecFGuess);
@@ -85,11 +87,23 @@ int main(char *parameters) {
             return S_ERROR;
         }
 
+        printf("%ld\n", audioDecoder->cs.fileLeft);
+        printf("%ld\n", audioDecoder->cs.fileSize);
+
+        // set song length
+        RunLibraryFunction("lcd_display", ENTRY_3,
+            (int) (100.0 * ((double) audioDecoder->cs.Tell(&audioDecoder->cs) / (double) audioDecoder->cs.fileSize)));
+        RunLibraryFunction("lcd_display", ENTRY_4, audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
+
         StartTask(TASK_DECODER, PlayerThread);
         Delay(100);
         while (pSysTasks[TASK_DECODER].task.tc_State && pSysTasks[TASK_DECODER].task.tc_State != TS_REMOVED) {
 
             printf("\r[%02ld:%02ld]", audioDecoder->cs.playTimeSeconds / 60L, audioDecoder->cs.playTimeSeconds % 60L);
+            // set song length
+            RunLibraryFunction("lcd_display", ENTRY_3,
+                (int) (100.0 * ((double) audioDecoder->cs.Tell(&audioDecoder->cs) / (double) audioDecoder->cs.fileSize)));
+            RunLibraryFunction("lcd_display", ENTRY_4, audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
 
             Delay(250);
             if (ioctl(stdin, IOCTL_TEST, NULL)) {

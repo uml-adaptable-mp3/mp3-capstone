@@ -34,11 +34,15 @@ void loadHeader();
 void loadMainMenu();
 void loadNowPlaying();
 void displayBatteryPercentage(u_int16 battery_level);
-void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length);
+// void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length);
 
 void UIMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value);
 void loadCriticalErrorMenu();
 
 void resetSong();
+void hideSongPlaybackBar();
+void updatePlaybackTime(u_int16 new_time);
+void updatePercentComplete(u_int16 percent_complete);
+// void updateSongLength(u_int16 new_length);
 
 #endif  // _UI_H_
