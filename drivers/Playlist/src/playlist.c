@@ -27,6 +27,7 @@ Playlist* create_new_playlist() {
     p_list->current = NULL;
     p_list->last = NULL;
     p_list->length = 0;
+    strcpy(p_list->title, "Untitled Playlist");
     return p_list;
 }
 
@@ -49,7 +50,10 @@ Playlist* create_playlist_from_file(register const char* filename) {
     // parse the file line by line
     while (fgets(name_buffer, BUFFER_SIZE, p_file) != NULL) {
         if (name_buffer[0] == '#') {
-            // m3u comment, ignore (for now)
+            if (strncmp(name_buffer, "#PLAYLIST: ", 11) == 0) {
+                strncpy(h_playlist->title, &name_buffer[11], 50);
+                printf("Set playlist title to %s\n", h_playlist->title);
+            }
             continue;
         }
 

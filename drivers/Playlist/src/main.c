@@ -116,6 +116,8 @@ int main(char *parameters) {
         return S_ERROR;
     }
 
+    printf("Loaded Playlist: %s\n", h_playlist->title);
+
     // play all songs in playlist
     while (h_playlist->current != NULL && quit_selected == FALSE) {
         current_song = fopen(h_playlist->current->filename, "rb");

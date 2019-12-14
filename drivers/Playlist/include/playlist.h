@@ -14,6 +14,7 @@ typedef struct {
     Playlist_Entry* current;
     Playlist_Entry* last;
     u_int16 length;
+    char title[50];
 } Playlist;
 
 Playlist* create_new_playlist();
