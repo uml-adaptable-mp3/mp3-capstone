@@ -20,18 +20,6 @@ static void seed_random(void) {
     }
 }
 
-
-/* Prepends t into s. Assumes s has enough space allocated
-** for the combined string.
-*/
-void prepend(char* s, const char* t)
-{
-    size_t len = strlen(t);
-    memmove(s + len, s, strlen(s) + 1);
-    memcpy(s, t, len);
-}
-
-
 Playlist* create_new_playlist() {
     Playlist* p_list = (Playlist*) malloc(sizeof(Playlist));
     p_list->head = NULL;
