@@ -146,7 +146,7 @@ int main(char *parameters) {
         // set song length
         RunLibraryFunction("lcd_display", ENTRY_3,
             (int) (100.0 * ((double) audioDecoder->cs.Tell(&audioDecoder->cs) / (double) audioDecoder->cs.fileSize)));
-        RunLibraryFunction("lcd_display", ENTRY_4, audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
+        RunLibraryFunction("lcd_display", ENTRY_4, (int) audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
 
         StartTask(TASK_DECODER, PlayerThread);
         Delay(100);
@@ -156,7 +156,7 @@ int main(char *parameters) {
             // set song length
             RunLibraryFunction("lcd_display", ENTRY_3,
                 (int) (100.0 * ((double) audioDecoder->cs.Tell(&audioDecoder->cs) / (double) audioDecoder->cs.fileSize)));
-            RunLibraryFunction("lcd_display", ENTRY_4, audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
+            RunLibraryFunction("lcd_display", ENTRY_4, (int) audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
 
             Delay(250);
             if (ioctl(stdin, IOCTL_TEST, NULL)) {

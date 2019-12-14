@@ -21,6 +21,17 @@ static void seed_random(void) {
 }
 
 
+/* Prepends t into s. Assumes s has enough space allocated
+** for the combined string.
+*/
+void prepend(char* s, const char* t)
+{
+    size_t len = strlen(t);
+    memmove(s + len, s, strlen(s) + 1);
+    memcpy(s, t, len);
+}
+
+
 Playlist* create_new_playlist() {
     Playlist* p_list = (Playlist*) malloc(sizeof(Playlist));
     p_list->head = NULL;
@@ -37,6 +48,7 @@ Playlist* create_playlist_from_file(register const char* filename) {
     FILE *p_temp = NULL;
     char name_buffer[BUFFER_SIZE];
     int last_index = 0;
+    int dir_offset = 0; // string offset so that the entire string doesn't need to be moved if swapping ../ with D:
 
     // Open the playlist file
     p_file = fopen(filename, "r");
@@ -68,17 +80,27 @@ Playlist* create_playlist_from_file(register const char* filename) {
             name_buffer[last_index - 1] = '\0';
         }
 
+        if (strncmp(name_buffer, "../Music", 8) == 0) {
+            name_buffer[1] = filename[0];
+            name_buffer[2] = filename[1];
+            dir_offset = 1;
+        }
+        else {
+            dir_offset = 0;
+        }
+
+
         // check if file exists
-        p_temp = fopen(name_buffer, "r");
+        p_temp = fopen(&(name_buffer[0+dir_offset]), "r");
         if (p_temp != NULL) {
             // file exists, add it to playlist
-            printf("Adding '%s' to playlist...\n", name_buffer);
-            add_song(h_playlist, name_buffer);
+            printf("Adding '%s' to playlist...\n", &(name_buffer[0+dir_offset]));
+            add_song(h_playlist, &(name_buffer[0+dir_offset]));
             // free the pointer to the file
             fclose(p_temp);
         }
         else {
-            printf("File '%s' not found, skipping...\n", name_buffer);
+            printf("File '%s' not found, skipping...\n", &(name_buffer[0+dir_offset]));
         }
     }
 
