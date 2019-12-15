@@ -39,6 +39,7 @@ run.dl3
 SDSDMONO.dl3
 SetClock.dl3
 shellenv.dl3
+Tasks.dl3
 trace.dl3
 type.dl3
 uartin.dl3

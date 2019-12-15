@@ -20,13 +20,13 @@ static void seed_random(void) {
     }
 }
 
-
 Playlist* create_new_playlist() {
     Playlist* p_list = (Playlist*) malloc(sizeof(Playlist));
     p_list->head = NULL;
     p_list->current = NULL;
     p_list->last = NULL;
     p_list->length = 0;
+    strcpy(p_list->title, "Untitled Playlist");
     return p_list;
 }
 
@@ -36,6 +36,7 @@ Playlist* create_playlist_from_file(register const char* filename) {
     FILE *p_temp = NULL;
     char name_buffer[BUFFER_SIZE];
     int last_index = 0;
+    int dir_offset = 0; // string offset so that the entire string doesn't need to be moved if swapping ../ with D:
 
     // Open the playlist file
     p_file = fopen(filename, "r");
@@ -49,7 +50,10 @@ Playlist* create_playlist_from_file(register const char* filename) {
     // parse the file line by line
     while (fgets(name_buffer, BUFFER_SIZE, p_file) != NULL) {
         if (name_buffer[0] == '#') {
-            // m3u comment, ignore (for now)
+            if (strncmp(name_buffer, "#PLAYLIST: ", 11) == 0) {
+                strncpy(h_playlist->title, &name_buffer[11], 50);
+                printf("Set playlist title to %s\n", h_playlist->title);
+            }
             continue;
         }
 
@@ -64,17 +68,27 @@ Playlist* create_playlist_from_file(register const char* filename) {
             name_buffer[last_index - 1] = '\0';
         }
 
+        if (strncmp(name_buffer, "../Music", 8) == 0) {
+            name_buffer[1] = filename[0];
+            name_buffer[2] = filename[1];
+            dir_offset = 1;
+        }
+        else {
+            dir_offset = 0;
+        }
+
+
         // check if file exists
-        p_temp = fopen(name_buffer, "r");
+        p_temp = fopen(&(name_buffer[0+dir_offset]), "r");
         if (p_temp != NULL) {
             // file exists, add it to playlist
-            printf("Adding '%s' to playlist...\n", name_buffer);
-            add_song(h_playlist, name_buffer);
+            printf("Adding '%s' to playlist...\n", &(name_buffer[0+dir_offset]));
+            add_song(h_playlist, &(name_buffer[0+dir_offset]));
             // free the pointer to the file
             fclose(p_temp);
         }
         else {
-            printf("File '%s' not found, skipping...\n", name_buffer);
+            printf("File '%s' not found, skipping...\n", &(name_buffer[0+dir_offset]));
         }
     }
 
