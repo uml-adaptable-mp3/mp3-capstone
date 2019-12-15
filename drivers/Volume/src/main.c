@@ -22,7 +22,7 @@
 /* Make this a unique 16-bit library identifier */
 #define LIB_ID 0x2c91
 
-s_int16 volume = 90; // 30 - (90/6) = volume 15 to start
+s_int16 volume = 90; // 25 - (90/6) = volume 10 to start
 
 void CycVolume(register struct CyclicNode *cyclicNode) {
   volume;
@@ -46,7 +46,7 @@ u_int16 volumeUp(void) {
         printf("NOTICE: Volume already set to max\n");
     }
 
-    printf("~%04x=%d\n", UIMSG_S16_SET_VOLUME, 30-volume/6);
+    printf("~%04x=%d\n", UIMSG_S16_SET_VOLUME, 25-volume/6);
 
     // Delay(100);
     return volume;
@@ -61,15 +61,21 @@ u_int16 volumeDown(void) {
 	//       but rather the internal attenuation of the pre-amplifier
 	//       So, 180 attenuation is no volume
 	// Each digit is 0.5dB of attenuation, so each volume step is 3dB
-    if (volume < 180) {
+    if (volume < 150) {
         volume = volume + 6;
-        ioctl(stdaudioout, IOCTL_AUDIO_SET_VOLUME, (void *)(volume+256));
+        if (volume >= 150) {
+            // mute when volume is too low to hear
+            ioctl(stdaudioout, IOCTL_AUDIO_SET_VOLUME, (void *)(500));
+        }
+        else {
+            ioctl(stdaudioout, IOCTL_AUDIO_SET_VOLUME, (void *)(volume+256));
+        }
     }
     else {
         printf("NOTICE: Volume already set to min\n");
     }
     
-    printf("~%04x=%d\n", UIMSG_S16_SET_VOLUME, 30-volume/6);
+    printf("~%04x=%d\n", UIMSG_S16_SET_VOLUME, 25-volume/6);
     
     // Delay(100);
     return volume;
