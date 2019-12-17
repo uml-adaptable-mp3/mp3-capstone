@@ -157,6 +157,8 @@ int main(char *parameters) {
             current_song = fopen(h_playlist->current->filename, "rb");
             if (!current_song) {
                 printf("Couldn't open file '%s'\n", current_song);
+                destroy_playlist(&h_playlist);
+                fclose(current_song);
                 return S_ERROR;
             }
 
@@ -166,6 +168,8 @@ int main(char *parameters) {
             audioDecoder = CreateAudioDecoder(decoderLibrary, current_song, stdaudioout, NULL, auDecFGuess);
             if (!audioDecoder) {
                 printf("Couldn't create audio decoder\n");
+                destroy_playlist(&h_playlist);
+                fclose(current_song);
                 return S_ERROR;
             }
 
@@ -266,6 +270,8 @@ int main(char *parameters) {
                 h_playlist = create_playlist_from_file(playlist_filename);
                 if (h_playlist == NULL) {
                     printf("Error generating playlist from file '%s'", playlist_filename);
+                    destroy_playlist(&h_playlist);
+                    fclose(current_song);
                     return S_ERROR;
                 }
                 while(strcmp(h_playlist->current->filename, temp_filename) != 0 && h_playlist->current != NULL) {
