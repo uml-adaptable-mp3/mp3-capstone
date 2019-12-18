@@ -1,29 +1,32 @@
 #ifndef _PLAYLIST_H_
 #define _PLAYLIST_H_
 
-struct Playlist_Entry {
-    char* filename;
-    struct Playlist_Entry* next;
-    struct Playlist_Entry* prev;
+#include <vstypes.h>
+#include <sysmemory.h>
+
+__mem_y struct Playlist_Entry {
+    char __mem_y *filename;
+    __mem_y struct Playlist_Entry *next;
+    __mem_y struct Playlist_Entry *prev;
 };
 
-typedef struct Playlist_Entry Playlist_Entry;
+typedef __mem_y struct Playlist_Entry Playlist_Entry;
 
-typedef struct {
-    Playlist_Entry* head;
-    Playlist_Entry* current;
-    Playlist_Entry* last;
-    u_int16 length;
-    char title[50];
+typedef __mem_y struct {
+    Playlist_Entry __mem_y *head;
+    Playlist_Entry __mem_y *current;
+    Playlist_Entry __mem_y *last;
+    u_int16 __mem_y length;
+    char __mem_y title[50];
 } Playlist;
 
-Playlist* create_new_playlist();
-Playlist* create_playlist_from_file(register const char* filename);
-void destroy_playlist(Playlist** ph_playlist);
+Playlist __mem_y* create_new_playlist();
+Playlist __mem_y* create_playlist_from_file(register const char* filename);
+void destroy_playlist(Playlist __mem_y* __mem_y* ph_playlist);
 
 // Playlist Methods
-void add_song(Playlist* h_playlist, const char* filename);
-void delete_song(Playlist* h_playlist, Playlist_Entry* p_entry);
-void shuffle_playlist(Playlist* h_playlist);
+void add_song(Playlist __mem_y* h_playlist, const char* filename);
+void delete_song(Playlist __mem_y* h_playlist, Playlist_Entry __mem_y* p_entry);
+void shuffle_playlist(Playlist __mem_y* h_playlist);
 
 #endif  // _PLAYLIST_H_

@@ -30,6 +30,12 @@ u_int16 move_prev = FALSE;
 s_int32 time_elapsed;
 u_int16 shuffle_selected = FALSE;
 
+static char sg_FILENAME_BUFFER[128];
+
+__x s_int16 mallocX[1024]; // for malloc use
+__y s_int16 mallocY[8192]; // for malloc use
+
+
 /**
  * @brief Function to play music via the system's decoder library. Runs in a
  *        separate task.
@@ -98,9 +104,12 @@ void Quit(void) {
 DLLENTRY(main)      // ENTRY_6
 int main(char *parameters) {
     char *playlist_filename = parameters;
-    Playlist *h_playlist;
+    Playlist __mem_y *h_playlist;
+    Playlist_Entry __mem_y* p_node;
     FILE *current_song;
     char user_input;
+
+    __InitMemAlloc(mallocX, sizeof(mallocX), mallocY, sizeof(mallocY));
 
     printf("Loading Decoder library\n");
     decoderLibrary = LoadLibrary("audiodec");
@@ -118,9 +127,14 @@ int main(char *parameters) {
 
     printf("Loaded Playlist: %s\n", h_playlist->title);
 
+    printf("%p | %p | %p | %s\n", h_playlist->head, h_playlist->current, h_playlist->last, (char __mem_y*) (h_playlist->current->filename));
     // play all songs in playlist
     while (h_playlist->current != NULL && quit_selected == FALSE) {
-        current_song = fopen(h_playlist->current->filename, "rb");
+        memcpyYX(sg_FILENAME_BUFFER, 
+                (char __mem_y*) h_playlist->current->filename, 
+                128);
+        printf("Filename: %s", sg_FILENAME_BUFFER);
+        current_song = fopen(sg_FILENAME_BUFFER, "rb");
         if (!current_song) {
             printf("Couldn't open file '%s'\n", current_song);
             return S_ERROR;
@@ -232,6 +246,6 @@ int main(char *parameters) {
 
     DropLibrary(decoderLibrary);
 
-    destroy_playlist(&h_playlist);
+    destroy_playlist((Playlist __mem_y * __mem_y *) &h_playlist);
     return S_OK;
 }

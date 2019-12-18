@@ -329,13 +329,9 @@ void loadMainMenu()
     lcd0.textColor = COLOR_BLACK;
 
     sg_UI_STATE.menu_state = MAIN_MENU;
-
-    // reload items
-    // sg_MENU_ITEMS[0] = "Now Playing";
-
+    
+    // reset index
     sg_LIST_INDEX = 0;
-
-
     // display items
     display_menu_items();
 }
