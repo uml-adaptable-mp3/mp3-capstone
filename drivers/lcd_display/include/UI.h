@@ -44,6 +44,10 @@ void hideSongPlaybackBar();
 void updatePlaybackTime(u_int16 new_time);
 void updatePercentComplete(u_int16 percent_complete);
 void UIShowPlayPause(u_int16 isPaused);
+void uiCursorUp();
+void uiCursorDown();
+void load_playlist_names();
+
 // void updateSongLength(u_int16 new_length);
 
 #endif  // _UI_H_
