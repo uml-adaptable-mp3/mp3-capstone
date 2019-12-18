@@ -83,7 +83,7 @@ static u_int16 sg_BATTERY_PERCENTAGE;
 
 // menu items
 #define MENU_LENGTH 6
-#define MAX_PLAYLISTS 22
+#define MAX_PLAYLISTS 16
 #define MAX_MENU_ITEMS MAX_PLAYLISTS + 2  // 22 playlists + now playing and all music
 #define MENU_ITEM_LENGTH 40
 
@@ -320,6 +320,10 @@ void uiCursorDown() {
         display_menu_items();
     }
     printf("DOWN: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_LIST_INDEX % 6);
+}
+
+char* uiCursorSelect() {
+    return sg_MENU_ITEMS[sg_LIST_INDEX];
 }
 
 void loadMainMenu()

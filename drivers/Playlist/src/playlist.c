@@ -92,6 +92,7 @@ Playlist* create_playlist_from_file(register const char* filename) {
         }
     }
 
+    fclose(p_file);
     return h_playlist;
 }
 

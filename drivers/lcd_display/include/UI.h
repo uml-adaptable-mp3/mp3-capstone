@@ -46,6 +46,7 @@ void updatePercentComplete(u_int16 percent_complete);
 void UIShowPlayPause(u_int16 isPaused);
 void uiCursorUp();
 void uiCursorDown();
+char* uiCursorSelect();
 void load_playlist_names();
 
 // void updateSongLength(u_int16 new_length);

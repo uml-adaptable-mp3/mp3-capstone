@@ -13,11 +13,11 @@
 USBHOST D
 # New 2015 audio DAC out driver
 AUODAC s
-# New 2015 audio ADC in driver
-AUIADC s 48000 line1_1 line1_2
 # Start UART in/out driver
 UARTIN
-
+VOLUME
+BUTTONS
+# POWER
 # Start the lcd display
 lcd_display i
 

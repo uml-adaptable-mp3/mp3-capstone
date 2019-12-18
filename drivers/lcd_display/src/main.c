@@ -61,10 +61,12 @@ void showPlayPause(u_int16 isPaused) {
     UIShowPlayPause(isPaused);
 }
 
+DLLENTRY(setVolumeLevel)  // ENTRY 6
 void setVolumeLevel(u_int16 volume) {
     // do volume stuff
 }
 
+DLLENTRY(showMode)  // ENTRY 7
 // 0: normal, 1: shuffle, 2: repeat
 void showMode(u_int16 mode) {
     switch(mode) {
@@ -77,20 +79,24 @@ void showMode(u_int16 mode) {
     }
 }
 
-void cursorUp(void) {
+DLLENTRY(cursorUp)  // ENTRY 8
+void cursorUp(int unused) {
     uiCursorUp();
 }
 
-void cursorDown(void) {
+DLLENTRY(cursorDown)  // ENTRY 9
+void cursorDown(int unused) {
     uiCursorDown();
 }
 
-void select(void) {
-
+DLLENTRY(select)  // ENTRY 10
+void select(char* buffer) {
+    strncpy(buffer, uiCursorSelect(), 50);
 }
 
 ioresult main(char *parameters) {
     FILE* current_song;
+    char name_buffer[50];
     if (parameters != NULL && parameters[0] == 'i') {
         // init mode, don't do anything
     }
@@ -114,10 +120,14 @@ ioresult main(char *parameters) {
         switchView(1);
     }
     else if (parameters != NULL && parameters[0] == 'u') {
-        cursorUp();
+        cursorUp(0);
     }
     else if (parameters != NULL && parameters[0] == 'd') {
-        cursorDown();
+        cursorDown(0);
+    }
+    else if (parameters != NULL && parameters[0] == 'l') {
+        select(name_buffer);
+        printf("Selected item: %s\n", name_buffer);
     }
     else {
         LcdInit(0);
