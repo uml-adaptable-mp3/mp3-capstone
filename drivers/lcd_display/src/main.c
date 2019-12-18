@@ -62,7 +62,7 @@ void showPlayPause(u_int16 isPaused) {
 }
 
 void setVolumeLevel(u_int16 volume) {
-
+    // do volume stuff
 }
 
 // 0: normal, 1: shuffle, 2: repeat
@@ -78,11 +78,11 @@ void showMode(u_int16 mode) {
 }
 
 void cursorUp(void) {
-
+    uiCursorUp();
 }
 
 void cursorDown(void) {
-
+    uiCursorDown();
 }
 
 void select(void) {
@@ -112,6 +112,12 @@ ioresult main(char *parameters) {
         setSong(current_song);
         fclose(current_song);
         switchView(1);
+    }
+    else if (parameters != NULL && parameters[0] == 'u') {
+        cursorUp();
+    }
+    else if (parameters != NULL && parameters[0] == 'd') {
+        cursorDown();
     }
     else {
         LcdInit(0);

@@ -57,6 +57,10 @@
 #define MAIN_WINDOW_END_X lcd0.width-1
 #define MAIN_WINDOW_END_Y lcd0.height-1
 
+#define LIST_ITEM_START_X 12
+#define LIST_ITEM_END_X   lcd0.width-12
+#define LIST_ITEM_HEIGHT  30
+
 #define PLAYBACK_START_X 0
 #define PLAYBACK_START_Y lcd0.height-30
 
@@ -77,9 +81,20 @@ static char sg_ALBUM_NAME[50];
 static char sg_ARTIST_NAME[50];
 static u_int16 sg_BATTERY_PERCENTAGE;
 
+// menu items
+#define MENU_LENGTH 6
+#define LIST_ITEM_NOW_PLAYING "Now Playing"
+#define LIST_ITEM_ALL_MUSIC "All Music"
+#define MENU_ITEM_LENGTH 40
+static char* sg_MENU_ITEMS[MENU_LENGTH];
+static u_int16 sg_MENU_ITEM_INDEX;
+static u_int16 sg_LIST_INDEX;
+static u_int16 sg_EOF_REACHED;
+
+
 // static u_int16 sg_SONG_LENGTH;
 static u_int16 sg_PLAYBACK_TIME;
-static u_int16  sg_PLAYBACK_PERCENT_COMPLETE;
+static u_int16 sg_PLAYBACK_PERCENT_COMPLETE;
 
 
 u_int16 LcdDrawBox(u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_int16 border_width,
@@ -122,6 +137,7 @@ void UIMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value) {
 
 
 ioresult UI_init(void) {
+    int i;
     LcdInit(0);
 
     LcdDrawBox((lcd0.width/2)-65, (lcd0.height/2)-25, (lcd0.width/2)+65,
@@ -134,11 +150,23 @@ ioresult UI_init(void) {
     sg_UI_STATE.paused = TRUE;
 
     resetSong();
+    // todo: replace with acutal battery info
     sg_BATTERY_PERCENTAGE = 100;
-
 
     sg_PLAYBACK_PERCENT_COMPLETE = 0;
     sg_PLAYBACK_TIME = 0;
+    sg_LIST_INDEX = 0;
+    sg_MENU_ITEM_INDEX = 0;
+
+    // allocate 40 characters for each string
+    for (i = 0; i < MENU_LENGTH; ++i) {
+        sg_MENU_ITEMS[i] = (char*) malloc(MENU_ITEM_LENGTH * sizeof(char));
+    }
+    strncpy(sg_MENU_ITEMS[0], LIST_ITEM_NOW_PLAYING, MENU_ITEM_LENGTH);
+    for (i = 1; i < MENU_LENGTH; ++i) {
+        strncpy(sg_MENU_ITEMS[i], "\0\0\0\0", MENU_ITEM_LENGTH);
+    }
+    sg_EOF_REACHED = 0;
 }
 
 void loadHeader()
@@ -184,15 +212,164 @@ void displayBatteryPercentage(u_int16 battery_level) {
     LcdTextOutXY((HEADER_END_X)-80, HEADER_START_Y + PAD4, battery_display_str);
 }
 
+
+void display_menu_items() {
+    int offset, i, length;
+    char temp_name[50];
+    LcdClearMainWindow();
+
+    for (i = 0; i < MENU_LENGTH; ++i) {
+        if (sg_MENU_ITEMS[i] != NULL && sg_MENU_ITEMS[i][0] != '\0') {
+            strncpy(temp_name, sg_MENU_ITEMS[i], 50);
+            // format name
+            for (length = 0; length < MENU_ITEM_LENGTH; ++length) {
+                switch (temp_name[length]){
+                case '\0': break;
+                case '_':
+                case '-':
+                    temp_name[length] = ' ';
+                    break;
+                case '.':
+                    temp_name[length] = '\0';
+                    break;
+                }
+                if (temp_name[length] == '\0') {
+                    break;
+                }
+            }
+
+            if (length == MENU_ITEM_LENGTH) {
+                temp_name[length-1] = '\0';
+            }
+
+            // highlight selected item
+            lcd0.backgroundColor = (i == sg_MENU_ITEM_INDEX) ? COLOR_NAVY : lcd0.defaultBackgroundColor;
+            lcd0.textColor = (i == sg_MENU_ITEM_INDEX) ? COLOR_WHITE : lcd0.defaultTextColor;
+            offset = (i * LIST_ITEM_HEIGHT) + (i * 4) + 4;
+            LcdDrawBox(LIST_ITEM_START_X, MAIN_WINDOW_START_Y+4+offset, LIST_ITEM_END_X, MAIN_WINDOW_START_Y+4+LIST_ITEM_HEIGHT+offset, 
+                2, COLOR_BLACK, lcd0.backgroundColor);
+            LcdTextOutXY(LIST_ITEM_START_X + 4, MAIN_WINDOW_START_Y+4+11+offset, temp_name);
+        }
+    }
+    lcd0.backgroundColor = lcd0.defaultBackgroundColor;
+    lcd0.textColor = lcd0.defaultTextColor;
+}
+
+void load_playlist_names() {
+    char playlist_filename[50];
+    int line_number;
+    char c;
+    int i = 0;
+    FILE* usb_playlist_list_file = NULL;  // file that contains a list of playlists, separated by newlines
+    printf("LOAD: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_MENU_ITEM_INDEX);
+    if (sg_LIST_INDEX < 6) {
+        // display now playing and all songs as options
+        sg_MENU_ITEMS[0] = LIST_ITEM_NOW_PLAYING;
+        sg_MENU_ITEMS[1] = LIST_ITEM_ALL_MUSIC;
+        i = 2;
+    }
+
+    // open the file
+    usb_playlist_list_file = fopen("D:Playlists/__playlists.txt", "r");
+    if (usb_playlist_list_file == NULL) {
+        // could not open file, either it does not exit or we are out of memory
+        printf("Couldn't open file: D:Playlists/__playlists.txt");
+        return;
+    }
+
+    printf("Opened file at %p\n", usb_playlist_list_file);
+    printf("Size: %d\n", usb_playlist_list_file->fileSize);
+    usb_playlist_list_file->Identify(usb_playlist_list_file, playlist_filename, 50);
+    printf("Decorative info: %s\n", playlist_filename);
+    printf("Location: %d\n", usb_playlist_list_file->pos);
+    fseek(usb_playlist_list_file, 0, SEEK_SET);
+    printf("Location: %d\n", usb_playlist_list_file->pos);
+    // navigate to correct line in file
+    line_number = ((u_int16)(sg_LIST_INDEX / 6)) * 6 - 2;
+
+    printf("Line Number: %d\n", line_number);
+    // while (line_number > 0) {
+    //     // printf("Location: %d\n", usb_playlist_list_file->pos);
+    //     // printf("read: %p\n", fgets(playlist_filename, 50, usb_playlist_list_file));
+    //     // printf("Location: %d\n", usb_playlist_list_file->pos);
+
+    //     printf("Skipping line: <%s>\n", playlist_filename);
+    //     --line_number;
+    // }
+    c = fgetc(usb_playlist_list_file);
+    while (c != EOF) {
+        printf("%c", c);
+        c = fgetc(usb_playlist_list_file);
+    }
+    fseek(usb_playlist_list_file, 0, SEEK_SET);
+
+    while (i < 6) {
+        // read line from file
+        if (fgets(playlist_filename, 50, usb_playlist_list_file) != NULL) {
+            // add playlist filename to menu items
+            strncpy(sg_MENU_ITEMS[i], playlist_filename, MENU_ITEM_LENGTH);
+        }
+        else {
+            printf("Read an empty line at item %d!\n", i);
+            // if (sg_MENU_ITEM_INDEX == 0 && sg_LIST_INDEX >= 6) {
+            //     sg_LIST_INDEX -= 1;
+            //     sg_MENU_ITEM_INDEX = sg_LIST_INDEX % 6;
+            //     fclose(usb_playlist_list_file);
+            //     load_playlist_names();
+            //     return;
+            // }
+            // else {
+            strncpy(sg_MENU_ITEMS[i], "\0\0\0\0", MENU_ITEM_LENGTH);
+            // }
+        }
+        i++;
+    }
+    // check if there's more to read later:
+    // sg_EOF_REACHED = (fgets(playlist_filename, 50, usb_playlist_list_file) == NULL);
+    printf("Closing file\n");
+    fclose(usb_playlist_list_file);
+    printf("File closed\n\n\n\n\n\n");
+}
+
+void uiCursorUp() {
+    if (sg_LIST_INDEX != 0) {
+        --sg_LIST_INDEX;
+        sg_MENU_ITEM_INDEX = sg_LIST_INDEX % 6;
+        load_playlist_names();
+        display_menu_items();
+    }
+    printf("UP: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_MENU_ITEM_INDEX);
+}
+
+void uiCursorDown() {
+    // if (!sg_EOF_REACHED || sg_MENU_ITEM_INDEX != 5) {
+    ++sg_LIST_INDEX;
+    sg_MENU_ITEM_INDEX = sg_LIST_INDEX % 6;
+    load_playlist_names();
+    display_menu_items();
+    // }
+    printf("DOWN: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_MENU_ITEM_INDEX);
+}
+
 void loadMainMenu()
 {
     // monitorVoltage();
-    lcd0.textColor = __RGB565RGB(0, 0, 0);
-    LcdTextOutXY(1,1, "MAIN MENU");
-    LcdTextOutXY(1,300, "PLAYLISTS");
-    LcdTextOutXY(200,50, "SONGS");
-    LcdTextOutXY(200,300, "INFO");
-    lcd0.textColor = COLOR_WHITE;
+    LcdClearMainWindow();
+    lcd0.textColor = COLOR_BLACK;
+
+    sg_UI_STATE.menu_state = MAIN_MENU;
+    
+    // reload items
+    // sg_MENU_ITEMS[0] = "Now Playing";
+
+    sg_LIST_INDEX = 0;
+    sg_MENU_ITEM_INDEX = 0;
+
+    // load playlist names
+    load_playlist_names();
+
+    // display items
+    display_menu_items();
 }
 
 void loadNowPlaying()

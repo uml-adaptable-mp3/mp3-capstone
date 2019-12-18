@@ -326,7 +326,7 @@ u_int16 LcdInit (u_int16 display_mode) {
 	lcd0.clipy2 = __LCD_LOGICAL_HEIGHT - 1;
 
 
-	lcd0.defaultTextColor = lcd0.textColor = __RGB565RGB(180,180,180);
+	lcd0.defaultTextColor = lcd0.textColor = __RGB565RGB(0,0,0);
 	lcd0.defaultBackgroundColor = lcd0.backgroundColor = __RGB565RGB(128,193,255);
 	lcd0.highlightColor = __RGB565RGB(255,255,255);
 	lcd0.shadowColor = __RGB565RGB(80,80,80);
