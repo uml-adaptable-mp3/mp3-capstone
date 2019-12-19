@@ -40,11 +40,13 @@ Playlist* create_playlist_from_file(register const char* filename) {
     int dir_offset = 0; // string offset so that the entire string doesn't need to be moved if swapping ../ with D:
 
     // Open the playlist file
-    printf("Trying to open %s\n", filename);
-    p_file = fopen(filename, "r");
-    printf("Called fopen for %s\n", filename);
+    strncpy(name_buffer, filename, 127);
+
+    printf("Trying to open %s\n", name_buffer);
+    p_file = fopen(name_buffer, "r");
+    printf("Called fopen for %s\n", name_buffer);
     if (p_file == NULL) {
-        printf("Couldn't open file '%s'\n", filename);
+        printf("Couldn't open file '%s'\n", name_buffer);
         return NULL;
     }
 

@@ -81,9 +81,7 @@ u_int16 volumeDown(void) {
     return volume;
 }
 
-int main(char *parameters) {
-    char *vol_ctrl = parameters;
-    
+int main(char *vol_ctrl) {    
     if (*vol_ctrl == '+') {
         printf("Volume Up\n");
         volumeUp();

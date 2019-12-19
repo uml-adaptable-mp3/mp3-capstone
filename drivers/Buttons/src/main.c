@@ -34,11 +34,11 @@
 
 u_int16 __mem_y quitButtonTask = 0;
 struct TaskAndStack *taskAndStack = NULL;
+static char playlist[] = "D:Playlists/playlist.m3u";
 
 void ButtonTask(void) {
     //struct ButtonState_t ButtonStates = {0, 0, 0, 0, 0, 0, 0};
     void *playlistLib = NULL;
-    char *playlist = "D:Playlists/playlist.m3u";
     u_int16 in_menu = 0;
 
     while(!quitButtonTask) {

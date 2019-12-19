@@ -105,6 +105,10 @@ static char all_music_str[] = "D:Music/__all_music.m3u\0";
 static u_int16 sg_PLAYBACK_TIME;
 static u_int16 sg_PLAYBACK_PERCENT_COMPLETE;
 
+static char buffer[8];
+static char battery_display_str[12];
+static char volume_display_str[8];
+
 u_int16 LcdDrawBox(u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_int16 border_width,
                    u_int16 border_color, u_int16 fill_color) {
     LcdFilledRectangle(x1, y1, x2, y2, NULL, border_color);
@@ -217,7 +221,6 @@ void uiDisplayMode(u_int16 mode) {
 }
 
 void uiDisplayBattery() {
-    char battery_display_str[12];
     if (sg_UI_STATE.menu_state != INIT_SCREEN) {
         sprintf(battery_display_str, "BATT: %3u", batteryLevel);
 
@@ -231,7 +234,6 @@ void uiDisplayBattery() {
 }
 
 void uiDisplayVolume() {
-    char volume_display_str[8];
     if (sg_UI_STATE.menu_state != INIT_SCREEN) {
         sprintf(volume_display_str, "VOL: %2u", 25 - (cycVolume / 6));
 
@@ -296,7 +298,6 @@ void uiDisplayMenuItems() {
 
 void uiLoadPlaylistNames() {
     int line_number;
-    char c;
     int i, j;
     FILE* usb_playlist_list_file = NULL;  // file that contains a list of playlists, separated by newlines
     // display now playing and all songs as options
@@ -432,7 +433,6 @@ void uiLoadNowPlaying()
 }
 
 void uiDisplaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
-    char buffer[8];
     if (sg_UI_STATE.menu_state == NOW_PLAYING) {
 
         u_int16 progress_bar_end = ((elapsed_time * 200) / song_length) + PLAYBACK_START_X+60;
@@ -485,7 +485,6 @@ void uiUpdatePercentComplete(u_int16 percent_complete) {
 }
 
 void uiUpdatePlaybackTime(u_int16 new_time) {
-    char buffer[8];
     sg_PLAYBACK_TIME = new_time;
     if (sg_UI_STATE.menu_state == NOW_PLAYING) {
         LcdFilledRectangle(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, PLAYBACK_START_X+55,
