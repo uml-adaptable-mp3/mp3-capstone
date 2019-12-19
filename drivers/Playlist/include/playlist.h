@@ -25,5 +25,6 @@ void destroy_playlist(Playlist** ph_playlist);
 void add_song(Playlist* h_playlist, const char* filename);
 void delete_song(Playlist* h_playlist, Playlist_Entry* p_entry);
 void shuffle_playlist(Playlist* h_playlist);
+char* find_in_playlist(Playlist* h_playlist, int track_num);
 
 #endif  // _PLAYLIST_H_

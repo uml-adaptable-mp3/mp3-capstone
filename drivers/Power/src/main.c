@@ -35,7 +35,7 @@ int percent = 0;
 
 void CyclicBattery(register struct CyclicNode *cyclicNode) {
     monitorVoltage();
-    percent;
+    percent = percent;
 }
 struct CyclicNode myCyclicBattery = {{0}, CyclicBattery};
 

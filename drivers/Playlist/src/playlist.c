@@ -243,3 +243,17 @@ void shuffle_playlist(Playlist* h_playlist) {
     // free the allocated memory for the array, but NOT the nodes in it
     free(p_node_array);
 }
+
+char* find_in_playlist(Playlist* h_playlist, int track_num) {
+    Playlist_Entry* curr = h_playlist->head;
+    u_int16 i = 0;
+
+    while (curr != NULL && i < track_num) {
+        curr = curr->next;
+        i++;
+    }
+    if (curr != NULL) {
+        return curr->filename;
+    }
+    return NULL;
+}

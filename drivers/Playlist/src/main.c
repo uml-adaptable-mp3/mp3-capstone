@@ -124,6 +124,15 @@ void NewPlaylist(char *playlist_name) {
     audioDecoder->cs.cancel = 1;
 }
 
+DLLENTRY(FindTrack)     // ENTRY_7
+char *FindTrack(int track_num) {
+    return find_in_playlist(h_playlist, track_num);
+}
+
+DLLENTRY(GetLength)     // ENTRY_8
+int GetLength(void) {
+    return h_playlist->length;
+}
 
 /**
  * @brief Driver for playing playlists
@@ -173,7 +182,10 @@ int main(char *parameters) {
                 fclose(current_song);
                 return S_ERROR;
             }
-
+            if (changing_playlist) {
+                audioDecoder->pause = 1;
+                changing_playlist = FALSE;
+            }
             StartTask(TASK_DECODER, PlayerThread);
             Delay(100);
             while (pSysTasks[TASK_DECODER].task.tc_State && pSysTasks[TASK_DECODER].task.tc_State != TS_REMOVED) {
@@ -291,7 +303,7 @@ int main(char *parameters) {
             shuffle_selected = FALSE;
             repeat_selected = FALSE;
             linear_selected = FALSE;
-            changing_playlist = FALSE;
+            // changing_playlist = FALSE;
             quit_selected = FALSE;
         }
     }
