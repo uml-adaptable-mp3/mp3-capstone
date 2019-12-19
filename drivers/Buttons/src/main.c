@@ -31,15 +31,15 @@
     int vol_up;
     int vol_down;
 }; */
+// char *playlist = "D:Playlists/playlist.m3u";
 
 u_int16 __mem_y quitButtonTask = 0;
 struct TaskAndStack *taskAndStack = NULL;
 
 void ButtonTask(void) {
     //struct ButtonState_t ButtonStates = {0, 0, 0, 0, 0, 0, 0};
-    void *playlistLib = NULL;
-    char *playlist = "D:Playlists/playlist.m3u";
-    u_int16 in_menu = 0;
+    static void *playlistLib = NULL;
+    static u_int16 in_menu = 0;
 
     while(!quitButtonTask) {
         // Check UI state - some button fucntions vary when in menu

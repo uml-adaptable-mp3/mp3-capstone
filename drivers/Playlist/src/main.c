@@ -18,14 +18,15 @@
 
 // void run_test();
 
-void *decoderLibrary = NULL;
-AUDIO_DECODER *audioDecoder = NULL;
-FILE *fp = NULL;
-char *errorString = "nothing to see here";
-int eCode = 0;
-char playlist_filename[127];
-Playlist *h_playlist;
-FILE *current_song;
+static void *decoderLibrary = NULL;
+static AUDIO_DECODER *audioDecoder = NULL;
+static FILE *fp = NULL;
+static char *errorString = "nothing to see here";
+static int eCode = 0;
+static char playlist_filename[127];
+static char temp_filename[50];
+static Playlist *h_playlist;
+static FILE *current_song;
 
 
 u_int16 quit_selected = FALSE;
@@ -127,8 +128,10 @@ void NewPlaylist(char *playlist_name) {
 
 DLLENTRY(FindTrack)     // ENTRY_7
 char *FindTrack(int track_num) {
+    printf("hello\n");
+    // printf("Find track num %d\n", track_num);
     while(changing_playlist == TRUE) {
-        printf("waiting...\n");
+        // printf("waiting...\n");
         Delay(250);
     }
     return find_in_playlist(h_playlist, track_num);
@@ -136,6 +139,7 @@ char *FindTrack(int track_num) {
 
 DLLENTRY(GetLength)     // ENTRY_8
 int GetLength(void) {
+    printf("H playlist length: %d\n", h_playlist->length);
     return h_playlist->length;
 }
 
@@ -148,7 +152,6 @@ int GetLength(void) {
  */
 int main(char *parameters) {
     char user_input;
-    char temp_filename[50];
 
     // playlist_filename = parameters;
     strncpy(playlist_filename, parameters, 127);
@@ -314,12 +317,10 @@ int main(char *parameters) {
             // changing_playlist = FALSE;
             quit_selected = FALSE;
         }
-        printf("Dropping library\n")
-        DropLibrary(decoderLibrary);
-        RunLibraryFunction("liblist2", ENTRY_MAIN, 0);
     }
     printf("Exiting Playlist\n");
-
+    printf("Dropping library\n");
+    DropLibrary(decoderLibrary);
     
 
     return S_OK;

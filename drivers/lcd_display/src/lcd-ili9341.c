@@ -29,6 +29,8 @@
 extern const u_int32 font16a[];
 extern const u_int16 font16aptrs[];
 
+static u_int16 buff[7*8];
+
 //#include "forbid_stdout.h"
 #include <stdio.h>
 
@@ -239,7 +241,7 @@ u_int16 MyLcdFilledRectangle (u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_
 		//4, WRITE_MEMORY, 0x55, 0xaa, 0x37, 0xf6,
 		-1};
 
-	u_int16 buff[2];
+	// u_int16 buff[2];
 	u_int32 n = (((u_int32)x2-x1)+1);
 
 
@@ -280,7 +282,6 @@ u_int16 MyLcdFilledRectangle (u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_
 }
 
 u_int16 MyLcdTextOutXY (u_int16 x1, u_int16 y1, char *s) {
-	static u_int16 buff[7*8];
 	u_int16 x,y;
 	while (*s) { //Foreach character *s do:
 		__mem_y u_int16 *p = &latin1[(*s)*3]; //Get a pointer to ROM font table

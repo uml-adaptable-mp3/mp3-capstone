@@ -46,12 +46,14 @@ Playlist* create_playlist_from_file(char* filename) {
     strncpy(name_buffer, filename, 127);
     printf("Creating Playlist from file %s\n", name_buffer);
     do {
+        printf("Tries Remaining: %d\n", num_tries);
         Delay(2500);
         printf("Trying to open file %s", name_buffer);
-        p_file = fopen(name_buffer, "r");
+        p_file = fopen(name_buffer, "rb");
+        printf("Tries Remaining: %d\n", num_tries);
         printf("flags: 0b%b\n", p_file->flags);
         num_tries--;
-        RunLibraryFunction("liblist2", ENTRY_MAIN, 0);
+        // RunLibraryFunction("liblist2", ENTRY_MAIN, 0);
     } while (p_file == NULL && num_tries > 0);
 
     if (p_file == NULL) {
@@ -262,13 +264,15 @@ void shuffle_playlist(Playlist* h_playlist) {
 char* find_in_playlist(Playlist* h_playlist, int track_num) {
     Playlist_Entry* curr = h_playlist->head;
     u_int16 i = 0;
-
+    printf("Searching for track num %d", track_num);
     while (curr != NULL && i < track_num) {
         curr = curr->next;
         i++;
     }
     if (curr != NULL) {
+        printf("Found Filename: %s\n", curr->filename);
         return curr->filename;
     }
+    printf("Couldn't find filename.\n");
     return NULL;
 }

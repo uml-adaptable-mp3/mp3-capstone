@@ -79,6 +79,8 @@ static char sg_SONG_NAME[50];
 static char sg_ALBUM_NAME[50];
 static char sg_ARTIST_NAME[50];
 
+static char temp_name[60];
+static char all_music_str[] = "D:Music/__all_songs.m3u\0";
 // menu items
 #define MENU_LENGTH 6
 #define MAX_PLAYLISTS 16
@@ -94,6 +96,9 @@ static u_int16 sg_TRACK_NUM;
 // static u_int16 sg_SONG_LENGTH;
 static u_int16 sg_PLAYBACK_TIME;
 static u_int16 sg_PLAYBACK_PERCENT_COMPLETE;
+
+static char volume_display_str[8];
+static char battery_display_str[12];
 
 u_int16 LcdDrawBox(u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_int16 border_width,
                    u_int16 border_color, u_int16 fill_color) {
@@ -211,7 +216,6 @@ void uiDisplayMode(u_int16 mode) {
 }
 
 void uiDisplayBattery() {
-    char battery_display_str[12];
     if (sg_UI_STATE.menu_state != INIT_SCREEN) {
         sprintf(battery_display_str, "BATT: %3u", batteryLevel);
 
@@ -225,7 +229,6 @@ void uiDisplayBattery() {
 }
 
 void uiDisplayVolume() {
-    char volume_display_str[8];
     if (sg_UI_STATE.menu_state != INIT_SCREEN) {
         sprintf(volume_display_str, "VOL: %2u", 25 - (cycVolume / 6));
 
@@ -240,7 +243,6 @@ void uiDisplayVolume() {
 
 void uiDisplayMenuItems() {
     int offset, i, length, list_item;
-    char temp_name[MENU_ITEM_LENGTH];
     LcdClearMainWindow();
 
     for (i = 0; i < MENU_LENGTH; ++i) {
@@ -288,7 +290,6 @@ void uiDisplayMenuItems() {
 }
 
 void uiLoadPlaylistNames() {
-    int line_number;
     char c;
     int i, j;
     FILE* usb_playlist_list_file = NULL;  // file that contains a list of playlists, separated by newlines
@@ -345,35 +346,37 @@ void uiCursorDown() {
 }
 
 void uiDisplaySongs() {
-    int offset, i, length, list_item;
-    char temp_name[60];
+    int offset, i, list_item;
     char* song_filename;
     FILE* file_descriptor;
-
-    strncpy(temp_name, "D:Playlists/", 13);
 
     LcdClearMainWindow();
     printf("top of display loop\n");
     for (i = 0; i < MENU_LENGTH; ++i) {
         list_item = (MENU_LENGTH * (sg_TRACK_NUM / MENU_LENGTH)) + i;
         printf("getting filename...\n");
-        song_filename = (char*) RunLibraryFunction("PLAYLIST", ENTRY_7, (int) temp_name);
-        strncpy(&(temp_name[13]), song_filename, 47);
-        printf("Read filename %s\n", song_filename);
+        song_filename = (char*) RunLibraryFunction("PLAYLIST", ENTRY_7, list_item);
+        printf("Read filename %x\n", song_filename);
 
         uiResetSong();
-        if (song_filename != NULL) {
+        printf("filename after reset song: %s\n", song_filename);
+        if (song_filename != NULL) {    
             file_descriptor = fopen(song_filename, "rb");
+            printf("after fopen\n");
             if (file_descriptor == NULL) {
                 printf("Failed to open %s for decoding.", song_filename);
             }
             else {
+                printf("Trying to decode\n");
                 DecodeID3(file_descriptor, (UICallback) uiMetadataDecodeCallBack);
+                printf("Decoded, closing file\n");
                 fclose(file_descriptor);
+                printf("File closed\n");
             }
         }
         if (strlen(song_filename) > 0) {
             // successfully decoded song, display it
+            printf("playlist length = %d\n",  RunLibraryFunction("PLAYLIST", ENTRY_8, 0));
             if (strlen(sg_SONG_NAME) > 0 && list_item < RunLibraryFunction("PLAYLIST", ENTRY_8, 0)) {
 
                 // highlight selected item
@@ -389,8 +392,11 @@ void uiDisplaySongs() {
                 offset = (i * LIST_ITEM_HEIGHT) + (i * 4) + 4;
                 LcdDrawBox(LIST_ITEM_START_X, MAIN_WINDOW_START_Y+4+offset, LIST_ITEM_END_X, MAIN_WINDOW_START_Y+4+LIST_ITEM_HEIGHT+offset,
                     2, COLOR_BLACK, lcd0.backgroundColor);
-                LcdTextOutXY(LIST_ITEM_START_X + 4, MAIN_WINDOW_START_Y+4+11+offset, temp_name);
+                LcdTextOutXY(LIST_ITEM_START_X + 4, MAIN_WINDOW_START_Y+4+11+offset, sg_SONG_NAME);
             }
+        }
+        else {
+            printf("song filename has length %d\n", strlen(song_filename));
         }
     }
     lcd0.backgroundColor = lcd0.defaultBackgroundColor;
@@ -399,7 +405,6 @@ void uiDisplaySongs() {
 
 char* uiCursorSelect() {
     char* selected_item = sg_MENU_ITEMS[sg_LIST_INDEX];
-    char all_music_str[] = "D:Music/__all_songs.m3u\0";
     if (sg_UI_STATE.menu_state == MAIN_MENU) {
         if (strncmp(selected_item, "Now Playing", 12) == 0) {
             // selected now playing, show the now playing display
