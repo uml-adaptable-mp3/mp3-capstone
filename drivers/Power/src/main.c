@@ -49,8 +49,8 @@ s_int16 GetSarValue(register u_int16 channelShifted) {
 }
 
 void monitorVoltage(void) {
-    u_int32 sar_aux, sar_rcap;
-    float volts;
+    static u_int32 sar_aux, sar_rcap;
+    static float volts;
 
     // Read the AUX channel level using the SAR.
     sar_aux = GetSarValue(SAR_AUX2);

@@ -18,27 +18,27 @@
 
 // void run_test();
 
-void *decoderLibrary = NULL;
-AUDIO_DECODER *audioDecoder = NULL;
-FILE *fp = NULL;
-char *errorString = "nothing to see here";
-int eCode = 0;
-char *playlist_filename;
-Playlist *h_playlist;
-FILE *current_song;
-char temp_filename[50];
+static void *decoderLibrary = NULL;
+static AUDIO_DECODER *audioDecoder = NULL;
+static FILE *fp = NULL;
+static char *errorString = "nothing to see here";
+static int eCode = 0;
+static char playlist_filename[127];
+static Playlist *h_playlist;
+static FILE *current_song;
+static char temp_filename[50];
 
-u_int16 quit_selected = FALSE;
-u_int16 restart_song = FALSE;
-u_int16 move_prev = FALSE;
-u_int16 select_next = FALSE;
-s_int32 time_elapsed;
-u_int16 shuffle_selected = FALSE;
-u_int16 repeat_selected = FALSE;
-u_int16 linear_selected = FALSE;
-u_int16 queue_mode = 0;
-u_int16 changing_playlist = FALSE;
-u_int16 new_playlist_loaded = 1;
+static u_int16 quit_selected = FALSE;
+static u_int16 restart_song = FALSE;
+static u_int16 move_prev = FALSE;
+static u_int16 select_next = FALSE;
+static s_int32 time_elapsed;
+static u_int16 shuffle_selected = FALSE;
+static u_int16 repeat_selected = FALSE;
+static u_int16 linear_selected = FALSE;
+static u_int16 queue_mode = 0;
+static u_int16 changing_playlist = FALSE;
+static u_int16 new_playlist_loaded = 1;
 
 /**
  * @brief Function to play music via the system's decoder library. Runs in a
@@ -120,7 +120,8 @@ DLLENTRY(NewPlaylist)  // ENTRY_6
 void NewPlaylist(char *playlist_name) {
     changing_playlist = TRUE;
     quit_selected = TRUE;
-    playlist_filename = playlist_name;
+    // playlist_filename = playlist_name;
+    strncpy(playlist_filename, playlist_name, 127);
     printf("Changing playlist to %s\n", playlist_filename);
     audioDecoder->cs.cancel = 1;
 }
@@ -136,7 +137,8 @@ void NewPlaylist(char *playlist_name) {
 int main(char *parameters) {
     char user_input;
 
-    playlist_filename = parameters;
+    // playlist_filename = parameters;
+    strncpy(playlist_filename, parameters, 127);
     
     printf("Loading Decoder library\n");
     decoderLibrary = LoadLibrary("audiodec");
