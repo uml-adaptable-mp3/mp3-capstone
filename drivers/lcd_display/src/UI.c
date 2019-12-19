@@ -50,8 +50,8 @@ extern int batteryLevel;
 #define NOW_PLAYING   4
 
 #define NORMAL_MODE 0
-#define SHUFFLE_MODE 1
-#define REPEAT_MODE 2
+#define REPEAT_MODE 1
+#define SHUFFLE_MODE 2
 
 
 #define PAD4 4
@@ -365,7 +365,7 @@ void uiLoadMainMenu()
     sg_LIST_INDEX = 0;
         
     uiLoadHeader();
-    
+
     // display items
     uiDisplayMenuItems();
 }

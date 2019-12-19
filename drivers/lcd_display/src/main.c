@@ -73,11 +73,13 @@ void showMode(u_int16 mode) {
 DLLENTRY(cursorUp)  // ENTRY 8
 void cursorUp(int unused) {
     uiCursorUp();
+    uiLoadHeader();
 }
 
 DLLENTRY(cursorDown)  // ENTRY 9
 void cursorDown(int unused) {
     uiCursorDown();
+    uiLoadHeader();
 }
 
 DLLENTRY(select)  // ENTRY 10

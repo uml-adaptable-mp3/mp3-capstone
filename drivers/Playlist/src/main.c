@@ -105,6 +105,7 @@ void QueueToggle(void) {
         shuffle_selected = FALSE;
         linear_selected = TRUE;
     }
+    RunLibraryFunction("lcd_display", ENTRY_7, queue_mode);
 }
 
 DLLENTRY(Quit)      // ENTRY_5
@@ -114,7 +115,7 @@ void Quit(void) {
     quit_selected = TRUE;
 }
 
-DLLENTRY(NewPlaylist)      // ENTRY_6
+DLLENTRY(NewPlaylist)  // ENTRY_6
 void NewPlaylist(char *playlist_name) {
     changing_playlist = TRUE;
     quit_selected = TRUE;
