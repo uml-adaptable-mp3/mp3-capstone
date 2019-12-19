@@ -35,7 +35,7 @@
 u_int16 __mem_y quitButtonTask = 0;
 struct TaskAndStack *taskAndStack = NULL;
 
-int ButtonTask(char *parameters) {
+void ButtonTask(void) {
     //struct ButtonState_t ButtonStates = {0, 0, 0, 0, 0, 0, 0};
     void *playlistLib = NULL;
     char *playlist = "D:Playlists/playlist.m3u";
@@ -55,6 +55,7 @@ int ButtonTask(char *parameters) {
             else {
                 RunLibraryFunction("Playlist", ENTRY_1, 0);
             }
+            while(GpioReadPin(BUTTON1));
         }
         // Skip
         // Menu down
@@ -66,6 +67,7 @@ int ButtonTask(char *parameters) {
             else {
                 RunLibraryFunction("Playlist", ENTRY_2, 0);
             }
+            while(GpioReadPin(BUTTON2));
         }
         // Prev
         // Menu up
@@ -77,16 +79,19 @@ int ButtonTask(char *parameters) {
             else {
                 RunLibraryFunction("Playlist", ENTRY_3, 0);
             }
+            while(GpioReadPin(BUTTON3));
         }
         // Shuffle
         // pin 57
         if(GpioReadPin(BUTTON4) & ACTIVEHIGH) {
             RunLibraryFunction("Playlist", ENTRY_4, 0);
+            while(GpioReadPin(BUTTON4));
         }
         // Menu
         // pin 31
         if(GpioReadPin(BUTTON8) & ACTIVEHIGH) {
             RunLibraryFunction("lcd_display", ENTRY_1, 0);
+            while(GpioReadPin(BUTTON8));
         }
         // Volume up
         // pin 32
@@ -102,6 +107,12 @@ int ButtonTask(char *parameters) {
             RunLibraryFunction("Volume", ENTRY_2, 0);
             RunLibraryFunction("lcd_display", ENTRY_6, 0);            
         }
+
+        // TODO: TESTING CHANGING PLAYLIST
+       // if(GpioReadPin(BUTTON8) & ACTIVEHIGH) {
+        //    printf("You touched the button!\n");
+        //     RunLibraryFunction("Playlist", ENTRY_6, (int)playlist);
+        //}
         Delay(250);
     }
 }

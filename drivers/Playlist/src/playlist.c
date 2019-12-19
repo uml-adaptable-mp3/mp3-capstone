@@ -91,6 +91,7 @@ Playlist* create_playlist_from_file(register const char* filename) {
             printf("File '%s' not found, skipping...\n", &(name_buffer[0+dir_offset]));
         }
     }
+    fclose(p_file);
 
     fclose(p_file);
     return h_playlist;
@@ -110,7 +111,6 @@ void destroy_playlist(Playlist** ph_playlist) {
     while (p_next != NULL) {
         p_temp = p_next;
         p_next = p_next->next;
-
         // free memory
         free(p_temp->filename);
         free(p_temp);
