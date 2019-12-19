@@ -1,15 +1,11 @@
-AGC.dl3
 AIO.dl3
 audiodec.dl3
-auiadc.dl3
 AuInfo.dl3
-AuInput.dl3
 auodac.dl3
 auoi2sma.dl3
 auooset.dl3
 auospda.dl3
 AuOutput.dl3
-auxplay.dl3
 cd.dl3
 CopyF.dl3
 decaac.dl3
@@ -21,9 +17,6 @@ decwav.dl3
 Dir.dl3
 driver.dl3
 echo.dl3
-edit.dl3
-edit.ini
-encvorb.dl3
 FILEBUF.dl3
 Format.dl3
 getcmd.dl3
@@ -37,7 +30,6 @@ paramspl.dl3
 RtcRead.dl3
 run.dl3
 SDSDMONO.dl3
-SetClock.dl3
 shellenv.dl3
 Tasks.dl3
 trace.dl3

@@ -105,7 +105,7 @@ int ButtonTask(char *parameters) {
 }
 
 ioresult init(void) {
-    if (!(taskAndStack = CreateTaskAndStack(ButtonTask, "BUTTONS", 256, 2))) {
+    if (!(taskAndStack = CreateTaskAndStack((void *)ButtonTask, "BUTTONS", 256, 2))) {
         return S_ERROR;
     }
 
