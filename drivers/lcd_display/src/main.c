@@ -94,6 +94,11 @@ void select(char* buffer) {
     strncpy(buffer, uiCursorSelect(), 50);
 }
 
+DLLENTRY(getMenuState) // ENTRY 11
+int getMenuState(void) {
+    return getUIState();
+}
+
 ioresult main(char *parameters) {
     FILE* current_song;
     char name_buffer[50];

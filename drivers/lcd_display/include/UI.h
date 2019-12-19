@@ -48,6 +48,7 @@ void uiCursorUp();
 void uiCursorDown();
 char* uiCursorSelect();
 void load_playlist_names();
+int getUIState(void);
 
 // void updateSongLength(u_int16 new_length);
 

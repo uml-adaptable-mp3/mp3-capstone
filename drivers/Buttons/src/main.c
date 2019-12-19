@@ -39,34 +39,44 @@ int ButtonTask(char *parameters) {
     //struct ButtonState_t ButtonStates = {0, 0, 0, 0, 0, 0, 0};
     void *playlistLib = NULL;
     char *playlist = "D:Playlists/playlist.m3u";
+    u_int16 in_menu = 0;
 
     while(!quitButtonTask) {
+        // Check UI state - some button fucntions vary when in menu
+        in_menu = RunLibraryFunction("lcd_display", ENTRY_11, 0);
         // Play / Pause
+        // Select
         // pin 44
         if(GpioReadPin(BUTTON1) & ACTIVEHIGH) {
             //ButtonStates.play_pause = 1;
-            /* if(playlistLib == NULL) {
-                printf("Starting Playlist: %s\n", playlist);
-                playlistLib = LoadLibrary("Playlist");
-                if (!playlistLib) {
-                    printf("Couldn't open Playlist Lib\n");
-                }
-                RunLibraryFunction("Playlist", ENTRY_6, (int)playlist);
+            if(in_menu > 0) {
+                RunLibraryFunction("lcd_display", ENTRY_10, 0);
             }
             else {
                 RunLibraryFunction("Playlist", ENTRY_1, 0);
-            } */
-            RunLibraryFunction("Playlist", ENTRY_1, 0);
+            }
         }
         // Skip
+        // Menu down
         // pin 26
         if(GpioReadPin(BUTTON2) & ACTIVEHIGH) {
-            RunLibraryFunction("Playlist", ENTRY_2, 0);
+            if(in_menu > 0) { 
+                RunLibraryFunction("lcd_display", ENTRY_9, 0);
+            }
+            else {
+                RunLibraryFunction("Playlist", ENTRY_2, 0);
+            }
         }
         // Prev
+        // Menu up
         // pin 56
         if(GpioReadPin(BUTTON3) & ACTIVEHIGH) {
-            RunLibraryFunction("Playlist", ENTRY_3, 0);
+            if(in_menu > 0) { 
+                RunLibraryFunction("lcd_display", ENTRY_8, 0);
+            }
+            else {
+                RunLibraryFunction("Playlist", ENTRY_3, 0);
+            }
         }
         // Shuffle
         // pin 57
@@ -76,7 +86,7 @@ int ButtonTask(char *parameters) {
         // Menu
         // pin 31
         if(GpioReadPin(BUTTON5) & ACTIVEHIGH) {
-            // TODO: implement menu stuff
+            RunLibraryFunction("lcd_display", ENTRY_1, 0);
         }
         // Volume up
         // pin 32
@@ -108,8 +118,8 @@ void fini(void) {
         quitButtonTask = 1;
 
         while (taskAndStack->task.tc_State &&
-        taskAndStack->task.tc_State != TS_REMOVED) {
-        Delay(TICKS_PER_SEC/100);
+                taskAndStack->task.tc_State != TS_REMOVED) {
+            Delay(TICKS_PER_SEC/100);
         }
         FreeTaskAndStack(taskAndStack);
     }

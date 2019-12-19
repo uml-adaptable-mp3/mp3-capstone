@@ -37,7 +37,7 @@
 
 #define INIT_SCREEN   0
 #define MAIN_MENU     1
-#define SONG_MENU1    2
+#define SONG_MENU     2
 #define PLAYLIST_MENU 3
 #define NOW_PLAYING   4
 
@@ -451,6 +451,12 @@ void UIShowPlayPause(u_int16 isPaused) {
 	}
 }
 
+int getUIState(void) {
+    if (sg_UI_STATE.menu_state == MAIN_MENU || sg_UI_STATE.menu_state == SONG_MENU) {
+        return 1;
+    }
+    return 0;
+}
 
 // void hideSongPlaybackBar() {
 //     LcdFilledRectangle(PLAYBACK_START_X, PLAYBACK_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
