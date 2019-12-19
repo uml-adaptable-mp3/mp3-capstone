@@ -19,9 +19,7 @@
 
 
 void init(char* parameters) {
-
-    UI_init();
-
+    uiInit();
 }
 
 // 0 for main menu, 1 for now playing
@@ -29,54 +27,47 @@ DLLENTRY(switchView)  // ENTRY 1
 void switchView(u_int16 view) {
     if (view) {
         // show now playing
-        loadHeader();
-        loadNowPlaying();
+        uiLoadHeader();
+        uiLoadNowPlaying();
     }
     else {
         // show main menu
-        loadHeader();
-        loadMainMenu();
+        uiLoadHeader();
+        uiLoadMainMenu();
     }
 }
 
 DLLENTRY(setSong)  // ENTRY 2
 void setSong(FILE* file_descriptor) {
-    resetSong();
+    uiResetSong();
     // runs callback that sets the strings to be displayed when switching to now playing
-    DecodeID3(file_descriptor, (UICallback) UIMetadataDecodeCallBack);
+    DecodeID3(file_descriptor, (UICallback) uiMetadataDecodeCallBack);
 }
 
 DLLENTRY(setPercentageComplete)  // ENTRY 3
 void setPercentageComplete(u_int16 percentage) {
-    updatePercentComplete(percentage);
+    uiUpdatePercentComplete(percentage);
 }
 
 DLLENTRY(currentPlaybackTime)  // ENTRY 4
 void currentPlaybackTime(u_int16 time) {
-    updatePlaybackTime(time);
+    uiUpdatePlaybackTime(time);
 }
 
 DLLENTRY(showPlayPause)  // ENTRY 5
 void showPlayPause(u_int16 isPaused) {
-    UIShowPlayPause(isPaused);
+    uiShowPlayPause(isPaused);
 }
 
 DLLENTRY(setVolumeLevel)  // ENTRY 6
-void setVolumeLevel(u_int16 volume) {
-    // do volume stuff
+void setVolumeLevel(u_int16 unused) {
+    uiDisplayVolume();
 }
 
 DLLENTRY(showMode)  // ENTRY 7
 // 0: normal, 1: shuffle, 2: repeat
 void showMode(u_int16 mode) {
-    switch(mode) {
-    case 0:  // normal playback
-        break;
-    case 1:  // shuffle
-        break;
-    case 2:  // repeat
-        break;
-    }
+    uiDisplayMode(mode);
 }
 
 DLLENTRY(cursorUp)  // ENTRY 8
@@ -90,8 +81,8 @@ void cursorDown(int unused) {
 }
 
 DLLENTRY(select)  // ENTRY 10
-void select(char* buffer) {
-    strncpy(buffer, uiCursorSelect(), 50);
+void select(int unused) {
+    printf("You selected %s\n", uiCursorSelect());
 }
 
 DLLENTRY(getMenuState) // ENTRY 11
@@ -99,15 +90,19 @@ int getMenuState(void) {
     return getUIState();
 }
 
+DLLENTRY(updateBatteryLevel)  // ENTRY 12
+void updateBatteryLevel() {
+    uiDisplayBattery();
+}
+
 ioresult main(char *parameters) {
     FILE* current_song;
-    char name_buffer[50];
     if (parameters != NULL && parameters[0] == 'i') {
         // init mode, don't do anything
     }
     else if (parameters != NULL && parameters[0] == 'h') {
         // load the header
-        loadHeader();
+        uiLoadHeader();
     }
     else if (parameters != NULL && parameters[0] == 'm') {
         // load the main menu
@@ -131,8 +126,7 @@ ioresult main(char *parameters) {
         cursorDown(0);
     }
     else if (parameters != NULL && parameters[0] == 'l') {
-        select(name_buffer);
-        printf("Selected item: %s\n", name_buffer);
+        select(0);
     }
     else {
         LcdInit(0);

@@ -31,7 +31,7 @@
 void monitorVoltage(void);
 s_int16 GetSarValue(register u_int16 channelShifted);
 
-float percent = 0;
+int percent = 0;
 
 void CyclicBattery(register struct CyclicNode *cyclicNode) {
     monitorVoltage();
@@ -68,10 +68,11 @@ void monitorVoltage(void) {
     sar_aux = ((s_int32)(sar_aux)*1662) / sar_rcap;
     // Convert integer millivolts to float volts.
     volts = sar_aux * 0.001 * 2.2;
-    percent = MIN((volts - 3) * 100 / 1.2, 100);
+    percent = (int) MIN((volts - 3.0) * 100.0 / 1.2, 100);
 
-    printf("BATT: %.3f\n", percent);
-    printf("Voltage: %2.2fV\n", volts);
+    RunLibraryFunction("lcd_display", ENTRY_12, 0);
+    // printf("BATT: %.3f\n", percent);
+    // printf("Voltage: %2.2fV\n", volts);
 }
 
 /* This driver runs a cyclic process and adds a new symbol _batteryLevel
@@ -82,7 +83,7 @@ ioresult init(char *parameters) {
     /* Add a new symbol */
     AddSymbol("_batteryLevel", (void *)LIB_ID, (int)(&percent));
     /* Activate the cyclic function. */
-    AddCyclic(&myCyclicBattery, TICKS_PER_SEC * 10, TICKS_PER_SEC * 10);
+    AddCyclic(&myCyclicBattery, TICKS_PER_SEC * 10, 0);
 }
 
 void fini(void) {

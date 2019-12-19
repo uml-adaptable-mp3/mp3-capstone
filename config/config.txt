@@ -15,8 +15,8 @@ USBHOST D
 AUODAC s
 # Start UART in/out driver
 UARTIN
-VOLUME
 POWER
+VOLUME
 # Start the lcd display
 lcd_display i
 BUTTONS

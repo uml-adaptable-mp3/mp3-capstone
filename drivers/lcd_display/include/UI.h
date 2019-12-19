@@ -29,27 +29,26 @@
 // u_int16 navigateMenus();
 // char *retrieveSongLocation(u_int16 *index, u_int16 offset);
 
-ioresult UI_init();
-void loadHeader();
-void loadMainMenu();
-void loadNowPlaying();
-void displayBatteryPercentage(u_int16 battery_level);
-// void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length);
+ioresult uiInit();
+void uiLoadHeader();
+void uiLoadMainMenu();
+void uiLoadNowPlaying();
 
-void UIMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value);
-void loadCriticalErrorMenu();
+void uiMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value);
+void uiLoadCriticalErrorMenu();
 
-void resetSong();
-void hideSongPlaybackBar();
-void updatePlaybackTime(u_int16 new_time);
-void updatePercentComplete(u_int16 percent_complete);
-void UIShowPlayPause(u_int16 isPaused);
+void uiResetSong();
+void uiHideSongPlaybackBar();
+void uiUpdatePlaybackTime(u_int16 new_time);
+void uiUpdatePercentComplete(u_int16 percent_complete);
+void uiShowPlayPause(u_int16 isPaused);
 void uiCursorUp();
 void uiCursorDown();
+void uiDisplayVolume();
+void uiDisplayBattery();
+void uiDisplayMode(u_int16 mode);
 char* uiCursorSelect();
-void load_playlist_names();
+void uiLoadPlaylistNames();
 int getUIState(void);
-
-// void updateSongLength(u_int16 new_length);
 
 #endif  // _UI_H_

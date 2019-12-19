@@ -93,12 +93,14 @@ int ButtonTask(char *parameters) {
         if(GpioReadPin(BUTTON6) & ACTIVEHIGH) {
             //ButtonStates.vol_up = 1;
             RunLibraryFunction("Volume", ENTRY_1, 0);
+            RunLibraryFunction("lcd_display", ENTRY_6, 0);
         }
         // Volume Down
         // pin 33
         if(GpioReadPin(BUTTON7) & ACTIVEHIGH) {
             //ButtonStates.vol_down = 1;
             RunLibraryFunction("Volume", ENTRY_2, 0);
+            RunLibraryFunction("lcd_display", ENTRY_6, 0);            
         }
         Delay(250);
     }
