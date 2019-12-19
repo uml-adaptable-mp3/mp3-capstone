@@ -85,7 +85,7 @@ int ButtonTask(char *parameters) {
         }
         // Menu
         // pin 31
-        if(GpioReadPin(BUTTON5) & ACTIVEHIGH) {
+        if(GpioReadPin(BUTTON8) & ACTIVEHIGH) {
             RunLibraryFunction("lcd_display", ENTRY_1, 0);
         }
         // Volume up

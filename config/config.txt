@@ -16,10 +16,10 @@ AUODAC s
 # Start UART in/out driver
 UARTIN
 VOLUME
-BUTTONS
-# POWER
+POWER
 # Start the lcd display
 lcd_display i
+BUTTONS
 
 # Start the shell
 S:SHELL.AP3
