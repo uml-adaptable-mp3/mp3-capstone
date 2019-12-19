@@ -97,6 +97,8 @@ static char sg_ARTIST_NAME[50];
 static char sg_MENU_ITEMS[MAX_MENU_ITEMS][MENU_ITEM_LENGTH];
 static u_int16 sg_LIST_INDEX;
 static u_int16 sg_LIST_LENGTH;
+static char temp_name[127] = "D:Playists/\0";
+static char all_music_str[] = "D:Music/__all_music.m3u\0";
 
 
 // static u_int16 sg_SONG_LENGTH;
@@ -136,11 +138,8 @@ void uiMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value) {
         break;
     case UIMSG_TEXT_ALBUM_NAME:
         strcpy(sg_ALBUM_NAME, (char*) value);
-    // default:
-        // printf("Error: Invalid UI message for metadata decode\n");
     }
 }
-
 
 ioresult uiInit(void) {
     int i, j;
@@ -247,51 +246,52 @@ void uiDisplayVolume() {
 
 void uiDisplayMenuItems() {
     int offset, i, length, list_item;
-    char temp_name[MENU_ITEM_LENGTH];
-    LcdClearMainWindow();
+    // char temp_name[MENU_ITEM_LENGTH];
+    if (sg_UI_STATE.menu_state == MAIN_MENU) {
+        LcdClearMainWindow();
 
-    for (i = 0; i < MENU_LENGTH; ++i) {
-        list_item = (MENU_LENGTH * (sg_LIST_INDEX / MENU_LENGTH)) + i;
-        if (strlen(sg_MENU_ITEMS[list_item]) > 0 && list_item < sg_LIST_LENGTH) {
-            // strncpy(temp_name, sg_MENU_ITEMS[(sg_LIST_INDEX / MENU_LENGTH) + i], MENU_ITEM_LENGTH);
-            // format name
-            for (length = 0; length < MENU_ITEM_LENGTH; ++length) {
-                switch (sg_MENU_ITEMS[list_item][length]){
-                case '_':
-                case '-':
-                    temp_name[length] = ' ';
-                    break;
-                case '.':
-                    temp_name[length] = '\0';
-                    break;
-                default:
-                    temp_name[length] = sg_MENU_ITEMS[list_item][length];
-                    break;
+        for (i = 0; i < MENU_LENGTH; ++i) {
+            list_item = (MENU_LENGTH * (sg_LIST_INDEX / MENU_LENGTH)) + i;
+            if (strlen(sg_MENU_ITEMS[list_item]) > 0 && list_item < sg_LIST_LENGTH) {
+                // format name
+                for (length = 0; length < MENU_ITEM_LENGTH; ++length) {
+                    switch (sg_MENU_ITEMS[list_item][length]){
+                    case '_':
+                    case '-':
+                        temp_name[length] = ' ';
+                        break;
+                    case '.':
+                        temp_name[length] = '\0';
+                        break;
+                    default:
+                        temp_name[length] = sg_MENU_ITEMS[list_item][length];
+                        break;
+                    }
+                    // stop early if possible
+                    if (temp_name[length] == '\0') {
+                        break;
+                    }
                 }
-                // stop early if possible
-                if (temp_name[length] == '\0') {
-                    break;
-                }
-            }
 
-            // highlight selected item
-            if (i == (sg_LIST_INDEX % MENU_LENGTH)) {
-                lcd0.backgroundColor = COLOR_NAVY;
-                lcd0.textColor = COLOR_WHITE;
+                // highlight selected item
+                if (i == (sg_LIST_INDEX % MENU_LENGTH)) {
+                    lcd0.backgroundColor = COLOR_NAVY;
+                    lcd0.textColor = COLOR_WHITE;
+                }
+                else {
+                    lcd0.backgroundColor = lcd0.defaultBackgroundColor;
+                    lcd0.textColor = lcd0.defaultTextColor;
+                }
+                // draw the item
+                offset = (i * LIST_ITEM_HEIGHT) + (i * 4) + 4;
+                LcdDrawBox(LIST_ITEM_START_X, MAIN_WINDOW_START_Y+4+offset, LIST_ITEM_END_X, MAIN_WINDOW_START_Y+4+LIST_ITEM_HEIGHT+offset,
+                    2, COLOR_BLACK, lcd0.backgroundColor);
+                LcdTextOutXY(LIST_ITEM_START_X + 4, MAIN_WINDOW_START_Y+4+11+offset, temp_name);
             }
-            else {
-                lcd0.backgroundColor = lcd0.defaultBackgroundColor;
-                lcd0.textColor = lcd0.defaultTextColor;
-            }
-            // draw the item
-            offset = (i * LIST_ITEM_HEIGHT) + (i * 4) + 4;
-            LcdDrawBox(LIST_ITEM_START_X, MAIN_WINDOW_START_Y+4+offset, LIST_ITEM_END_X, MAIN_WINDOW_START_Y+4+LIST_ITEM_HEIGHT+offset,
-                2, COLOR_BLACK, lcd0.backgroundColor);
-            LcdTextOutXY(LIST_ITEM_START_X + 4, MAIN_WINDOW_START_Y+4+11+offset, temp_name);
         }
+        lcd0.backgroundColor = lcd0.defaultBackgroundColor;
+        lcd0.textColor = lcd0.defaultTextColor;
     }
-    lcd0.backgroundColor = lcd0.defaultBackgroundColor;
-    lcd0.textColor = lcd0.defaultTextColor;
 }
 
 void uiLoadPlaylistNames() {
@@ -327,10 +327,28 @@ void uiLoadPlaylistNames() {
             }
             break;
         }
+        else {
+            // replace newline with null
+            // if (sg_MENU_ITEMS[i][strlen(sg_MENU_ITEMS[i])-1] == '\r' ||
+            //     sg_MENU_ITEMS[i][strlen(sg_MENU_ITEMS[i])-1] == '\n') {
+                
+            //     sg_MENU_ITEMS[i][strlen(sg_MENU_ITEMS[i])-1] = '\0';
+            // }
+            // if (sg_MENU_ITEMS[i][strlen(sg_MENU_ITEMS[i])-1] == '\r' ||
+            //     sg_MENU_ITEMS[i][strlen(sg_MENU_ITEMS[i])-1] == '\n') {
+                
+            //     sg_MENU_ITEMS[i][strlen(sg_MENU_ITEMS[i])-1] = '\0';
+            // }
+            for (j = 0; j < strlen(sg_MENU_ITEMS[i]); ++j) {
+                if (sg_MENU_ITEMS[i][j] == '\r' ||
+                    sg_MENU_ITEMS[i][j] == '\n') {
+                    
+                    sg_MENU_ITEMS[i][j] = '\0';
+                }
+            }
+        }
     }
 
-    // check if there's more to read later:
-    // sg_EOF_REACHED = (fgets(playlist_filename, 50, usb_playlist_list_file) == NULL);
     fclose(usb_playlist_list_file);
 }
 
@@ -339,7 +357,6 @@ void uiCursorUp() {
         --sg_LIST_INDEX;
         uiDisplayMenuItems();
     }
-    printf("UP: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_LIST_INDEX % 6);
 }
 
 void uiCursorDown() {
@@ -348,11 +365,27 @@ void uiCursorDown() {
         ++sg_LIST_INDEX;
         uiDisplayMenuItems();
     }
-    printf("DOWN: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_LIST_INDEX % 6);
 }
 
 char* uiCursorSelect() {
-    return sg_MENU_ITEMS[sg_LIST_INDEX];
+    char* selected_item = sg_MENU_ITEMS[sg_LIST_INDEX];
+    if (sg_UI_STATE.menu_state == MAIN_MENU) {
+        if (strncmp(selected_item, "Now Playing", 12) == 0) {
+            // selected now playing, show the now playing display
+            // don't do anything to playlist 
+        }
+        else if (strncmp(selected_item, "All Music", 10) == 0) {
+            // selected all music playlist
+            RunLibraryFunction("PLAYLIST", ENTRY_6, (int) all_music_str);
+        }
+        else {
+            strncpy(temp_name, "D:Playists/\0", 12);
+            strncpy(&(temp_name[11]), selected_item, 116);
+            RunLibraryFunction("PLAYLIST", ENTRY_6, (int) temp_name);
+        }
+        uiLoadNowPlaying();
+    }
+    return selected_item;
 }
 
 void uiLoadMainMenu()
@@ -400,31 +433,30 @@ void uiLoadNowPlaying()
 
 void uiDisplaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
     char buffer[8];
-    u_int16 progress_bar_end = ((elapsed_time * 200) / song_length) + PLAYBACK_START_X+60;
-    // song length in seconds
-    // clear current section of screen
-    LcdFilledRectangle(PLAYBACK_START_X, PLAYBACK_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
-                       NULL, lcd0.backgroundColor);
+    if (sg_UI_STATE.menu_state == NOW_PLAYING) {
 
-    // draw the empty box
-    LcdDrawBox(PLAYBACK_START_X+58, PLAYBACK_START_Y+PAD4, MAIN_WINDOW_END_X-57, MAIN_WINDOW_END_Y-10,
-               2, COLOR_BLACK, lcd0.backgroundColor);
+        u_int16 progress_bar_end = ((elapsed_time * 200) / song_length) + PLAYBACK_START_X+60;
+        // song length in seconds
+        // clear current section of screen
+        LcdFilledRectangle(PLAYBACK_START_X, PLAYBACK_START_Y, MAIN_WINDOW_END_X, MAIN_WINDOW_END_Y,
+                        NULL, lcd0.backgroundColor);
 
-    // draw the elapsed / remaining times
-    sprintf(buffer, "%3u:%02u", elapsed_time / 60, elapsed_time % 60);
-    LcdTextOutXY(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, buffer);
+        // draw the empty box
+        LcdDrawBox(PLAYBACK_START_X+58, PLAYBACK_START_Y+PAD4, MAIN_WINDOW_END_X-57, MAIN_WINDOW_END_Y-10,
+                2, COLOR_BLACK, lcd0.backgroundColor);
 
-    song_length -= elapsed_time;
-    sprintf(buffer, "%3u:%02u", song_length / 60, song_length % 60);
-    LcdTextOutXY(MAIN_WINDOW_END_X-57+PAD4, PLAYBACK_START_Y+8, buffer);
+        // draw the elapsed / remaining times
+        sprintf(buffer, "%3u:%02u", elapsed_time / 60, elapsed_time % 60);
+        LcdTextOutXY(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, buffer);
 
-    // fill the empty box to the elapsed point
-    LcdFilledRectangle(PLAYBACK_START_X+60, PLAYBACK_START_Y+PAD4+2,
-                       progress_bar_end, MAIN_WINDOW_END_Y-12, 0, COLOR_NAVY);  // MAIN_WINDOW_END_X-59
+        song_length -= elapsed_time;
+        sprintf(buffer, "%3u:%02u", song_length / 60, song_length % 60);
+        LcdTextOutXY(MAIN_WINDOW_END_X-57+PAD4, PLAYBACK_START_Y+8, buffer);
 
-    printf("X1: %d, Y1: %d\nX2: %d, Y2: %d\n", PLAYBACK_START_X+60, PLAYBACK_START_Y+PAD4+2,
-                                               progress_bar_end, MAIN_WINDOW_END_Y-12);  // MAIN_WINDOW_END_X-59
-
+        // fill the empty box to the elapsed point
+        LcdFilledRectangle(PLAYBACK_START_X+60, PLAYBACK_START_Y+PAD4+2,
+                        progress_bar_end, MAIN_WINDOW_END_Y-12, 0, COLOR_NAVY);  // MAIN_WINDOW_END_X-59
+    }
 }
 
 void uiUpdatePercentComplete(u_int16 percent_complete) {
@@ -455,26 +487,30 @@ void uiUpdatePercentComplete(u_int16 percent_complete) {
 void uiUpdatePlaybackTime(u_int16 new_time) {
     char buffer[8];
     sg_PLAYBACK_TIME = new_time;
-    LcdFilledRectangle(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, PLAYBACK_START_X+55,
-                       MAIN_WINDOW_END_Y, NULL, lcd0.backgroundColor);
-    sprintf(buffer, "%3u:%02u", new_time / 60, new_time % 60);
-    LcdTextOutXY(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, buffer);
+    if (sg_UI_STATE.menu_state == NOW_PLAYING) {
+        LcdFilledRectangle(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, PLAYBACK_START_X+55,
+                        MAIN_WINDOW_END_Y, NULL, lcd0.backgroundColor);
+        sprintf(buffer, "%3u:%02u", new_time / 60, new_time % 60);
+        LcdTextOutXY(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, buffer);
+    }
 }
 
 void uiShowPlayPause(u_int16 isPaused) {
-	if (isPaused) {
-		// show paused
-		LcdFilledRectangle(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y-16,
-						   ((HEADER_END_X-HEADER_START_X)/2) + 40, PLAYBACK_START_Y, NULL, lcd0.backgroundColor);
+    if (sg_UI_STATE.menu_state == NOW_PLAYING) {
+        if (isPaused) {
+            // show paused
+            LcdFilledRectangle(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y-16,
+                            ((HEADER_END_X-HEADER_START_X)/2) + 40, PLAYBACK_START_Y, NULL, lcd0.backgroundColor);
 
-		LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y - 16, "PAUSED");
-	}
-	else {
-		LcdFilledRectangle(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y-16,
-						   ((HEADER_END_X-HEADER_START_X)/2) + 40, PLAYBACK_START_Y, NULL, lcd0.backgroundColor);
+            LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y - 16, "PAUSED");
+        }
+        else {
+            LcdFilledRectangle(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y-16,
+                            ((HEADER_END_X-HEADER_START_X)/2) + 40, PLAYBACK_START_Y, NULL, lcd0.backgroundColor);
 
-		LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y - 16, "PLAYING");
-	}
+            LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y - 16, "PLAYING");
+        }
+    }
 }
 
 int getUIState(void) {

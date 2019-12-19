@@ -26,7 +26,7 @@ int eCode = 0;
 char *playlist_filename;
 Playlist *h_playlist;
 FILE *current_song;
-
+char temp_filename[50];
 
 u_int16 quit_selected = FALSE;
 u_int16 restart_song = FALSE;
@@ -38,6 +38,7 @@ u_int16 repeat_selected = FALSE;
 u_int16 linear_selected = FALSE;
 u_int16 queue_mode = 0;
 u_int16 changing_playlist = FALSE;
+u_int16 new_playlist_loaded = 1;
 
 /**
  * @brief Function to play music via the system's decoder library. Runs in a
@@ -134,7 +135,6 @@ void NewPlaylist(char *playlist_name) {
  */
 int main(char *parameters) {
     char user_input;
-    char temp_filename[50];
 
     playlist_filename = parameters;
     
@@ -164,7 +164,8 @@ int main(char *parameters) {
             }
 
             printf("Now Playing: %s\n", current_song->Identify(current_song, NULL, 0));
-            RunLibraryFunction("METADATA", ENTRY_2, (int)current_song);
+            // RunLibraryFunction("METADATA", ENTRY_2, (int)current_song);
+            RunLibraryFunction("lcd_display", ENTRY_2, (int) current_song);
 
             audioDecoder = CreateAudioDecoder(decoderLibrary, current_song, stdaudioout, NULL, auDecFGuess);
             if (!audioDecoder) {
@@ -174,13 +175,27 @@ int main(char *parameters) {
                 return S_ERROR;
             }
 
+            audioDecoder->pause = new_playlist_loaded;
+            new_playlist_loaded = 0;
+
+             // set song length
+            RunLibraryFunction("lcd_display", ENTRY_3,
+                (int) (100.0 * ((double) audioDecoder->cs.Tell(&audioDecoder->cs) / (double) audioDecoder->cs.fileSize)));
+            RunLibraryFunction("lcd_display", ENTRY_4, audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
+
             StartTask(TASK_DECODER, PlayerThread);
             Delay(100);
             while (pSysTasks[TASK_DECODER].task.tc_State && pSysTasks[TASK_DECODER].task.tc_State != TS_REMOVED) {
 
                 printf("\r[%02ld:%02ld]", audioDecoder->cs.playTimeSeconds / 60L, audioDecoder->cs.playTimeSeconds % 60L);
 
+                 // set song length
+                RunLibraryFunction("lcd_display", ENTRY_3,
+                    (int) (100.0 * ((double) audioDecoder->cs.Tell(&audioDecoder->cs) / (double) audioDecoder->cs.fileSize)));
+                RunLibraryFunction("lcd_display", ENTRY_4, audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
+
                 Delay(250);
+
                 if (ioctl(stdin, IOCTL_TEST, NULL)) {
                     //character(s) available in the stdin buffer
                     user_input = fgetc(stdin);
@@ -293,6 +308,7 @@ int main(char *parameters) {
             linear_selected = FALSE;
             changing_playlist = FALSE;
             quit_selected = FALSE;
+            new_playlist_loaded = 1;
         }
     }
 

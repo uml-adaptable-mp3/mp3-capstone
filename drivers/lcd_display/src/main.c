@@ -42,6 +42,9 @@ void setSong(FILE* file_descriptor) {
     uiResetSong();
     // runs callback that sets the strings to be displayed when switching to now playing
     DecodeID3(file_descriptor, (UICallback) uiMetadataDecodeCallBack);
+    if (!getUIState()) {
+        uiLoadNowPlaying();
+    }
 }
 
 DLLENTRY(setPercentageComplete)  // ENTRY 3

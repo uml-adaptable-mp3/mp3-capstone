@@ -13,6 +13,8 @@
 
 static u_int16 sg_SEEDED = 0;
 
+static char name_buffer[BUFFER_SIZE];
+
 static void seed_random(void) {
     if (!sg_SEEDED) {
         srandom((u_int32) ReadTimeCount());
@@ -34,12 +36,13 @@ Playlist* create_playlist_from_file(register const char* filename) {
     Playlist* h_playlist = NULL;
     FILE *p_file = NULL;
     FILE *p_temp = NULL;
-    char name_buffer[BUFFER_SIZE];
     int last_index = 0;
     int dir_offset = 0; // string offset so that the entire string doesn't need to be moved if swapping ../ with D:
 
     // Open the playlist file
+    printf("Trying to open %s\n", filename);
     p_file = fopen(filename, "r");
+    printf("Called fopen for %s\n", filename);
     if (p_file == NULL) {
         printf("Couldn't open file '%s'\n", filename);
         return NULL;
