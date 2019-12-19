@@ -6,10 +6,14 @@
 #include <string.h>
 #include <time.h>
 #include <audio.h>
+#include <apploader.h>
+#include <volink.h>
 
 #include "playlist.h"
 
 #define BUFFER_SIZE 127
+
+static char name_buffer[BUFFER_SIZE];
 
 static u_int16 sg_SEEDED = 0;
 
@@ -30,20 +34,31 @@ Playlist* create_new_playlist() {
     return p_list;
 }
 
-Playlist* create_playlist_from_file(register const char* filename) {
+Playlist* create_playlist_from_file(char* filename) {
     Playlist* h_playlist = NULL;
     FILE *p_file = NULL;
     FILE *p_temp = NULL;
-    char name_buffer[BUFFER_SIZE];
+    int num_tries = 30;
     int last_index = 0;
     int dir_offset = 0; // string offset so that the entire string doesn't need to be moved if swapping ../ with D:
 
     // Open the playlist file
-    p_file = fopen(filename, "r");
+    strncpy(name_buffer, filename, 127);
+    printf("Creating Playlist from file %s\n", name_buffer);
+    do {
+        Delay(2500);
+        printf("Trying to open file %s", name_buffer);
+        p_file = fopen(name_buffer, "r");
+        printf("flags: 0b%b\n", p_file->flags);
+        num_tries--;
+        RunLibraryFunction("liblist2", ENTRY_MAIN, 0);
+    } while (p_file == NULL && num_tries > 0);
+
     if (p_file == NULL) {
-        printf("Couldn't open file '%s'\n", filename);
+        printf("Couldn't open file '%s'\n", name_buffer);
         return NULL;
     }
+    printf("Opened file '%s'", name_buffer);
 
     h_playlist = create_new_playlist();
 

@@ -23,7 +23,7 @@ AUDIO_DECODER *audioDecoder = NULL;
 FILE *fp = NULL;
 char *errorString = "nothing to see here";
 int eCode = 0;
-char *playlist_filename;
+char playlist_filename[127];
 Playlist *h_playlist;
 FILE *current_song;
 
@@ -119,13 +119,18 @@ DLLENTRY(NewPlaylist)  // ENTRY_6
 void NewPlaylist(char *playlist_name) {
     changing_playlist = TRUE;
     quit_selected = TRUE;
-    playlist_filename = playlist_name;
+    strncpy(playlist_filename, playlist_name, 127);
+    // playlist_filename = playlist_name;
     printf("Changing playlist to %s\n", playlist_filename);
     audioDecoder->cs.cancel = 1;
 }
 
 DLLENTRY(FindTrack)     // ENTRY_7
 char *FindTrack(int track_num) {
+    while(changing_playlist == TRUE) {
+        printf("waiting...\n");
+        Delay(250);
+    }
     return find_in_playlist(h_playlist, track_num);
 }
 
@@ -145,7 +150,8 @@ int main(char *parameters) {
     char user_input;
     char temp_filename[50];
 
-    playlist_filename = parameters;
+    // playlist_filename = parameters;
+    strncpy(playlist_filename, parameters, 127);
     
     printf("Loading Decoder library\n");
     decoderLibrary = LoadLibrary("audiodec");
@@ -156,6 +162,7 @@ int main(char *parameters) {
 
     while (quit_selected == FALSE) {
         // init a new playlist from the given file
+        printf("Changing playlist to %s", playlist_filename);
         h_playlist = create_playlist_from_file(playlist_filename);
         if (h_playlist == NULL) {
             printf("Error generating playlist from file '%s'", playlist_filename);
@@ -292,23 +299,28 @@ int main(char *parameters) {
                 }
                 linear_selected = FALSE;
             }
-            
+            printf("Closing current song\n");
             fclose(current_song);
-            
+            printf("Deleting audio decoder\n");
             DeleteAudioDecoder(decoderLibrary, audioDecoder);
         }
         destroy_playlist(&h_playlist);
 
         if (changing_playlist) {
+            printf("CHANGING PLAYLIST\n");
             shuffle_selected = FALSE;
             repeat_selected = FALSE;
             linear_selected = FALSE;
             // changing_playlist = FALSE;
             quit_selected = FALSE;
         }
+        printf("Dropping library\n")
+        DropLibrary(decoderLibrary);
+        RunLibraryFunction("liblist2", ENTRY_MAIN, 0);
     }
+    printf("Exiting Playlist\n");
 
-    DropLibrary(decoderLibrary);
+    
 
     return S_OK;
 }

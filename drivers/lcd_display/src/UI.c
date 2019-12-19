@@ -15,6 +15,7 @@
 #include <volink.h>
 
 #include "UI.h"
+#include "ID3_decode.h"
 
 DLLIMPORT(cycVolume)
 extern int cycVolume;
@@ -34,20 +35,10 @@ extern int batteryLevel;
 
 #define FILE_NAME_CHARS 256
 
-// typedef enum Menu_State {
-//     INIT_SCREEN = 0,
-//     MAIN_MENU,
-//     SONG_MENU1,
-//     PLAYLIST_MENU,
-//     NOW_PLAYING,
-// } Menu_State_t;
-
-
 #define INIT_SCREEN   0
-#define MAIN_MENU     1
-#define SONG_MENU     2
-#define PLAYLIST_MENU 3
-#define NOW_PLAYING   4
+#define NOW_PLAYING   1
+#define MAIN_MENU     2
+#define SONG_MENU     3
 
 #define NORMAL_MODE 0
 #define REPEAT_MODE 1
@@ -98,6 +89,7 @@ static char sg_MENU_ITEMS[MAX_MENU_ITEMS][MENU_ITEM_LENGTH];
 static u_int16 sg_LIST_INDEX;
 static u_int16 sg_LIST_LENGTH;
 
+static u_int16 sg_TRACK_NUM;
 
 // static u_int16 sg_SONG_LENGTH;
 static u_int16 sg_PLAYBACK_TIME;
@@ -163,6 +155,7 @@ ioresult uiInit(void) {
     // load playlist names
     sg_LIST_INDEX = 0;
     sg_LIST_LENGTH = 0;
+    sg_TRACK_NUM = 0;
 
     // put in default memory
     for (i = 0; i < MAX_MENU_ITEMS; ++i) {
@@ -339,7 +332,7 @@ void uiCursorUp() {
         --sg_LIST_INDEX;
         uiDisplayMenuItems();
     }
-    printf("UP: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_LIST_INDEX % 6);
+    // printf("UP: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_LIST_INDEX % 6);
 }
 
 void uiCursorDown() {
@@ -348,15 +341,95 @@ void uiCursorDown() {
         ++sg_LIST_INDEX;
         uiDisplayMenuItems();
     }
-    printf("DOWN: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_LIST_INDEX % 6);
+    // printf("DOWN: List index = %d    Menu Index = %d\n", sg_LIST_INDEX, sg_LIST_INDEX % 6);
+}
+
+void uiDisplaySongs() {
+    int offset, i, length, list_item;
+    char temp_name[60];
+    char* song_filename;
+    FILE* file_descriptor;
+
+    strncpy(temp_name, "D:Playlists/", 13);
+
+    LcdClearMainWindow();
+    printf("top of display loop\n");
+    for (i = 0; i < MENU_LENGTH; ++i) {
+        list_item = (MENU_LENGTH * (sg_TRACK_NUM / MENU_LENGTH)) + i;
+        printf("getting filename...\n");
+        song_filename = (char*) RunLibraryFunction("PLAYLIST", ENTRY_7, (int) temp_name);
+        strncpy(&(temp_name[13]), song_filename, 47);
+        printf("Read filename %s\n", song_filename);
+
+        uiResetSong();
+        if (song_filename != NULL) {
+            file_descriptor = fopen(song_filename, "rb");
+            if (file_descriptor == NULL) {
+                printf("Failed to open %s for decoding.", song_filename);
+            }
+            else {
+                DecodeID3(file_descriptor, (UICallback) uiMetadataDecodeCallBack);
+                fclose(file_descriptor);
+            }
+        }
+        if (strlen(song_filename) > 0) {
+            // successfully decoded song, display it
+            if (strlen(sg_SONG_NAME) > 0 && list_item < RunLibraryFunction("PLAYLIST", ENTRY_8, 0)) {
+
+                // highlight selected item
+                if (i == (sg_TRACK_NUM % MENU_LENGTH)) {
+                    lcd0.backgroundColor = COLOR_NAVY;
+                    lcd0.textColor = COLOR_WHITE;
+                }
+                else {
+                    lcd0.backgroundColor = lcd0.defaultBackgroundColor;
+                    lcd0.textColor = lcd0.defaultTextColor;
+                }
+                // draw the item
+                offset = (i * LIST_ITEM_HEIGHT) + (i * 4) + 4;
+                LcdDrawBox(LIST_ITEM_START_X, MAIN_WINDOW_START_Y+4+offset, LIST_ITEM_END_X, MAIN_WINDOW_START_Y+4+LIST_ITEM_HEIGHT+offset,
+                    2, COLOR_BLACK, lcd0.backgroundColor);
+                LcdTextOutXY(LIST_ITEM_START_X + 4, MAIN_WINDOW_START_Y+4+11+offset, temp_name);
+            }
+        }
+    }
+    lcd0.backgroundColor = lcd0.defaultBackgroundColor;
+    lcd0.textColor = lcd0.defaultTextColor;
 }
 
 char* uiCursorSelect() {
+    char* selected_item = sg_MENU_ITEMS[sg_LIST_INDEX];
+    char all_music_str[] = "D:Music/__all_songs.m3u\0";
+    if (sg_UI_STATE.menu_state == MAIN_MENU) {
+        if (strncmp(selected_item, "Now Playing", 12) == 0) {
+            // selected now playing, show the now playing display
+            uiLoadNowPlaying();
+            return selected_item;
+        }
+        else if (strncmp(selected_item, "All Music", 10) == 0) {
+            // selected all music playlist
+            RunLibraryFunction("PLAYLIST", ENTRY_6, (int) all_music_str);
+        }
+        else {
+            printf("running lib...\n");
+            RunLibraryFunction("PLAYLIST", ENTRY_6, (int) selected_item);
+            printf("ran lib\n");
+        }
+        printf("reset track num\n");
+        sg_TRACK_NUM = 0;
+        printf("displaying songs\n");
+        uiDisplaySongs();
+        printf("done with select\n");
+    }
+    else if (sg_UI_STATE.menu_state == SONG_MENU) {
+        // do nothing for now
+    }
     return sg_MENU_ITEMS[sg_LIST_INDEX];
 }
 
 void uiLoadMainMenu()
 {
+    printf("UI State: %d\n", sg_UI_STATE.menu_state);
     LcdClearMainWindow();
     lcd0.textColor = COLOR_BLACK;
 
@@ -368,6 +441,7 @@ void uiLoadMainMenu()
 
     // display items
     uiDisplayMenuItems();
+    printf("UI State: %d\n", sg_UI_STATE.menu_state);
 }
 
 void uiLoadNowPlaying()

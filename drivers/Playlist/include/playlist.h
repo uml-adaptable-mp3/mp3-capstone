@@ -18,7 +18,7 @@ typedef struct {
 } Playlist;
 
 Playlist* create_new_playlist();
-Playlist* create_playlist_from_file(register const char* filename);
+Playlist* create_playlist_from_file(char* filename);
 void destroy_playlist(Playlist** ph_playlist);
 
 // Playlist Methods
