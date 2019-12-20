@@ -20,9 +20,10 @@ VOLUME
 # Start the lcd display
 lcd_display i
 BUTTONS
-
+PLAYLIST D:Music/__all_songs.m3u
+lcd_display m
 # Start the shell
-S:SHELL.AP3
+# S:SHELL.AP3
 
 
 [1]

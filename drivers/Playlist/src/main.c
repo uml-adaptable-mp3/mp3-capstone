@@ -183,7 +183,12 @@ int main(char *parameters) {
             }
 
             printf("Now Playing: %s\n", current_song->Identify(current_song, NULL, 0));
-            RunLibraryFunction("METADATA", ENTRY_2, (int)current_song);
+            // RunLibraryFunction("METADATA", ENTRY_2, (int)current_song);
+            // RunLibraryFunction("lcd_display", ENTRY_2, (int) current_song);
+
+            RunLibraryFunction("lcd_display", ENTRY_3,
+                (int) (100.0 * ((double) audioDecoder->cs.Tell(&audioDecoder->cs) / (double) audioDecoder->cs.fileSize)));
+            RunLibraryFunction("lcd_display", ENTRY_4, audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
 
             audioDecoder = CreateAudioDecoder(decoderLibrary, current_song, stdaudioout, NULL, auDecFGuess);
             if (!audioDecoder) {
@@ -201,6 +206,10 @@ int main(char *parameters) {
             while (pSysTasks[TASK_DECODER].task.tc_State && pSysTasks[TASK_DECODER].task.tc_State != TS_REMOVED) {
 
                 printf("\r[%02ld:%02ld]", audioDecoder->cs.playTimeSeconds / 60L, audioDecoder->cs.playTimeSeconds % 60L);
+
+                RunLibraryFunction("lcd_display", ENTRY_3,
+                    (int) (100.0 * ((double) audioDecoder->cs.Tell(&audioDecoder->cs) / (double) audioDecoder->cs.fileSize)));
+                RunLibraryFunction("lcd_display", ENTRY_4, audioDecoder->cs.playTimeSeconds);  // currentPlaybackTime
 
                 Delay(250);
                 if (ioctl(stdin, IOCTL_TEST, NULL)) {
