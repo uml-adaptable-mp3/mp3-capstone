@@ -42,43 +42,26 @@ void ButtonTask(void) {
     static u_int16 in_menu = 0;
 
     while(!quitButtonTask) {
-        // Check UI state - some button fucntions vary when in menu
-        in_menu = RunLibraryFunction("lcd_display", ENTRY_11, 0);
         // Play / Pause
         // Select
         // pin 44
         if(GpioReadPin(BUTTON1) & ACTIVEHIGH) {
             //ButtonStates.play_pause = 1;
-            if(in_menu > 0) {
-                RunLibraryFunction("lcd_display", ENTRY_10, 0);
-            }
-            else {
-                RunLibraryFunction("Playlist", ENTRY_1, 0);
-            }
+            RunLibraryFunction("Playlist", ENTRY_1, 0);
             while(GpioReadPin(BUTTON1));
         }
         // Skip
         // Menu down
         // pin 26
         if(GpioReadPin(BUTTON2) & ACTIVEHIGH) {
-            if(in_menu > 0) { 
-                RunLibraryFunction("lcd_display", ENTRY_9, 0);
-            }
-            else {
-                RunLibraryFunction("Playlist", ENTRY_2, 0);
-            }
+            RunLibraryFunction("Playlist", ENTRY_2, 0);
             while(GpioReadPin(BUTTON2));
         }
         // Prev
         // Menu up
         // pin 56
         if(GpioReadPin(BUTTON3) & ACTIVEHIGH) {
-            if(in_menu > 0) { 
-                RunLibraryFunction("lcd_display", ENTRY_8, 0);
-            }
-            else {
-                RunLibraryFunction("Playlist", ENTRY_3, 0);
-            }
+            RunLibraryFunction("Playlist", ENTRY_3, 0);
             while(GpioReadPin(BUTTON3));
         }
         // Shuffle
@@ -90,7 +73,7 @@ void ButtonTask(void) {
         // Menu
         // pin 31
         if(GpioReadPin(BUTTON8) & ACTIVEHIGH) {
-            RunLibraryFunction("lcd_display", ENTRY_1, 0);
+            // RunLibraryFunction("lcd_display", ENTRY_1, 0);
             while(GpioReadPin(BUTTON8));
         }
         // Volume up
@@ -107,13 +90,7 @@ void ButtonTask(void) {
             RunLibraryFunction("Volume", ENTRY_2, 0);
             RunLibraryFunction("lcd_display", ENTRY_6, 0);            
         }
-
-        // TODO: TESTING CHANGING PLAYLIST
-       // if(GpioReadPin(BUTTON8) & ACTIVEHIGH) {
-        //    printf("You touched the button!\n");
-        //     RunLibraryFunction("Playlist", ENTRY_6, (int)playlist);
-        //}
-        Delay(250);
+        Delay(500);
     }
 }
 

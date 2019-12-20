@@ -79,24 +79,24 @@ static char sg_SONG_NAME[50];
 static char sg_ALBUM_NAME[50];
 static char sg_ARTIST_NAME[50];
 
-static char temp_name[60];
-static char all_music_str[] = "D:Music/__all_songs.m3u\0";
-static char full_path_buffer[127] = "D:Playlists/";
-static char* temp_filename_start = &(full_path_buffer[12]);
+// static char temp_name[60];
+// static char all_music_str[] = "D:Music/__all_songs.m3u\0";
+// static char full_path_buffer[127] = "D:Playlists/";
+// static char* temp_filename_start = &(full_path_buffer[12]);
 
-#define TEMP_FILENAME_LENGTH 114
+// #define TEMP_FILENAME_LENGTH 114
 
 // menu items
-#define MENU_LENGTH 6
-#define MAX_PLAYLISTS 16
-#define MAX_MENU_ITEMS MAX_PLAYLISTS + 2  // 22 playlists + now playing and all music
-#define MENU_ITEM_LENGTH 40
+// #define MENU_LENGTH 6
+// #define MAX_PLAYLISTS 16
+// #define MAX_MENU_ITEMS MAX_PLAYLISTS + 2  // 22 playlists + now playing and all music
+// #define MENU_ITEM_LENGTH 40
 
-static char sg_MENU_ITEMS[MAX_MENU_ITEMS][MENU_ITEM_LENGTH];
-static u_int16 sg_LIST_INDEX;
-static u_int16 sg_LIST_LENGTH;
+// static char sg_MENU_ITEMS[MAX_MENU_ITEMS][MENU_ITEM_LENGTH];
+// static u_int16 sg_LIST_INDEX;
+// static u_int16 sg_LIST_LENGTH;
 
-static u_int16 sg_TRACK_NUM;
+// static u_int16 sg_TRACK_NUM;
 
 // static u_int16 sg_SONG_LENGTH;
 static u_int16 sg_PLAYBACK_TIME;
@@ -163,18 +163,18 @@ ioresult uiInit(void) {
     sg_PLAYBACK_TIME = 0;
 
     // load playlist names
-    sg_LIST_INDEX = 0;
-    sg_LIST_LENGTH = 0;
-    sg_TRACK_NUM = 0;
+    // sg_LIST_INDEX = 0;
+    // sg_LIST_LENGTH = 0;
+    // sg_TRACK_NUM = 0;
 
-    // put in default memory
-    for (i = 0; i < MAX_MENU_ITEMS; ++i) {
-        for (j = 0; j < MENU_ITEM_LENGTH; ++j) {
-            sg_MENU_ITEMS[i][j] = '\0';
-        }
-    }
+    // // put in default memory
+    // for (i = 0; i < MAX_MENU_ITEMS; ++i) {
+    //     for (j = 0; j < MENU_ITEM_LENGTH; ++j) {
+    //         sg_MENU_ITEMS[i][j] = '\0';
+    //     }
+    // }
 
-    uiLoadPlaylistNames();
+    // uiLoadPlaylistNames();
 }
 
 void uiLoadHeader()
@@ -246,114 +246,114 @@ void uiDisplayVolume() {
     }
 }
 
-void uiDisplayMenuItems() {
-    int offset, i, length, list_item;
-    LcdClearMainWindow();
+// void uiDisplayMenuItems() {
+//     int offset, i, length, list_item;
+//     LcdClearMainWindow();
 
-    for (i = 0; i < MENU_LENGTH; ++i) {
-        list_item = (MENU_LENGTH * (sg_LIST_INDEX / MENU_LENGTH)) + i;
-        if (strlen(sg_MENU_ITEMS[list_item]) > 0 && list_item < sg_LIST_LENGTH) {
-            // strncpy(temp_name, sg_MENU_ITEMS[(sg_LIST_INDEX / MENU_LENGTH) + i], MENU_ITEM_LENGTH);
-            // format name
-            for (length = 0; length < MENU_ITEM_LENGTH; ++length) {
-                switch (sg_MENU_ITEMS[list_item][length]){
-                case '_':
-                case '-':
-                    temp_name[length] = ' ';
-                    break;
-                case '.':
-                    temp_name[length] = '\0';
-                    break;
-                default:
-                    temp_name[length] = sg_MENU_ITEMS[list_item][length];
-                    break;
-                }
-                // stop early if possible
-                if (temp_name[length] == '\0') {
-                    break;
-                }
-            }
+//     for (i = 0; i < MENU_LENGTH; ++i) {
+//         list_item = (MENU_LENGTH * (sg_LIST_INDEX / MENU_LENGTH)) + i;
+//         if (strlen(sg_MENU_ITEMS[list_item]) > 0 && list_item < sg_LIST_LENGTH) {
+//             // strncpy(temp_name, sg_MENU_ITEMS[(sg_LIST_INDEX / MENU_LENGTH) + i], MENU_ITEM_LENGTH);
+//             // format name
+//             for (length = 0; length < MENU_ITEM_LENGTH; ++length) {
+//                 switch (sg_MENU_ITEMS[list_item][length]){
+//                 case '_':
+//                 case '-':
+//                     temp_name[length] = ' ';
+//                     break;
+//                 case '.':
+//                     temp_name[length] = '\0';
+//                     break;
+//                 default:
+//                     temp_name[length] = sg_MENU_ITEMS[list_item][length];
+//                     break;
+//                 }
+//                 // stop early if possible
+//                 if (temp_name[length] == '\0') {
+//                     break;
+//                 }
+//             }
 
-            // highlight selected item
-            if (i == (sg_LIST_INDEX % MENU_LENGTH)) {
-                lcd0.backgroundColor = COLOR_NAVY;
-                lcd0.textColor = COLOR_WHITE;
-            }
-            else {
-                lcd0.backgroundColor = lcd0.defaultBackgroundColor;
-                lcd0.textColor = lcd0.defaultTextColor;
-            }
-            // draw the item
-            offset = (i * LIST_ITEM_HEIGHT) + (i * 4) + 4;
-            LcdDrawBox(LIST_ITEM_START_X, MAIN_WINDOW_START_Y+4+offset, LIST_ITEM_END_X, MAIN_WINDOW_START_Y+4+LIST_ITEM_HEIGHT+offset,
-                2, COLOR_BLACK, lcd0.backgroundColor);
-            LcdTextOutXY(LIST_ITEM_START_X + 4, MAIN_WINDOW_START_Y+4+11+offset, temp_name);
-        }
-    }
-    lcd0.backgroundColor = lcd0.defaultBackgroundColor;
-    lcd0.textColor = lcd0.defaultTextColor;
-}
+//             // highlight selected item
+//             if (i == (sg_LIST_INDEX % MENU_LENGTH)) {
+//                 lcd0.backgroundColor = COLOR_NAVY;
+//                 lcd0.textColor = COLOR_WHITE;
+//             }
+//             else {
+//                 lcd0.backgroundColor = lcd0.defaultBackgroundColor;
+//                 lcd0.textColor = lcd0.defaultTextColor;
+//             }
+//             // draw the item
+//             offset = (i * LIST_ITEM_HEIGHT) + (i * 4) + 4;
+//             LcdDrawBox(LIST_ITEM_START_X, MAIN_WINDOW_START_Y+4+offset, LIST_ITEM_END_X, MAIN_WINDOW_START_Y+4+LIST_ITEM_HEIGHT+offset,
+//                 2, COLOR_BLACK, lcd0.backgroundColor);
+//             LcdTextOutXY(LIST_ITEM_START_X + 4, MAIN_WINDOW_START_Y+4+11+offset, temp_name);
+//         }
+//     }
+//     lcd0.backgroundColor = lcd0.defaultBackgroundColor;
+//     lcd0.textColor = lcd0.defaultTextColor;
+// }
 
-void uiLoadPlaylistNames() {
-    char c;
-    int i, j;
-    FILE* usb_playlist_list_file = NULL;  // file that contains a list of playlists, separated by newlines
-    // display now playing and all songs as options
-    strcpy(sg_MENU_ITEMS[0], "Now Playing");
-    strcpy(sg_MENU_ITEMS[1], "All Music");
-    sg_MENU_ITEMS[0][12] = '\0';
-    sg_MENU_ITEMS[1][10] = '\0';
+// void uiLoadPlaylistNames() {
+//     char c;
+//     int i, j;
+//     FILE* usb_playlist_list_file = NULL;  // file that contains a list of playlists, separated by newlines
+//     // display now playing and all songs as options
+//     strcpy(sg_MENU_ITEMS[0], "Now Playing");
+//     strcpy(sg_MENU_ITEMS[1], "All Music");
+//     sg_MENU_ITEMS[0][12] = '\0';
+//     sg_MENU_ITEMS[1][10] = '\0';
 
-    // open the file
-    usb_playlist_list_file = fopen("D:Playlists/__playlists.txt", "r");
-    if (usb_playlist_list_file == NULL) {
-        // could not open file, either it does not exit or we are out of memory
-        printf("Couldn't open file: D:Playlists/__playlists.txt\n");
-        return;
-    }
+//     // open the file
+//     usb_playlist_list_file = fopen("D:Playlists/__playlists.txt", "r");
+//     if (usb_playlist_list_file == NULL) {
+//         // could not open file, either it does not exit or we are out of memory
+//         printf("Couldn't open file: D:Playlists/__playlists.txt\n");
+//         return;
+//     }
 
-    for (i = 2; i < MAX_MENU_ITEMS; ++i) {
-        if (fgets(sg_MENU_ITEMS[i], MENU_ITEM_LENGTH, usb_playlist_list_file) == NULL) {
-            // copy failed somehow, either out of items or file permissions got bad.
-            // either way, set the rest to a null string
+//     for (i = 2; i < MAX_MENU_ITEMS; ++i) {
+//         if (fgets(sg_MENU_ITEMS[i], MENU_ITEM_LENGTH, usb_playlist_list_file) == NULL) {
+//             // copy failed somehow, either out of items or file permissions got bad.
+//             // either way, set the rest to a null string
 
-            // keep track of where it ended so that more menus aren't displayed
-            sg_LIST_LENGTH = i;
-            for (i; i < MAX_MENU_ITEMS; ++i) {
-                for (j = 0; j < MENU_ITEM_LENGTH; ++j) {
-                    sg_MENU_ITEMS[i][j] = '\0';
-                }
-            }
-            break;
-        }
-        else {  // found an item in the list, strip the newlines or carriage returns (if CRLF)
-            for (j = 0; j < MENU_ITEM_LENGTH; ++j) {
-                if (sg_MENU_ITEMS[i][j] == '\r' || sg_MENU_ITEMS[i][j] == '\n') {
-                    sg_MENU_ITEMS[i][j] = '\0';
-                } 
-            }
-        }
-    }
+//             // keep track of where it ended so that more menus aren't displayed
+//             sg_LIST_LENGTH = i;
+//             for (i; i < MAX_MENU_ITEMS; ++i) {
+//                 for (j = 0; j < MENU_ITEM_LENGTH; ++j) {
+//                     sg_MENU_ITEMS[i][j] = '\0';
+//                 }
+//             }
+//             break;
+//         }
+//         else {  // found an item in the list, strip the newlines or carriage returns (if CRLF)
+//             for (j = 0; j < MENU_ITEM_LENGTH; ++j) {
+//                 if (sg_MENU_ITEMS[i][j] == '\r' || sg_MENU_ITEMS[i][j] == '\n') {
+//                     sg_MENU_ITEMS[i][j] = '\0';
+//                 } 
+//             }
+//         }
+//     }
 
-    // check if there's more to read later:
-    // sg_EOF_REACHED = (fgets(playlist_filename, 50, usb_playlist_list_file) == NULL);
-    fclose(usb_playlist_list_file);
-}
+//     // check if there's more to read later:
+//     // sg_EOF_REACHED = (fgets(playlist_filename, 50, usb_playlist_list_file) == NULL);
+//     fclose(usb_playlist_list_file);
+// }
 
-void uiCursorUp() {
-    if (sg_LIST_INDEX != 0) {
-        --sg_LIST_INDEX;
-        uiDisplayMenuItems();
-    }
-}
+// void uiCursorUp() {
+//     if (sg_LIST_INDEX != 0) {
+//         --sg_LIST_INDEX;
+//         uiDisplayMenuItems();
+//     }
+// }
 
-void uiCursorDown() {
-    // if (!sg_EOF_REACHED || sg_MENU_ITEM_INDEX != 5) {
-    if (sg_LIST_INDEX < sg_LIST_LENGTH - 1) {
-        ++sg_LIST_INDEX;
-        uiDisplayMenuItems();
-    }
-}
+// void uiCursorDown() {
+//     // if (!sg_EOF_REACHED || sg_MENU_ITEM_INDEX != 5) {
+//     if (sg_LIST_INDEX < sg_LIST_LENGTH - 1) {
+//         ++sg_LIST_INDEX;
+//         uiDisplayMenuItems();
+//     }
+// }
 
 // void uiDisplaySongs() {
 //     int offset, i, list_item;
@@ -413,50 +413,50 @@ void uiCursorDown() {
 //     lcd0.textColor = lcd0.defaultTextColor;
 // }
 
-char* uiCursorSelect() {
-    char* selected_item = sg_MENU_ITEMS[sg_LIST_INDEX];
-    if (sg_UI_STATE.menu_state == MAIN_MENU) {
-        if (strncmp(selected_item, "Now Playing", 12) == 0) {
-            // selected now playing, show the now playing display
-            uiLoadNowPlaying();
-            return selected_item;
-        }
-        else if (strncmp(selected_item, "All Music", 10) == 0) {
-            // selected all music playlist
-            RunLibraryFunction("PLAYLIST", ENTRY_6, (int) all_music_str);
-        }
-        else {
-            strncpy(temp_filename_start, selected_item, TEMP_FILENAME_LENGTH);
-            printf("running lib...\n");
-            RunLibraryFunction("PLAYLIST", ENTRY_6, (int) full_path_buffer);
-            printf("ran lib\n");
-        }
-        // printf("reset track num\n");
-        // sg_TRACK_NUM = 0;
-        // printf("displaying songs\n");
-        // uiDisplaySongs();
-        // printf("done with select\n");
-        uiLoadNowPlaying();
-    }
-    return sg_MENU_ITEMS[sg_LIST_INDEX];
-}
+// char* uiCursorSelect() {
+//     char* selected_item = sg_MENU_ITEMS[sg_LIST_INDEX];
+//     if (sg_UI_STATE.menu_state == MAIN_MENU) {
+//         if (strncmp(selected_item, "Now Playing", 12) == 0) {
+//             // selected now playing, show the now playing display
+//             uiLoadNowPlaying();
+//             return selected_item;
+//         }
+//         else if (strncmp(selected_item, "All Music", 10) == 0) {
+//             // selected all music playlist
+//             RunLibraryFunction("PLAYLIST", ENTRY_6, (int) all_music_str);
+//         }
+//         else {
+//             strncpy(temp_filename_start, selected_item, TEMP_FILENAME_LENGTH);
+//             printf("running lib...\n");
+//             RunLibraryFunction("PLAYLIST", ENTRY_6, (int) full_path_buffer);
+//             printf("ran lib\n");
+//         }
+//         // printf("reset track num\n");
+//         // sg_TRACK_NUM = 0;
+//         // printf("displaying songs\n");
+//         // uiDisplaySongs();
+//         // printf("done with select\n");
+//         uiLoadNowPlaying();
+//     }
+//     return sg_MENU_ITEMS[sg_LIST_INDEX];
+// }
 
-void uiLoadMainMenu()
-{
-    printf("UI State: %d\n", sg_UI_STATE.menu_state);
-    LcdClearMainWindow();
-    lcd0.textColor = COLOR_BLACK;
+// void uiLoadMainMenu()
+// {
+//     printf("UI State: %d\n", sg_UI_STATE.menu_state);
+//     LcdClearMainWindow();
+//     lcd0.textColor = COLOR_BLACK;
 
-    sg_UI_STATE.menu_state = MAIN_MENU;
+//     sg_UI_STATE.menu_state = MAIN_MENU;
 
-    sg_LIST_INDEX = 0;
+//     sg_LIST_INDEX = 0;
         
-    uiLoadHeader();
+//     uiLoadHeader();
 
-    // display items
-    uiDisplayMenuItems();
-    printf("UI State: %d\n", sg_UI_STATE.menu_state);
-}
+//     // display items
+//     uiDisplayMenuItems();
+//     printf("UI State: %d\n", sg_UI_STATE.menu_state);
+// }
 
 void uiLoadNowPlaying()
 {
@@ -565,12 +565,12 @@ void uiShowPlayPause(u_int16 isPaused) {
 	}
 }
 
-int getUIState(void) {
-    if (sg_UI_STATE.menu_state == MAIN_MENU || sg_UI_STATE.menu_state == SONG_MENU) {
-        return 1;
-    }
-    return 0;
-}
+// int getUIState(void) {
+//     if (sg_UI_STATE.menu_state == MAIN_MENU || sg_UI_STATE.menu_state == SONG_MENU) {
+//         return 1;
+//     }
+//     return 0;
+// }
 
 // {
 //     LcdClearScreen();

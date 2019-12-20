@@ -25,16 +25,18 @@ void init(char* parameters) {
 // 0 for main menu, 1 for now playing
 DLLENTRY(switchView)  // ENTRY 1
 void switchView(u_int16 view) {
-    if (view) {
-        // show now playing
-        uiLoadHeader();
-        uiLoadNowPlaying();
-    }
-    else {
-        // show main menu
-        uiLoadHeader();
-        uiLoadMainMenu();
-    }
+    uiLoadHeader();
+    uiLoadNowPlaying();
+    // if (view) {
+    //     // show now playing
+    //     uiLoadHeader();
+    //     uiLoadNowPlaying();
+    // }
+    // else {
+    //     // show main menu
+    //     uiLoadHeader();
+    //     uiLoadMainMenu();
+    // }
 }
 
 DLLENTRY(setSong)  // ENTRY 2
@@ -72,27 +74,22 @@ void showMode(u_int16 mode) {
 
 DLLENTRY(cursorUp)  // ENTRY 8
 void cursorUp(int unused) {
-    uiCursorUp();
-    uiLoadHeader();
+    // uiCursorUp();
+    // uiLoadHeader();
 }
 
 DLLENTRY(cursorDown)  // ENTRY 9
 void cursorDown(int unused) {
-    uiCursorDown();
-    uiLoadHeader();
+    // uiCursorDown();
+    // uiLoadHeader();
 }
 
 DLLENTRY(select)  // ENTRY 10
 void select(int unused) {
-    printf("You selected %s\n", uiCursorSelect());
+    // printf("You selected %s\n", uiCursorSelect());
 }
 
-DLLENTRY(getMenuState) // ENTRY 11
-int getMenuState(void) {
-    return getUIState();
-}
-
-DLLENTRY(updateBatteryLevel)  // ENTRY 12
+DLLENTRY(updateBatteryLevel)  // ENTRY 11
 void updateBatteryLevel() {
     uiDisplayBattery();
 }

@@ -70,7 +70,7 @@ void monitorVoltage(void) {
     volts = sar_aux * 0.001 * 2.2;
     percent = (int) MIN((volts - 3.0) * 100.0 / 1.2, 100);
 
-    RunLibraryFunction("lcd_display", ENTRY_12, 0);
+    RunLibraryFunction("lcd_display", ENTRY_11, 0);
     // printf("BATT: %.3f\n", percent);
     // printf("Voltage: %2.2fV\n", volts);
 }
