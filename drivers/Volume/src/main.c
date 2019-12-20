@@ -25,7 +25,7 @@
 s_int16 volume = 90; // 25 - (90/6) = volume 10 to start
 
 void CycVolume(register struct CyclicNode *cyclicNode) {
-  volume;
+  volume = volume;
 }
 struct CyclicNode cycVolumeNode = {{0}, CycVolume};
 

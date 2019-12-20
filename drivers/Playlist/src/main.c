@@ -23,12 +23,18 @@ AUDIO_DECODER *audioDecoder = NULL;
 FILE *fp = NULL;
 char *errorString = "nothing to see here";
 int eCode = 0;
+static char temp_filename[50];
 
 u_int16 quit_selected = FALSE;
 u_int16 restart_song = FALSE;
 u_int16 move_prev = FALSE;
+u_int16 select_next = FALSE;
 s_int32 time_elapsed;
 u_int16 shuffle_selected = FALSE;
+u_int16 repeat_selected = FALSE;
+u_int16 linear_selected = FALSE;
+u_int16 queue_mode = 0;
+
 
 /**
  * @brief Function to play music via the system's decoder library. Runs in a
@@ -55,6 +61,7 @@ DLLENTRY(Skip)      // ENTRY_2
 void Skip(void) {
     printf("\rSkipping... \n");
     audioDecoder->cs.cancel = 1;
+    select_next = TRUE;
 }
 
 DLLENTRY(Prev)      // ENTRY_3
@@ -71,15 +78,32 @@ void Prev(void) {
     }
 }
 
-DLLENTRY(Shuffle)   // ENTRY_4
-void Shuffle(void) {
-    printf("Shuffling...\n");
-    // cancel playing the current song
-    audioDecoder->cs.cancel = 1;
-    // show shuffle selected
-    shuffle_selected = TRUE;
-}
+DLLENTRY(QueueToggle)   // ENTRY_4
+void QueueToggle(void) {
 
+    if(queue_mode == 0) {
+        printf("Repeat On...\n");
+        queue_mode++;
+        repeat_selected = TRUE;
+        linear_selected = FALSE;
+    }
+    else if(queue_mode == 1) {
+        printf("Shuffling...\n");
+        // cancel playing the current song
+        //audioDecoder->cs.cancel = 1;
+        // show shuffle selected
+        queue_mode++;
+        shuffle_selected = TRUE;
+        repeat_selected = FALSE;
+    }
+    else {
+        printf("Regular queue...\n");
+        queue_mode = 0;
+        shuffle_selected = FALSE;
+        linear_selected = TRUE;
+    }
+    RunLibraryFunction("lcd_display", ENTRY_7, queue_mode);
+}
 DLLENTRY(Quit)      // ENTRY_5
 void Quit(void) {
     printf("Quitting...\n");
@@ -123,6 +147,8 @@ int main(char *parameters) {
         current_song = fopen(h_playlist->current->filename, "rb");
         if (!current_song) {
             printf("Couldn't open file '%s'\n", current_song);
+            destroy_playlist(&h_playlist);
+            fclose(current_song);
             return S_ERROR;
         }
 
@@ -137,6 +163,8 @@ int main(char *parameters) {
         audioDecoder = CreateAudioDecoder(decoderLibrary, current_song, stdaudioout, NULL, auDecFGuess);
         if (!audioDecoder) {
             printf("Couldn't create audio decoder\n");
+            destroy_playlist(&h_playlist);
+            fclose(current_song);
             return S_ERROR;
         }
 
@@ -181,7 +209,7 @@ int main(char *parameters) {
                     break;
                 case 'M':
                 case 'm':
-                    Shuffle();
+                    QueueToggle();
                     break;
                 }
             }
@@ -195,8 +223,6 @@ int main(char *parameters) {
             Delay(250);
         }
 
-        fclose(current_song);
-        DeleteAudioDecoder(decoderLibrary, audioDecoder);
         if (restart_song) {
             // Pointer remains at current song
             restart_song = FALSE;
@@ -212,7 +238,25 @@ int main(char *parameters) {
             }
             move_prev = FALSE;
         }
-        else if (shuffle_selected) {
+        else if (h_playlist->current->next != NULL) {
+            if (repeat_selected && !select_next) {
+                // do nothing - keep current song
+            }
+            else {
+                // go to next song
+                h_playlist->current = h_playlist->current->next;
+                if (select_next) {
+                    select_next = FALSE;
+                }
+            }
+        }
+        else {
+            // reset playlist to beginning
+            h_playlist->current = h_playlist->head;
+        }
+        
+        // Check queue toggles
+        if (shuffle_selected) {
             // shuffle playlist, which resets current to the new beginning
             printf("Shuffling now...\n");
             shuffle_playlist(h_playlist);
@@ -220,18 +264,28 @@ int main(char *parameters) {
             h_playlist->current = h_playlist->head;
             shuffle_selected = FALSE;
         }
-        else if (h_playlist->current->next != NULL) {
-            // go to next song
-            h_playlist->current = h_playlist->current->next;
+        else if (linear_selected) {
+            // go back to regular playlist order
+            printf("Back to regular queue...\n");
+            strcpy(temp_filename, h_playlist->current->filename);
+            destroy_playlist(&h_playlist);
+            h_playlist = create_playlist_from_file(playlist_filename);
+            if (h_playlist == NULL) {
+                printf("Error generating playlist from file '%s'", playlist_filename);
+                destroy_playlist(&h_playlist);
+                fclose(current_song);
+                return S_ERROR;
+            }
+            while(strcmp(h_playlist->current->filename, temp_filename) != 0 && h_playlist->current != NULL) {
+                h_playlist->current = h_playlist->current->next;
+            }
+            linear_selected = FALSE;
         }
-        else {
-            // reset playlist to beginning
-            h_playlist->current = h_playlist->head;
-        }
+        fclose(current_song);
+        DeleteAudioDecoder(decoderLibrary, audioDecoder);
     }
-
-    DropLibrary(decoderLibrary);
-
     destroy_playlist(&h_playlist);
-    return S_OK;
+    DropLibrary(decoderLibrary);
+    
+   return S_OK;
 }

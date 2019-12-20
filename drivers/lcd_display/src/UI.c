@@ -11,6 +11,8 @@
 #include <libaudiodec.h>
 #include <vstypes.h>
 #include <uimessages.h>
+#include <apploader.h>
+#include <volink.h>
 
 #include "UI.h"
 
@@ -42,8 +44,8 @@
 #define NOW_PLAYING   4
 
 #define NORMAL_MODE 0
-#define SHUFFLE_MODE 1
-#define REPEAT_MODE 2
+#define REPEAT_MODE 1
+#define SHUFFLE_MODE 2
 
 
 #define PAD4 4
@@ -75,12 +77,19 @@ static UI_State_t sg_UI_STATE;
 static char sg_SONG_NAME[50];
 static char sg_ALBUM_NAME[50];
 static char sg_ARTIST_NAME[50];
-static u_int16 sg_BATTERY_PERCENTAGE;
 
 // static u_int16 sg_SONG_LENGTH;
 static u_int16 sg_PLAYBACK_TIME;
 static u_int16  sg_PLAYBACK_PERCENT_COMPLETE;
 
+DLLIMPORT(cycVolume)
+extern int cycVolume;
+
+DLLIMPORT(batteryLevel)
+extern int batteryLevel;
+
+static char volume_display_str[8];
+static char battery_display_str[12];
 
 u_int16 LcdDrawBox(u_int16 x1, u_int16 y1, u_int16 x2, u_int16 y2, u_int16 border_width,
                    u_int16 border_color, u_int16 fill_color) {
@@ -99,13 +108,13 @@ void LcdClearMainWindow() {
                        NULL, lcd0.backgroundColor);
 }
 
-void resetSong() {
+void uiResetSong() {
     strcpy(sg_SONG_NAME, "Unknown Song");
     strcpy(sg_ALBUM_NAME, "Unknown Album");
     strcpy(sg_ARTIST_NAME, "Unknown Artist");
 }
 
-void UIMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value) {
+void uiMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value) {
     switch(message) {
     case UIMSG_TEXT_SONG_NAME:
         strcpy(sg_SONG_NAME, (char*) value);
@@ -121,7 +130,7 @@ void UIMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value) {
 }
 
 
-ioresult UI_init(void) {
+ioresult uiInit(void) {
     LcdInit(0);
 
     LcdDrawBox((lcd0.width/2)-65, (lcd0.height/2)-25, (lcd0.width/2)+65,
@@ -133,69 +142,81 @@ ioresult UI_init(void) {
     sg_UI_STATE.mode = NORMAL_MODE;
     sg_UI_STATE.paused = TRUE;
 
-    resetSong();
-    sg_BATTERY_PERCENTAGE = 100;
-
-
     sg_PLAYBACK_PERCENT_COMPLETE = 0;
     sg_PLAYBACK_TIME = 0;
+    uiResetSong();
 }
 
-void loadHeader()
+void uiLoadHeader()
 {
     // clear the header area
     LcdFilledRectangle(HEADER_START_X, HEADER_START_Y, HEADER_END_X, HEADER_END_Y, NULL, lcd0.backgroundColor);
     // add data to header
     lcd0.textColor = COLOR_BLACK;
 
-    // display current mode
-    if (sg_UI_STATE.mode == NORMAL_MODE) {
-        LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "NORMAL ");
-    }
-    else if (sg_UI_STATE.mode == SHUFFLE_MODE) {
-        LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "SHUFFLE");
-    }
-    else if (sg_UI_STATE.mode == REPEAT_MODE) {
-        LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "REPEAT ");
-    }
-    else {
-        LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "UNKNOWN");
-    }
-
     // display title
-    LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 40, HEADER_START_Y + PAD4, "AMP3 Player");
+    LcdTextOutXY(HEADER_START_X + PAD4, HEADER_START_Y + PAD4, "AMP3 Player");
+
+    // display mode
+    uiDisplayMode(sg_UI_STATE.mode);
+
+    // display volume percentage
+    uiDisplayVolume();
 
     // display battery percentage
-    displayBatteryPercentage(sg_BATTERY_PERCENTAGE);
+    uiDisplayBattery();
 
     // draw border at bottom
     LcdFilledRectangle(HEADER_START_X, HEADER_END_Y, HEADER_END_X, HEADER_END_Y+1, NULL, COLOR_BLACK);
 }
 
-void displayBatteryPercentage(u_int16 battery_level) {
-    char battery_display_str[12];
-    sprintf(battery_display_str, "BATT: %3u%%", battery_level);
-
+void uiDisplayMode(u_int16 mode) {
+    sg_UI_STATE.mode = mode;
     // clear current section on screen
-    LcdFilledRectangle((HEADER_END_X)-80, HEADER_START_Y + PAD4, HEADER_END_X, HEADER_END_Y-1,
+    LcdFilledRectangle(((HEADER_END_X - HEADER_START_X)/2) - 60, HEADER_START_Y + PAD4, (HEADER_END_X)-160, HEADER_END_Y-1,
                        NULL, lcd0.backgroundColor);
-
-    // display battery percentage
-    LcdTextOutXY((HEADER_END_X)-80, HEADER_START_Y + PAD4, battery_display_str);
+    // display current mode
+    if (sg_UI_STATE.mode == NORMAL_MODE) {
+        LcdTextOutXY(((HEADER_END_X - HEADER_START_X)/2) - 60, HEADER_START_Y + PAD4, "NORMAL ");
+    }
+    else if (sg_UI_STATE.mode == SHUFFLE_MODE) {
+        LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 60, HEADER_START_Y + PAD4, "SHUFFLE");
+    }
+    else if (sg_UI_STATE.mode == REPEAT_MODE) {
+        LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 60, HEADER_START_Y + PAD4, "REPEAT ");
+    }
+    else {
+        LcdTextOutXY(((HEADER_END_X-HEADER_START_X)/2) - 60, HEADER_START_Y + PAD4, "UNKNOWN");
+    }
 }
 
-void loadMainMenu()
-{
-    // monitorVoltage();
-    lcd0.textColor = __RGB565RGB(0, 0, 0);
-    LcdTextOutXY(1,1, "MAIN MENU");
-    LcdTextOutXY(1,300, "PLAYLISTS");
-    LcdTextOutXY(200,50, "SONGS");
-    LcdTextOutXY(200,300, "INFO");
-    lcd0.textColor = COLOR_WHITE;
+void uiDisplayBattery() {
+    if (sg_UI_STATE.menu_state != INIT_SCREEN) {
+        sprintf(battery_display_str, "BATT: %3u%%", batteryLevel);
+
+        // clear current section on screen
+        LcdFilledRectangle((HEADER_END_X)-80, HEADER_START_Y + PAD4, HEADER_END_X, HEADER_END_Y-1,
+                        NULL, lcd0.backgroundColor);
+
+        // display battery percentage
+        LcdTextOutXY((HEADER_END_X)-80, HEADER_START_Y + PAD4, battery_display_str);
+    }
 }
 
-void loadNowPlaying()
+void uiDisplayVolume() {
+    if (sg_UI_STATE.menu_state != INIT_SCREEN) {
+        sprintf(volume_display_str, "VOL: %2u", 25 - (cycVolume / 6));
+
+        // clear current section on screen
+        LcdFilledRectangle((HEADER_END_X)-160, HEADER_START_Y + PAD4, HEADER_END_X-80, HEADER_END_Y-1,
+                        NULL, lcd0.backgroundColor);
+
+        // display battery percentage
+        LcdTextOutXY((HEADER_END_X)-160, HEADER_START_Y + PAD4, volume_display_str);
+    }
+}
+
+void uiLoadNowPlaying()
 {
     int i;
     u_int16 info_start_x = MAIN_WINDOW_START_X+ALBUM_ART_MAX_WIDTH+2+PAD4;
@@ -223,7 +244,7 @@ void loadNowPlaying()
                2, COLOR_BLACK, lcd0.backgroundColor);
 }
 
-void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
+void uiDisplaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
     char buffer[8];
     u_int16 progress_bar_end = ((elapsed_time * 200) / song_length) + PLAYBACK_START_X+60;
     // song length in seconds
@@ -246,13 +267,9 @@ void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length) {
     // fill the empty box to the elapsed point
     LcdFilledRectangle(PLAYBACK_START_X+60, PLAYBACK_START_Y+PAD4+2,
                        progress_bar_end, MAIN_WINDOW_END_Y-12, 0, COLOR_NAVY);  // MAIN_WINDOW_END_X-59
-
-    printf("X1: %d, Y1: %d\nX2: %d, Y2: %d\n", PLAYBACK_START_X+60, PLAYBACK_START_Y+PAD4+2,
-                                               progress_bar_end, MAIN_WINDOW_END_Y-12);  // MAIN_WINDOW_END_X-59
-
 }
 
-void updatePercentComplete(u_int16 percent_complete) {
+void uiUpdatePercentComplete(u_int16 percent_complete) {
     u_int16 current_position, new_position;
     if (sg_UI_STATE.menu_state == NOW_PLAYING) {
         if (percent_complete > 0 || sg_PLAYBACK_PERCENT_COMPLETE > 0) {
@@ -277,7 +294,7 @@ void updatePercentComplete(u_int16 percent_complete) {
     sg_PLAYBACK_PERCENT_COMPLETE = percent_complete;
 }
 
-void updatePlaybackTime(u_int16 new_time) {
+void uiUpdatePlaybackTime(u_int16 new_time) {
     char buffer[8];
     sg_PLAYBACK_TIME = new_time;
     LcdFilledRectangle(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, PLAYBACK_START_X+55,
@@ -286,7 +303,7 @@ void updatePlaybackTime(u_int16 new_time) {
     LcdTextOutXY(PLAYBACK_START_X+2, PLAYBACK_START_Y+8, buffer);
 }
 
-void UIShowPlayPause(u_int16 isPaused) {
+void uiShowPlayPause(u_int16 isPaused) {
 	if (isPaused) {
 		// show paused
 		LcdFilledRectangle(((HEADER_END_X-HEADER_START_X)/2) - 40, PLAYBACK_START_Y-16, 
