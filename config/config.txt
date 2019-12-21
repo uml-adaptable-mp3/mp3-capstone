@@ -13,14 +13,14 @@
 USBHOST D
 # New 2015 audio DAC out driver
 AUODAC s
-# New 2015 audio ADC in driver
-AUIADC s 48000 line1_1 line1_2
 # Start UART in/out driver
 UARTIN
-
+POWER
+VOLUME
 # Start the lcd display
 lcd_display i
-
+BUTTONS
+PLAYLIST D:Music/__all_songs.m3u
 # Start the shell
 S:SHELL.AP3
 

@@ -4,6 +4,8 @@
 
 Adaptable MP3 Player Capstone Project for the Seven Hills Foundation.
 
+The GitHub Repository is located [here](https://github.com/uml-adaptable-mp3/mp3-capstone)
+
 ## Contents
 - [Contents](#contents)
 - [Building](#building)

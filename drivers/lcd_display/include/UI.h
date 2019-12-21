@@ -3,47 +3,20 @@
 
 #include <vstypes.h>
 
-// #define MAIN_MENU      (1)
-// #define ARTISTS_MENU   (2)
-// #define PLAYLISTS_MENU (3)
-// #define SONGS_MENU     (4)
-// #define INFO_MENU      (5)
-// #define LOAD_MENU      (6)
-// #define ERR_MENU		  (7)
+ioresult uiInit();
+void uiLoadHeader();
+void uiLoadNowPlaying();
 
-// #define UP             (1)
-// #define DOWN           (0)
+void uiMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value);
+void uiLoadCriticalErrorMenu();
 
-// #define TITLE			  (0)
-// #define LOCATION       (1)
-
-// void loadScanningMenu();
-// void loadArtistsMenu();
-// void loadPlaylistsMenu();
-// void loadSongsMenu();
-// void loadInfoMenu();
-// void loadNoDriveMenu();
-// void moveArrowSelectionDown();
-// void moveArrowSelectionUp();
-// void moveBoxSelection(u_int16 direction);
-// u_int16 navigateMenus();
-// char *retrieveSongLocation(u_int16 *index, u_int16 offset);
-
-ioresult UI_init();
-void loadHeader();
-void loadMainMenu();
-void loadNowPlaying();
-void displayBatteryPercentage(u_int16 battery_level);
-// void displaySongPlaybackBar(u_int16 elapsed_time, u_int16 song_length);
-
-void UIMetadataDecodeCallBack(s_int16 index, u_int16 message, u_int32 value);
-void loadCriticalErrorMenu();
-
-void resetSong();
-void hideSongPlaybackBar();
-void updatePlaybackTime(u_int16 new_time);
-void updatePercentComplete(u_int16 percent_complete);
-void UIShowPlayPause(u_int16 isPaused);
-// void updateSongLength(u_int16 new_length);
+void uiResetSong();
+void uiHideSongPlaybackBar();
+void uiUpdatePlaybackTime(u_int16 new_time);
+void uiUpdatePercentComplete(u_int16 percent_complete);
+void uiShowPlayPause(u_int16 isPaused);
+void uiDisplayVolume();
+void uiDisplayBattery();
+void uiDisplayMode(u_int16 mode);
 
 #endif  // _UI_H_
